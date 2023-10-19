@@ -1,11 +1,13 @@
 package com.proyecto.integrador.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 @Entity
@@ -19,16 +21,17 @@ public class Instrumento {
     @Column(name = "id")
     private Long id;
 
-    private LocalDate inicioReserva;
-    private LocalDate finReserva;
-
-    @OneToOne
-    private Usuario usuarioReserva;
-
+    private String nombre;
     private LocalDate fechaCarga;
-    private LocalDate fechaDelete;
     private LocalDate fechaUpdate;
-    private Boolean eliminado;
+    private Boolean disponible;
 
+    @OneToMany(mappedBy = "imagen")
+    @JsonIgnore
+    private List<Imagen> imagen; //TODO: HACER HOY
+
+    @OneToMany(mappedBy = "instrumento")
+    @JsonIgnore
+    private List<Reserva> reservas;
 
 }
