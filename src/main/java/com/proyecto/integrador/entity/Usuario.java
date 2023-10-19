@@ -1,9 +1,12 @@
 package com.proyecto.integrador.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Table(name = "USUARIOS")
@@ -16,4 +19,10 @@ public class Usuario {
     @Column(name = "id")
     private Long id;
 
+    @OneToMany(mappedBy = "usuario")
+    @JsonIgnore
+    private List<Reserva> reservas;
+
+    private String nombre;
+    private String apellido;
 }
