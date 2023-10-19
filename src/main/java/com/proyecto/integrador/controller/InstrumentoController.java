@@ -2,8 +2,11 @@ package com.proyecto.integrador.controller;
 
 // Asumiendo que tienes una clase Instrumento
 import com.proyecto.integrador.entity.Instrumento;
+import com.proyecto.integrador.exception.InstrumentoNotFoundException;
 import com.proyecto.integrador.service.InstrumentoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,16 +19,36 @@ public class InstrumentoController {
 
     @PostMapping
     public Instrumento crearInstrumento(@RequestBody Instrumento instrumento) {
+
+
+
+        //excepciones
+        boolean errorOcurre = false;
+        if (errorOcurre) {
+            throw new InstrumentoNotFoundException("No se pudo crear el instrumento");
+        }
         return instrumentoService.crearInstrumento(instrumento);
+
     }
 
     @GetMapping
     public List<Instrumento> obtenerDiezInstrumentos() {
+
+
+        //excepciones
+        if (instrumentos.isEmpty()) {
+            throw new InstrumentosNotFoundException("No se encontraron instrumentos");
+        }
         return instrumentoService.obtenerDiezInstrumentos();
     }
 
     @GetMapping("/{id}")
     public Instrumento obtenerInstrumentoPorId(@PathVariable Long id) {
+
+        //excepciones
+        if (instrumento == null) {
+            throw new InstrumentoNotFoundException("Instrumento no encontrado con ID: " + id);
+        }
         return instrumentoService.obtenerInstrumentoPorId(id);
     }
 
@@ -38,4 +61,8 @@ public class InstrumentoController {
     public void eliminarInstrumento(@PathVariable Long id) {
         instrumentoService.eliminarInstrumento(id);
     }
+
+
 }
+
+
