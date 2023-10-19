@@ -1,6 +1,7 @@
 package com.proyecto.integrador.controller;
 
 // Asumiendo que tienes una clase Instrumento
+import com.proyecto.integrador.dto.InstrumentoDto;
 import com.proyecto.integrador.entity.Instrumento;
 import com.proyecto.integrador.exception.InstrumentoNotFoundException;
 import com.proyecto.integrador.service.InstrumentoService;
@@ -18,7 +19,7 @@ public class InstrumentoController {
     private InstrumentoService instrumentoService;
 
     @PostMapping
-    public Instrumento crearInstrumento(@RequestBody Instrumento instrumento) {
+    public Instrumento crearInstrumento(@RequestBody InstrumentoDto instrumento) {
         return instrumentoService.crearInstrumento(instrumento);
     }
 
@@ -33,7 +34,7 @@ public class InstrumentoController {
     }
 
     @PutMapping("/{id}")
-    public Instrumento actualizarInstrumento(@PathVariable Long id, @RequestBody Instrumento instrumento) {
+    public Instrumento actualizarInstrumento(@PathVariable Long id, @RequestBody InstrumentoDto instrumento) {
         return instrumentoService.actualizarInstrumento(id, instrumento);
     }
 
