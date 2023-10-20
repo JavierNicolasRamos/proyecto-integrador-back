@@ -1,6 +1,7 @@
 package com.proyecto.integrador.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.proyecto.integrador.entity.Categoria;
 import com.proyecto.integrador.entity.Reserva;
 import com.proyecto.integrador.entity.Usuario;
 import com.proyecto.integrador.entity.Imagen;
@@ -19,6 +20,7 @@ import java.util.List;
 public class InstrumentoDto {
     private Long id;
     private String nombre;
+    private Categoria categoria;
     private LocalDate fechaCarga;
     private LocalDate fechaUpdate;
     private Boolean disponible;

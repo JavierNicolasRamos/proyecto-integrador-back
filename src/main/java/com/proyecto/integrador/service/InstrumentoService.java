@@ -41,6 +41,7 @@ public class InstrumentoService {
 
         Instrumento instrumento = new Instrumento();
         instrumento.setNombre(instrumentoDto.getNombre());
+        instrumento.setCategoria(instrumentoDto.getCategoria());
         instrumento.setFechaCarga(LocalDate.now());
         instrumento.setFechaUpdate(LocalDate.now());
         instrumento.setDisponible(true);
@@ -90,6 +91,7 @@ public class InstrumentoService {
             }
 
             instrumento.setNombre(instrumentoDto.getNombre());
+            instrumento.setCategoria(instrumentoDto.getCategoria());
             instrumento.setFechaUpdate(LocalDate.now());
             instrumento.setDisponible(instrumentoDto.getDisponible());
 

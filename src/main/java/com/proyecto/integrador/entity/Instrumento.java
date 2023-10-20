@@ -25,6 +25,10 @@ public class Instrumento {
     private LocalDate fechaCarga;
     private LocalDate fechaUpdate;
     private Boolean disponible;
+    private String detalle;
+
+    @ManyToOne
+    private Categoria categoria;
 
     @OneToMany(mappedBy = "imagen")
     @JsonIgnore
