@@ -19,7 +19,6 @@ public class Imagen {
     private String imagen;
 
     @ManyToOne
-    @JoinColumn(name = "id",nullable = false)
     private Instrumento instrumento;
 
 }

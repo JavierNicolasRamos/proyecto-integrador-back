@@ -30,9 +30,9 @@ public class Instrumento {
     @ManyToOne
     private Categoria categoria;
 
-    @OneToMany(mappedBy = "imagen")
+    @OneToMany(mappedBy = "instrumento")
     @JsonIgnore
-    private List<Imagen> imagen; //TODO: HACER HOY
+    private List<Imagen> imagen;
 
     @OneToMany(mappedBy = "instrumento")
     @JsonIgnore

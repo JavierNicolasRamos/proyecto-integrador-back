@@ -23,6 +23,7 @@ public class Reserva {
 
     @ManyToOne
     private Instrumento instrumento;
+
     private Boolean reservaActiva;
     private LocalDate inicioReserva;
     private LocalDate finReserva;
