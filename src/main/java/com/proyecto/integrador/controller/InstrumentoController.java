@@ -3,8 +3,11 @@ package com.proyecto.integrador.controller;
 // Asumiendo que tienes una clase Instrumento
 import com.proyecto.integrador.dto.InstrumentoDto;
 import com.proyecto.integrador.entity.Instrumento;
+import com.proyecto.integrador.exception.InstrumentoNotFoundException;
 import com.proyecto.integrador.service.InstrumentoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,4 +42,8 @@ public class InstrumentoController {
     public void eliminarInstrumento(@PathVariable Long id) {
         instrumentoService.eliminarInstrumento(id);
     }
+
+
 }
+
+
