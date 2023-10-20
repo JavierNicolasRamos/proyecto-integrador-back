@@ -1,5 +1,6 @@
 package com.proyecto.integrador.controller;
 
+import com.proyecto.integrador.dto.ReservaDto;
 import com.proyecto.integrador.entity.Reserva;
 import com.proyecto.integrador.service.ReservaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,23 +16,23 @@ public class ReservaController {
 
     @GetMapping
     public List<Reserva> listarReservas() {
-        return reservaService.findAll();
+        return reservaService.listarReservas();
     }
 
     @GetMapping("/{id}")
     public Reserva obtenerReserva(@PathVariable Long id) {
-        return reservaService.findById(id).orElse(null);
+        return reservaService.obtenerReserva(id);
     }
 
     @PostMapping
-    public Reserva crearReserva(@RequestBody Reserva reserva) {
-        return reservaService.save(reserva);
+    public Reserva crearReserva(@RequestBody ReservaDto reservaDto) {
+        return reservaService.crearReserva(reservaDto);
     }
 
     @PutMapping("/{id}")
-    public Reserva actualizarReserva(@PathVariable Long id, @RequestBody Reserva reserva) {
-        reserva.setId(id);
-        return reservaService.save(reserva);
+    public Reserva actualizarReserva(@PathVariable Long id, @RequestBody ReservaDto reservaDto) {
+        reservaDto.setId(id);
+        return reservaService.actualizarReserva(id, reservaDto);
     }
 
     @DeleteMapping("/{id}")
