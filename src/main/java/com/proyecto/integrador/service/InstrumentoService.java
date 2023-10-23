@@ -1,23 +1,20 @@
 package com.proyecto.integrador.service;
 
 import com.proyecto.integrador.dto.InstrumentoDto;
-import com.proyecto.integrador.entity.Imagen;
 import com.proyecto.integrador.entity.Instrumento;
 import com.proyecto.integrador.exception.DuplicateInstrumentException;
 import com.proyecto.integrador.exception.EliminacionInstrumentoException;
 import com.proyecto.integrador.exception.NonExistentInstrumentException;
 import com.proyecto.integrador.repository.InstrumentoRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDate;
-import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
-import java.util.Random;
-import java.util.stream.Collectors;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.webjars.NotFoundException;
 
 @Service
 public class InstrumentoService {
@@ -52,23 +49,14 @@ public class InstrumentoService {
         return instrumento;
     }
 
-    public List<Instrumento> obtenerDiezInstrumentos() {
-        List<Instrumento> todosLosInstrumentos = instrumentoRepository.findAll();
-        int totalInstrumentos = todosLosInstrumentos.size();
-        int numeroInstrumentosAObtener = Math.min(10, totalInstrumentos);
-
-        if (numeroInstrumentosAObtener == 0) {
-            return Collections.emptyList();
+    public Page<Instrumento> obtenerDiezInstrumentos(Pageable pageable) {
+        try {
+            return instrumentoRepository.findRandomInstruments(pageable);
+        } catch (EmptyResultDataAccessException ex) {
+            throw new NotFoundException("No se encontraron instrumentos aleatorios.");
+        } catch (Exception ex) {
+            throw new RuntimeException("Error al obtener instrumentos aleatorios.", ex);
         }
-
-        Random random = new Random();
-        List<Instrumento> instrumentosAleatorios = random.ints(0, totalInstrumentos)
-                .distinct()
-                .limit(numeroInstrumentosAObtener)
-                .mapToObj(todosLosInstrumentos::get)
-                .collect(Collectors.toList());
-
-        return instrumentosAleatorios;
     }
 
     public Instrumento obtenerInstrumentoPorId(Long id) {
