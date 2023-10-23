@@ -1,182 +1,219 @@
 [
   {
-    "nombre": "",
-    "descripcion": "",
-    "categoria": "",
-    "imagen": [{}, {}, {}, {}, {}]
+    "nombre": "CF Series",
+    "descripcion": "¿Cómo se crea un instrumento que no deja espacio entre lo que el pianista quiere transmitir y lo que escucha? ¿Donde cada nota, color sutil y matiz se expresa tal como se imagina? ¿Dónde no se pierde ni una pizca de pasión en la traducción desde los dedos hasta las teclas, los martillos, la caja armónica y la resonancia que llena la sala de conciertos? ¿Y el sonido puro fluye sin esfuerzo del artista al piano y al público? Esta es la visión del CFX.",
+    "categoria": "Pianos",
+    "puntuacion": 5.0,
+    "imagen": [
+      "https://www.yamaha.com/yamahavgn/PIM/Images/Image-Index_cfx_02_2000x2000_07b5394c2d5fc0ed037d717596d9e072.jpg",
+      "https://usa.yamaha.com/files/section_01_1179859664a930785b7ab9ec38216069.jpg",
+      "https://usa.yamaha.com/files/unibody-concept_action_01_modal_0cc2b9ee2747536ed0f66d7e307f3f48.jpg?impolicy=resize&imwid=562&imhei=422",
+      "https://usa.yamaha.com/files/unibody-concept_action_02_modal_553383cbed5beae2715c4ffa6cd51f69.jpg?impolicy=resize&imwid=562&imhei=422",
+      "https://usa.yamaha.com/files/unibody-concept_mainbody_04_modal_1be5bc1ed0c9e379d164fab8048cb580.jpg?impolicy=resize&imwid=562&imhei=422",
+      "https://usa.yamaha.com/files/unibody-concept_exterior_01_modal_9ca66f6fe6e3eef120e9626855e133d3.jpg?impolicy=resize&imwid=562&imhei=422",
+      "https://usa.yamaha.com/files/unibody-concept_exterior_02_modal_4968494ef21c26a2870a55c0a3a9cd53.jpg?impolicy=resize&imwid=562&imhei=422",
+      "https://usa.yamaha.com/files/unibody-concept_exterior_03_modal_81af9b08a36a15ff6cd8735a72857a47.jpg?impolicy=resize&imwid=562&imhei=422",
+      "https://usa.yamaha.com/files/unibody-concept_exterior_04_modal_2af86ef4e07cf0b9711ab5633fe4aa64.jpg?impolicy=resize&imwid=562&imhei=422",
+      "https://usa.yamaha.com/files/unibody-concept_exterior_05_modal_47208adc99d4d6b74d4dbe2c31977258.jpg?impolicy=resize&imwid=562&imhei=422",
+      "https://usa.yamaha.com/files/unibody-concept_exterior_06_modal_9b6811799fa7e505eb226509491fafd8.jpg?impolicy=resize&imwid=562&imhei=422"
+    ]
+  },
+  {
+    "nombre": "YUS SERIES",
+    "descripcion": "Los pianos de la serie YUS comparten muchas características de nuestros pianos emblemáticos de la serie CF. Desde cuerdas alemanas enrolladas a mano y fieltro martillado con calidad de concierto hasta una sonorización y regulación meticulosas que resaltan una gama de colores que recuerdan más a un piano de cola que a un vertical tradicional. Es simplemente el altavoz vertical con sonido más grandioso disponible.",
+    "categoria": "Pianos",
+    "puntuacion": 4.5,
+    "imagen": [
+      "https://www.yamaha.com/us/pianos/images/YUS5-0f40cf45.jpg",
+      "https://www.yamaha.com/us/pianos/images/YCA18-YUS5-016-066_0078-1-07802cff.jpg",
+      "https://www.yamaha.com/us/pianos/images/YCA18-YUS5-016-066_0015-1-43c88191.jpg",
+      "https://www.yamaha.com/us/pianos/images/YCA18-YUS5-016-066_0049-1-78646ad1.jpg",
+      "https://www.yamaha.com/us/pianos/images/hammer-feature3.jpg",
+      "https://www.yamaha.com/us/pianos/images/u-hammers.jpg",
+      "https://www.yamaha.com/us/pianos/images/YCA18-YUS5-015_0067-V3.jpg",
+      "https://www.yamaha.com/us/pianos/images/feature-backpost.jpg",
+      "https://www.yamaha.com/us/pianos/images/inside-yus.jpg",
+      "https://www.yamaha.com/us/pianos/images/action-rail.jpg",
+      "",
+      ""
+    ]
+  },
+  {
+    "nombre": "Genos",
+    "descripcion": "Bienvenido al nuevo mundo de las estaciones de trabajo digitales. Genos es el nuevo referente en sonido, diseño y experiencia de usuario de estaciones de trabajo digitales. Ya sea que esté en un estudio de grabación o en el escenario, Genos inspirará su creación e interpretación musical.",
+    "categoria": "Teclados",
+    "puntuacion": 5,
+    "imagen": [
+      "https://usa.yamaha.com/files/Img27413_6e95e4026d346252b29b4b4a3d8b819b.jpg?impolicy=resize&imwid=2000&imhei=800",
+      "https://usa.yamaha.com/files/Img52184_new_780cf32c8e92f77464ab443aed23fd93.jpg?impolicy=resize&imwid=2000&imhei=800",
+      "https://usa.yamaha.com/files/Img27512_199914aa82658e234568f60fb7c70b9c.jpg?impolicy=resize&imwid=2000&imhei=800",
+      "https://www.yamaha.com/yamahavgn/PIM/Images/8A3C6B12968B494FBCC42149AA259E0D_12075_7054x2103_e2522531b00e783a7be1ddf610486a3c.jpg",
+      "https://www.yamaha.com/yamahavgn/PIM/Images/566D0AEA77AB4FD797BC7AC713D2478F_12075_7076x3659_7cd60936184b59b060378651693f74c1.jpg",
+      "https://www.yamaha.com/yamahavgn/PIM/Images/24F0A87FF7F14947BB37690271E99265_12075_8024x1461_a8ad0a21bcd480a6a81a35b3bbf9abb4.jpg",
+      "https://www.yamaha.com/yamahavgn/PIM/Images/Genos_7952x3227_8b870c61e415bf446bd233b8d2851fc4.jpg",
+      "https://www.yamaha.com/yamahavgn/PIM/Images/84AD15F3EAEC4D6A8CBC0A8FDEBA4667_12075_8245x6182_c103b98088afa19fc97e58fe1e471e11.jpg",
+      "https://www.yamaha.com/yamahavgn/PIM/Images/D77E521BE8DA4215A081802622AEEA7C_12075_6182x8245_126cd2597330e8c6dd765c1675ee9211.jpg",
+      "https://www.yamaha.com/yamahavgn/PIM/Images/121E893848994275988537D88DD5EA64_12075_8245x6182_cefcfea1eeb7023a1ba234fae1fcf10a.jpg",
+      "https://www.yamaha.com/yamahavgn/PIM/Images/A57340EC03094D739024031894D47192_12075_8245x6182_85c86442aeea7c390148f5f6876a9221.jpg",
+      "https://www.yamaha.com/yamahavgn/PIM/Images/6FAE9D88B800494DAED969482AEEE709_12075_5506x5434_093702978d139d5ed1765d44dddef853.jpg"
+    ]
+  },
+  {
+    "nombre": "PSR-SX900",
+    "descripcion": "Perfecto para escribir canciones, el PSR-SX900 está repleto de patrones rítmicos que abarcan muchos géneros, lo que lo hace ideal para crear el acompañamiento de sus ideas musicales y una inspiración invaluable para su próxima composición o arreglo. Junto con una enorme variedad de sonidos expresivos y armonía vocal, el PSR-SX900 es su compañero musical definitivo e inspirador.",
+    "categoria": "Teclados",
+    "puntuacion": 4.5,
+    "imagen": [
+      "https://usa.yamaha.com/files/sx900_middle1920px_9fb109c64d8c4f4e45e2d8d71d234b88.png?impolicy=resize&imwid=1920&imhei=661",
+      "https://www.yamaha.com/yamahavgn/PIM/Images/SX900_001_2000x2000_3e21ba69a60ae3bbe6fe817c0fcb6479.png",
+      "https://www.yamaha.com/yamahavgn/PIM/Images/SX900_002_2000x2000_d8ef11d97d3430fc3bcb0e78a53d2ab5.png",
+      "https://www.yamaha.com/yamahavgn/PIM/Images/SX900_003_2000x2000_a5222a2687c0f33d52e49f6c01911de4.png",
+      "https://www.yamaha.com/yamahavgn/PIM/Images/SX900_004_2000x2000_7041a7614c4c332d4184c1df7562d834.png",
+      "https://www.yamaha.com/yamahavgn/PIM/Images/SX900_005_2000x2000_3b6c584ce47dadaffc9ba49bb78b1447.png",
+      "https://www.yamaha.com/yamahavgn/PIM/Images/SX900_006_2000x2000_b89ee0a2e0a5ffd11290c14852c1f374.png"
+    ]
+  },
+  {
+    "nombre": "PSR-A5000",
+    "descripcion": "Diseñado especialmente para músicos de todo el mundo, el PSR-A5000 se convierte en el mejor socio para sus mejores actuaciones en vivo y producción de contenido original. Explora las nuevas funciones e inspírate con el nuevo sonido.",
+    "categoria": "Teclados",
+    "puntuacion": 4.0,
+    "imagen": [
+      "https://usa.yamaha.com/files/key_visual_c9190c56c5c77000d5b22f24b43bd3ae.png",
+      "https://usa.yamaha.com/files/features_main_ccf7851d279b1c826ee8b7aa1138fcfa.png",
+      "https://www.yamaha.com/yamahavgn/PIM/Images/Image-index_psr-a5000_1080x1080_1da7910b413a174ad0b0da561b16a34b.jpg",
+      "https://www.yamaha.com/yamahavgn/PIM/Images/PSR-A5000_o_0002_ea8cc0065712f6c891dd23f7f5111c96.jpg",
+      "https://www.yamaha.com/yamahavgn/PIM/Images/PSR-A5000_b_0001_a5f115efb5a21107b4a382ca1f8e8498.jpg",
+      "https://www.yamaha.com/yamahavgn/PIM/Images/PSR-A5000_a_0001_9d1bfa1fe47c8e45d6d4948ebe72d124.jpg",
+      "https://www.yamaha.com/yamahavgn/PIM/Images/PSR-A5000_a_0002_025f62e8946c5a85ee3471042c4f91f6.jpg",
+      "https://www.yamaha.com/yamahavgn/PIM/Images/PSR-A5000_y_0002_fde0561a3fa655b7898cf60e61444517.jpg"
+    ]
+  },
+  {
+    "nombre": "PSR-S670",
+    "descripcion": "Una nueva generación de Arranger Workstation Con un diseño impresionante, nuevas voces y estilos y funciones de DJ, el PSR-S670 es un teclado de interpretación como ningún otro.",
+    "categoria": "Teclados",
+    "puntuacion": 3.5,
+    "imagen": [
+      "https://usa.yamaha.com/files/psr-s670_540x540_732a76a0c60be9ae30d8e44cc15e46b9.jpg",
+      "https://www.yamaha.com/yamahavgn/PIM/Images/FF7FDCA8780F4B04B93A9988809C6CE2_12075_4757x4132_e4cb23a8bd56e874479a679dd1fbf719.jpg",
+      "https://www.yamaha.com/yamahavgn/PIM/Images/2F8A4413659D48D3B1949D02C202BB34_12075_5582x3690_e12ee50739ccd3ba7e01bbf1a27f1f1c.jpg",
+      "https://www.yamaha.com/yamahavgn/PIM/Images/00A54160951F4415B854741795D51A4B_12075_4671x3500_eecd37e5f35569251515205aaa52e17b.jpg",
+      "https://www.yamaha.com/yamahavgn/PIM/Images/CE469859A35A40B386958BB12452C1F6_12075_4671x3500_d17e08d1630d0abbac752f33bcf82a7e.jpg",
+      "https://www.yamaha.com/yamahavgn/PIM/Images/4F0CB6D8843741ADBE23E6303946839F_12075_5582x4040_4943ad15c2762c8092c7f956f8b915c8.jpg",
+      "https://www.yamaha.com/yamahavgn/PIM/Images/4F4C9515175041F3960E941F80D0E465_12075_2bb509fa52487f4114800c491779fd44.jpg"
+    ]
+  },
+  {
+    "nombre": "REVSTAR",
+    "descripcion": "La nueva serie Revstar ofrece tres niveles, dos opciones de pickup, nuevas opciones de cambio y una nueva gama de acabados inspirados en las carreras. Encuentre el ajuste perfecto para su sonido y su estilo.",
+    "categoria": "Guitarras electricas",
+    "puntuacion": 5.0,
+    "imagen": [
+      "https://usa.yamaha.com/files/revstar2-kv-01-2000x800_ff7aa989a68a4cbde467e3f11b709125.jpg",
+      "https://usa.yamaha.com/files/revstar2-kv-02-2000x800_d1e01e9eb18856769663090722fa35e6.jpg",
+      "https://usa.yamaha.com/files/revstar2-kv-03-2000x800_b2711fac64c87d3d3a2565f33e26ee56.jpg",
+      "https://usa.yamaha.com/files/revstar2-kv-04-2000x800_1cb41fd009442257b299577f52930c2a.jpg",
+      "https://usa.yamaha.com/files/overview_modern_classic_01_70e234201f229b587b3e7c44f19816c1.jpg",
+      "https://usa.yamaha.com/files/overview_feature_01_de66f592059392459ef40935b09174d8.jpg",
+      "https://usa.yamaha.com/files/overview_feature_02_123db64b38bc9caf655dcadd27972b14.jpg",
+      "https://usa.yamaha.com/files/overview_feature_03_befe3cb2a85c16fcd5f16d360323ee90.jpg",
+      "https://usa.yamaha.com/files/overview_feature_04_8842656511e14a251694034a0a7bd239.jpg",
+      "https://usa.yamaha.com/files/overview_feature_05_f31692f6e65a33028c72f038adf94315.jpg"
+    ]
+  },
+  {
+    "nombre": "Pacifica",
+    "descripcion": "Desarrollada originalmente en asociación con nuestra tienda personalizada de Los Ángeles, la serie fue diseñada para satisfacer las necesidades de los mejores guitarristas de sesión. Con una gama de opciones de pastillas y hardware, los modelos Pacifica actuales continúan ofreciendo versatilidad tonal, facilidad de ejecución y calidad meticulosa.",
+    "categoria": "Guitarras electricas",
+    "puntuacion": 4.5,
+    "imagen": [
+      "https://usa.yamaha.com/files/pac600_overview_1d998116e48b4ba9f87717288c74bfef.jpg",
+      "https://usa.yamaha.com/files/pac311_overview_224e51341f2fd071c882ecd3f39b81e2.jpg",
+      "https://usa.yamaha.com/files/pac200_overview_b5fe8844c7f2ebcd209439a9cfb2c153.jpg",
+      "https://usa.yamaha.com/files/pac100_overview_2741e8724d3d6a410013382615b5658f.jpg",
+      "https://usa.yamaha.com/files/pac600_feature_01_a28ed48770d6fcf6d2c0f3ab628083a2.jpg",
+      "https://usa.yamaha.com/files/pac600_feature_02_16cd12297a99cde3c125bdcf0130422b.jpg",
+      "https://usa.yamaha.com/files/pac600_feature_03_2756a9d7f32a99f68a8db3fc333aa163.jpg",
+      "https://usa.yamaha.com/files/pac600_feature_04_d5f2cfbbc2ac21a390cd8409f0f17d2c.jpg",
+      "https://usa.yamaha.com/files/pac600_feature_05_fa171ffbd7ca094697c219623c8e4747.jpg",
+      "https://usa.yamaha.com/files/PAC612VIIFM_Indigo_Blue_Front_0f57714ed267a718e3be16ab0e252c18.jpg"
+    ]
+  },
+  {
+    "nombre": "Hollow",
+    "descripcion": "La serie Hollow se ha enfrentado a continuos cambios de modelo y nuevas ampliaciones de gama en respuesta a las demandas y tendencias del mercado desde 1966. Tal logro sólo lo ha logrado Yamaha porque ninguna otra empresa ha desarrollado tanto artesanía acústica como tecnología electrónica. Las alineaciones actuales ofrecen varios estilos de carrocería y configuraciones de camionetas para adaptarse a una amplia gama de solicitudes de los guitarristas.",
+    "categoria": "Guitarras electricas",
+    "puntuacion": 4.5,
+    "imagen": [
+      "https://usa.yamaha.com/files/hollow_body_c65b749e9e1bcef299e7d2ebc5381f22.jpg",
+      "https://usa.yamaha.com/files/SA2200%20image_400x159_d71b913e9c406e1cfd09753deaa86026.jpg",
+      "https://usa.yamaha.com/files/493BAED73895481DB1901859F5EA1825_12074_240x166_6f33deec9635064ee8ab0c1518609f06.jpg",
+      "https://usa.yamaha.com/files/aes1500_240x196_47451a80360958e06ebbb8b0696dde9a.jpg",
+      "https://usa.yamaha.com/files/SA2200_VS_f_0001_30b0f83388a9d79cb79c324d9203d6f3.jpg",
+      "https://usa.yamaha.com/files/SA2200_VS_a_0001_7acc5207f9986707dd17243c42b07388.jpg",
+      "https://usa.yamaha.com/files/SA2200_BS_f_0001_from_sa2200_bs1_a017201f3fe9e511f796a2c09d803de8.jpg",
+      "https://usa.yamaha.com/files/SA2200_BS_a_0001_from_sa2200_bs1_417f1dbb8edf660c352db4f5134f88a8.jpg"
+    ]
+  },
+  {
+    "nombre": "FG9",
+    "descripcion": "La serie FG es la base de la guitarra acústica Yamaha y abarca desde líneas premium hasta estándar para ofrecer un mayor nivel de expresión a cada cantautor..",
+    "categoria": "Guitarras acústicas",
+    "puntuacion": 4.5,
+    "imagen": [
+      "https://usa.yamaha.com/files/02_FG9-R_f_0001_87381dd45ce472f1d1e39b29123d7f3d.jpg",
+      "https://usa.yamaha.com/files/01_FG9-R_a_0001_f508f7647db99495f9c6e1b09aa2470c.jpg",
+      "https://usa.yamaha.com/files/03_FG9-R_b_0001_c460d1f8a6017f9d95d5d97ca33cb761.jpg",
+      "https://usa.yamaha.com/files/02_FG9-R_4f2c43714dd416cf58934ba204689a0f.jpg",
+      "https://usa.yamaha.com/files/features-02_82bec85cd680135dcac02a34df55ac15.jpg",
+      "https://usa.yamaha.com/files/features-01_FG9-R_3bf4987e1fbac2118125ac530ae1f6e3.jpg",
+      "https://usa.yamaha.com/files/features-04_ee2f7ef5168d9e8cafdb2e2af77e32b9.jpg",
+      "https://usa.yamaha.com/files/features-05_1_a4ffe4e76a773bcdd2d74e6eee727d55.jpg",
+      "https://usa.yamaha.com/files/features-05_2_FG9-R_24abf4d7549fe1d7793922dde731c31c.jpg",
+      "https://usa.yamaha.com/files/features-05_3_FG9-R_6021663cca245d0a94b3ecd41aea1823.jpg"
+    ]
+  },
+  {
+    "nombre": "STORIA",
+    "descripcion": "Invita la música a tu vida con la elegante e inspiradora serie STORIA: guitarras que reflejan tu estilo personal e inspiran creatividad de un vistazo.",
+    "categoria": "Guitarras acústicas",
+    "puntuacion": 5.0,
+    "imagen": [
+      "https://usa.yamaha.com/files/Image-Index_STORIA_1080x1080_7099fa87b262be2ba5e795c665bf0ea9.jpg",
+      "https://usa.yamaha.com/files/storia_family_343b78f817abf6c3e33c558576dfe475.jpg",
+      "https://usa.yamaha.com/files/Aesthetics_01_pc_02a95840a556430a93bd6a9fdd0e1941.jpg",
+      "https://usa.yamaha.com/files/Aesthetics_02_pc_e43fd72cb1f0393cc205457ab114d2cb.jpg",
+      "https://usa.yamaha.com/files/STORIA-I_a_0001_1705e18e24a4908d5a4db3285d960fa8.jpg",
+      "https://usa.yamaha.com/files/STORIA-I_f_0001_b3d8200789dd63a0e24cde0e000d7f64.jpg",
+      "https://usa.yamaha.com/files/STORIA-I_b_0001_65a5ce199aaf5c2629983e9a01e764c0.jpg",
+      "https://usa.yamaha.com/files/STORIA-II_a_0001_ee60890c1627c16ae972cf67e97048e3.jpg",
+      "https://usa.yamaha.com/files/STORIA-III_a_0001_4d2dae2561733f1c932e6a990c4078f7.jpg"
+    ]
+  },
+  {
+    "nombre": "F / FX Series",
+    "descripcion": "La opción número 1 para experimentar la música. Perfecto tanto para estudiantes de guitarra como para músicos experimentados.",
+    "categoria": "Guitarras acústicas",
+    "puntuacion": 4.0,
+    "imagen": [
+      "https://usa.yamaha.com/files/fx370_nt_a_0001_f_7c7e9bd6812bc5e687857ff4f20769df.jpg",
+      "https://usa.yamaha.com/files/f_fx__2dc9d6400e1c013a41401b121c24a515.jpg",
+      "https://usa.yamaha.com/files/8505_12073_1_87327bb61fdc6fad4dbf897f590fcafb.jpg",
+      "https://usa.yamaha.com/files/fx370_bl_a_0001_f_a23e00cf53a7d7d7b6f8bc29bd241ca2.jpg",
+      "https://usa.yamaha.com/files/fx370_tbs_a_0001_f_a5443f22248255a284d0cf100b447296.jpg",
+      "https://usa.yamaha.com/files/10409_12073_1_fa25503c79f9f538a9e784b404ce857d.jpg",
+      "https://usa.yamaha.com/files/10410_12073_1_a85641b154a844a478e29e4976ca2fa8.jpg",
+      "https://usa.yamaha.com/files/C26D462A909245C2819CB3FFC2954A5A_12073_05c0d0f3a834f5ace473f58e0702d0f0.jpg",
+      "https://usa.yamaha.com/files/A6D7CB74FB0449ADAC320086F3BFAA5B_12075_3c193a7112ea6734f0b69443eed6c68e.jpg",
+      "https://usa.yamaha.com/files/360755A6F4BC43EC99B23EAFE354CE77_12073_24bafa136f10638af3c5e5bdc47ebf66.jpg"
+    ]
   },
   {
     "nombre": "",
     "descripcion": "",
     "categoria": "",
-    "imagen": [{}, {}, {}, {}, {}]
-  },
-  {
-    "nombre": "",
-    "descripcion": "",
-    "categoria": "",
-    "imagen": [{}, {}, {}, {}, {}]
-  },
-  {
-    "nombre": "",
-    "descripcion": "",
-    "categoria": "",
-    "imagen": [{}, {}, {}, {}, {}]
-  },
-  {
-    "nombre": "",
-    "descripcion": "",
-    "categoria": "",
-    "imagen": [{}, {}, {}, {}, {}]
-  },
-  {
-    "nombre": "",
-    "descripcion": "",
-    "categoria": "",
-    "imagen": [{}, {}, {}, {}, {}]
-  },
-  {
-    "nombre": "",
-    "descripcion": "",
-    "categoria": "",
-    "imagen": [{}, {}, {}, {}, {}]
-  },
-  {
-    "nombre": "",
-    "descripcion": "",
-    "categoria": "",
-    "imagen": [{}, {}, {}, {}, {}]
-  },
-  {
-    "nombre": "",
-    "descripcion": "",
-    "categoria": "",
-    "imagen": [{}, {}, {}, {}, {}]
-  },
-  {
-    "nombre": "",
-    "descripcion": "",
-    "categoria": "",
-    "imagen": [{}, {}, {}, {}, {}]
-  },
-  {
-    "nombre": "",
-    "descripcion": "",
-    "categoria": "",
-    "imagen": [{}, {}, {}, {}, {}]
-  },
-  {
-    "nombre": "",
-    "descripcion": "",
-    "categoria": "",
-    "imagen": [{}, {}, {}, {}, {}]
-  },
-  {
-    "nombre": "",
-    "descripcion": "",
-    "categoria": "",
-    "imagen": [{}, {}, {}, {}, {}]
-  },
-  {
-    "nombre": "",
-    "descripcion": "",
-    "categoria": "",
-    "imagen": [{}, {}, {}, {}, {}]
-  },
-  {
-    "nombre": "",
-    "descripcion": "",
-    "categoria": "",
-    "imagen": [{}, {}, {}, {}, {}]
-  },
-  {
-    "nombre": "",
-    "descripcion": "",
-    "categoria": "",
-    "imagen": [{}, {}, {}, {}, {}]
-  },
-  {
-    "nombre": "",
-    "descripcion": "",
-    "categoria": "",
-    "imagen": [{}, {}, {}, {}, {}]
-  },
-  {
-    "nombre": "",
-    "descripcion": "",
-    "categoria": "",
-    "imagen": [{}, {}, {}, {}, {}]
-  },
-  {
-    "nombre": "",
-    "descripcion": "",
-    "categoria": "",
-    "imagen": [{}, {}, {}, {}, {}]
-  },
-  {
-    "nombre": "",
-    "descripcion": "",
-    "categoria": "",
-    "imagen": [{}, {}, {}, {}, {}]
-  },
-  {
-    "nombre": "",
-    "descripcion": "",
-    "categoria": "",
-    "imagen": [{}, {}, {}, {}, {}]
-  },
-  {
-    "nombre": "",
-    "descripcion": "",
-    "categoria": "",
-    "imagen": [{}, {}, {}, {}, {}]
-  },
-  {
-    "nombre": "",
-    "descripcion": "",
-    "categoria": "",
-    "imagen": [{}, {}, {}, {}, {}]
-  },
-  {
-    "nombre": "",
-    "descripcion": "",
-    "categoria": "",
-    "imagen": [{}, {}, {}, {}, {}]
-  },
-  {
-    "nombre": "",
-    "descripcion": "",
-    "categoria": "",
-    "imagen": [{}, {}, {}, {}, {}]
-  },
-  {
-    "nombre": "",
-    "descripcion": "",
-    "categoria": "",
-    "imagen": [{}, {}, {}, {}, {}]
-  },
-  {
-    "nombre": "",
-    "descripcion": "",
-    "categoria": "",
-    "imagen": [{}, {}, {}, {}, {}]
-  },
-  {
-    "nombre": "",
-    "descripcion": "",
-    "categoria": "",
-    "imagen": [{}, {}, {}, {}, {}]
-  },
-  {
-    "nombre": "",
-    "descripcion": "",
-    "categoria": "",
-    "imagen": [{}, {}, {}, {}, {}]
-  },
-  {
-    "nombre": "",
-    "descripcion": "",
-    "categoria": "",
-    "imagen": [{}, {}, {}, {}, {}]
+    "puntuacion": 0.0,
+    "imagen": ["", "", "", "", "", "", "", "", "", "", "", ""]
   }
 ]
