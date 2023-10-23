@@ -27,4 +27,6 @@ public class Reserva {
     private Boolean reservaActiva;
     private LocalDate inicioReserva;
     private LocalDate finReserva;
+    private Boolean eliminado;
+
 }

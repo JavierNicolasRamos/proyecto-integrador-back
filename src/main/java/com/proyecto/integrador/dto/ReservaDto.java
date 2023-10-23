@@ -18,4 +18,6 @@ public class ReservaDto {
     private Boolean reservaActiva;
     private LocalDate inicioReserva;
     private LocalDate finReserva;
+    private Boolean eliminado;
+
 }
