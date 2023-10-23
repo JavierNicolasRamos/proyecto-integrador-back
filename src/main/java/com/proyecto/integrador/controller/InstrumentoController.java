@@ -3,11 +3,10 @@ package com.proyecto.integrador.controller;
 // Asumiendo que tienes una clase Instrumento
 import com.proyecto.integrador.dto.InstrumentoDto;
 import com.proyecto.integrador.entity.Instrumento;
-import com.proyecto.integrador.exception.InstrumentoNotFoundException;
 import com.proyecto.integrador.service.InstrumentoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,8 +23,8 @@ public class InstrumentoController {
     }
 
     @GetMapping
-    public List<Instrumento> obtenerDiezInstrumentos() {
-        return instrumentoService.obtenerDiezInstrumentos();
+    public Page<Instrumento> obtenerDiezInstrumentos(Pageable pageable) {
+        return instrumentoService.obtenerDiezInstrumentos(pageable);
     }
 
     @GetMapping("/{id}")
