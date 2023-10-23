@@ -41,6 +41,8 @@ public class InstrumentoService {
         instrumento.setCategoria(instrumentoDto.getCategoria());
         instrumento.setFechaCarga(LocalDate.now());
         instrumento.setFechaUpdate(LocalDate.now());
+        instrumento.setPuntuacion(instrumentoDto.getPuntuacion());
+        instrumento.setDetalle(instrumentoDto.getDetalle());
         instrumento.setDisponible(true);
 
         instrumentoRepository.save(instrumento);
@@ -81,6 +83,8 @@ public class InstrumentoService {
             instrumento.setNombre(instrumentoDto.getNombre());
             instrumento.setCategoria(instrumentoDto.getCategoria());
             instrumento.setFechaUpdate(LocalDate.now());
+            instrumento.setPuntuacion(instrumentoDto.getPuntuacion());
+            instrumento.setDetalle(instrumentoDto.getDetalle());
             instrumento.setDisponible(instrumentoDto.getDisponible());
 
             this.imagenService.actualizarImagenesInstrumento(instrumento);
