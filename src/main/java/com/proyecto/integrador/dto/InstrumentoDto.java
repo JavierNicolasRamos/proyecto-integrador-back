@@ -25,4 +25,5 @@ public class InstrumentoDto {
     private List<Reserva> reservas;
     private Boolean eliminado;
     private Double puntuacion;
+    private String detalle;
 }
