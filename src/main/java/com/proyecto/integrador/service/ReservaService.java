@@ -36,7 +36,7 @@ public class ReservaService {
 
         //TODO: cambiar variable a optional (Hecho)
         Optional<Instrumento> optionalInstrumento = instrumentoRepository.findById(reservaDto.getInstrumento().getId());
-        if (!optionalInstrumento.isPresent() || !optionalInstrumento.get().getDisponible()) {
+        if (!optionalInstrumento.isPresent() || !optionalInstrumento.get().getDisponible()) { //Si no esta presente, arrojar una excepcion con orElseThrow, luego validar en el if si el instrumento no esta disponible.
             throw new EntityNotFoundException("El instrumento no está disponible para la reserva");
         }
 
@@ -44,13 +44,14 @@ public class ReservaService {
         Reserva reserva = new Reserva();
         reserva.setUsuario(reservaDto.getUsuario());
         reserva.setInstrumento(reservaDto.getInstrumento());
+        //COMUNICAR LOS INFORMAR AL EQUIPO DE FRONT
         reserva.setReservaActiva(reservaDto.getReservaActiva()); //TODO: ver si lo pongo true o esperar al front (a confirmar)
         reserva.setInicioReserva(reservaDto.getInicioReserva()); //TODO: ver si lo pongo localdate.now() o esperar al front (a confirmar)
         reserva.setFinReserva(reservaDto.getFinReserva());  //TODO: ver si lo pongo localdate +5 dias o esperar al front (a confirmar)
 
         //TODO: Crear logica para actualizar campo disponible de instrumento (Hecho)
         Instrumento instrumento = optionalInstrumento.get();
-        instrumento.setDisponible(false);
+        instrumento.setDisponible(false); //Falta persistir los cambios en la base
 
         reservaRepository.save(reserva);
         return reserva;
@@ -72,6 +73,13 @@ public class ReservaService {
         }
     }
 
+
+//Se podria realizar de la siguiente forma:
+//    public Reserva obtenerReservaEjemplo(Long id) {
+//       Optional<Reserva> reservaOptional = Optional.ofNullable(reservaRepository.findById(id).orElseThrow(()
+//            -> new EntityNotFoundException("No se encontró la reserva")));
+//       return reservaOptional.get();
+//    }
 
 
     public List<Reserva> listarReservas() {
@@ -98,9 +106,9 @@ public class ReservaService {
             reservaExistente.setInicioReserva(reservaDto.getInicioReserva());
             reservaExistente.setFinReserva(reservaDto.getFinReserva());
             //TODO: Crear logica para actualizar campo disponible de instrumento (Hecho)
-            Instrumento instrumento = reservaDto.getInstrumento();
-            if (instrumento != null) {
-                instrumento.setDisponible(false);
+            Instrumento instrumento = reservaDto.getInstrumento(); //Traer el instrumento de la base, utilizando un optional
+            if (instrumento != null) { //Utilizar isPreset, en caso de que no se encuentre el instrumento, arrojar una excepcion
+                instrumento.setDisponible(false); //Falta persistir los cambios en la base
             }
             return reservaRepository.save(reservaExistente);
         } else {
@@ -119,8 +127,8 @@ public class ReservaService {
                 reserva.setEliminado(true);
 
                 Instrumento instrumento = reserva.getInstrumento();
-                if (instrumento != null) {
-                    instrumento.setDisponible(true);
+                if (instrumento != null) { //El instrumento no puede ser null, en caso de que sea null, se debe arrojar una excepcion
+                    instrumento.setDisponible(true); //Falta persistir los cambios en la base
                 }
 
                 reservaRepository.save(reserva);
