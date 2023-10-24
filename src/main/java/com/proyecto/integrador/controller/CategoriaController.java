@@ -21,10 +21,10 @@ public class CategoriaController {
 
     @PostMapping
     public ResponseEntity<Object> crearCategoria(@RequestBody Categoria categoria) {
-        Optional<Categoria>  categoriaOptionalDescripcion = categoriaService.buscarCategoriaPorDescripcion(categoria.getDescripcion());
+        Optional<Categoria>  categoriaOptionalDescripcion = categoriaService.buscarCategoriaPorDescripcion(categoria.getDescripcion()); //Los optinal no van en los controllers, el manejo de los optional van en los services
 
         //Verifico que la categoria no exista
-        if(categoriaOptionalDescripcion.isPresent()){
+        if(categoriaOptionalDescripcion.isPresent()){ //Esta logica va en el service, en caso de que se genere una excepcion, debe estar configurado el GlobalExceptionHandler para tomarla y retornarla.
             //LOGGER.info("La catergoria ya existe");
             return ResponseEntity.badRequest().build();
         }else{

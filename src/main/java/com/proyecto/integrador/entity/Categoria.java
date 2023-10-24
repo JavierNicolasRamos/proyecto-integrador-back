@@ -25,4 +25,6 @@ public class Categoria {
     @OneToMany(mappedBy = "categoria")
     @JsonIgnore
     private List<Instrumento> instrumento;
+
+    //Agregar atributo boolean eliminado
 }
