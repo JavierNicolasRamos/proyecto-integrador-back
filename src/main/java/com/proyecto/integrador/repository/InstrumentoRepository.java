@@ -16,4 +16,7 @@ public interface InstrumentoRepository extends JpaRepository<Instrumento, Long> 
 
     @Query(value = "SELECT * FROM instrument WHERE eliminado = false ORDER BY RAND() LIMIT 10", nativeQuery = true)
     Page<Instrumento> findRandomInstruments(Pageable pageable);
+
+    @Query(value = "SELECT * FROM instrument WHERE eliminado = false", nativeQuery = true)
+    Page<Instrumento> getAll(Pageable pageable);
 }
