@@ -13,7 +13,7 @@ public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
     Optional<Categoria> findByDescripcion(String descripcion);
     Long countAllByDescripcion(String descripcion);
 
-    //Eliminacion con columna logica de la categoria
+    //ELIMINAR
     @Query(value = "INSERT INTO CATEGORIAS (elimando) VALUE (1) WHERE id = :id", nativeQuery = true)
     void deleteById(@Param("id") Long id);
 }

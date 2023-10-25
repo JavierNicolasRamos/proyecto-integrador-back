@@ -28,12 +28,12 @@ public class CategoriaController {
         return ResponseEntity.ok(categoriaService.buscarCategoriaPorDescripcion(descripcion));
     }
 
-    @GetMapping("id/{id}")
+    @GetMapping("id/{id}") //Cambiar por "/{id}"
     public ResponseEntity<Object> contarInstrumentosPorCategoria(@PathVariable Long id){
         return ResponseEntity.ok(categoriaService.contarInstrumentosPorCategoria(id));
     }
 
-    @DeleteMapping("id/{id}")
+    @DeleteMapping("id/{id}")//Cambiar por "/{id}"
     public ResponseEntity<Object> eliminarInstrumentosPorCategoria(@PathVariable Long id){
         return ResponseEntity.ok(categoriaService.eliminarInstrunmentosPorCategoria(id));
     }
