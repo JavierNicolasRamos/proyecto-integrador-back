@@ -26,6 +26,8 @@ public class Instrumento {
     private LocalDate fechaUpdate;
     private Boolean disponible;
     private String detalle;
+    private Boolean eliminado;
+    private Double puntuacion;
 
     @ManyToOne
     private Categoria categoria;

@@ -12,4 +12,5 @@ public class ImagenDto {
     private Long id;
     private String imagen;
     private Instrumento instrumento;
+    private Boolean eliminado;
 }

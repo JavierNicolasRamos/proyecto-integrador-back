@@ -20,5 +20,6 @@ public class Imagen {
 
     @ManyToOne
     private Instrumento instrumento;
+    private Boolean eliminado;
 
 }
