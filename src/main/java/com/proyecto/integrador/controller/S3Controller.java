@@ -1,18 +1,18 @@
 package com.proyecto.integrador.controller;
 
+import com.proyecto.integrador.service.S3Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/storage/")
-public class BucketController {
+public class S3Controller {
 
-    private AmazonClient amazonClient;
+    private S3Service amazonClient;
 
     @Autowired
-    BucketController(AmazonClient amazonClient) {
+    S3Controller(S3Service amazonClient) {
         this.amazonClient = amazonClient;
     }
 

@@ -1,11 +1,24 @@
 package com.proyecto.integrador.service;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.webjars.NotFoundException;
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
+import com.amazonaws.services.s3.model.PutObjectRequest;
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Date;
 
 @Service
-public class AmazonClient {
+public class S3Service {
     private AmazonS3 s3client;
 
     @Value("${amazonProperties.endpointUrl}")
