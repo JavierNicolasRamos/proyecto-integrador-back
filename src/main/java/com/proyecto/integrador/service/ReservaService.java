@@ -31,14 +31,13 @@ public class ReservaService {
 
         Optional<Instrumento> optionalInstrumento = instrumentoRepository.findById(reservaDto.getInstrumento().getId());
         Instrumento instrumento = optionalInstrumento.orElseThrow(() -> new EntityNotFoundException("El instrumento no está disponible para la reserva"));
-        //Si no esta presente, arrojar una excepcion con orElseThrow, luego validar en el if si el instrumento no esta disponible.  (listo)
         if (!instrumento.getDisponible()) {
             throw new EntityNotFoundException("El instrumento no está disponible para la reserva");
         }
 
         Reserva reserva = new Reserva();
         reserva.setUsuario(reservaDto.getUsuario());
-        reserva.setInstrumento(reservaDto.getInstrumento());
+        reserva.setInstrumento(instrumento);
         //COMUNICAR LOS INFORMAR AL EQUIPO DE FRONT
         reserva.setReservaActiva(reservaDto.getReservaActiva()); //TODO: ver si lo pongo true o esperar al front (a confirmar)
         reserva.setInicioReserva(reservaDto.getInicioReserva()); //TODO: ver si lo pongo localdate.now() o esperar al front (a confirmar)
@@ -46,7 +45,7 @@ public class ReservaService {
 
 
         instrumento.setDisponible(false);
-        instrumentoRepository.save(instrumento); //Falta persistir los cambios en la base (listo)
+        instrumentoRepository.save(instrumento);
 
         reservaRepository.save(reserva);
         return reserva;
@@ -83,17 +82,16 @@ public class ReservaService {
             reservaExistente.setReservaActiva(reservaDto.getReservaActiva());
             reservaExistente.setInicioReserva(reservaDto.getInicioReserva());
             reservaExistente.setFinReserva(reservaDto.getFinReserva());
-            Optional<Instrumento> optionalInstrumento = instrumentoRepository.findById(reservaDto.getInstrumento().getId()); // Traer el instrumento de la base, utilizando un optional(listo)
+            Optional<Instrumento> optionalInstrumento = instrumentoRepository.findById(reservaDto.getInstrumento().getId());
             if (optionalInstrumento.isPresent()) {
                 Instrumento instrumento = optionalInstrumento.get();
-                instrumento.setDisponible(false); // Actualizar la disponibilidad del instrumento (listo)
+                instrumento.setDisponible(false);
 
-                instrumentoRepository.save(instrumento);  // Persistir los cambios en el objeto Instrumento en la base de datos (listo)
+                instrumentoRepository.save(instrumento);
             } else {
                 throw new InstrumentoNotFoundException("No se encontró el instrumento con el ID: " + reservaDto.getInstrumento().getId());
             }
 
-            // Persistir los cambios en la reserva (listo)
             return reservaRepository.save(reservaExistente);
         } else {
             throw new NonExistentReservaException("No se encontró la reserva con ID: " + id);
@@ -106,25 +104,19 @@ public class ReservaService {
     @Transactional
     public void eliminarReserva(Long id) {
         try {
-            Optional<Reserva> reservaOptional = reservaRepository.findById(id);
+            Reserva reserva = reservaRepository.findById(id)
+                    .orElseThrow(() -> new EntityNotFoundException("No se encontró la reserva con ID: " + id));
 
-            if (reservaOptional.isPresent()) {
-                Reserva reserva = reservaOptional.get();
+            reserva.setEliminado(true);
 
-                reserva.setEliminado(true);
-
-                Instrumento instrumento = reserva.getInstrumento();
-
-                if (instrumento != null) {
-                    instrumento.setDisponible(true);
-                    instrumentoRepository.save(instrumento); // Persistir los cambios en la disponibilidad del instrumento (listo)
-                } else {
-                    throw new InstrumentoNotFoundException("No se encontró un instrumento asociado a la reserva con ID: " + id);
-                }
-                reservaRepository.save(reserva);
+            if (reserva.getInstrumento() != null) {
+                reserva.getInstrumento().setDisponible(true);
+                instrumentoRepository.save(reserva.getInstrumento());
             } else {
-                throw new EntityNotFoundException("No se encontró la reserva con ID: " + id);
+               throw new InstrumentoNotFoundException("No se encontró un instrumento asociado a la reserva con ID: " + id);
             }
+            reservaRepository.save(reserva);
+
         } catch (Exception e) {
             throw new EliminacionReservaException("Error al eliminar la reserva con ID: " + id);
         }
