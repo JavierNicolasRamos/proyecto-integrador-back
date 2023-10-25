@@ -16,4 +16,12 @@ public interface InstrumentoRepository extends JpaRepository<Instrumento, Long> 
 
     @Query(value = "SELECT * FROM instrument WHERE eliminado = false ORDER BY RAND() LIMIT 10", nativeQuery = true)
     Page<Instrumento> findRandomInstruments(Pageable pageable);
+
+    //Agregada para poder contar la cantidad de instrumentos con una categoria
+    @Query(value = "COUNT(*) FROM instrumentos WHERE categoria_id = :categoria_id", nativeQuery = true)
+    Long countAllByCategoria(@Param("categoria_id") Long id);
+
+    //Agregada para poder eliminar los instrumentos por id
+    @Query(value = "INSERT INTO INSTRUMENTOS (eliminado) VALUE (1) WHERE categoria_id= :categoria_id", nativeQuery = true)
+    void deleteAllByCategoria(@Param("categoria_id")Long id);
 }

@@ -26,5 +26,6 @@ public class Categoria {
     @JsonIgnore
     private List<Instrumento> instrumento;
 
-    //Agregar atributo boolean eliminado
+    @Column(name = "eliminado")
+    private Boolean eliminado;
 }

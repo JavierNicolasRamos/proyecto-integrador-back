@@ -1,13 +1,12 @@
 package com.proyecto.integrador.controller;
 
+import com.proyecto.integrador.dto.CategoriaDto;
 import com.proyecto.integrador.entity.Categoria;
 import com.proyecto.integrador.service.CategoriaService;
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 import java.util.Optional;
@@ -20,18 +19,22 @@ public class CategoriaController {
     private CategoriaService categoriaService;
 
     @PostMapping
-    public ResponseEntity<Object> crearCategoria(@RequestBody Categoria categoria) {
-        Optional<Categoria>  categoriaOptionalDescripcion = categoriaService.buscarCategoriaPorDescripcion(categoria.getDescripcion()); //Los optinal no van en los controllers, el manejo de los optional van en los services
-
-        //Verifico que la categoria no exista
-        if(categoriaOptionalDescripcion.isPresent()){ //Esta logica va en el service, en caso de que se genere una excepcion, debe estar configurado el GlobalExceptionHandler para tomarla y retornarla.
-            //LOGGER.info("La catergoria ya existe");
-            return ResponseEntity.badRequest().build();
-        }else{
-            //LOGGER.info("Categoria guardada correctamente")
-            return ResponseEntity.ok(categoriaService.crearCategoria(categoria));
-        }
-
+    public ResponseEntity<Object> crearCategoria(@RequestBody CategoriaDto categoriaDto) {
+        return ResponseEntity.ok(categoriaService.crearCategoria(categoriaDto));
     }
 
+    @GetMapping("descripcion/{descripcion}")
+    public ResponseEntity<Object> buscarCategoriaPorDescipcion(@PathVariable String descripcion){
+        return ResponseEntity.ok(categoriaService.buscarCategoriaPorDescripcion(descripcion));
+    }
+
+    @GetMapping("id/{id}")
+    public ResponseEntity<Object> contarInstrumentosPorCategoria(@PathVariable Long id){
+        return ResponseEntity.ok(categoriaService.contarInstrumentosPorCategoria(id));
+    }
+
+    @DeleteMapping("id/{id}")
+    public ResponseEntity<Object> eliminarInstrumentosPorCategoria(@PathVariable Long id){
+        return ResponseEntity.ok(categoriaService.eliminarInstrunmentosPorCategoria(id));
+    }
 }
