@@ -22,9 +22,13 @@ public class Reserva {
     private Usuario usuario;
 
     @ManyToOne
+    private Usuario proveedor;
+
+    @ManyToOne
     private Instrumento instrumento;
 
     private Boolean reservaActiva;
     private LocalDate inicioReserva;
     private LocalDate finReserva;
+    private String email;
 }

@@ -4,6 +4,7 @@ import com.proyecto.integrador.dto.InstrumentoDto;
 import com.proyecto.integrador.entity.Instrumento;
 import com.proyecto.integrador.exception.DuplicateInstrumentException;
 import com.proyecto.integrador.exception.EliminacionInstrumentoException;
+import com.proyecto.integrador.exception.InstrumentoGetAllException;
 import com.proyecto.integrador.exception.NonExistentInstrumentException;
 import com.proyecto.integrador.repository.InstrumentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,6 +101,14 @@ public class InstrumentoService {
             instrumentoRepository.deleteById(id);
         } catch (Exception e) {
             throw new EliminacionInstrumentoException("Error al eliminar el instrumento con ID: " + id);
+        }
+    }
+
+    public Page<Instrumento> getAll(Pageable pageable) {
+        try {
+            return instrumentoRepository.getAll(pageable);
+        } catch (Exception e) {
+            throw new InstrumentoGetAllException("Error al recuperar la lista de instrumentos.", e);
         }
     }
 }

@@ -27,6 +27,11 @@ public class InstrumentoController {
         return instrumentoService.obtenerDiezInstrumentos(pageable);
     }
 
+    @GetMapping
+    public Page<Instrumento>getAll(Pageable pageable){
+        return instrumentoService.getAll(pageable);
+    }
+
     @GetMapping("/{id}")
     public Instrumento obtenerInstrumentoPorId(@PathVariable Long id) {
         return instrumentoService.obtenerInstrumentoPorId(id);
