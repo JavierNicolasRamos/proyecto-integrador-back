@@ -18,8 +18,8 @@ public class InstrumentoController {
     private InstrumentoService instrumentoService;
 
     @PostMapping
-    public Instrumento crearInstrumento(@RequestBody InstrumentoDto instrumento) {
-        return instrumentoService.crearInstrumento(instrumento);
+    public Instrumento crearInstrumento(@RequestBody InstrumentoDto instrumento,@RequestPart(value = "file") MultipartFile file) {
+        return instrumentoService.crearInstrumento(instrumento, file);
     }
 
     @GetMapping

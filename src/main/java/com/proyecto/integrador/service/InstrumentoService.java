@@ -98,7 +98,7 @@ public class InstrumentoService {
 
     public void eliminarInstrumento(Long id) {
         try {
-            instrumentoRepository.deleteById(id);
+            instrumentoRepository.deleteById(id); //TODO: hacer un update para la columna eliminado (true/false)
         } catch (Exception e) {
             throw new EliminacionInstrumentoException("Error al eliminar el instrumento con ID: " + id);
         }
