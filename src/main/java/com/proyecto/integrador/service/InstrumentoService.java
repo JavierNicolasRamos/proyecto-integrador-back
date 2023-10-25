@@ -98,7 +98,14 @@ public class InstrumentoService {
 
     public void eliminarInstrumento(Long id) {
         try {
-            instrumentoRepository.deleteById(id); //TODO: hacer un update para la columna eliminado (true/false)
+            Optional<Instrumento> instrumentoOptional  = instrumentoRepository.findById(id);
+            instrumentoOptional.ifPresent(instrumento ->{
+                instrumento.setEliminado(true);
+                this.instrumentoRepository.save(instrumento);
+            });
+            if (instrumentoOptional.isEmpty()) {
+                throw new NonExistentInstrumentException("No se encontró el instrumento con ID: " + id);
+            }
         } catch (Exception e) {
             throw new EliminacionInstrumentoException("Error al eliminar el instrumento con ID: " + id);
         }

@@ -28,7 +28,7 @@ public class InstrumentoController {
         return instrumentoService.obtenerDiezInstrumentos(pageable);
     }
 
-    @GetMapping
+    @GetMapping("/paginado")
     public Page<Instrumento>getAll(Pageable pageable){
         return instrumentoService.getAll(pageable);
     }
