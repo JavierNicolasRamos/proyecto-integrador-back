@@ -1,10 +1,10 @@
 [
   {
     "nombre": "CF Series",
-    "descripcion": "¿Cómo se crea un instrumento que no deja espacio entre lo que el pianista quiere transmitir y lo que escucha? ¿Donde cada nota, color sutil y matiz se expresa tal como se imagina? ¿Dónde no se pierde ni una pizca de pasión en la traducción desde los dedos hasta las teclas, los martillos, la caja armónica y la resonancia que llena la sala de conciertos? ¿Y el sonido puro fluye sin esfuerzo del artista al piano y al público? Esta es la visión del CFX.",
+    "detalle": "¿Cómo se crea un instrumento que no deja espacio entre lo que el pianista quiere transmitir y lo que escucha? ¿Donde cada nota, color sutil y matiz se expresa tal como se imagina? ¿Dónde no se pierde ni una pizca de pasión en la traducción desde los dedos hasta las teclas, los martillos, la caja armónica y la resonancia que llena la sala de conciertos? ¿Y el sonido puro fluye sin esfuerzo del artista al piano y al público? Esta es la visión del CFX.",
     "categoria": {
       "descripcion":"Pianos"
-     },
+    },
     "puntuacion": 5.0,
     "imagen": [
       "https://www.yamaha.com/yamahavgn/PIM/Images/Image-Index_cfx_02_2000x2000_07b5394c2d5fc0ed037d717596d9e072.jpg",
@@ -22,8 +22,10 @@
   },
   {
     "nombre": "YUS SERIES",
-    "descripcion": "Los pianos de la serie YUS comparten muchas características de nuestros pianos emblemáticos de la serie CF. Desde cuerdas alemanas enrolladas a mano y fieltro martillado con calidad de concierto hasta una sonorización y regulación meticulosas que resaltan una gama de colores que recuerdan más a un piano de cola que a un vertical tradicional. Es simplemente el altavoz vertical con sonido más grandioso disponible.",
-    "categoria": "Pianos",
+    "detalle": "Los pianos de la serie YUS comparten muchas características de nuestros pianos emblemáticos de la serie CF. Desde cuerdas alemanas enrolladas a mano y fieltro martillado con calidad de concierto hasta una sonorización y regulación meticulosas que resaltan una gama de colores que recuerdan más a un piano de cola que a un vertical tradicional. Es simplemente el altavoz vertical con sonido más grandioso disponible.",
+    "categoria": {
+      "descripcion":"Pianos"
+    },
     "puntuacion": 4.5,
     "imagen": [
       "https://www.yamaha.com/us/pianos/images/YUS5-0f40cf45.jpg",
@@ -40,11 +42,11 @@
   },
   {
     "nombre": "Genos",
-    "descripcion": "Bienvenido al nuevo mundo de las estaciones de trabajo digitales. Genos es el nuevo referente en sonido, diseño y experiencia de usuario de estaciones de trabajo digitales. Ya sea que esté en un estudio de grabación o en el escenario, Genos inspirará su creación e interpretación musical.",
+    "detalle": "Bienvenido al nuevo mundo de las estaciones de trabajo digitales. Genos es el nuevo referente en sonido, diseño y experiencia de usuario de estaciones de trabajo digitales. Ya sea que esté en un estudio de grabación o en el escenario, Genos inspirará su creación e interpretación musical.",
     "categoria": {
       "descripcion":"Teclados"
     },
-    "puntuacion": 5,
+    "puntuacion": 5.0,
     "imagen": [
       "https://usa.yamaha.com/files/Img27413_6e95e4026d346252b29b4b4a3d8b819b.jpg?impolicy=resize&imwid=2000&imhei=800",
       "https://usa.yamaha.com/files/Img52184_new_780cf32c8e92f77464ab443aed23fd93.jpg?impolicy=resize&imwid=2000&imhei=800",
@@ -62,7 +64,7 @@
   },
   {
     "nombre": "PSR-SX900",
-    "descripcion": "Perfecto para escribir canciones, el PSR-SX900 está repleto de patrones rítmicos que abarcan muchos géneros, lo que lo hace ideal para crear el acompañamiento de sus ideas musicales y una inspiración invaluable para su próxima composición o arreglo. Junto con una enorme variedad de sonidos expresivos y armonía vocal, el PSR-SX900 es su compañero musical definitivo e inspirador.",
+    "detalle": "Perfecto para escribir canciones, el PSR-SX900 está repleto de patrones rítmicos que abarcan muchos géneros, lo que lo hace ideal para crear el acompañamiento de sus ideas musicales y una inspiración invaluable para su próxima composición o arreglo. Junto con una enorme variedad de sonidos expresivos y armonía vocal, el PSR-SX900 es su compañero musical definitivo e inspirador.",
     "categoria": {
       "descripcion":"Teclados"
     },
@@ -79,7 +81,7 @@
   },
   {
     "nombre": "PSR-A5000",
-    "descripcion": "Diseñado especialmente para músicos de todo el mundo, el PSR-A5000 se convierte en el mejor socio para sus mejores actuaciones en vivo y producción de contenido original. Explora las nuevas funciones e inspírate con el nuevo sonido.",
+    "detalle": "Diseñado especialmente para músicos de todo el mundo, el PSR-A5000 se convierte en el mejor socio para sus mejores actuaciones en vivo y producción de contenido original. Explora las nuevas funciones e inspírate con el nuevo sonido.",
     "categoria": {
       "descripcion":"Teclados"
     },
@@ -97,7 +99,7 @@
   },
   {
     "nombre": "PSR-S670",
-    "descripcion": "Una nueva generación de Arranger Workstation Con un diseño impresionante, nuevas voces y estilos y funciones de DJ, el PSR-S670 es un teclado de interpretación como ningún otro.",
+    "detalle": "Una nueva generación de Arranger Workstation Con un diseño impresionante, nuevas voces y estilos y funciones de DJ, el PSR-S670 es un teclado de interpretación como ningún otro.",
     "categoria": {
       "descripcion":"Teclados"
     },
@@ -114,7 +116,7 @@
   },
   {
     "nombre": "REVSTAR",
-    "descripcion": "La nueva serie Revstar ofrece tres niveles, dos opciones de pickup, nuevas opciones de cambio y una nueva gama de acabados inspirados en las carreras. Encuentre el ajuste perfecto para su sonido y su estilo.",
+    "detalle": "La nueva serie Revstar ofrece tres niveles, dos opciones de pickup, nuevas opciones de cambio y una nueva gama de acabados inspirados en las carreras. Encuentre el ajuste perfecto para su sonido y su estilo.",
     "categoria": {
       "descripcion":"Guitarras electricas"
     },
@@ -134,7 +136,7 @@
   },
   {
     "nombre": "Pacifica",
-    "descripcion": "Desarrollada originalmente en asociación con nuestra tienda personalizada de Los Ángeles, la serie fue diseñada para satisfacer las necesidades de los mejores guitarristas de sesión. Con una gama de opciones de pastillas y hardware, los modelos Pacifica actuales continúan ofreciendo versatilidad tonal, facilidad de ejecución y calidad meticulosa.",
+    "detalle": "Desarrollada originalmente en asociación con nuestra tienda personalizada de Los Ángeles, la serie fue diseñada para satisfacer las necesidades de los mejores guitarristas de sesión. Con una gama de opciones de pastillas y hardware, los modelos Pacifica actuales continúan ofreciendo versatilidad tonal, facilidad de ejecución y calidad meticulosa.",
     "categoria": {
       "descripcion":"Guitarras electricas"
     },
@@ -154,7 +156,7 @@
   },
   {
     "nombre": "Hollow",
-    "descripcion": "La serie Hollow se ha enfrentado a continuos cambios de modelo y nuevas ampliaciones de gama en respuesta a las demandas y tendencias del mercado desde 1966. Tal logro sólo lo ha logrado Yamaha porque ninguna otra empresa ha desarrollado tanto artesanía acústica como tecnología electrónica. Las alineaciones actuales ofrecen varios estilos de carrocería y configuraciones de camionetas para adaptarse a una amplia gama de solicitudes de los guitarristas.",
+    "detalle": "La serie Hollow se ha enfrentado a continuos cambios de modelo y nuevas ampliaciones de gama en respuesta a las demandas y tendencias del mercado desde 1966. Tal logro sólo lo ha logrado Yamaha porque ninguna otra empresa ha desarrollado tanto artesanía acústica como tecnología electrónica. Las alineaciones actuales ofrecen varios estilos de carrocería y configuraciones de camionetas para adaptarse a una amplia gama de solicitudes de los guitarristas.",
     "categoria": {
       "descripcion":"Guitarras electricas"
     },
@@ -172,7 +174,7 @@
   },
   {
     "nombre": "FG9",
-    "descripcion": "La serie FG es la base de la guitarra acústica Yamaha y abarca desde líneas premium hasta estándar para ofrecer un mayor nivel de expresión a cada cantautor..",
+    "detalle": "La serie FG es la base de la guitarra acústica Yamaha y abarca desde líneas premium hasta estándar para ofrecer un mayor nivel de expresión a cada cantautor..",
     "categoria": {
       "descripcion":"Guitarras electricas"
     },
@@ -192,7 +194,7 @@
   },
   {
     "nombre": "STORIA",
-    "descripcion": "Invita la música a tu vida con la elegante e inspiradora serie STORIA: guitarras que reflejan tu estilo personal e inspiran creatividad de un vistazo.",
+    "detalle": "Invita la música a tu vida con la elegante e inspiradora serie STORIA: guitarras que reflejan tu estilo personal e inspiran creatividad de un vistazo.",
     "categoria": {
       "descripcion":"Guitarras electricas"
     },
@@ -211,7 +213,7 @@
   },
   {
     "nombre": "F / FX Series",
-    "descripcion": "La opción número 1 para experimentar la música. Perfecto tanto para estudiantes de guitarra como para músicos experimentados.",
+    "detalle": "La opción número 1 para experimentar la música. Perfecto tanto para estudiantes de guitarra como para músicos experimentados.",
     "categoria": {
       "descripcion":"Guitarras acústicas"
     },
