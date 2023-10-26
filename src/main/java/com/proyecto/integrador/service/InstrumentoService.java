@@ -24,12 +24,7 @@ public class InstrumentoService {
 
     @Autowired
     private ImagenService imagenService;
-
-    @Autowired
-    public InstrumentoService(InstrumentoRepository instrumentoRepository) {
-        this.instrumentoRepository = instrumentoRepository;
-    }
-
+    
     @Transactional
     public Instrumento crearInstrumento(InstrumentoDto instrumentoDto) {
         Optional<Instrumento> existeInstrumento = instrumentoRepository.getByNombre(instrumentoDto.getNombre());
