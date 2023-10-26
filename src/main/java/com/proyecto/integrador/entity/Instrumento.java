@@ -25,6 +25,7 @@ public class Instrumento {
     private LocalDate fechaCarga;
     private LocalDate fechaUpdate;
     private Boolean disponible;
+    @Column(columnDefinition = "TEXT")
     private String detalle;
     private Boolean eliminado;
     private Double puntuacion;
