@@ -1,7 +1,6 @@
 package com.proyecto.integrador.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.proyecto.integrador.dto.InstrumentoDto;
 import com.proyecto.integrador.entity.Categoria;
 import com.proyecto.integrador.entity.Instrumento;
 import com.proyecto.integrador.exception.DuplicateInstrumentException;
@@ -37,7 +36,7 @@ public class DataSeedConfig {
     @Bean
     @Order(1)
     public Map<String, Object> dataSeed() throws IOException {
-        InputStream inputStream = getClass().getResourceAsStream("/dataSeed.json");
+        InputStream inputStream = getClass().getResourceAsStream("dataSeed.json");
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, Object> data = objectMapper.readValue(inputStream, Map.class);
 
