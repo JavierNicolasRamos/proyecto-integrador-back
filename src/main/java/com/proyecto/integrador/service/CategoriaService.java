@@ -11,6 +11,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 @Service
 public class CategoriaService {
@@ -18,11 +19,6 @@ public class CategoriaService {
     private CategoriaRepository categoriaRepository;
     @Autowired
     private InstrumentoRepository instrumentoRepository;
-
-    @Autowired
-    public CategoriaService(CategoriaRepository categoriaRepository){ //La inyeccion mediante constructor de CategoriaRepository esta de mas, ya que se realiza la inyeccion directamente en la linea 12//ELIMINAR
-        this.categoriaRepository = categoriaRepository;//ELIMINAR
-    }//ELIMINAR
 
     @Transactional
     public Categoria crearCategoria(CategoriaDto categoriaDto){
@@ -32,43 +28,44 @@ public class CategoriaService {
         }
         Categoria categoria = new Categoria();
         categoria.setDescripcion(categoriaDto.getDescripcion());
+        categoria.setEliminado(false);
 
         categoriaRepository.save(categoria);
         //LOGGER.info("Categoria guardada correctamente")
         return categoria;
     }
 
-    public CategoriaDto buscarCategoriaPorDescripcion(String descripcion) throws CategoriaNotFoundException { //Por el momento, retornar categoria, no categoriaDto.
-
-        try {
-            categoriaRepository.findByDescripcion(descripcion); //Donde se almacena el resultado de esta consulta?
-        }catch(CategoriaNotFoundException e){
-            throw new CategoriaNotFoundException("La categoria buscada no existe");
-        }
-
-        Optional<Categoria> categoria = categoriaRepository.findByDescripcion(descripcion);//Se estan realizando dos consultas, una en la linea 44 y otra en la linea 49. Eliminar de la linea 43 a la linea 47. Realizar validaciones
-        //Con los metodos del objeto Optional, en caso de que el Optional no arroje resultados, lanzar la excepcion de la linea 46.
-        CategoriaDto categoriaDto = new CategoriaDto();
-
-        categoriaDto.setId(categoria.get().getId());
-        categoriaDto.setDescripcion(categoria.get().getDescripcion());
-        categoriaDto.setEliminado(categoria.get().getEliminado());
-        return categoriaDto;
+    public Categoria buscarCategoriaPorDescripcion(String descripcion){ //Por el momento, retornar categoria, no categoriaDto
+        Optional<Categoria> optionalCategoria = Optional.ofNullable(categoriaRepository.findByDescripcion(descripcion).orElseThrow(() ->
+                   new CategoriaNotFoundException("La categoria no existe"))); //Donde se almacena el resultado de esta consulta?
+            return optionalCategoria.get();
     }
-
-
     public Long contarInstrumentosPorCategoria(Long id){
-        return instrumentoRepository.countAllByCategoria(id); //Realizar un manejo de errores en el metodo con un try/catch
+        Optional<Categoria> optionalCategoria = Optional.ofNullable(categoriaRepository.findById(id).orElseThrow(() ->
+                new CategoriaNotFoundException("La categoria no existe")));
+        return instrumentoRepository.countAllByCategoriaAndEliminado(id);//Realizar un manejo de errores en el metodo con un try/catch
 
     }
 
     //Realizar metodo de eliminacion de categoria, la eliminacion sera mediante operador logico. En caso de que se elimine, debe pasar todos los instrumentos de la categoria a eliminados.
-    public Boolean eliminarInstrunmentosPorCategoria(Long id){ //Como indica el comentario anterior, la eliminacion sera mediante operador logico. Eliminar las querys deleteAllByCategoria y deleteById ya que estan realizando un insert no un update.
-        //Elimino todos los instrumentos
-        instrumentoRepository.deleteAllByCategoria(id);
-        //Elimino la categoria
-        categoriaRepository.deleteById(id);
-        return true;
+    public void eliminarInstrunmentosPorCategoria(Long id){
+        //Verifico que la categoria existe
+        Optional<Categoria> optionalCategoria = Optional.ofNullable(categoriaRepository.findById(id).orElseThrow(() ->
+                new CategoriaNotFoundException("La categoria no existe")));
+
+        Categoria categoria = optionalCategoria.get();//Si existe
+        categoria.setEliminado(Boolean.TRUE);//Cambio el atributo a eliminado
+        categoriaRepository.save(categoria);//Guardo el objeto con la categoria cambiada
+
+        //FindAllById
+        List<Instrumento> instrumentoList = instrumentoRepository.findAllByCategoria(categoria);
+            //For
+        for (Instrumento instrumento : instrumentoList ) {
+            //modificar
+            instrumento.setEliminado(Boolean.TRUE);
+        }
+        //saveAll
+        instrumentoRepository.saveAll(instrumentoList);
     }
 
 

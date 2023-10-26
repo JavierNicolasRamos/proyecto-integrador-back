@@ -23,8 +23,8 @@ public class GlobalExceptionHandler {
     }
 
     //Por que esta comentado el metodo?
-    //@ExceptionHandler(DuplicateCategoriaException.class)
-    //public ResponseEntity<String> handleException(Exception e){
-    //    return new ResponseEntity<>("Categoria duplicada: " + e.getMessage(), HttpStatus.BAD_REQUEST);
-    //}
+    @ExceptionHandler(DuplicateCategoriaException.class)
+    public ResponseEntity<String> handleException(DuplicateCategoriaException e){
+        return new ResponseEntity<>("Categoria duplicada: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 }

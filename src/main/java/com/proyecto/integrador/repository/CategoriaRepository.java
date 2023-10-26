@@ -11,9 +11,9 @@ import java.util.Optional;
 public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
 
     Optional<Categoria> findByDescripcion(String descripcion);
-    Long countAllByDescripcion(String descripcion);
 
     //ELIMINAR
-    @Query(value = "INSERT INTO CATEGORIAS (elimando) VALUE (1) WHERE id = :id", nativeQuery = true)
+    @Query(value = "UPDATE CATEGORIAS SET eliminado = 1 WHERE id = :id", nativeQuery = true)
     void deleteById(@Param("id") Long id);
+
 }
