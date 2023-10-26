@@ -72,9 +72,12 @@ public class ReservaService {
         logger.info("Iniciando el proceso de obtención de la reserva con ID: " + id);
         try {
             Optional<Reserva> reservaOptional = Optional.ofNullable(reservaRepository.findById(id).orElseThrow(()
-                    -> new EntityNotFoundException("No se encontró la reserva")));
+                    -> {
+                logger.error("Se produjo una excepción, No se encontró la reserva");
+                return new EntityNotFoundException("No se encontró la reserva");
+            }));
+            logger.info("Reserva obtenida con éxito. ID: " + reservaOptional.get().getId());
             return reservaOptional.get();
-            logger.info("Reserva obtenida con éxito. ID: " + reserva.getId());
         } catch (EntityNotFoundException e) {
             logger.error("Se produjo una excepción al obtener la reserva: " + e.getMessage());
             throw e;
@@ -107,7 +110,7 @@ public class ReservaService {
         if (reservaOptional.isPresent()) {
 
             Reserva reservaExistente = reservaOptional.get();
-            logger.info("Reserva encontrada y será actualizada. ID: " + reservaExistente.getId());
+            logger.info("Reserva encontrada y será actualizada : " + reservaExistente);
 
             reservaExistente.setUsuario(reservaDto.getUsuario());
             reservaExistente.setInstrumento(reservaDto.getInstrumento());
@@ -125,17 +128,17 @@ public class ReservaService {
                 logger.error("No se encontró el instrumento con el ID: " + reservaDto.getInstrumento().getId());
                 throw new InstrumentoNotFoundException("No se encontró el instrumento con el ID: " + reservaDto.getInstrumento().getId());
             }
-            Reserva reservaActualizada = reservaRepository.save(reservaExistente);
-            logger.info("Reserva actualizada con éxito. ID: " + reservaActualizada.getId());
-            return reservaActualizada;
+
+            logger.info("Reserva actualizada con éxito. ID: " + reservaExistente.getId());
+            return this.reservaRepository.save(reservaExistente);
         } else {
             logger.error("No se encontró la reserva con ID: " + id);
             throw new NonExistentReservaException("No se encontró la reserva con ID: " + id);
         }
     }catch (Exception e) {
-        Logger.error("Se produjo un error al actualizar la reserva: " + e.getMessage());
+        logger.error("Se produjo un error al actualizar la reserva: " + e.getMessage());
         throw e;
-    }
+        }
     }
 
 
