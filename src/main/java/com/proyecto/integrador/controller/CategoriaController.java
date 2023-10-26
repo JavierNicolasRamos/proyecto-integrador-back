@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -40,5 +41,10 @@ public class CategoriaController {
 
     @DeleteMapping("/{id}")//Cambiar por "/{id}"
     public void eliminarInstrumentosPorCategoria(@PathVariable Long id){
+    }
+
+    @GetMapping
+    public List<Categoria> listarCategorias(){
+        return categoriaService.listarCategorias();
     }
 }

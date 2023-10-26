@@ -68,6 +68,10 @@ public class CategoriaService {
         instrumentoRepository.saveAll(instrumentoList);
     }
 
+    public List<Categoria> listarCategorias(){
+        return categoriaRepository.findAllByEliminado(false);
+    }
+
 
 }
 

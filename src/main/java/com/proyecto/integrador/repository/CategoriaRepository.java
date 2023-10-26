@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 
+import java.util.List;
 import java.util.Optional;
 
 public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
@@ -15,5 +16,7 @@ public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
     //ELIMINAR
     @Query(value = "UPDATE CATEGORIAS SET eliminado = 1 WHERE id = :id", nativeQuery = true)
     void deleteById(@Param("id") Long id);
+
+    List<Categoria> findAllByEliminado(Boolean eliminado);
 
 }
