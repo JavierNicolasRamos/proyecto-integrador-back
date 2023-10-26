@@ -9,6 +9,7 @@ import com.proyecto.integrador.exception.NonExistentInstrumentException;
 import com.proyecto.integrador.repository.InstrumentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
@@ -49,7 +50,9 @@ public class InstrumentoService {
 
     public Page<Instrumento> obtenerDiezInstrumentos(Pageable pageable) {
         try {
-            return instrumentoRepository.findRandomInstruments(pageable);
+            // Establece el tamaño de página deseado en 10
+            Pageable pageRequest = PageRequest.of(pageable.getPageNumber(), 10);
+            return instrumentoRepository.findRandomInstruments(pageRequest);
         } catch (EmptyResultDataAccessException ex) {
             throw new NotFoundException("No se encontraron instrumentos aleatorios.");
         } catch (Exception ex) {
