@@ -1,6 +1,9 @@
 package com.proyecto.integrador.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,12 +22,15 @@ public class Reserva {
     @Column(name = "id")
     private Long id;
 
+    @NotNull(message = "El campo 'usuario' no puede ser nulo")
     @ManyToOne
     private Usuario usuario;
 
+    @NotNull(message = "El campo 'proveedor' no puede ser nulo")
     @ManyToOne
     private Usuario proveedor;
 
+    @NotNull(message = "El campo 'instrumento' no puede ser nulo")
     @ManyToOne
     private Instrumento instrumento;
 
@@ -32,7 +38,6 @@ public class Reserva {
     private LocalDate inicioReserva;
     private LocalDate finReserva;
     private Boolean eliminado;
-    private String email;
 
     @Override
     public String toString(){
@@ -45,7 +50,6 @@ public class Reserva {
                 "\n  inicioReserva= " + this.inicioReserva +
                 "\n  finReserva= " + this.finReserva +
                 "\n  eliminado= " + this.eliminado +
-                "\n  email= " + this.email +
                 "\n}";
     }
 
@@ -64,7 +68,7 @@ public class Reserva {
                 "\n" + indent + "  inicioReserva= " + this.inicioReserva +
                 "\n" + indent + "  finReserva= " + this.finReserva +
                 "\n" + indent + "  eliminado= " + this.eliminado +
-                "\n" + indent + "  email= " + this.email +
+
                 "\n" + indent + "}";
     }
 }

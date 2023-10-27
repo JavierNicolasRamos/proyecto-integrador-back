@@ -21,4 +21,10 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleException(Exception e) {
         return new ResponseEntity<>("Ocurrió un error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    //Por que esta comentado el metodo?
+    @ExceptionHandler(DuplicateCategoriaException.class)
+    public ResponseEntity<String> handleException(DuplicateCategoriaException e){
+        return new ResponseEntity<>("Categoria duplicada: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 }
