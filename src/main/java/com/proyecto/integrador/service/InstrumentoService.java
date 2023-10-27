@@ -62,9 +62,9 @@ public class InstrumentoService {
     }
 
     public Instrumento obtenerInstrumentoPorId(Long id) {
-        Optional<Instrumento> instrumento = Optional.ofNullable(instrumentoRepository.buscarPorId(id)).orElseThrow(()
+        Instrumento instrumento = instrumentoRepository.buscarPorId(id).orElseThrow(()
                 -> new EntityNotFoundException("No se encontró el instrumento"));
-        return instrumento.get();
+        return instrumento;
     }
 
     @Transactional

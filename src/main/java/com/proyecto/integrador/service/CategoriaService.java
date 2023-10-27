@@ -35,22 +35,20 @@ public class CategoriaService {
     }
 
     public Categoria buscarCategoriaPorDescripcion(String descripcion){
-        Optional<Categoria> optionalCategoria = Optional.ofNullable(categoriaRepository.findByDescripcion(descripcion).orElseThrow(() ->
-                   new CategoriaNotFoundException("La categoria no existe")));
-            return optionalCategoria.get();
+        Categoria categoria = categoriaRepository.findByDescripcion(descripcion).orElseThrow(() ->
+                   new CategoriaNotFoundException("La categoria no existe"));
+            return categoria;
     }
     public Long contarInstrumentosPorCategoria(Long id){
-        Optional<Categoria> optionalCategoria = Optional.ofNullable(categoriaRepository.findById(id).orElseThrow(() ->
-                new CategoriaNotFoundException("La categoria no existe")));
-        return instrumentoRepository.countAllByCategoriaAndEliminado(id);
-
+        Categoria categoria = categoriaRepository.findById(id).orElseThrow(() ->
+                new CategoriaNotFoundException("La categoria no existe"));
+        return instrumentoRepository.countAllByCategoriaAndEliminado(categoria.getId());
     }
 
     public void eliminarInstrunmentosPorCategoria(Long id){
-        Optional<Categoria> optionalCategoria = Optional.ofNullable(categoriaRepository.findById(id).orElseThrow(() ->
-                new CategoriaNotFoundException("La categoria no existe")));
+        Categoria categoria = categoriaRepository.findById(id).orElseThrow(() ->
+                new CategoriaNotFoundException("La categoria no existe"));
 
-        Categoria categoria = optionalCategoria.get();
         categoria.setEliminado(true);
         categoriaRepository.save(categoria);//
 

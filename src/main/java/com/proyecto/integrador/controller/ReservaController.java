@@ -29,10 +29,9 @@ public class ReservaController {
         return reservaService.crearReserva(reservaDto);
     }
 
-    @PutMapping("/{id}")
-    public Reserva actualizarReserva(@PathVariable Long id, @RequestBody ReservaDto reservaDto) {
-        reservaDto.setId(id);
-        return reservaService.actualizarReserva(id, reservaDto);
+    @PutMapping
+    public Reserva actualizarReserva(@RequestBody ReservaDto reservaDto) {
+        return reservaService.actualizarReserva(reservaDto);
     }
 
     @DeleteMapping("/{id}")
