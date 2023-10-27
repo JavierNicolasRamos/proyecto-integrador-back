@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import com.fasterxml.jackson.core.type.TypeReference;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
@@ -38,7 +39,7 @@ public class DataSeedConfig {
     @Bean
     @Order(1)
     public List<Map<String, Object>> dataSeed() throws IOException {
-        InputStream inputStream = getClass().getResourceAsStream("/dataSeed.json");
+        InputStream inputStream = new ClassPathResource("dataSeed.json").getInputStream();
         ObjectMapper objectMapper = new ObjectMapper();
         List<Map<String, Object>> data = objectMapper.readValue(inputStream, new TypeReference<List<Map<String, Object>>>() {});
 

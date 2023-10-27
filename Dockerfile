@@ -10,6 +10,8 @@ COPY ./pom.xml /app
 COPY ./.mvn ./.mvn
 COPY ./mvnw .
 COPY ./pom.xml .
+# Copy dataSeed.json
+COPY ./src/main/resources/dataSeed.json /app/$APPLICATION_NAME/src/main/resources/
 
 # Install dos2unix and convert mvnw to Unix format
 RUN apk update && apk add dos2unix
