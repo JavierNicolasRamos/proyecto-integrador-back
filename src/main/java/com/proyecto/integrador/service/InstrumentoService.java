@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -49,11 +50,10 @@ public class InstrumentoService {
         return instrumento;
     }
 
-    public Page<Instrumento> obtenerDiezInstrumentos(Pageable pageable) {
+    public List<Instrumento> obtenerDiezInstrumentos() {
         try {
             // Establece el tamaño de página deseado en 10
-            Pageable pageRequest = PageRequest.of(pageable.getPageNumber(), 10);
-            return instrumentoRepository.findRandomInstruments(pageRequest);
+            return instrumentoRepository.findRandomInstruments();
         } catch (EmptyResultDataAccessException ex) {
             throw new NotFoundException("No se encontraron instrumentos aleatorios.");
         } catch (Exception ex) {
