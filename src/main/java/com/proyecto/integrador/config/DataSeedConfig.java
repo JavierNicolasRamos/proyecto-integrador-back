@@ -66,6 +66,7 @@ public class DataSeedConfig {
                 if (!existeCategoria.isPresent()) {
                     Categoria categoria = new Categoria();
                     categoria.setDescripcion(categoriaDescripcion);
+                    categoria.setEliminado(false);
                     this.categoriaRepository.save(categoria);
                     instrumento.setCategoria(categoria);
                 } else {
