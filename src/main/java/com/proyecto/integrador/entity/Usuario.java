@@ -2,6 +2,9 @@ package com.proyecto.integrador.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,11 +26,34 @@ public class Usuario {
     @JsonIgnore
     private List<Reserva> reservas;
 
+    @NotNull(message = "El campo 'nombre' no puede ser nulo")
+    @NotBlank(message = "El campo 'nombre' no puede estar en blanco")
     private String nombre;
+
+    @NotNull(message = "El campo 'apellido' no puede ser nulo")
+    @NotBlank(message = "El campo 'apellido' no puede estar en blanco")
     private String apellido;
+
+    @NotNull(message = "El campo 'administrador' no puede ser nulo")
     private Boolean administrador;
+
+    @NotNull(message = "El campo 'codigoArea' no puede ser nulo")
+    @NotBlank(message = "El campo 'codigoArea' no puede estar en blanco")
     private int codigoArea;
+
+    @NotNull(message = "El campo 'prefijo' no puede ser nulo")
+    @NotBlank(message = "El campo 'prefijo' no puede estar en blanco")
     private int prefijo;
+
+    @NotNull(message = "El campo 'numero' no puede ser nulo")
+    @NotBlank(message = "El campo 'numero' no puede estar en blanco")
     private int numero;
+
+    @NotNull(message = "El campo 'movil' no puede ser nulo")
     private Boolean movil;
+
+    @NotNull(message = "El campo 'email' no puede ser nulo")
+    @NotBlank(message = "El campo 'email' no puede estar en blanco")
+    @Email(message = "El campo 'email' debe ser una dirección de correo electrónico válida")
+    private String email;
 }

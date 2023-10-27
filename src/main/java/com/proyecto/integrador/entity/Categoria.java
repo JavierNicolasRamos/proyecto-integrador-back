@@ -2,6 +2,9 @@ package com.proyecto.integrador.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,6 +23,9 @@ public class Categoria {
     @Column(name = "id")
     private Long id;
 
+    @NotBlank(message = "La descripcion no puede estar en blanco")
+    @NotEmpty(message = "La descripcion no puede estar vacía")
+    @Size(min = 5, message = "La descripcion debe tener al menos 5 carácteres")
     private String descripcion;
 
     @OneToMany(mappedBy = "categoria")
