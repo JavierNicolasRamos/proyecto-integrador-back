@@ -25,4 +25,6 @@ public class Categoria {
     @OneToMany(mappedBy = "categoria")
     @JsonIgnore
     private List<Instrumento> instrumento;
+    //No hace falta indicar el nombre de la columna, ya que posee el mismo nombre. Eliminar la linea.
+    private Boolean eliminado;
 }
