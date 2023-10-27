@@ -25,6 +25,7 @@ public class Instrumento {
     private LocalDate fechaCarga;
     private LocalDate fechaUpdate;
     private Boolean disponible;
+    @Column(columnDefinition = "TEXT")
     private String detalle;
     private Boolean eliminado;
     private Double puntuacion;
@@ -33,7 +34,6 @@ public class Instrumento {
     private Categoria categoria;
 
     @OneToMany(mappedBy = "instrumento")
-    @JsonIgnore
     private List<Imagen> imagen;
 
     @OneToMany(mappedBy = "instrumento")

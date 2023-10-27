@@ -26,4 +26,8 @@ public class Usuario {
     private String nombre;
     private String apellido;
     private Boolean admin;
+    private int codigoArea;
+    private int prefijo;
+    private int numero;
+    private Boolean movil;
 }

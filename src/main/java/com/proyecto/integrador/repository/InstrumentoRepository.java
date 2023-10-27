@@ -20,12 +20,12 @@ public interface InstrumentoRepository extends JpaRepository<Instrumento, Long> 
 
     @Query(value = "SELECT * FROM INSTRUMENTOS WHERE eliminado = false", nativeQuery = true)
     Page<Instrumento> getAll(Pageable pageable);
-    
-    @Query(value = "SELECT * FROM INSTRUMENTOS WHERE id = :id AND eliminado = false", nativeQuery = true)
-    Optional<Instrumento> buscarPorId(@Param("id") Long id);
 
     @Query(value = "COUNT(*) FROM instrumentos WHERE categoria_id = :categoria_id AND WHERE eliminado  = 0", nativeQuery = true)
     Long countAllByCategoriaAndEliminado(@Param("categoria_id") Long id);
 
     List<Instrumento> findAllByCategoria(Categoria categoria);
+
+    @Query(value = "SELECT * FROM INSTRUMENTOS WHERE id = :id AND eliminado = false", nativeQuery = true)
+    Optional<Instrumento> buscarPorId(@Param("id") Long id);
 }

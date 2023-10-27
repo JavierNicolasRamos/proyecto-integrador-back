@@ -4,10 +4,13 @@ import com.proyecto.integrador.dto.InstrumentoDto;
 import com.proyecto.integrador.entity.Instrumento;
 import com.proyecto.integrador.exception.DuplicateInstrumentException;
 import com.proyecto.integrador.exception.EliminacionInstrumentoException;
+import com.proyecto.integrador.exception.InstrumentoGetAllException;
 import com.proyecto.integrador.exception.NonExistentInstrumentException;
 import com.proyecto.integrador.repository.InstrumentoRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
@@ -23,12 +26,7 @@ public class InstrumentoService {
 
     @Autowired
     private ImagenService imagenService;
-
-    @Autowired
-    public InstrumentoService(InstrumentoRepository instrumentoRepository) {
-        this.instrumentoRepository = instrumentoRepository;
-    }
-
+    
     @Transactional
     public Instrumento crearInstrumento(InstrumentoDto instrumentoDto) {
         Optional<Instrumento> existeInstrumento = instrumentoRepository.getByNombre(instrumentoDto.getNombre());
@@ -53,7 +51,9 @@ public class InstrumentoService {
 
     public Page<Instrumento> obtenerDiezInstrumentos(Pageable pageable) {
         try {
-            return instrumentoRepository.findRandomInstruments(pageable);
+            // Establece el tamaño de página deseado en 10
+            Pageable pageRequest = PageRequest.of(pageable.getPageNumber(), 10);
+            return instrumentoRepository.findRandomInstruments(pageRequest);
         } catch (EmptyResultDataAccessException ex) {
             throw new NotFoundException("No se encontraron instrumentos aleatorios.");
         } catch (Exception ex) {
@@ -62,8 +62,9 @@ public class InstrumentoService {
     }
 
     public Instrumento obtenerInstrumentoPorId(Long id) {
-        Optional<Instrumento> instrumento = instrumentoRepository.findById(id);
-        return instrumento.orElse(null);
+        Optional<Instrumento> instrumento = Optional.ofNullable(instrumentoRepository.buscarPorId(id)).orElseThrow(()
+                -> new EntityNotFoundException("No se encontró el instrumento"));
+        return instrumento.get();
     }
 
     @Transactional
@@ -97,9 +98,24 @@ public class InstrumentoService {
 
     public void eliminarInstrumento(Long id) {
         try {
-            instrumentoRepository.deleteById(id);
+            Optional<Instrumento> instrumentoOptional  = instrumentoRepository.findById(id);
+            instrumentoOptional.ifPresent(instrumento ->{
+                instrumento.setEliminado(true);
+                this.instrumentoRepository.save(instrumento);
+            });
+            if (instrumentoOptional.isEmpty()) {
+                throw new NonExistentInstrumentException("No se encontró el instrumento con ID: " + id);
+            }
         } catch (Exception e) {
             throw new EliminacionInstrumentoException("Error al eliminar el instrumento con ID: " + id);
+        }
+    }
+
+    public Page<Instrumento> getAll(Pageable pageable) {
+        try {
+            return instrumentoRepository.getAll(pageable);
+        } catch (Exception e) {
+            throw new InstrumentoGetAllException("Error al recuperar la lista de instrumentos.", e);
         }
     }
 }
