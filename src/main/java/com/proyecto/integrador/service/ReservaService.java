@@ -1,6 +1,7 @@
 package com.proyecto.integrador.service;
 
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import com.proyecto.integrador.dto.ReservaDto;
 import com.proyecto.integrador.entity.Instrumento;
 import com.proyecto.integrador.entity.Reserva;
@@ -24,31 +25,46 @@ public class ReservaService {
     @Autowired
     private InstrumentoRepository instrumentoRepository;
 
+    private static final Logger logger = LogManager.getLogger(ReservaService.class);
+
+
 
     @Transactional
     public Reserva crearReserva(ReservaDto reservaDto) {
 
+        logger.info("Iniciando el proceso de creación de reserva...");
+        try {
+            Optional<Instrumento> optionalInstrumento = instrumentoRepository.findById(reservaDto.getInstrumento().getId());
+            Instrumento instrumento = optionalInstrumento.orElseThrow(() -> new EntityNotFoundException("El instrumento no está disponible para la reserva"));
 
-        Optional<Instrumento> optionalInstrumento = instrumentoRepository.findById(reservaDto.getInstrumento().getId());
-        Instrumento instrumento = optionalInstrumento.orElseThrow(() -> new EntityNotFoundException("El instrumento no está disponible para la reserva"));
-        if (!instrumento.getDisponible()) {
-            throw new EntityNotFoundException("El instrumento no está disponible para la reserva");
+            logger.info("Se va a modificar el objeto Instrumento, atributo disponible: " + instrumento.getDisponible());
+
+            if (!instrumento.getDisponible()) {
+                logger.warn("El instrumento no está disponible para la reserva.");
+                throw new EntityNotFoundException("El instrumento no está disponible para la reserva");
+            }
+
+            Reserva reserva = new Reserva();
+            reserva.setUsuario(reservaDto.getUsuario());
+            reserva.setInstrumento(instrumento);
+            //COMUNICAR LOS INFORMAR AL EQUIPO DE FRONT
+            reserva.setReservaActiva(reservaDto.getReservaActiva()); //TODO: ver si lo pongo true o esperar al front (a confirmar)
+            reserva.setInicioReserva(reservaDto.getInicioReserva()); //TODO: ver si lo pongo localdate.now() o esperar al front (a confirmar)
+            reserva.setFinReserva(reservaDto.getFinReserva());  //TODO: ver si lo pongo localdate +5 dias o esperar al front (a confirmar)
+
+
+            instrumento.setDisponible(false);
+            instrumentoRepository.save(instrumento);
+            logger.info("El objeto Instrumento fue modificado correctamente, atributo disponible: " + instrumento.getDisponible());
+
+            reservaRepository.save(reserva);
+            logger.info("Reserva creada con éxito.");
+
+            return reserva;
+        } catch (Exception e) {
+            logger.error("Se produjo un error al crear la reserva: " + e.getMessage());
+            throw e;
         }
-
-        Reserva reserva = new Reserva();
-        reserva.setUsuario(reservaDto.getUsuario());
-        reserva.setInstrumento(instrumento);
-        //COMUNICAR LOS INFORMAR AL EQUIPO DE FRONT
-        reserva.setReservaActiva(reservaDto.getReservaActiva()); //TODO: ver si lo pongo true o esperar al front (a confirmar)
-        reserva.setInicioReserva(reservaDto.getInicioReserva()); //TODO: ver si lo pongo localdate.now() o esperar al front (a confirmar)
-        reserva.setFinReserva(reservaDto.getFinReserva());  //TODO: ver si lo pongo localdate +5 dias o esperar al front (a confirmar)
-
-
-        instrumento.setDisponible(false);
-        instrumentoRepository.save(instrumento);
-
-        reservaRepository.save(reserva);
-        return reserva;
     }
 
 
@@ -60,9 +76,14 @@ public class ReservaService {
 
 
     public List<Reserva> listarReservas() {
+        logger.info("Iniciando el proceso de listado de reservas...");
+
         try {
-            return reservaRepository.findAll();
+            List<Reserva> reservas = reservaRepository.findAll();
+            logger.info("Se obtuvieron " + reservas.size() + " reservas.");
+            return reservas;
         } catch (Exception e) {
+            logger.error("Ocurrió un error al listar las reservas: " + e.getMessage());
             throw new ListarReservasException("Ocurrió un error al listar las reservas", e);
         }
     }
@@ -70,31 +91,34 @@ public class ReservaService {
 
     @Transactional
     public Reserva actualizarReserva(ReservaDto reservaDto) {
+    logger.info("Iniciando el proceso de actualización de reserva con ID: " + id);
 
         Reserva reserva = reservaRepository.findById(reservaDto.getId()).orElseThrow(()
                 -> new NonExistentReservaException("No se encontró la reserva"));
         try {
+            logger.info("Reserva encontrada y será actualizada : " + reserva);
             reserva.setUsuario(reservaDto.getUsuario());
             reserva.setInstrumento(reservaDto.getInstrumento());
             reserva.setReservaActiva(reservaDto.getReservaActiva());
             reserva.setInicioReserva(reservaDto.getInicioReserva());
             reserva.setFinReserva(reservaDto.getFinReserva());
-
             Optional<Instrumento> optionalInstrumento = instrumentoRepository.findById(reservaDto.getInstrumento().getId());
             if (optionalInstrumento.isPresent()) {
                 Instrumento instrumento = optionalInstrumento.get();
                 instrumento.setDisponible(false);
-
                 instrumentoRepository.save(instrumento);
+                logger.info("Instrumento actualizado para reserva. ID: " + instrumento.getId());
             } else {
+                logger.error("No se encontró el instrumento con el ID: " + reservaDto.getInstrumento().getId());
                 throw new InstrumentoNotFoundException("No se encontró el instrumento con el ID: " + reservaDto.getInstrumento().getId());
             }
-
             return reservaRepository.save(reserva);
         }
         catch (RuntimeException e){
-            throw e;//Lanzar excepcion personalizada
+          logger.error("Se produjo un error al actualizar la reserva: " + e.getMessage());
+          throw e;
         }
+
 
     }
 
@@ -102,6 +126,8 @@ public class ReservaService {
 
     @Transactional
     public void eliminarReserva(Long id) {
+        logger.info("Iniciando el proceso de eliminación de reserva con ID: " + id);
+
         try {
             Reserva reserva = reservaRepository.findById(id)
                     .orElseThrow(() -> new EntityNotFoundException("No se encontró la reserva con ID: " + id));
@@ -111,12 +137,16 @@ public class ReservaService {
             if (reserva.getInstrumento() != null) {
                 reserva.getInstrumento().setDisponible(true);
                 instrumentoRepository.save(reserva.getInstrumento());
+                logger.info("Instrumento asociado a la reserva con ID " + id + " marcado como disponible.");
             } else {
                 throw new InstrumentoNotFoundException("No se encontró un instrumento asociado a la reserva con ID: " + id);
+                logger.error("No se encontró un instrumento asociado a la reserva con ID: " + id);
             }
             reservaRepository.save(reserva);
+            logger.info("Reserva con ID " + id + " marcada como eliminada.");
 
         } catch (Exception e) {
+            logger.error("Se produjo un error al eliminar la reserva con ID: " + id + ". Error: " + e.getMessage());
             throw new EliminacionReservaException("Error al eliminar la reserva con ID: " + id);
         }
     }
