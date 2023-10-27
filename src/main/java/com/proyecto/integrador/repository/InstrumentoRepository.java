@@ -12,13 +12,13 @@ import java.util.List;
 
 public interface InstrumentoRepository extends JpaRepository<Instrumento, Long> {
 
-    @Query( value = "SELECT * FROM INSTRUMENTOS WHERE NOMBRE = :nombre", nativeQuery = true)
-    Optional<Instrumento> getByNombre(@Param("nombre") String  nombre);
+    @Query( value = "SELECT * FROM instrumentos WHERE nombre = :nombre", nativeQuery = true)
+    Optional<Instrumento> getByNombre(@Param("nombre") String nombre);
 
-    @Query(value = "SELECT * FROM INSTRUMENTOS WHERE eliminado = false", countQuery = "SELECT count(*) FROM INSTRUMENTOS WHERE eliminado = false", nativeQuery = true)
+    @Query(value = "SELECT * FROM instrumentos WHERE eliminado = false", countQuery = "SELECT count(*) FROM INSTRUMENTOS WHERE eliminado = false", nativeQuery = true)
     Page<Instrumento> findRandomInstruments(Pageable pageable);
 
-    @Query(value = "SELECT * FROM INSTRUMENTOS WHERE eliminado = false", nativeQuery = true)
+    @Query(value = "SELECT * FROM instrumentos WHERE eliminado = false", nativeQuery = true)
     Page<Instrumento> getAll(Pageable pageable);
 
     @Query(value = "COUNT(*) FROM instrumentos WHERE categoria_id = :categoria_id AND WHERE eliminado  = 0", nativeQuery = true)
@@ -26,6 +26,6 @@ public interface InstrumentoRepository extends JpaRepository<Instrumento, Long> 
 
     List<Instrumento> findAllByCategoria(Categoria categoria);
 
-    @Query(value = "SELECT * FROM INSTRUMENTOS WHERE id = :id AND eliminado = false", nativeQuery = true)
+    @Query(value = "SELECT * FROM instrumentos WHERE id = :id AND eliminado = false", nativeQuery = true)
     Optional<Instrumento> buscarPorId(@Param("id") Long id);
 }
