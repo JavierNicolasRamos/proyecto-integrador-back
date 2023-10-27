@@ -20,27 +20,24 @@ public class CategoriaController {
     @Autowired
     private CategoriaService categoriaService;
 
-    //Retornar el objeto (categoria) completo no la response entity
-    //
     @PostMapping
     public Categoria crearCategoria(@RequestBody CategoriaDto categoriaDto) {
         return categoriaService.crearCategoria(categoriaDto);
     }
 
     @GetMapping("descripcion/{descripcion}")
-    //Buscar como pedir el not null
     public Categoria buscarCategoriaPorDescipcion(@PathVariable String descripcion){
-        //Falta agregar que descripcion sea diferente de nula
         return categoriaService.buscarCategoriaPorDescripcion(descripcion);
     }
 
-    @GetMapping("/{id}") //Cambiar por "/{id}"
+    @GetMapping("/{id}")
     public Long contarInstrumentosPorCategoria(@PathVariable Long id){
         return categoriaService.contarInstrumentosPorCategoria(id);
     }
 
-    @DeleteMapping("/{id}")//Cambiar por "/{id}"
+    @DeleteMapping("/{id}")
     public void eliminarInstrumentosPorCategoria(@PathVariable Long id){
+        this.categoriaService.eliminarInstrunmentosPorCategoria(id);
     }
 
     @GetMapping

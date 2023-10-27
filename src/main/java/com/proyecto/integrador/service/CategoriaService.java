@@ -31,40 +31,33 @@ public class CategoriaService {
         categoria.setEliminado(false);
 
         categoriaRepository.save(categoria);
-        //LOGGER.info("Categoria guardada correctamente")
         return categoria;
     }
 
-    public Categoria buscarCategoriaPorDescripcion(String descripcion){ //Por el momento, retornar categoria, no categoriaDto
+    public Categoria buscarCategoriaPorDescripcion(String descripcion){
         Optional<Categoria> optionalCategoria = Optional.ofNullable(categoriaRepository.findByDescripcion(descripcion).orElseThrow(() ->
-                   new CategoriaNotFoundException("La categoria no existe"))); //Donde se almacena el resultado de esta consulta?
+                   new CategoriaNotFoundException("La categoria no existe")));
             return optionalCategoria.get();
     }
     public Long contarInstrumentosPorCategoria(Long id){
         Optional<Categoria> optionalCategoria = Optional.ofNullable(categoriaRepository.findById(id).orElseThrow(() ->
                 new CategoriaNotFoundException("La categoria no existe")));
-        return instrumentoRepository.countAllByCategoriaAndEliminado(id);//Realizar un manejo de errores en el metodo con un try/catch
+        return instrumentoRepository.countAllByCategoriaAndEliminado(id);
 
     }
 
-    //Realizar metodo de eliminacion de categoria, la eliminacion sera mediante operador logico. En caso de que se elimine, debe pasar todos los instrumentos de la categoria a eliminados.
     public void eliminarInstrunmentosPorCategoria(Long id){
-        //Verifico que la categoria existe
         Optional<Categoria> optionalCategoria = Optional.ofNullable(categoriaRepository.findById(id).orElseThrow(() ->
                 new CategoriaNotFoundException("La categoria no existe")));
 
-        Categoria categoria = optionalCategoria.get();//Si existe
-        categoria.setEliminado(Boolean.TRUE);//Cambio el atributo a eliminado
-        categoriaRepository.save(categoria);//Guardo el objeto con la categoria cambiada
+        Categoria categoria = optionalCategoria.get();
+        categoria.setEliminado(true);
+        categoriaRepository.save(categoria);//
 
-        //FindAllById
         List<Instrumento> instrumentoList = instrumentoRepository.findAllByCategoria(categoria);
-            //For
         for (Instrumento instrumento : instrumentoList ) {
-            //modificar
-            instrumento.setEliminado(Boolean.TRUE);
+            instrumento.setEliminado(true);
         }
-        //saveAll
         instrumentoRepository.saveAll(instrumentoList);
     }
 
