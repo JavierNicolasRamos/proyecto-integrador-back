@@ -30,7 +30,7 @@ public class CategoriaController {
         return categoriaService.buscarCategoriaPorDescripcion(descripcion);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("contarinstrumentos/{id}")
     public Long contarInstrumentosPorCategoria(@PathVariable Long id){
         return categoriaService.contarInstrumentosPorCategoria(id);
     }
