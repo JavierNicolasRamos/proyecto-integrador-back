@@ -7,6 +7,7 @@ import com.proyecto.integrador.exception.EliminacionInstrumentoException;
 import com.proyecto.integrador.exception.InstrumentoGetAllException;
 import com.proyecto.integrador.exception.NonExistentInstrumentException;
 import com.proyecto.integrador.repository.InstrumentoRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.PageRequest;
@@ -61,8 +62,9 @@ public class InstrumentoService {
     }
 
     public Instrumento obtenerInstrumentoPorId(Long id) {
-        Optional<Instrumento> instrumento = instrumentoRepository.findById(id);
-        return instrumento.orElse(null);
+        Optional<Instrumento> instrumento = Optional.ofNullable(instrumentoRepository.buscarPorId(id)).orElseThrow(()
+                -> new EntityNotFoundException("No se encontró el instrumento"));
+        return instrumento.get();
     }
 
     @Transactional
