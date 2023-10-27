@@ -1,5 +1,6 @@
 package com.proyecto.integrador.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,9 @@ public class Imagen {
     private String imagen;
 
     @ManyToOne
+    @JsonIgnore
     private Instrumento instrumento;
+
     private Boolean eliminado;
 
 }

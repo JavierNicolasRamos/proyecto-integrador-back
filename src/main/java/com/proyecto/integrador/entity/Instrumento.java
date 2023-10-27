@@ -34,7 +34,6 @@ public class Instrumento {
     private Categoria categoria;
 
     @OneToMany(mappedBy = "instrumento")
-    @JsonIgnore
     private List<Imagen> imagen;
 
     @OneToMany(mappedBy = "instrumento")

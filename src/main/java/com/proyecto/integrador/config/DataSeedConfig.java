@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.proyecto.integrador.entity.Categoria;
 import com.proyecto.integrador.entity.Imagen;
 import com.proyecto.integrador.entity.Instrumento;
-import com.proyecto.integrador.exception.DuplicateInstrumentException;
 import com.proyecto.integrador.repository.CategoriaRepository;
 import com.proyecto.integrador.repository.ImagenRepository;
 import com.proyecto.integrador.repository.InstrumentoRepository;
@@ -81,14 +80,12 @@ public class DataSeedConfig {
                 instrumento.setDisponible(true);
                 instrumentoRepository.save(instrumento);
 
-                // Crear objetos Imagen y asociarlos con el Instrumento
                 List<String> imagenes = (List<String>) instrumentoData.get("imagen");
                 for (String imagenUrl : imagenes) {
                     Imagen imagen = new Imagen();
                     imagen.setImagen(imagenUrl);
                     imagen.setInstrumento(instrumento);
-                    imagen.setEliminado(false); // Opcional: establecer el valor de eliminado
-                    // Guardar cada objeto Imagen en la base de datos
+                    imagen.setEliminado(false);
                     imagenRepository.save(imagen);
                 }
                 instrumentos.add(instrumento);
