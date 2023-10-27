@@ -21,8 +21,8 @@ public interface InstrumentoRepository extends JpaRepository<Instrumento, Long> 
     @Query(value = "SELECT * FROM instrumentos WHERE eliminado = false", nativeQuery = true)
     Page<Instrumento> getAll(Pageable pageable);
 
-    @Query(value = "COUNT(*) FROM instrumentos WHERE categoria_id = :categoria_id AND WHERE eliminado  = 0", nativeQuery = true)
-    Long countAllByCategoriaAndEliminado(@Param("categoria_id") Long id);
+    @Query(value = "SELECT COUNT(*) FROM instrumentos WHERE categoria_id = :id AND eliminado  = false", nativeQuery = true)
+    Long countAllByCategoriaAndEliminado(@Param("id") Long id);
 
     List<Instrumento> findAllByCategoria(Categoria categoria);
 
