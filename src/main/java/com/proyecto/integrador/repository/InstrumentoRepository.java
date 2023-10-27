@@ -15,6 +15,9 @@ public interface InstrumentoRepository extends JpaRepository<Instrumento, Long> 
     @Query( value = "SELECT * FROM instrumentos WHERE nombre = :nombre", nativeQuery = true)
     Optional<Instrumento> getByNombre(@Param("nombre") String nombre);
 
+    @Query(value = "SELECT * FROM instrumentos WHERE nombre LIKE %:nombre% AND eliminado = false", nativeQuery = true)
+    Page<Instrumento> getNombre(@Param("nombre") String nombre, Pageable pageable);
+
     @Query(value = "SELECT * FROM instrumentos WHERE eliminado = false ORDER BY RAND() LIMIT 10;", nativeQuery = true)
     List<Instrumento> findRandomInstruments();
 

@@ -118,4 +118,13 @@ public class InstrumentoService {
             throw new InstrumentoGetAllException("Error al recuperar la lista de instrumentos.", e);
         }
     }
+
+    public Page<Instrumento>getNombre(String nombre, Pageable pageable){
+        try {
+            return this.instrumentoRepository.getNombre(nombre, pageable);
+        }
+        catch (Exception e){
+            throw new InstrumentoGetAllException("Error al recuperar la lista de instrumentos.", e);
+        }
+    }
 }

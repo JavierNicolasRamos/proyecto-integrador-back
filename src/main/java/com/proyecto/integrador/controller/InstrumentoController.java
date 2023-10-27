@@ -49,6 +49,10 @@ public class InstrumentoController {
     }
 
 
+    @GetMapping("/nombre/{nombre}")
+    public Page<Instrumento>getNombre(@PathVariable String nombre, Pageable pageable){
+        return instrumentoService.getNombre(nombre, pageable);
+    }
 }
 
 
