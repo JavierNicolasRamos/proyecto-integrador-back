@@ -40,13 +40,13 @@ public class CategoriaService {
             return categoria;
     }
     public Long contarInstrumentosPorCategoria(Long id){
-        Categoria categoria = categoriaRepository.findById(id).orElseThrow(() ->
+        Categoria categoria = categoriaRepository.buscarPorId(id).orElseThrow(() ->
                 new CategoriaNotFoundException("La categoria no existe"));
         return instrumentoRepository.countAllByCategoriaAndEliminado(categoria.getId());
     }
 
     public void eliminarInstrunmentosPorCategoria(Long id){
-        Categoria categoria = categoriaRepository.findById(id).orElseThrow(() ->
+        Categoria categoria = categoriaRepository.buscarPorId(id).orElseThrow(() ->
                 new CategoriaNotFoundException("La categoria no existe"));
 
         categoria.setEliminado(true);
