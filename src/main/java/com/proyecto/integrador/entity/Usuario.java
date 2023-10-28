@@ -68,15 +68,20 @@ public class Usuario {
 
         return "Contacto{" +
                 "\n" + indent + "  id= " + this.id +
-                "\n" + indent + "  reservas= " + reservasString +
+                "\n" + indent + "  reservas= " + this.reservas +
                 "\n" + indent + "  nombre= " + this.nombre +
                 "\n" + indent + "  apellido= " + this.apellido +
-                "\n" + indent + "  admin= " + this.admin +
+                "\n  email= " + this.email +
+                // "\n" + indent + "  admin= " + this.admin +
                 "\n" + indent + "  codigoArea= " + this.codigoArea +
                 "\n" + indent + "  prefijo= " + this.prefijo +
                 "\n" + indent + "  numero= " + this.numero +
                 "\n" + indent + "  movil= " + this.movil +
                 "\n" + indent + "}";
     }
+
+
+
+
 
 }

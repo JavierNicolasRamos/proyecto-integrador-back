@@ -10,11 +10,14 @@ import com.proyecto.integrador.repository.InstrumentoRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.Optional;
 @Service
 public class CategoriaService {
+
+    private static final Logger logger = LoggerFactory.getLogger(InstrumentoService.class);
     @Autowired
     private CategoriaRepository categoriaRepository;
     @Autowired
@@ -22,42 +25,86 @@ public class CategoriaService {
 
     @Transactional
     public Categoria crearCategoria(CategoriaDto categoriaDto){
-        Optional<Categoria> optionalCategoria = categoriaRepository.findByDescripcion(categoriaDto.getDescripcion());
-        if(optionalCategoria.isPresent()){
-            throw new DuplicateCategoriaException("Ya existe una categoría con ese nombre: " + categoriaDto.getDescripcion());
-        }
-        Categoria categoria = new Categoria();
-        categoria.setDescripcion(categoriaDto.getDescripcion());
-        categoria.setEliminado(false);
 
-        categoriaRepository.save(categoria);
-        return categoria;
+        logger.info("Iniciando el proceso de creación de categoría con descripción: " + categoriaDto.getDescripcion());
+        try {
+            Optional<Categoria> optionalCategoria = categoriaRepository.findByDescripcion(categoriaDto.getDescripcion());
+            if (optionalCategoria.isPresent()) {
+                logger.error("Ya existe una categoria con ese nombre: " + categoriaDto.getDescripcion());
+                throw new DuplicateCategoriaException("Ya existe una categoría con ese nombre: " + categoriaDto.getDescripcion());
+            }
+            Categoria categoria = new Categoria();
+            categoria.setDescripcion(categoriaDto.getDescripcion());
+            categoria.setEliminado(false);
+
+            categoriaRepository.save(categoria);
+            logger.info("Categoría creada con éxito. Descripción: " + categoriaDto.getDescripcion());
+            return categoria;
+        } catch (DuplicateCategoriaException e) {
+            logger.error("Error al crear la categoría: " + e.getMessage());
+            throw e;
+        } catch (Exception e){
+            logger.error("Error inesperado al crear la categoría: " + e.getMessage(), e);
+            throw e;
+        }
     }
 
     public Categoria buscarCategoriaPorDescripcion(String descripcion){
-        Categoria categoria = categoriaRepository.findByDescripcion(descripcion).orElseThrow(() ->
-                   new CategoriaNotFoundException("La categoria no existe"));
+        logger.info("Iniciando la búsqueda de categoría con descripción: " + descripcion);
+        try {
+            Categoria categoria = categoriaRepository.findByDescripcion(descripcion).orElseThrow(() ->
+                    new CategoriaNotFoundException("La categoria no existe"));
+            logger.info("Búsqueda de categoría completada con éxito. Descripción: " + descripcion);
             return categoria;
+        }catch(CategoriaNotFoundException e){
+            logger.error("Error al buscar la categoría: " + e.getMessage());
+            throw e;
+        }catch(Exception e){
+            logger.error("Error inesperado al buscar la categoría: " + e.getMessage(), e);
+            throw e;
+        }
     }
     public Long contarInstrumentosPorCategoria(Long id){
-        Categoria categoria = categoriaRepository.buscarPorId(id).orElseThrow(() ->
-                new CategoriaNotFoundException("La categoria no existe"));
-        return instrumentoRepository.countAllByCategoriaAndEliminado(categoria.getId());
+        logger.info("Iniciando el conteo de instrumentos por categoría con ID: " + id);
+        try {
+            Categoria categoria = categoriaRepository.buscarPorId(id).orElseThrow(() ->
+                    new CategoriaNotFoundException("La categoria no existe"));
+            logger.info("Conteo de instrumentos por categoría completado con éxito.");
+            return instrumentoRepository.countAllByCategoriaAndEliminado(categoria.getId());
+        } catch (CategoriaNotFoundException e){
+            logger.error("Error al contar instrumentos por categoría: " + e.getMessage());
+            throw e;
+        } catch (Exception e){
+            logger.error("Error inesperado al contar instrumentos por categoría: " + e.getMessage(), e);
+            throw e;
+        }
     }
 
     public void eliminarInstrunmentosPorCategoria(Long id){
-        Categoria categoria = categoriaRepository.buscarPorId(id).orElseThrow(() ->
-                new CategoriaNotFoundException("La categoria no existe"));
+        logger.info("Iniciando el proceso de eliminación de instrumentos por categoría con ID: " + id);
+        try {
+            Categoria categoria = categoriaRepository.buscarPorId(id).orElseThrow(() ->
+                    new CategoriaNotFoundException("La categoria no existe"));
+            logger.info("Eliminando categoría con ID: " + id);
+            categoria.setEliminado(true);
+            categoriaRepository.save(categoria);//
 
-        categoria.setEliminado(true);
-        categoriaRepository.save(categoria);//
-
-        List<Instrumento> instrumentoList = instrumentoRepository.findAllByCategoria(categoria);
-        for (Instrumento instrumento : instrumentoList ) {
-            instrumento.setEliminado(true);
+            List<Instrumento> instrumentoList = instrumentoRepository.findAllByCategoria(categoria);
+            for (Instrumento instrumento : instrumentoList) {
+                logger.info("Eliminando instrumento con ID: " + instrumento.getId());
+                instrumento.setEliminado(true);
+            }
+            instrumentoRepository.saveAll(instrumentoList);
+            logger.info("Eliminación de instrumentos por categoría completada con éxito. Categoría ID: " + id);
+        } catch(CategoriaNotFoundException e) {
+            logger.error("Error al eliminar instrumentos por categoría: " + e.getMessage());
+            throw e;
+        } catch(Exception e) {
+            logger.error("Error inesperado al eliminar instrumentos por categoría: " + e.getMessage(), e);
+            throw e;
         }
-        instrumentoRepository.saveAll(instrumentoList);
     }
+
 
     public List<Categoria> listarCategorias(){
         return categoriaRepository.findAllByEliminado(false);

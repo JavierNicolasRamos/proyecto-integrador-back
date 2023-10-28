@@ -91,7 +91,7 @@ public class ReservaService {
 
     @Transactional
     public Reserva actualizarReserva(ReservaDto reservaDto) {
-    logger.info("Iniciando el proceso de actualización de reserva con ID: " + id);
+         logger.info("Iniciando el proceso de actualización de reserva con ID: " + reservaDto.getId());
 
         Reserva reserva = reservaRepository.findById(reservaDto.getId()).orElseThrow(()
                 -> new NonExistentReservaException("No se encontró la reserva"));
@@ -139,8 +139,8 @@ public class ReservaService {
                 instrumentoRepository.save(reserva.getInstrumento());
                 logger.info("Instrumento asociado a la reserva con ID " + id + " marcado como disponible.");
             } else {
-                throw new InstrumentoNotFoundException("No se encontró un instrumento asociado a la reserva con ID: " + id);
                 logger.error("No se encontró un instrumento asociado a la reserva con ID: " + id);
+                throw new InstrumentoNotFoundException("No se encontró un instrumento asociado a la reserva con ID: " + id);
             }
             reservaRepository.save(reserva);
             logger.info("Reserva con ID " + id + " marcada como eliminada.");

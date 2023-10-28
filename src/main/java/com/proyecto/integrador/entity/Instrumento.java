@@ -53,4 +53,21 @@ public class Instrumento {
     @JsonIgnore
     private List<Reserva> reservas;
 
+    @Override
+    public String toString() {
+        return "Instrumento{" +
+                "\n  id= " + this.id +
+                "\n  nombre= " + this.nombre +
+                "\n  fechaCarga= " + this.fechaCarga +
+                "\n  fechaUpdate= " + this.fechaUpdate +
+                "\n  disponible= " + this.disponible +
+                "\n  detalle= " + this.detalle +
+                "\n  eliminado= " + this.eliminado +
+                "\n  puntuacion= " + this.puntuacion +
+                "\n  categoria= " + this.categoria.getId() +
+                "\n  imagen= " + this.imagen +
+                "\n  reservas= " + this.reservas +
+                "\n}";
+    }
+
 }
