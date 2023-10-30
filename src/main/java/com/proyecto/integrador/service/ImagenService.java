@@ -8,12 +8,15 @@ import com.proyecto.integrador.repository.InstrumentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 @Service
 public class ImagenService {
 
+    private static final Logger logger = LoggerFactory.getLogger(InstrumentoService.class);
     @Autowired
     private ImagenRepository imagenRepository;
 
@@ -22,6 +25,7 @@ public class ImagenService {
 
     @Transactional
     public void guardarImagenesInstrumento(Instrumento instrumento){
+        logger.info("Iniciando el proceso de guardar imágenes del instrumento con ID: " + instrumento.getId());
         try {
             List<Imagen> imagenes = instrumento.getImagen();
 
@@ -32,14 +36,19 @@ public class ImagenService {
             List<Imagen> imagenesGuardadas = imagenRepository.saveAll(imagenes);
             instrumento.setImagen(imagenesGuardadas);
             this.instrumentoRepository.save(instrumento);
-        }
-        catch (Exception e){
+            logger.info("Guardado de imágenes del instrumento completado con éxito. Instrumento ID: " + instrumento.getId());
+        } catch (ImagenGuardadoException e){
+            logger.error("Error al guardar las imágenes del instrumento: " + e.getMessage());
             throw new ImagenGuardadoException("Error al guardar las imágenes del instrumento", e);
+        } catch (Exception e){
+            logger.error("Error inesperado al guardar las imágenes del instrumento: " + e.getMessage(), e);
+            throw e;
         }
     }
 
     @Transactional
     public void actualizarImagenesInstrumento(Instrumento instrumento) {
+        logger.info("Iniciando el proceso de actualizar imágenes del instrumento con ID: " + instrumento.getId());
         try {
             List<Imagen> imagenes = instrumento.getImagen();
 
@@ -59,8 +68,13 @@ public class ImagenService {
 
             instrumento.setImagen(imagenes);
             this.instrumentoRepository.save(instrumento);
-        } catch (Exception e) {
-            throw new ImagenGuardadoException("Error al guardar las imágenes del instrumento", e);
+            logger.info("Actualización de imágenes del instrumento completada con éxito. Instrumento ID: " + instrumento.getId());
+        } catch (ImagenGuardadoException e) {
+            logger.error("Error al actualizar las imágenes del instrumento: " + e.getMessage());
+            throw new ImagenGuardadoException("Error al actualizar las imágenes del instrumento", e);
+        } catch (Exception e){
+            logger.error("Error inesperado al actualizar las imágenes del instrumento: " + e.getMessage(), e);
+            throw e;
         }
     }
 }

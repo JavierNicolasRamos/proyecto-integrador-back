@@ -52,8 +52,36 @@ public class Usuario {
     @NotNull(message = "El campo 'movil' no puede ser nulo")
     private Boolean movil;
 
+
     @NotNull(message = "El campo 'email' no puede ser nulo")
     @NotBlank(message = "El campo 'email' no puede estar en blanco")
     @Email(message = "El campo 'email' debe ser una dirección de correo electrónico válida")
     private String email;
+
+    public String toStringIndented(int indentLevel) {
+        StringBuilder indent = new StringBuilder();
+        for (int i = 0; i < indentLevel; i++) {
+            indent.append("  ");
+        }
+
+        String reservasString = (reservas != null && !reservas.isEmpty()) ? reservas.iterator().next().toStringIndented(1) : "[]";
+
+        return "Contacto{" +
+                "\n" + indent + "  id= " + this.id +
+                "\n" + indent + "  reservas= " + this.reservas +
+                "\n" + indent + "  nombre= " + this.nombre +
+                "\n" + indent + "  apellido= " + this.apellido +
+                "\n  email= " + this.email +
+                // "\n" + indent + "  admin= " + this.admin +
+                "\n" + indent + "  codigoArea= " + this.codigoArea +
+                "\n" + indent + "  prefijo= " + this.prefijo +
+                "\n" + indent + "  numero= " + this.numero +
+                "\n" + indent + "  movil= " + this.movil +
+                "\n" + indent + "}";
+    }
+
+
+
+
+
 }

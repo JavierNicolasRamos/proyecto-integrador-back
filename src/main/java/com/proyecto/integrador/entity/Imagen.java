@@ -31,4 +31,15 @@ public class Imagen {
 
     private Boolean eliminado;
 
+
+
+    @Override
+    public String toString() {
+        return "Imagen{" +
+                "\n  id= " + this.id +
+                "\n  imagen= " + this.imagen +
+                "\n  instrumento= " + this.instrumento.getId() +
+                "\n  eliminado= " + this.eliminado +
+                "\n}";
+    }
 }

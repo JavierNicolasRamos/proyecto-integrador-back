@@ -33,4 +33,17 @@ public class Categoria {
     private List<Instrumento> instrumento;
 
     private Boolean eliminado;
+
+    @Override
+    public String toString() {
+        return "Categoria{" +
+                "\n  id= " + this.id +
+                "\n  descripcion= " + this.descripcion +
+                "\n  instrumento= " + this.instrumento +
+                "\n  eliminado= " + this.eliminado +
+                "\n}";
+    }
+
+
+
 }
