@@ -64,15 +64,13 @@ public class Usuario {
             indent.append("  ");
         }
 
-        String reservasString = (reservas != null && !reservas.isEmpty()) ? reservas.iterator().next().toStringIndented(1) : "[]";
-
         return "Contacto{" +
                 "\n" + indent + "  id= " + this.id +
                 "\n" + indent + "  reservas= " + this.reservas +
                 "\n" + indent + "  nombre= " + this.nombre +
                 "\n" + indent + "  apellido= " + this.apellido +
-                "\n  email= " + this.email +
-                // "\n" + indent + "  admin= " + this.admin +
+                "\n" + indent + "  email= " + this.email +
+                "\n" + indent + "  administrador= " + this.administrador +
                 "\n" + indent + "  codigoArea= " + this.codigoArea +
                 "\n" + indent + "  prefijo= " + this.prefijo +
                 "\n" + indent + "  numero= " + this.numero +
