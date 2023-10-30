@@ -55,6 +55,9 @@ public class Instrumento {
 
     @Override
     public String toString() {
+        String reservasString = (reservas != null && !reservas.isEmpty()) ? reservas.iterator().next().toStringIndented(1) : "[]";
+        String imagenesString = (imagen != null && !imagen.isEmpty()) ? imagen.iterator().next().toStringIndented(1) : "[]";
+
         return "Instrumento{" +
                 "\n  id= " + this.id +
                 "\n  nombre= " + this.nombre +
@@ -65,8 +68,8 @@ public class Instrumento {
                 "\n  eliminado= " + this.eliminado +
                 "\n  puntuacion= " + this.puntuacion +
                 "\n  categoria= " + this.categoria.getId() +
-                "\n  imagen= " + this.imagen +
-                "\n  reservas= " + this.reservas +
+                "\n  imagen= " + imagenesString +
+                "\n  reservas= " + reservasString +
                 "\n}";
     }
 

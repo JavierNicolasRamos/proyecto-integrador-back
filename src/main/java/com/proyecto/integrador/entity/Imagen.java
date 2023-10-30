@@ -38,8 +38,21 @@ public class Imagen {
         return "Imagen{" +
                 "\n  id= " + this.id +
                 "\n  imagen= " + this.imagen +
-                "\n  instrumento= " + this.instrumento.getId() +
                 "\n  eliminado= " + this.eliminado +
                 "\n}";
+    }
+
+
+    public String toStringIndented(int indentLevel) {
+        StringBuilder indent = new StringBuilder();
+        for (int i = 0; i < indentLevel; i++) {
+            indent.append("  ");
+        }
+
+        return "Contacto{" +
+                "\n" + indent + "  id= " + this.id +
+                "\n" + indent + "  imagen= " + this.imagen +
+                "\n" + indent + "  nombre= " + this.eliminado +
+                "\n" + indent + "}";
     }
 }
