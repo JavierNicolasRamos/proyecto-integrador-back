@@ -34,7 +34,7 @@ public class Usuario {
     private String apellido;
 
     @NotNull(message = "El campo 'administrador' no puede ser nulo")
-    private Boolean administrador;
+    private Boolean administrador; //TODO: no me hagan doler los ojos con esto
 
     @NotNull(message = "El campo 'codigoArea' no puede ser nulo")
     @NotBlank(message = "El campo 'codigoArea' no puede estar en blanco")
