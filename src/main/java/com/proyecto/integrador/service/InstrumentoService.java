@@ -54,7 +54,7 @@ public class InstrumentoService {
             instrumento.setDisponible(true);
             logger.info("Se va a crear el instrumento con nombre: " + instrumentoDto.getNombre());
             instrumentoRepository.save(instrumento);
-            this.imagenService.guardarImagenesInstrumento(instrumento);
+            this.imagenService.guardarImagenesInstrumento(instrumento,instrumentoDto.getImagen());
             logger.info("Instrumento creado con éxito, nombre: " + instrumento.getNombre());
             return instrumento;
         } catch(DuplicateInstrumentException e){
@@ -118,7 +118,7 @@ public class InstrumentoService {
                instrumento.setDetalle(instrumentoDto.getDetalle());
                instrumento.setDisponible(instrumentoDto.getDisponible());
 
-               this.imagenService.actualizarImagenesInstrumento(instrumento);
+               this.imagenService.actualizarImagenesInstrumento(instrumento, instrumentoDto.getImagen());
                logger.info("Instrumento con ID " + id + " actualizado con éxito.");
                return instrumentoRepository.save(instrumento);
            } else {
