@@ -23,5 +23,14 @@ public class Caracteristicas {
     @JoinColumn(name = "instrumento_id")
     private Instrumento instrumento;
 
+    @Override
+    public String toString() {
+        return "Caracteristicas{" +
+                "\n  id=" + id +
+                "\n  nombre='" + nombre + '\'' +
+                "\n  icono='" + icono + '\'' +
+                "\n  instrumento=" + (instrumento != null ? instrumento.getId() : "null") +
+                "\n}";
+    }
 
 }
