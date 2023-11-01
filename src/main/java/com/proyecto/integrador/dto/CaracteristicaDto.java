@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CaracteristicasDto {
+public class CaracteristicaDto {
     private Long id;
     private String nombre;
     private String icono;

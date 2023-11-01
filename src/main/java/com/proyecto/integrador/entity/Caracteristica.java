@@ -1,6 +1,7 @@
 package com.proyecto.integrador.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Caracteristicas {
+public class Caracteristica {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,11 +22,12 @@ public class Caracteristicas {
     private String icono;
     @ManyToOne
     @JoinColumn(name = "instrumento_id")
+    @JsonIgnore
     private Instrumento instrumento;
 
     @Override
     public String toString() {
-        return "Caracteristicas{" +
+        return "Caracteristica{" +
                 "\n  id=" + id +
                 "\n  nombre='" + nombre + '\'' +
                 "\n  icono='" + icono + '\'' +

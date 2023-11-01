@@ -54,7 +54,7 @@ public class Instrumento {
     private List<Reserva> reservas;
 
     @OneToMany(mappedBy = "instrumento")
-    private List<Caracteristicas> caracteristicas;
+    private List<Caracteristica> caracteristicas;
 
     @Override
     public String toString() {
