@@ -2,7 +2,6 @@ package com.proyecto.integrador.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -35,7 +34,7 @@ public class Usuario {
     private String apellido;
 
     @NotNull(message = "El campo 'administrador' no puede ser nulo")
-    private Boolean administrador;
+    private Boolean administrador; //TODO: no me hagan doler los ojos con esto
 
     @NotNull(message = "El campo 'codigoArea' no puede ser nulo")
     @NotBlank(message = "El campo 'codigoArea' no puede estar en blanco")
@@ -52,24 +51,18 @@ public class Usuario {
     @NotNull(message = "El campo 'movil' no puede ser nulo")
     private Boolean movil;
 
-
-    @NotNull(message = "El campo 'email' no puede ser nulo")
-    @NotBlank(message = "El campo 'email' no puede estar en blanco")
-    @Email(message = "El campo 'email' debe ser una dirección de correo electrónico válida")
-    private String email;
+    @OneToOne
+    private Auth auth;
 
     public String toStringIndented(int indentLevel) {
         StringBuilder indent = new StringBuilder();
-        for (int i = 0; i < indentLevel; i++) {
-            indent.append("  ");
-        }
+        indent.append("  ".repeat(Math.max(0, indentLevel)));
 
         return "Contacto{" +
                 "\n" + indent + "  id= " + this.id +
                 "\n" + indent + "  reservas= " + this.reservas +
                 "\n" + indent + "  nombre= " + this.nombre +
                 "\n" + indent + "  apellido= " + this.apellido +
-                "\n" + indent + "  email= " + this.email +
                 "\n" + indent + "  administrador= " + this.administrador +
                 "\n" + indent + "  codigoArea= " + this.codigoArea +
                 "\n" + indent + "  prefijo= " + this.prefijo +
@@ -77,9 +70,4 @@ public class Usuario {
                 "\n" + indent + "  movil= " + this.movil +
                 "\n" + indent + "}";
     }
-
-
-
-
-
 }
