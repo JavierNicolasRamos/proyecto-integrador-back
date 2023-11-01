@@ -23,20 +23,21 @@ public class EmailService {
     // Programar el envío de correo electrónico después de 24 horas
     @Scheduled(fixedDelay = 24 * 60 * 60 * 1000) // 24 horas en milisegundos
     public void sendScheduledEmail() {
-        String to = "recipient@example.com";
-        String subject = "Asunto del correo";
+        String to = "recipient@example.com";  //Pasar como parametro el email del destinatario
+        String subject = "Asunto del correo"; //Pasar como parametro el asunto del email
         sendEmail(to, subject, this.createHtml());
     }
 
     public void sendEmail() {
-        String to = "javierramosnicolas@gmail.com";
-        String subject = "prueba envio";
+        String to = "javierramosnicolas@gmail.com"; //Pasar como parametro el email del destinatario
+        String subject = "prueba envio"; //Pasar como parametro el asunto del email
         sendEmail(to, subject, this.createHtml());
     }
 
     public String createHtml (){
         Context context = new Context();
-        context.setVariable("nombre", "Javier"); // Puedes establecer el valor dinámico aquí
+        //Agregar parametros segun se lo requiera el diseño
+        context.setVariable("nombre", "Javier"); //Pasar como parametro el nombre del destinatario
         String htmlContent = templateEngine.process("email-template.html", context);
         return htmlContent;
     }
