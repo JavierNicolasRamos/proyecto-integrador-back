@@ -126,7 +126,7 @@ public class CaracteristicaService {
     }
 
 
-    //TODO: crear meetodo para asociar caracteristicas al producto, se puede asociar una o mas caracteristicas, tambien considerar que se pueden quitar.
+    //TODO: metodo para asociar y quitar caracteristicas, hecho en instrumentoService.
 
 }
 
