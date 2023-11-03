@@ -20,8 +20,7 @@ public class Caracteristica {
     private Long id;
     private String nombre;
     private String icono;
-    @ManyToOne
-    @JoinColumn(name = "instrumento_id")
+    private Boolean eliminada;
 
 
 

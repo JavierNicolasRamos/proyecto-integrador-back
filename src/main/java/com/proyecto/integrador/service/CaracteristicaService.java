@@ -1,11 +1,8 @@
 package com.proyecto.integrador.service;
 
-import com.amazonaws.services.dynamodbv2.document.Page;
 import com.proyecto.integrador.dto.CaracteristicaDto;
 import com.proyecto.integrador.entity.Caracteristica;
-import com.proyecto.integrador.entity.Instrumento;
-import com.proyecto.integrador.exception.DuplicateCaracteristicaException;
-import com.proyecto.integrador.exception.DuplicateCategoriaException;
+import com.proyecto.integrador.exception.*;
 import com.proyecto.integrador.repository.CaracteristicaRepository;
 import com.proyecto.integrador.repository.InstrumentoRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -15,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,7 +27,7 @@ public class CaracteristicaService {
 
     @Transactional
     public Caracteristica crearCaracteristica(CaracteristicaDto caracteristicaDto) {
-
+    try {
         logger.info("Se va a crear la característica con nombre: {} y icono: {}", caracteristicaDto.getNombre(), caracteristicaDto.getIcono());
 
 
@@ -48,47 +44,55 @@ public class CaracteristicaService {
         logger.info("La característica con ID {} ha sido creada exitosamente.", nuevaCaracteristica.getId());
 
         return nuevaCaracteristica;
+        } catch (Exception e){
+        throw new CreateCharacteristicException("Ocurrió un error al crear la característica", e);
+    }
     }
 
     @Transactional
     public Caracteristica editarCaracteristica(Long id, CaracteristicaDto caracteristicaDto) {
-        Optional<Caracteristica> caracteristicasOptional = caracteristicaRepository.findById(id);
-        if (caracteristicasOptional.isPresent()) {
-            Caracteristica caracteristica = caracteristicasOptional.get();
-            logger.info("Se va a modificar la característica con ID: {}, atributo nombre: {}, icono: {}",
-                    id, caracteristica.getNombre(), caracteristica.getIcono());
+        try {
+            Optional<Caracteristica> caracteristicasOptional = caracteristicaRepository.findById(id);
+            if (caracteristicasOptional.isPresent()) {
+                Caracteristica caracteristica = caracteristicasOptional.get();
+                logger.info("Se va a modificar la característica con ID: {}, atributo nombre: {}, icono: {}",
+                        id, caracteristica.getNombre(), caracteristica.getIcono());
 
-            if (existeOtraCaracteristicaConMismoNombre(id, caracteristicaDto.getNombre())) {
-                throw new DuplicateCaracteristicaException("Ya existe otra característica con el mismo nombre: " + caracteristicaDto.getNombre());
+                if (existeOtraCaracteristicaConMismoNombre(id, caracteristicaDto.getNombre())) {
+                    throw new DuplicateCaracteristicaException("Ya existe otra característica con el mismo nombre: " + caracteristicaDto.getNombre());
+                }
+
+                caracteristica.setNombre(caracteristicaDto.getNombre());
+                caracteristica.setIcono(caracteristicaDto.getIcono());
+
+
+                caracteristicaRepository.save(caracteristica);
+                logger.info("La característica con ID: {} fue modificada correctamente, atributo nombre: {}, icono: {}",
+                        caracteristica.getId(), caracteristica.getNombre(), caracteristica.getIcono());
+
+                return caracteristica;
+            } else {
+                throw new EntityNotFoundException("No se encontró la característica con ID: " + id);
             }
-
-            caracteristica.setNombre(caracteristicaDto.getNombre());
-            caracteristica.setIcono(caracteristicaDto.getIcono());
-
-
-            caracteristicaRepository.save(caracteristica);
-            logger.info("La característica con ID: {} fue modificada correctamente, atributo nombre: {}, icono: {}",
-                    caracteristica.getId(), caracteristica.getNombre(), caracteristica.getIcono());
-
-            return caracteristica;
-        } else {
-            throw new EntityNotFoundException("No se encontró la característica con ID: " + id);
+        } catch (Exception e) {
+            throw new EditCharacteristException("Ocurrió un error al editar la característica", e);
         }
     }
 
 
-        @Transactional
-        public void eliminarCaracteristica (Long id){
-        try {
-            Caracteristica caracteristica = caracteristicaRepository.findById(id)
-                    .orElseThrow(() -> new EntityNotFoundException("No se encontró la característica con el ID: " + id));
-            logger.info("Se va a eliminar la característica con ID: {}, nombre: {}, icono: {}",
-                    caracteristica.getId(), caracteristica.getNombre(), caracteristica.getIcono());
-            caracteristicaRepository.delete(caracteristica);
-            logger.info("La característica con ID: {} fue eliminada correctamente", id);
+    @Transactional
+    public void eliminarCaracteristica(Long id) {
+        try{
+            Optional<Caracteristica> caracteristicaOptional = caracteristicaRepository.findById(id);
+            caracteristicaOptional.ifPresent(caracteristica -> {
+                caracteristica.setEliminada(true);
+                this.caracteristicaRepository.save(caracteristica);
+            });
+            if (caracteristicaOptional.isEmpty()) {
+                throw new NonExistentCharacteristicExcpetion("No se encontró la característica con ID: " + id);
+            }
         } catch(Exception e){
-            logger.error("Se produjo un error al eliminar la característica con ID: " + id + ". Error: " + e.getMessage());
-            throw e;
+            throw new DeletedCharacteristException("Error al eliminar la característica con ID: "+id);
         }
     }
 
@@ -114,7 +118,7 @@ public class CaracteristicaService {
     }
 
 
-    //TODO: metodo para asociar y quitar caracteristicas, hecho en instrumentoService.
+
 
 }
 
