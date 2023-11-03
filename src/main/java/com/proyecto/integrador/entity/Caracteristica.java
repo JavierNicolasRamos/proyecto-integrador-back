@@ -22,8 +22,8 @@ public class Caracteristica {
     private String icono;
     @ManyToOne
     @JoinColumn(name = "instrumento_id")
-    @JsonIgnore
-    private Instrumento instrumento;
+
+
 
     @Override
     public String toString() {
@@ -31,7 +31,6 @@ public class Caracteristica {
                 "\n  id=" + id +
                 "\n  nombre='" + nombre + '\'' +
                 "\n  icono='" + icono + '\'' +
-                "\n  instrumento=" + (instrumento != null ? instrumento.getId() : "null") +
                 "\n}";
     }
 

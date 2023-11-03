@@ -43,11 +43,6 @@ public class CaracteristicaService {
         caracteristica.setNombre(caracteristicaDto.getNombre());
         caracteristica.setIcono(caracteristicaDto.getIcono());
 
-        Optional<Instrumento> instrumentoOptional = instrumentoRepository.findById(caracteristicaDto.getInstrumentoId());
-        Instrumento instrumento = instrumentoOptional.orElseThrow(() ->
-                new EntityNotFoundException("No se encontró el instrumento con el ID: " + caracteristicaDto.getInstrumentoId()));
-
-        caracteristica.setInstrumento(instrumento);
 
         Caracteristica nuevaCaracteristica = caracteristicaRepository.save(caracteristica);
         logger.info("La característica con ID {} ha sido creada exitosamente.", nuevaCaracteristica.getId());
@@ -70,13 +65,6 @@ public class CaracteristicaService {
             caracteristica.setNombre(caracteristicaDto.getNombre());
             caracteristica.setIcono(caracteristicaDto.getIcono());
 
-
-
-            Optional<Instrumento> instrumentoOptional = instrumentoRepository.findById(caracteristicaDto.getInstrumentoId());
-            Instrumento instrumento = instrumentoOptional.orElseThrow(() ->
-                    new EntityNotFoundException("No se encontró el instrumento con el ID: " + caracteristicaDto.getInstrumentoId()));
-
-            caracteristica.setInstrumento(instrumento);
 
             caracteristicaRepository.save(caracteristica);
             logger.info("La característica con ID: {} fue modificada correctamente, atributo nombre: {}, icono: {}",
@@ -108,9 +96,9 @@ public class CaracteristicaService {
     // obtener la lista de características
     public List<Caracteristica> listarCaracteristica() {
         logger.info("Obteniendo la lista de características registradas.");
-        List<Caracteristica> caracteristicas = caracteristicaRepository.findAll();
-        logger.info("Lista de características obtenida exitosamente. Cantidad de características: {}", caracteristicas.size());
-        return caracteristicas;
+        List<Caracteristica> caracteristica = caracteristicaRepository.findAll();
+        logger.info("Lista de características obtenida exitosamente. Cantidad de características: {}", caracteristica.size());
+        return caracteristica;
     }
 
 

@@ -31,11 +31,13 @@ public class CaracteristicaController {
         caracteristicaService.eliminarCaracteristica(id);
     }
 
-    // Endpoint para obtener todas las características sin paginación
+
     @GetMapping("/listar")
     public List<Caracteristica> listarCaracteristica() {
         return caracteristicaService.listarCaracteristica();
     }
+
+
 
 
 
