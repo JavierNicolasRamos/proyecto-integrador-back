@@ -2,8 +2,10 @@ package com.proyecto.integrador.controller;
 
 import com.proyecto.integrador.dto.CategoriaDto;
 import com.proyecto.integrador.entity.Categoria;
+import com.proyecto.integrador.entity.Instrumento;
 import com.proyecto.integrador.repository.CategoriaRepository;
 import com.proyecto.integrador.service.CategoriaService;
+import com.proyecto.integrador.service.InstrumentoService;
 import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -37,11 +39,21 @@ public class CategoriaController {
 
     @DeleteMapping("/{id}")
     public void eliminarInstrumentosPorCategoria(@PathVariable Long id){
-        this.categoriaService.eliminarInstrunmentosPorCategoria(id);
+        this.categoriaService.eliminarInstrumentosPorCategoria(id);
     }
 
-    @GetMapping
+    @GetMapping("/list")
     public List<Categoria> listarCategorias(){
         return categoriaService.listarCategorias();
+    }
+
+    @PutMapping
+    public Categoria updateCategory(@PathVariable Categoria categoria){
+        return categoriaService.updateCategory(categoria);
+    }
+
+    @GetMapping("/instrumentos")
+    public List<Instrumento> getInstrumentsByCategories(@RequestBody List<Categoria> categoryList){
+        return categoriaService.getInstrumentsByCategories(categoryList);
     }
 }

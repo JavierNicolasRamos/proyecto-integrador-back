@@ -1,9 +1,12 @@
 package com.proyecto.integrador.service;
 
+import com.proyecto.integrador.dto.CategoriaDto;
 import com.proyecto.integrador.dto.ImagenDto;
+import com.proyecto.integrador.entity.Categoria;
 import com.proyecto.integrador.entity.Imagen;
 import com.proyecto.integrador.entity.Instrumento;
 import com.proyecto.integrador.exception.ImagenGuardadoException;
+import com.proyecto.integrador.repository.CategoriaRepository;
 import com.proyecto.integrador.repository.ImagenRepository;
 import com.proyecto.integrador.repository.InstrumentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +30,9 @@ public class ImagenService {
 
     @Autowired
     private InstrumentoRepository instrumentoRepository;
+
+    @Autowired
+    private CategoriaRepository categoriaRepository;
 
     @Autowired
     private S3Service s3Service;
@@ -104,4 +110,74 @@ public class ImagenService {
             throw e;
         }
     }
+    @Transactional
+    public void saveImageCategory(Categoria categoria, ImagenDto imagenDto){
+        logger.info("Iniciando el proceso de guardo de imagen de categoría con ID:" + categoria.getId());
+        try{
+            Imagen image = new Imagen();
+            image.setImagen(this.s3Service.uploadFile(imagenDto.getImagen()));
+            this.imagenRepository.save(image);
+
+            Imagen savedImage = imagenRepository.save(image);
+            categoria.setImagen(savedImage);
+
+            logger.info("Guardado de imagen de la categoría completado con éxito. Categoria ID: " + categoria.getId());
+        } catch (ImagenGuardadoException e) {
+            logger.error("Error al guardar la imagen de la categoria: " + e.getMessage());
+            throw new ImagenGuardadoException("Error al guardar la imagen de la categoría", e);
+        } catch (Exception e) {
+            logger.error("Error inesperado al guardar la imagen de la categoría: " + e.getMessage(), e);
+            throw e;
+        }
+
+    }
+
+    @Transactional
+    public void updateImageCategory(Categoria categoria, ImagenDto imagenDto){
+        logger.info("Iniciando el proceso de actualizacion de imagen de categoría con ID:" + categoria.getId());
+        try{
+            Imagen imagenGuardada = new Imagen();
+
+            if(imagenDto.getId() != null && imagenDto.getEliminado()){
+                Optional<Imagen> imagenEliminar = imagenRepository.buscarPorId(imagenDto.getId());
+                if (imagenEliminar.isPresent()){
+                    Imagen imagenEliminada = imagenEliminar.get();
+                    imagenEliminada.setEliminado(true);
+
+                    this.s3Service.deleteFileFromS3Bucket(imagenEliminada.getImagen());
+                    imagenRepository.save(imagenEliminada);
+                }
+            }else{
+                Imagen imagen = new Imagen();
+                MultipartFile nuevaImagen = imagenDto.getImagen();
+
+                if(imagenDto.getId() != null){
+                    Optional<Imagen> imagenOptional = imagenRepository.buscarPorId(imagenDto.getId());
+                    if(imagenOptional.isPresent()){
+                        Imagen imagenExistente = imagenOptional.get();
+                        this.s3Service.deleteFileFromS3Bucket(imagenExistente.getImagen());
+                        imagenExistente.setImagen(this.s3Service.uploadFile(nuevaImagen));
+                        imagenRepository.save(imagenExistente);
+                        imagenGuardada = imagenExistente;
+                    }
+                }else{
+                    imagen.setImagen(this.s3Service.uploadFile(nuevaImagen));
+                    imagenRepository.save(imagen);
+                    imagenGuardada = imagen;
+                }
+            }
+
+            categoria.setImagen(imagenGuardada);
+
+            logger.info("Guardado de imagen de la categoría completado con éxito. Categoria ID: " + categoria.getId());
+        } catch (ImagenGuardadoException e) {
+            logger.error("Error al guardar la imagen de la categoria: " + e.getMessage());
+            throw new ImagenGuardadoException("Error al guardar la imagen de la categoría", e);
+        } catch (Exception e) {
+            logger.error("Error inesperado al guardar la imagen de la categoría: " + e.getMessage(), e);
+            throw e;
+        }
+
+    }
+
 }

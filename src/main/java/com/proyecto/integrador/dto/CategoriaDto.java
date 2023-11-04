@@ -1,5 +1,6 @@
 package com.proyecto.integrador.dto;
 
+import com.proyecto.integrador.entity.Imagen;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,5 +11,5 @@ import lombok.Setter;
 public class CategoriaDto {
     private Long id;
     private String descripcion;
-    private Boolean eliminado;
+    private ImagenDto imagen; //Get imagen devuelve una imagenDto
 }

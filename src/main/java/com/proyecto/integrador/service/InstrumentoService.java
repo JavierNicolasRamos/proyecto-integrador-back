@@ -1,6 +1,7 @@
 package com.proyecto.integrador.service;
 
 import com.proyecto.integrador.dto.InstrumentoDto;
+import com.proyecto.integrador.entity.Categoria;
 import com.proyecto.integrador.entity.Instrumento;
 import com.proyecto.integrador.exception.DuplicateInstrumentException;
 import com.proyecto.integrador.exception.EliminacionInstrumentoException;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
@@ -54,7 +56,7 @@ public class InstrumentoService {
             instrumento.setDisponible(true);
             logger.info("Se va a crear el instrumento con nombre: " + instrumentoDto.getNombre());
             instrumentoRepository.save(instrumento);
-            this.imagenService.guardarImagenesInstrumento(instrumento,instrumentoDto.getImagen());
+            this.imagenService.guardarImagenesInstrumento(instrumento,instrumentoDto.getImagen());//Acá el get imagen devuelve una imagen Dto, me llamó la atención
             logger.info("Instrumento creado con éxito, nombre: " + instrumento.getNombre());
             return instrumento;
         } catch(DuplicateInstrumentException e){
@@ -169,4 +171,9 @@ public class InstrumentoService {
             throw new InstrumentoGetAllException("Error al recuperar la lista de instrumentos.", e);
         }
     }
+
+
+
+
+
 }

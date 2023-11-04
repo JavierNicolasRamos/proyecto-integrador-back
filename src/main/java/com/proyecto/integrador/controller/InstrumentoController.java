@@ -2,6 +2,7 @@ package com.proyecto.integrador.controller;
 
 // Asumiendo que tienes una clase Instrumento
 import com.proyecto.integrador.dto.InstrumentoDto;
+import com.proyecto.integrador.entity.Categoria;
 import com.proyecto.integrador.entity.Instrumento;
 import com.proyecto.integrador.service.InstrumentoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,8 @@ public class InstrumentoController {
     public Page<Instrumento>getNombre(@PathVariable String nombre, Pageable pageable){
         return instrumentoService.getNombre(nombre, pageable);
     }
+
+
 }
 
 
