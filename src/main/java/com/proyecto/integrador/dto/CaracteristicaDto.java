@@ -12,5 +12,5 @@ public class CaracteristicaDto {
     private Long id;
     private String nombre;
     private String icono;
-    private Long instrumentoId;
+    private Boolean eliminada;
 }

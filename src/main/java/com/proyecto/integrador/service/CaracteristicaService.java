@@ -1,7 +1,9 @@
 package com.proyecto.integrador.service;
 
 import com.proyecto.integrador.dto.CaracteristicaDto;
+import com.proyecto.integrador.dto.InstrumentoDto;
 import com.proyecto.integrador.entity.Caracteristica;
+import com.proyecto.integrador.entity.Instrumento;
 import com.proyecto.integrador.exception.*;
 import com.proyecto.integrador.repository.CaracteristicaRepository;
 import com.proyecto.integrador.repository.InstrumentoRepository;
@@ -116,6 +118,20 @@ public class CaracteristicaService {
         }
         return false;
     }
+
+    public void asociarCaracteristica(Instrumento instrumento, List<CaracteristicaDto> caracteristicasDto){
+
+        for (CaracteristicaDto caracteristicaDto : caracteristicasDto) {
+            Caracteristica caracteristica = new Caracteristica();
+            caracteristica.setNombre(caracteristicaDto.getNombre());
+            caracteristica.setIcono(caracteristicaDto.getIcono());
+            caracteristica.setInstrumento(instrumento);
+
+            instrumento.getCaracteristicas().add(caracteristica);
+        }
+        instrumentoRepository.save(instrumento);
+    }
+
 
 
 

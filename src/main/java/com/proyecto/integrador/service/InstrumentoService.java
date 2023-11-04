@@ -36,6 +36,9 @@ public class InstrumentoService {
     private CaracteristicaRepository caracteristicaRepository;
 
     @Autowired
+    private CaracteristicaService caracteristicaService;
+
+    @Autowired
     private ImagenService imagenService;
     
     @Transactional
@@ -60,6 +63,7 @@ public class InstrumentoService {
             logger.info("Se va a crear el instrumento con nombre: " + instrumentoDto.getNombre());
             instrumentoRepository.save(instrumento);
             this.imagenService.guardarImagenesInstrumento(instrumento);
+            this.caracteristicaService.asociarCaracteristica(instrumento, instrumentoDto.getCaracteristicas());
             logger.info("Instrumento creado con éxito, nombre: " + instrumento.getNombre());
             return instrumento;
         } catch(DuplicateInstrumentException e){
@@ -124,6 +128,7 @@ public class InstrumentoService {
                instrumento.setDisponible(instrumentoDto.getDisponible());
 
                this.imagenService.actualizarImagenesInstrumento(instrumento);
+               this.caracteristicaService.asociarCaracteristica(instrumento, instrumentoDto.getCaracteristicas());
                logger.info("Instrumento con ID " + id + " actualizado con éxito.");
                return instrumentoRepository.save(instrumento);
            } else {
@@ -176,41 +181,6 @@ public class InstrumentoService {
     }
 
 
-    // Asociar caracteristicas a instrumento.
 
-    @Transactional
-    public Instrumento asociarCaracteristica(Long idInstrumento, List<Long> idCaracteristica) {
-
-        //verificar existencia del instrumento
-        Instrumento instrumento = instrumentoRepository.findById(idInstrumento)
-                .orElseThrow(() -> new EntityNotFoundException("No se encontró el instrumento con el ID: " + idInstrumento));
-
-        // verificar existencia caracteristicas
-        List<Caracteristica> caracteristicas = caracteristicaRepository.findAllById(idCaracteristica);
-
-        // asociar la característica al instrumento
-        instrumento.setCaracteristicas(caracteristicas);
-
-        // Guardar el instrumento actualizado
-        return instrumentoRepository.save(instrumento);
-    }
-
-    // Quitar caracteristica
-    @Transactional
-    public Instrumento desasociarCaracteristica(Long idInstrumento, List<Long> idsCaracteristica) {
-
-        // verificar que el instrumento exista
-        Instrumento instrumento = instrumentoRepository.findById(idInstrumento)
-                .orElseThrow(() -> new EntityNotFoundException("No se encontró el instrumento con el ID: " + idInstrumento));
-
-        // verificar que las características existan
-        List<Caracteristica> caracteristica = caracteristicaRepository.findAllById(idsCaracteristica);
-
-        // desasociar las características del instrumento
-        instrumento.getCaracteristicas().removeAll(caracteristica);
-
-        // guardar el instrumento actualizado
-        return instrumentoRepository.save(instrumento);
-    }
 
 }
