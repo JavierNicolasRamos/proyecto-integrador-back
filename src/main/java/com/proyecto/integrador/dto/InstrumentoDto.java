@@ -21,7 +21,7 @@ public class InstrumentoDto {
     private LocalDate fechaCarga;
     private LocalDate fechaUpdate;
     private Boolean disponible;
-    private List<Imagen> imagen;
+    private List<ImagenDto> imagen;
     private List<Reserva> reservas;
     private Boolean eliminado;
     private Double puntuacion;
