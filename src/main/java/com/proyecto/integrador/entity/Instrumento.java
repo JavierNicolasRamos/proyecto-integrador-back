@@ -53,7 +53,7 @@ public class Instrumento {
     @JsonIgnore
     private List<Reserva> reservas;
 
-    @OneToMany(mappedBy = "instrumento")
+    @OneToMany
     private List<Caracteristica> caracteristicas;
 
     @Override

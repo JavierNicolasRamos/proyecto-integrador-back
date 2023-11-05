@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -119,17 +120,32 @@ public class CaracteristicaService {
         return false;
     }
 
-    public void asociarCaracteristica(Instrumento instrumento, List<CaracteristicaDto> caracteristicasDto){
+    public void asociarCaracteristica(Instrumento instrumento, List<CaracteristicaDto> caracteristicasDto) {
+        List<Caracteristica> nuevasCaracteristicas = new ArrayList();
 
         for (CaracteristicaDto caracteristicaDto : caracteristicasDto) {
-            Caracteristica caracteristica = new Caracteristica();
-            caracteristica.setNombre(caracteristicaDto.getNombre());
-            caracteristica.setIcono(caracteristicaDto.getIcono());
-            caracteristica.setInstrumento(instrumento);
+            try {
+                Optional<Caracteristica> caracteristicaOptional = caracteristicaRepository.findById(caracteristicaDto.getId());
 
-            instrumento.getCaracteristicas().add(caracteristica);
+                if (caracteristicaOptional.isPresent()) {
+                    Caracteristica caracteristicaExistente = caracteristicaOptional.get();
+                    nuevasCaracteristicas.add(caracteristicaExistente);
+                } else {
+                    System.out.println("Característica con ID " + caracteristicaDto.getId() + " no encontrada.");
+                    throw new NonExistentCharacteristicExcpetion("No se encontró la característica con ID: " + caracteristicaDto.getId());
+                }
+            } catch (Exception e) {
+                e.printStackTrace(); //Agregar excepcion personalizada
+            }
         }
-        instrumentoRepository.save(instrumento);
+
+        try {
+            instrumento.getCaracteristicas().clear();
+            instrumento.getCaracteristicas().addAll(nuevasCaracteristicas);
+            instrumentoRepository.save(instrumento);
+        } catch (Exception e) {
+            e.printStackTrace(); //Agregar excepcion personalizada
+        }
     }
 
 

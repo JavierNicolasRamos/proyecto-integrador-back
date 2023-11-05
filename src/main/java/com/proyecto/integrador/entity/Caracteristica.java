@@ -21,9 +21,6 @@ public class Caracteristica {
     private String nombre;
     private String icono;
     private Boolean eliminada;
-    private Instrumento instrumento;
-
-
 
     @Override
     public String toString() {
