@@ -38,8 +38,8 @@ public class CategoriaController {
     }
 
     @DeleteMapping("/{id}")
-    public void eliminarInstrumentosPorCategoria(@PathVariable Long id){
-        this.categoriaService.eliminarInstrumentosPorCategoria(id);
+    public void deleteCategoria(@PathVariable Long id){
+        this.categoriaService.deleteCategoria(id);
     }
 
     @GetMapping("/list")
@@ -48,7 +48,7 @@ public class CategoriaController {
     }
 
     @PutMapping
-    public Categoria updateCategory(@PathVariable Categoria categoria){
+    public Categoria updateCategory(@PathVariable CategoriaDto categoria){
         return categoriaService.updateCategory(categoria);
     }
 

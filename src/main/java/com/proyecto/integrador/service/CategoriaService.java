@@ -85,13 +85,14 @@ public class CategoriaService {
         }
     }
 
-    public void eliminarInstrumentosPorCategoria(Long id){
+    public void deleteCategoria(Long id){
         logger.info("Iniciando el proceso de eliminación de instrumentos por categoría con ID: " + id);
         try {
             Categoria categoria = categoriaRepository.buscarPorId(id).orElseThrow(() ->
                     new CategoriaNotFoundException("La categoria no existe"));
             logger.info("Eliminando categoría con ID: " + categoria.getId());
             categoria.setEliminado(true);
+            this.imagenService.deleteImagenCategoria(categoria);
             categoriaRepository.save(categoria);//
 
             List<Instrumento> instrumentoList = instrumentoRepository.findAllByCategoriaAndEliminado(categoria, false);
@@ -110,9 +111,9 @@ public class CategoriaService {
         }
     }
 
-    public Categoria updateCategory(Long id, CategoriaDto categoriaDto){
+    public Categoria updateCategory(CategoriaDto categoriaDto){
         logger.info("Starting category update process");
-        Optional<Categoria> optionalCategoria = categoriaRepository.findById(id);
+        Optional<Categoria> optionalCategoria = categoriaRepository.findById(categoriaDto.getId());
         try{
             if(optionalCategoria.isPresent()){
                 Categoria categoria = optionalCategoria.get();
@@ -128,10 +129,10 @@ public class CategoriaService {
                 categoria.setDescripcion(categoriaDto.getDescripcion());
 
                 this.imagenService.updateImageCategory(categoria, categoriaDto.getImagen());
-                logger.info("Categoria con ID " + id + "actualizada con éxito");
+                logger.info("Categoria con ID " + categoria.getId() + "actualizada con éxito");
                 return categoriaRepository.save(categoria);
             }else{
-                throw new NonExistentCategoryException("No se encontro la categoria con ID: " + id);
+                throw new NonExistentCategoryException("No se encontro la categoria con ID: " + categoriaDto.getId());
             }
 
 

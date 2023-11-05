@@ -19,5 +19,4 @@ public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
     @Query(value = "SELECT * FROM categorias WHERE id = :id AND eliminado = false", nativeQuery = true)
     Optional<Categoria> buscarPorId(@Param("id") Long id);
 
-    Categoria updateCategoriaById(Long id, Categoria categoria);
 }

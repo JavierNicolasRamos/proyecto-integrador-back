@@ -110,10 +110,11 @@ public class ImagenService {
             throw e;
         }
     }
+
     @Transactional
-    public void saveImageCategory(Categoria categoria, ImagenDto imagenDto){
+    public void saveImageCategory(Categoria categoria, ImagenDto imagenDto) {
         logger.info("Iniciando el proceso de guardo de imagen de categoría con ID:" + categoria.getId());
-        try{
+        try {
             Imagen image = new Imagen();
             image.setImagen(this.s3Service.uploadFile(imagenDto.getImagen()));
             this.imagenRepository.save(image);
@@ -132,38 +133,49 @@ public class ImagenService {
 
     }
 
+    public void deleteImagenCategoria(Categoria categoria){
+        try {
+            Optional<Imagen> imagenEliminar = imagenRepository.buscarPorId(categoria.getImagen().getId());
+            Imagen imagenEliminada = imagenEliminar.get();
+            imagenEliminada.setEliminado(true);
+            this.s3Service.deleteFileFromS3Bucket(imagenEliminada.getImagen());
+            imagenRepository.save(imagenEliminada);
+        }
+        catch (Exception e){
+            throw e; //Agregar expecion personalizada
+        }
+    }
+
     @Transactional
-    public void updateImageCategory(Categoria categoria, ImagenDto imagenDto){
+    public void updateImageCategory(Categoria categoria, ImagenDto imagenDto) {
         logger.info("Iniciando el proceso de actualizacion de imagen de categoría con ID:" + categoria.getId());
-        try{
+        try {
             Imagen imagenGuardada = new Imagen();
 
-            if(imagenDto.getId() != null && imagenDto.getEliminado()){
+            if (imagenDto.getId() != null && imagenDto.getEliminado()) {
                 Optional<Imagen> imagenEliminar = imagenRepository.buscarPorId(imagenDto.getId());
-                if (imagenEliminar.isPresent()){
+                if (imagenEliminar.isPresent()) {
                     Imagen imagenEliminada = imagenEliminar.get();
                     imagenEliminada.setEliminado(true);
 
                     this.s3Service.deleteFileFromS3Bucket(imagenEliminada.getImagen());
                     imagenRepository.save(imagenEliminada);
                 }
-            }else{
-                Imagen imagen = new Imagen();
+            } else {
                 MultipartFile nuevaImagen = imagenDto.getImagen();
 
-                if(imagenDto.getId() != null){
+                if (imagenDto.getId() != null) {
                     Optional<Imagen> imagenOptional = imagenRepository.buscarPorId(imagenDto.getId());
-                    if(imagenOptional.isPresent()){
+                    if (imagenOptional.isPresent()) {
                         Imagen imagenExistente = imagenOptional.get();
                         this.s3Service.deleteFileFromS3Bucket(imagenExistente.getImagen());
                         imagenExistente.setImagen(this.s3Service.uploadFile(nuevaImagen));
                         imagenRepository.save(imagenExistente);
                         imagenGuardada = imagenExistente;
                     }
-                }else{
-                    imagen.setImagen(this.s3Service.uploadFile(nuevaImagen));
-                    imagenRepository.save(imagen);
-                    imagenGuardada = imagen;
+                    else {
+                        throw new ImagenGuardadoException("Error al guardar la imagen de la categoría, el id de la imagen es null");
+                    }
                 }
             }
 
@@ -173,11 +185,7 @@ public class ImagenService {
         } catch (ImagenGuardadoException e) {
             logger.error("Error al guardar la imagen de la categoria: " + e.getMessage());
             throw new ImagenGuardadoException("Error al guardar la imagen de la categoría", e);
-        } catch (Exception e) {
-            logger.error("Error inesperado al guardar la imagen de la categoría: " + e.getMessage(), e);
-            throw e;
         }
-
     }
 
 }
