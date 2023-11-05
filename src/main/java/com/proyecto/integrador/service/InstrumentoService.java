@@ -2,11 +2,13 @@ package com.proyecto.integrador.service;
 
 import com.proyecto.integrador.dto.InstrumentoDto;
 import com.proyecto.integrador.entity.Categoria;
+import com.proyecto.integrador.entity.Caracteristica;
 import com.proyecto.integrador.entity.Instrumento;
 import com.proyecto.integrador.exception.DuplicateInstrumentException;
 import com.proyecto.integrador.exception.EliminacionInstrumentoException;
 import com.proyecto.integrador.exception.InstrumentoGetAllException;
 import com.proyecto.integrador.exception.NonExistentInstrumentException;
+import com.proyecto.integrador.repository.CaracteristicaRepository;
 import com.proyecto.integrador.repository.InstrumentoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,12 @@ public class InstrumentoService {
     private InstrumentoRepository instrumentoRepository;
 
     @Autowired
+    private CaracteristicaRepository caracteristicaRepository;
+
+    @Autowired
+    private CaracteristicaService caracteristicaService;
+
+    @Autowired
     private ImagenService imagenService;
     
     @Transactional
@@ -56,7 +64,10 @@ public class InstrumentoService {
             instrumento.setDisponible(true);
             logger.info("Se va a crear el instrumento con nombre: " + instrumentoDto.getNombre());
             instrumentoRepository.save(instrumento);
-            this.imagenService.guardarImagenesInstrumento(instrumento,instrumentoDto.getImagen());//Acá el get imagen devuelve una imagen Dto, me llamó la atención
+          
+            this.imagenService.guardarImagenesInstrumento(instrumento,instrumentoDto.getImagen());
+            this.caracteristicaService.asociarCaracteristica(instrumento, instrumentoDto.getCaracteristicas());
+
             logger.info("Instrumento creado con éxito, nombre: " + instrumento.getNombre());
             return instrumento;
         } catch(DuplicateInstrumentException e){
@@ -119,8 +130,10 @@ public class InstrumentoService {
                instrumento.setPuntuacion(instrumentoDto.getPuntuacion());
                instrumento.setDetalle(instrumentoDto.getDetalle());
                instrumento.setDisponible(instrumentoDto.getDisponible());
-
+             
                this.imagenService.actualizarImagenesInstrumento(instrumento, instrumentoDto.getImagen());
+               this.caracteristicaService.asociarCaracteristica(instrumento, instrumentoDto.getCaracteristicas());
+             
                logger.info("Instrumento con ID " + id + " actualizado con éxito.");
                return instrumentoRepository.save(instrumento);
            } else {
@@ -171,9 +184,4 @@ public class InstrumentoService {
             throw new InstrumentoGetAllException("Error al recuperar la lista de instrumentos.", e);
         }
     }
-
-
-
-
-
 }
