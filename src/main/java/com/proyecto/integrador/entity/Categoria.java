@@ -32,6 +32,9 @@ public class Categoria {
     @JsonIgnore
     private List<Instrumento> instrumento;
 
+    @OneToOne
+    private Imagen imagen;
+
     private Boolean eliminado;
 
     @Override

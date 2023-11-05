@@ -1,5 +1,6 @@
 package com.proyecto.integrador.repository;
 
+import com.proyecto.integrador.dto.CategoriaDto;
 import com.proyecto.integrador.entity.Categoria;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -17,4 +18,5 @@ public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
 
     @Query(value = "SELECT * FROM categorias WHERE id = :id AND eliminado = false", nativeQuery = true)
     Optional<Categoria> buscarPorId(@Param("id") Long id);
+
 }

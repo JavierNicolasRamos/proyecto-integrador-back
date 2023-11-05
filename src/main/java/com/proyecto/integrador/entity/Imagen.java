@@ -25,7 +25,7 @@ public class Imagen {
     private String imagen;
 
     @ManyToOne
-    @NotNull(message = "El instrumento no puede ser nulo")
+//    @NotNull(message = "El instrumento no puede ser nulo")
     @JsonIgnore
     private Instrumento instrumento;
 
