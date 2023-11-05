@@ -38,7 +38,8 @@ public class EmailService {
         Context context = new Context();
         //Agregar parametros segun se lo requiera el diseño
         context.setVariable("nombre", "Javier"); //Pasar como parametro el nombre del destinatario
-        String htmlContent = templateEngine.process("email-template.html", context);
+        context.setVariable("usuario", "Javier Ramos"); //Pasar como parametro el nombre del destinatario
+        String htmlContent = templateEngine.process("correo.html", context);
         return htmlContent;
     }
 

@@ -24,11 +24,6 @@ public class Imagen {
     @NotEmpty(message = "La imagen no puede estar vacía")
     private String imagen;
 
-    @ManyToOne
-//    @NotNull(message = "El instrumento no puede ser nulo")
-    @JsonIgnore
-    private Instrumento instrumento;
-
     private Boolean eliminado;
 
 
