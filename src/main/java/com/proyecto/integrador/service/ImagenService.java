@@ -1,6 +1,5 @@
 package com.proyecto.integrador.service;
 
-import com.proyecto.integrador.dto.CategoriaDto;
 import com.proyecto.integrador.dto.ImagenDto;
 import com.proyecto.integrador.entity.Categoria;
 import com.proyecto.integrador.entity.Imagen;
@@ -43,7 +42,6 @@ public class ImagenService {
             List<Imagen> imagenesGuardadas = imagenDtos.stream()
                     .map(imagenDto -> {
                         Imagen imagen = new Imagen();
-                        imagen.setInstrumento(instrumento);
                         imagen.setImagen(this.s3Service.uploadFile(imagenDto.getImagen()));
                         return imagen;
                     })
@@ -79,7 +77,6 @@ public class ImagenService {
                     }
                 } else {
                     Imagen imagen = new Imagen();
-                    imagen.setInstrumento(instrumento);
                     MultipartFile nuevaImagen = imagenDto.getImagen();
 
                     if (imagenDto.getId() != null) {

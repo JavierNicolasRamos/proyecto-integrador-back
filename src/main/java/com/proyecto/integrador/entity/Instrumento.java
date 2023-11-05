@@ -46,7 +46,7 @@ public class Instrumento {
     @NotNull(message = "La categoría no puede ser nula")
     private Categoria categoria;
 
-    @OneToMany(mappedBy = "instrumento")
+    @OneToMany
     private List<Imagen> imagen;
 
     @OneToMany(mappedBy = "instrumento")

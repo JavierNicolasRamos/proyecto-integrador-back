@@ -86,7 +86,6 @@ public class DataSeedConfig {
                 for (String imagenUrl : imagenes) {
                     Imagen imagen = new Imagen();
                     imagen.setImagen(imagenUrl);
-                    imagen.setInstrumento(instrumento);
                     imagen.setEliminado(false);
                     imagenRepository.save(imagen);
                 }
