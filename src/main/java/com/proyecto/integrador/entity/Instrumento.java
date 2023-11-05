@@ -53,6 +53,9 @@ public class Instrumento {
     @JsonIgnore
     private List<Reserva> reservas;
 
+    @OneToMany
+    private List<Caracteristica> caracteristicas;
+
     @Override
     public String toString() {
         String reservasString = (reservas != null && !reservas.isEmpty()) ? reservas.iterator().next().toStringIndented(1) : "[]";

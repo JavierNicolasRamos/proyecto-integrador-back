@@ -26,4 +26,5 @@ public class InstrumentoDto {
     private Boolean eliminado;
     private Double puntuacion;
     private String detalle;
+    private List<CaracteristicaDto> caracteristicas;
 }
