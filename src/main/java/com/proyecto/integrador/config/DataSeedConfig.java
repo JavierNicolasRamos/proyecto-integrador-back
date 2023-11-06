@@ -83,12 +83,16 @@ public class DataSeedConfig {
                 instrumentoRepository.save(instrumento);
 
                 List<String> imagenes = (List<String>) instrumentoData.get("imagen");
+                List<Imagen> imagenList = new ArrayList<>();
                 for (String imagenUrl : imagenes) {
                     Imagen imagen = new Imagen();
                     imagen.setImagen(imagenUrl);
                     imagen.setEliminado(false);
                     imagenRepository.save(imagen);
+                    imagenList.add(imagen);
                 }
+                instrumento.setImagen(imagenList);
+                instrumentoRepository.save(instrumento);
                 instrumentos.add(instrumento);
             }
         }
