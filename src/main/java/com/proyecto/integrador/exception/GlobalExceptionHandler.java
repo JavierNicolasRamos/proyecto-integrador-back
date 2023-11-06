@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class GlobalExceptionHandler {
 
 
-    @ExceptionHandler(InstrumentoNotFoundException.class)
-    public ResponseEntity<String> handleInstrumentoNotFoundException(InstrumentoNotFoundException ex) {
+    @ExceptionHandler(InstrumentNotFoundException.class)
+    public ResponseEntity<String> handleInstrumentoNotFoundException(InstrumentNotFoundException ex) {
         return new ResponseEntity<>("Instrumento no encontrado: " + ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 
@@ -23,8 +23,8 @@ public class GlobalExceptionHandler {
     }
 
     //Por que esta comentado el metodo?
-    @ExceptionHandler(DuplicateCategoriaException.class)
-    public ResponseEntity<String> handleException(DuplicateCategoriaException e){
+    @ExceptionHandler(DuplicateCategoryException.class)
+    public ResponseEntity<String> handleException(DuplicateCategoryException e){
         return new ResponseEntity<>("Categoria duplicada: " + e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }

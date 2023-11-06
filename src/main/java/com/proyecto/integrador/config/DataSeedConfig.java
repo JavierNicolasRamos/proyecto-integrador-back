@@ -1,12 +1,12 @@
 package com.proyecto.integrador.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.proyecto.integrador.entity.Categoria;
-import com.proyecto.integrador.entity.Imagen;
-import com.proyecto.integrador.entity.Instrumento;
-import com.proyecto.integrador.repository.CategoriaRepository;
-import com.proyecto.integrador.repository.ImagenRepository;
-import com.proyecto.integrador.repository.InstrumentoRepository;
+import com.proyecto.integrador.entity.Category;
+import com.proyecto.integrador.entity.Image;
+import com.proyecto.integrador.entity.Instrument;
+import com.proyecto.integrador.repository.CategoryRepository;
+import com.proyecto.integrador.repository.ImageRepository;
+import com.proyecto.integrador.repository.InstrumentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -28,13 +28,13 @@ import java.util.Optional;
 public class DataSeedConfig {
 
     @Autowired
-    private InstrumentoRepository instrumentoRepository;
+    private InstrumentRepository instrumentRepository;
 
     @Autowired
-    private ImagenRepository imagenRepository;
+    private ImageRepository imageRepository;
 
     @Autowired
-    private CategoriaRepository categoriaRepository;
+    private CategoryRepository categoryRepository;
 
     @Bean
     @Order(1)
@@ -49,8 +49,8 @@ public class DataSeedConfig {
     @Bean
     @Order(2)
     @Transactional
-    public List<Instrumento> crearInstrumentos(@Qualifier("dataSeed") List<Map<String, Object>> dataSeed) {
-        List<Instrumento> instrumentos = new ArrayList<>();
+    public List<Instrument> crearInstrumentos(@Qualifier("dataSeed") List<Map<String, Object>> dataSeed) {
+        List<Instrument> instruments = new ArrayList<>();
 
         for (Map<String, Object> instrumentoData : dataSeed) {
             String nombre = (String) instrumentoData.get("nombre");
@@ -59,45 +59,45 @@ public class DataSeedConfig {
             Map<String, Object> categoriaData = (Map<String, Object>) instrumentoData.get("categoria");
             String categoriaDescripcion = (String) categoriaData.get("descripcion");
 
-            Optional<Instrumento> existeInstrumento = instrumentoRepository.getByNombre(nombre);
+            Optional<Instrument> existeInstrumento = instrumentRepository.getByName(nombre);
             if (!existeInstrumento.isPresent()) {
-                Instrumento instrumento = new Instrumento();
-                Optional<Categoria> existeCategoria = categoriaRepository.findByDescripcion(categoriaDescripcion);
+                Instrument instrument = new Instrument();
+                Optional<Category> existeCategoria = categoryRepository.findByName(categoriaDescripcion);
                 if (!existeCategoria.isPresent()) {
-                    Categoria categoria = new Categoria();
-                    categoria.setDescripcion(categoriaDescripcion);
-                    categoria.setEliminado(false);
-                    this.categoriaRepository.save(categoria);
-                    instrumento.setCategoria(categoria);
+                    Category category = new Category();
+                    category.setName(categoriaDescripcion);
+                    category.setDeleted(false);
+                    this.categoryRepository.save(category);
+                    instrument.setCategory(category);
                 } else {
-                    instrumento.setCategoria(existeCategoria.get());
+                    instrument.setCategory(existeCategoria.get());
                 }
 
-                instrumento.setNombre(nombre);
-                instrumento.setFechaCarga(LocalDate.now());
-                instrumento.setFechaUpdate(LocalDate.now());
-                instrumento.setPuntuacion(puntuacion);
-                instrumento.setDetalle(detalle);
-                instrumento.setEliminado(false);
-                instrumento.setDisponible(true);
-                instrumentoRepository.save(instrumento);
+                instrument.setName(nombre);
+                instrument.setUploadDate(LocalDate.now());
+                instrument.setUpdateDate(LocalDate.now());
+                instrument.setScore(puntuacion);
+                instrument.setDetail(detalle);
+                instrument.setDeleted(false);
+                instrument.setAvailable(true);
+                instrumentRepository.save(instrument);
 
                 List<String> imagenes = (List<String>) instrumentoData.get("imagen");
-                List<Imagen> imagenList = new ArrayList<>();
+                List<Image> imageList = new ArrayList<>();
                 for (String imagenUrl : imagenes) {
-                    Imagen imagen = new Imagen();
-                    imagen.setImagen(imagenUrl);
-                    imagen.setEliminado(false);
-                    imagenRepository.save(imagen);
-                    imagenList.add(imagen);
+                    Image image = new Image();
+                    image.setImage(imagenUrl);
+                    image.setDeleted(false);
+                    imageRepository.save(image);
+                    imageList.add(image);
                 }
-                instrumento.setImagen(imagenList);
-                instrumentoRepository.save(instrumento);
-                instrumentos.add(instrumento);
+                instrument.setImage(imageList);
+                instrumentRepository.save(instrument);
+                instruments.add(instrument);
             }
         }
 
-        return instrumentos;
+        return instruments;
     }
 
 }

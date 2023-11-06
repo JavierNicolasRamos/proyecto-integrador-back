@@ -9,10 +9,11 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
-
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 @Service
 public class EmailService {
+    private static final Logger logger = LoggerFactory.getLogger(EmailService.class);
 
     @Autowired
     private JavaMailSender javaMailSender;
@@ -39,8 +40,7 @@ public class EmailService {
         //Agregar parametros segun se lo requiera el diseño
         context.setVariable("nombre", "Javier"); //Pasar como parametro el nombre del destinatario
         context.setVariable("usuario", "Javier Ramos"); //Pasar como parametro el nombre del destinatario
-        String htmlContent = templateEngine.process("correo.html", context);
-        return htmlContent;
+        return templateEngine.process("correo.html", context);
     }
 
     public void sendEmail(String to, String subject, String htmlContent) {
@@ -55,7 +55,7 @@ public class EmailService {
 
             javaMailSender.send(message);
         } catch (MessagingException e) {
-            e.printStackTrace();
+            logger.error("Error al enviar el correo", e);
         }
     }
 }
