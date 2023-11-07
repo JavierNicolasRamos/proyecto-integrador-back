@@ -31,7 +31,7 @@ public class InstrumentController {
         return instrumentService.getAll(pageable);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public Instrument getInstrumentById(@PathVariable Long id) {
         return instrumentService.getInstrumentById(id);
     }
