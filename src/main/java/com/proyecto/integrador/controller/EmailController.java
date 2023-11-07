@@ -17,7 +17,6 @@ public class EmailController {
     @PostMapping("/send")
     public ResponseEntity<String> sendCustomEmail() {
         // emailRequest es un objeto que contiene el destinatario, asunto y contenido HTML
-
         this.emailService.sendEmail();
 
         return ResponseEntity.ok("Correo electrónico enviado con éxito");

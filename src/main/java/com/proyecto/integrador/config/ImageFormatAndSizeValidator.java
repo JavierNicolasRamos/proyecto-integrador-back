@@ -3,6 +3,7 @@ package com.proyecto.integrador.config;
 import com.proyecto.integrador.config.ImageFormatAndSize;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -10,7 +11,7 @@ public class ImageFormatAndSizeValidator implements ConstraintValidator<ImageFor
     private long maxSize;
 
     @Override
-    public void initialize(ImageFormatAndSize constraintAnnotation) {
+    public void initialize(@NotNull ImageFormatAndSize constraintAnnotation) {
         this.maxSize = constraintAnnotation.maxSize();
     }
 
@@ -26,10 +27,6 @@ public class ImageFormatAndSizeValidator implements ConstraintValidator<ImageFor
         }
 
         String contentType = file.getContentType();
-        if (contentType != null && (contentType.equals("image/jpeg") || contentType.equals("image/png") || contentType.equals("image/gif"))) {
-            return true;
-        }
-
-        return false;
+        return contentType != null && (contentType.equals("image/jpeg") || contentType.equals("image/png") || contentType.equals("image/gif"));
     }
 }
