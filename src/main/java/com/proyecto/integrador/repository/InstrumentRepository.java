@@ -28,7 +28,8 @@ public interface InstrumentRepository extends JpaRepository<Instrument, Long> {
     @Query(value = "SELECT COUNT(*) FROM instruments WHERE category_id = :id AND deleted  = false", nativeQuery = true)
     Long countAllByCategory(@Param("id") Long id);
 
-    List<Instrument> findAllByCategory(Category category, Boolean deleted);
+    @Query(value = "SELECT * FROM instruments WHERE category = :category AND deleted = false", nativeQuery = true)
+    List<Instrument> findAllByCategory(Category category);
 
     @Query(value = "SELECT * FROM instruments WHERE id = :id AND deleted = false", nativeQuery = true)
     @NotNull

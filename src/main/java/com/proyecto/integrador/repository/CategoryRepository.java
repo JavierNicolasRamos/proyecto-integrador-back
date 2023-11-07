@@ -15,12 +15,11 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
     @NotNull
     List<Category> findAll(Boolean deleted);
 
-    @Query(value = "SELECT * FROM categories WHERE description = :description AND deleted = false", nativeQuery = true)
+    @Query(value = "SELECT * FROM categories WHERE name = :name AND deleted = false", nativeQuery = true)
     @NotNull
-    Optional<Category> findByName(String description);
+    Optional<Category> findByName(String name);
 
     @Query(value = "SELECT * FROM categories WHERE id = :id AND deleted = false", nativeQuery = true)
     @NotNull
     Optional<Category> findById(@Param("id") @NotNull Long id);
-
 }

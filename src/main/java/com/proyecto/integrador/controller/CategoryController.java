@@ -21,9 +21,9 @@ public class CategoryController {
         return categoryService.createCategory(categoryDto);
     }
 
-    @GetMapping("description/{description}")
-    public Category categoryByDescription(@PathVariable String description){
-        return categoryService.categoryByDescription(description);
+    @GetMapping("/{name}")
+    public Category categoryByName(@PathVariable String name){
+        return categoryService.categoryByName(name);
     }
 
     @GetMapping("instruments/{id}")
@@ -41,8 +41,8 @@ public class CategoryController {
         return categoryService.listCategories();
     }
 
-    @PutMapping("/update")
-    public Category updateCategory(@PathVariable CategoryDto category){
+    @PutMapping
+    public Category updateCategory(@RequestBody CategoryDto category){
         return categoryService.updateCategory(category);
     }
 

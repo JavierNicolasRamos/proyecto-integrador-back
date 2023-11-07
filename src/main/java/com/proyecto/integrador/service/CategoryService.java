@@ -57,21 +57,19 @@ public class CategoryService {
         }
     }
 
-    public Category categoryByDescription(String description){
-        logger.info("Iniciando la búsqueda de categoría con descripción: " + description);
+    public Category categoryByName(String name){
+        logger.info("Iniciando la búsqueda de categoría con descripción: " + name);
 
         try {
-            Category category = categoryRepository.findByName(description).orElseThrow(() ->
-                    new CategoryNotFoundException("La categoria no existe"));
-
-            logger.info("Búsqueda de categoría completada con éxito. Descripción: " + description);
+            Category category = categoryRepository.findByName(name).orElseThrow(() -> {
+                    logger.error("No se encontró la categoría con descripción: " + name);
+                    return new CategoryNotFoundException("La categoria no existe");
+            });
+            logger.info("Búsqueda de categoría completada con éxito. Descripción: " + name);
             return category;
-        }catch(CategoryNotFoundException e){
-            logger.error("Error al buscar la categoría: " + e.getMessage());
-            throw e;
         }catch(Exception e){
             logger.error("Error inesperado al buscar la categoría: " + e.getMessage(), e);
-            throw e;
+            throw e; //TODO: sumar la excepcion customizada
         }
     }
     public Long instrumentsByCategory(Long id){
@@ -100,7 +98,7 @@ public class CategoryService {
             this.imageService.deleteImageCategory(category);
             categoryRepository.save(category);
 
-            List<Instrument> instrumentList = instrumentRepository.findAllByCategory(category, false);
+            List<Instrument> instrumentList = instrumentRepository.findAllByCategory(category);
             for (Instrument instrument : instrumentList) {
                 logger.info("Eliminando instrumento con ID: " + instrument.getId());
                 instrument.setDeleted(true);
@@ -158,7 +156,7 @@ public class CategoryService {
 
         try{
             for ( Category category : categoryList){
-                List<Instrument> instrumentListI = instrumentRepository.findAllByCategory(category, false);
+                List<Instrument> instrumentListI = instrumentRepository.findAllByCategory(category);
                 instrumentList.addAll(instrumentListI);
             }
             return instrumentList;

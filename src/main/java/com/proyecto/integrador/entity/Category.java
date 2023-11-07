@@ -5,8 +5,11 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import java.util.List;
 
@@ -21,9 +24,8 @@ public class Category {
     @Column(name = "id")
     private Long id;
 
-    @NotBlank(message = "La descripcion no puede estar en blanco")
-    @NotEmpty(message = "La descripcion no puede estar vacía")
-    @Size(min = 5, message = "La descripcion debe tener al menos 5 carácteres")
+    @NotBlank(message = "El nombre no puede estar en blanco")
+    @NotEmpty(message = "El nombre no puede estar vacía")
     private String name;
 
     @OneToMany(mappedBy = "category")

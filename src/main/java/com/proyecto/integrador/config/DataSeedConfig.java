@@ -41,52 +41,51 @@ public class DataSeedConfig {
     public List<Map<String, Object>> dataSeed() throws IOException {
         InputStream inputStream = new ClassPathResource("dataSeed.json").getInputStream();
         ObjectMapper objectMapper = new ObjectMapper();
-        List<Map<String, Object>> data = objectMapper.readValue(inputStream, new TypeReference<List<Map<String, Object>>>() {});
 
-        return data;
+        return objectMapper.readValue(inputStream, new TypeReference<List<Map<String, Object>>>() {});
     }
 
     @Bean
     @Order(2)
     @Transactional
-    public List<Instrument> crearInstrumentos(@Qualifier("dataSeed") List<Map<String, Object>> dataSeed) {
+    public List<Instrument> createInstrument(@Qualifier("dataSeed") List<Map<String, Object>> dataSeed) {
         List<Instrument> instruments = new ArrayList<>();
 
-        for (Map<String, Object> instrumentoData : dataSeed) {
-            String nombre = (String) instrumentoData.get("nombre");
-            Double puntuacion = (Double) instrumentoData.get("puntuacion");
-            String detalle = (String) instrumentoData.get("detalle");
-            Map<String, Object> categoriaData = (Map<String, Object>) instrumentoData.get("categoria");
-            String categoriaDescripcion = (String) categoriaData.get("descripcion");
+        for (Map<String, Object> instrumentData : dataSeed) {
+            String name = (String) instrumentData.get("name");
+            Double score = (Double) instrumentData.get("score");
+            String detail = (String) instrumentData.get("detail");
+            Map<String, Object> categoryData = (Map<String, Object>) instrumentData.get("category");
+            String categoryName = (String) categoryData.get("name");
 
-            Optional<Instrument> existeInstrumento = instrumentRepository.getByName(nombre);
-            if (!existeInstrumento.isPresent()) {
+            Optional<Instrument> instrumentExist = instrumentRepository.getByName(name);
+            if (instrumentExist.isEmpty()) {
                 Instrument instrument = new Instrument();
-                Optional<Category> existeCategoria = categoryRepository.findByName(categoriaDescripcion);
-                if (!existeCategoria.isPresent()) {
+                Optional<Category> CategoryExist = categoryRepository.findByName(categoryName);
+                if (CategoryExist.isEmpty()) {
                     Category category = new Category();
-                    category.setName(categoriaDescripcion);
+                    category.setName(categoryName);
                     category.setDeleted(false);
                     this.categoryRepository.save(category);
                     instrument.setCategory(category);
                 } else {
-                    instrument.setCategory(existeCategoria.get());
+                    instrument.setCategory(CategoryExist.get());
                 }
 
-                instrument.setName(nombre);
+                instrument.setName(name);
                 instrument.setUploadDate(LocalDate.now());
                 instrument.setUpdateDate(LocalDate.now());
-                instrument.setScore(puntuacion);
-                instrument.setDetail(detalle);
+                instrument.setScore(score);
+                instrument.setDetail(detail);
                 instrument.setDeleted(false);
                 instrument.setAvailable(true);
                 instrumentRepository.save(instrument);
 
-                List<String> imagenes = (List<String>) instrumentoData.get("imagen");
+                List<String> images = (List<String>) instrumentData.get("image");
                 List<Image> imageList = new ArrayList<>();
-                for (String imagenUrl : imagenes) {
+                for (String imageUrl : images) {
                     Image image = new Image();
-                    image.setImage(imagenUrl);
+                    image.setImage(imageUrl);
                     image.setDeleted(false);
                     imageRepository.save(image);
                     imageList.add(image);
@@ -96,8 +95,6 @@ public class DataSeedConfig {
                 instruments.add(instrument);
             }
         }
-
         return instruments;
     }
-
 }
