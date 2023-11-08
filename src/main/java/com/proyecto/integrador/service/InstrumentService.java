@@ -60,9 +60,14 @@ public class InstrumentService {
             instrument.setAvailable(true);
             logger.info("Se va a crear el instrumento con nombre: " + instrumentDto.getName());
             instrumentRepository.save(instrument);
-          
-            this.imageService.saveImagesInstrument(instrument, instrumentDto.getImage());
-            this.characteristicService.associateCharacteristic(instrument, instrumentDto.getCharacteristics());
+
+            if(!instrumentDto.getImage().isEmpty()){
+                this.imageService.saveImagesInstrument(instrument, instrumentDto.getImage());
+            }
+
+            if(!instrumentDto.getCharacteristics().isEmpty()){
+                this.characteristicService.associateCharacteristic(instrument, instrumentDto.getCharacteristics());
+            }
 
             logger.info("Instrumento creado con éxito, nombre: " + instrument.getName());
             return instrument;
@@ -126,10 +131,15 @@ public class InstrumentService {
                instrument.setScore(instrumentDto.getScore());
                instrument.setDetail(instrumentDto.getDetail());
                instrument.setAvailable(instrumentDto.getAvailable());
-             
-               this.imageService.updateImagesInstrument(instrument, instrumentDto.getImage());
-               this.characteristicService.associateCharacteristic(instrument, instrumentDto.getCharacteristics());
-             
+
+               if(!instrumentDto.getImage().isEmpty()){
+                   this.imageService.updateImagesInstrument(instrument, instrumentDto.getImage());
+               }
+
+               if(!instrumentDto.getCharacteristics().isEmpty()){
+                   this.characteristicService.associateCharacteristic(instrument, instrumentDto.getCharacteristics());
+               }
+
                logger.info("Instrumento con ID " + id + " actualizado con éxito.");
                return instrumentRepository.save(instrument);
            } else {
