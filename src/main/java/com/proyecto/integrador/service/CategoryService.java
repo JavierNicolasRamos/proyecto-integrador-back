@@ -72,7 +72,7 @@ public class CategoryService {
             throw e; //TODO: sumar la excepcion customizada
         }
     }
-    public Long instrumentsByCategory(Long id){
+    public Long countInstrumentsByCategory(Long id){
         logger.info("Iniciando el conteo de instrumentos por categoría con ID: " + id);
         try {
             Category category = categoryRepository.findById(id).orElseThrow(() ->
@@ -151,8 +151,9 @@ public class CategoryService {
         return categoryRepository.findAll(false);
     }
 
-    public List<Instrument> getInstrumentsByCategories(List<Category> categoryList){
+    public List<Instrument> getInstrumentsByCategories(List<Long> categoryIdList){
         List<Instrument> instrumentList = new ArrayList<Instrument>();
+        List<Category> categoryList = this.categoryRepository.findAllById(categoryIdList);
 
         try{
             for ( Category category : categoryList){
