@@ -40,10 +40,11 @@ public class CategoryService {
             }
             Category category = new Category();
             category.setName(categoryDto.getName());
+            category.setDetails(categoryDto.getDetails());
             category.setDeleted(false);
 
             categoryRepository.save(category);
-            this.imageService.saveImageCategory(category, categoryDto.getImage());
+            this.imageService.saveImageCategory(category, categoryDto.getImageDto());
 
             logger.info("Categoría creada con éxito. Descripción: " + categoryDto.getName());
             return category;
@@ -130,7 +131,7 @@ public class CategoryService {
 
                 category.setName(categoryDto.getName());
 
-                this.imageService.updateImageCategory(category, categoryDto.getImage());
+                this.imageService.updateImageCategory(category, categoryDto.getImageDto());
                 logger.info("Categoria con ID " + category.getId() + "actualizada con éxito");
                 return categoryRepository.save(category);
             }else{
@@ -165,6 +166,22 @@ public class CategoryService {
         }catch (Exception e){
             logger.error("Error inesperado al recuperar las lista de instrumentos por categorias");
             throw new InstrumentGetAllException("Error al recuperar la lista de instrumentos");
+        }
+    }
+
+    public Category categoryById(Long id){
+        logger.info("Iniciando la búsqueda de categoría con id: " + id);
+
+        try {
+            Category category = categoryRepository.findById(id).orElseThrow(() -> {
+                logger.error("No se encontró la categoría con ID: " + id);
+                return new CategoryNotFoundException("La categoria no existe");
+            });
+            logger.info("Búsqueda de categoría completada con éxito. ID: " + id);
+            return category;
+        }catch(Exception e){
+            logger.error("Error inesperado al buscar la categoría: " + e.getMessage(), e);
+            throw e; //TODO: sumar la excepcion customizada
         }
     }
 }

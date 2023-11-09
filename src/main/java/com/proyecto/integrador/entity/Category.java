@@ -28,6 +28,10 @@ public class Category {
     @NotEmpty(message = "El nombre no puede estar vacía")
     private String name;
 
+    @NotBlank(message = "La descripcón no puede estar en blanco")
+    @NotEmpty(message = "La descripción no puede estar vacía")
+    private String details;
+
     @OneToMany(mappedBy = "category")
     @JsonIgnore
     private List<Instrument> instrument;

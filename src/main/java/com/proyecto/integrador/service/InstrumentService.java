@@ -1,6 +1,7 @@
 package com.proyecto.integrador.service;
 
 import com.proyecto.integrador.dto.InstrumentDto;
+import com.proyecto.integrador.entity.Category;
 import com.proyecto.integrador.entity.Instrument;
 import com.proyecto.integrador.exception.DuplicateInstrumentException;
 import com.proyecto.integrador.exception.DeleteInstrumentException;
@@ -38,6 +39,8 @@ public class InstrumentService {
 
     @Autowired
     private ImageService imageService;
+    @Autowired
+    private CategoryService categoryService;
     
     @Transactional
     public Instrument createInstrument(InstrumentDto instrumentDto) {
@@ -52,7 +55,7 @@ public class InstrumentService {
 
             Instrument instrument = new Instrument();
             instrument.setName(instrumentDto.getName());
-            instrument.setCategory(instrumentDto.getCategory());
+            instrument.setCategory(this.categoryService.categoryById(instrumentDto.getCategoryDto().getId()));
             instrument.setUploadDate(LocalDate.now());
             instrument.setUpdateDate(LocalDate.now());
             instrument.setScore(instrumentDto.getScore());
@@ -126,7 +129,7 @@ public class InstrumentService {
                }
 
                instrument.setName(instrumentDto.getName());
-               instrument.setCategory(instrumentDto.getCategory());
+               instrument.setCategory(this.categoryService.categoryById(instrumentDto.getCategoryDto().getId()));
                instrument.setUpdateDate(LocalDate.now());
                instrument.setScore(instrumentDto.getScore());
                instrument.setDetail(instrumentDto.getDetail());
