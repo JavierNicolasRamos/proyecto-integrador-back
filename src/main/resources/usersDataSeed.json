@@ -15,7 +15,7 @@
     "surname": "User",
     "email": "javierramosnicolas@gmail.com",
     "password": "User1234",
-    "isAdmin": true,
+    "isAdmin": false,
     "areaCode": 54,
     "prefix": 11,
     "phone": 12345678,
