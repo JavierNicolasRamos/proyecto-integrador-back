@@ -17,7 +17,6 @@ public class InstrumentDto {
     private CategoryDto categoryDto;
     private List<ImageDto> image;
     private Double score;
-    private List<Booking> bookings;
     private LocalDate uploadDate;
     private LocalDate updateDate;
     private Boolean available;

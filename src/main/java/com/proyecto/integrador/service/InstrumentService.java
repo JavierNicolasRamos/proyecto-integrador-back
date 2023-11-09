@@ -55,32 +55,7 @@ public class InstrumentService {
 
             Instrument instrument = new Instrument();
             instrument.setName(instrumentDto.getName());
-
-//ARMANDO EL DTO CON LO QUE RECIBO
-//            Category category = new Category();//Lo hago para que sea más legible el código
-//            CategoryDto categoryDto = instrumentDto.getCategoryDto();
-//
-//            //Category
-//            category.setId(categoryDto.getId());
-//            category.setName(categoryDto.getName());
-//            category.setDetails(categoryDto.getDetails());
-//
-//
-//
-//            //Image
-//            Image image = new Image();//Lo hago para que sea más legible el código
-//            ImageDto imageDto = categoryDto.getImageDto();
-//
-//
-//            image.setId(image.getId());
-//            image.setImage(image.getImage());
-//            image.setDeleted(false);
-//
-//            category.setImage(image);
-//            category.setDeleted(false);
-            //Category category = categoryService.categoryById(instrument.getCategory().getId());
-            Category category = categoryService.categoryByName(instrumentDto.getCategoryDto().getName());
-            instrument.setCategory(category);
+            instrument.setCategory(this.categoryService.categoryById(instrumentDto.getCategoryDto().getId()));
             instrument.setUploadDate(LocalDate.now());
             instrument.setUpdateDate(LocalDate.now());
             instrument.setScore(instrumentDto.getScore());
@@ -154,7 +129,7 @@ public class InstrumentService {
                }
 
                instrument.setName(instrumentDto.getName());
-               instrument.setCategory(categoryService.categoryByName(instrumentDto.getCategoryDto().getName()));//Busca la categoría de la DB y la trae
+               instrument.setCategory(this.categoryService.categoryById(instrumentDto.getCategoryDto().getId()));
                instrument.setUpdateDate(LocalDate.now());
                instrument.setScore(instrumentDto.getScore());
                instrument.setDetail(instrumentDto.getDetail());
