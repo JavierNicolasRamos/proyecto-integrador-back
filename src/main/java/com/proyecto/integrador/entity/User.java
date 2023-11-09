@@ -32,15 +32,12 @@ public class User {
     private Boolean isAdmin;
 
     @NotNull(message = "El campo 'codigoArea' no puede ser nulo")
-    @NotBlank(message = "El campo 'codigoArea' no puede estar en blanco")
     private Integer areaCode;
 
     @NotNull(message = "El campo 'prefijo' no puede ser nulo")
-    @NotBlank(message = "El campo 'prefijo' no puede estar en blanco")
     private Integer prefix;
 
     @NotNull(message = "El campo 'numero' no puede ser nulo")
-    @NotBlank(message = "El campo 'numero' no puede estar en blanco")
     private Integer phone;
 
     @NotNull(message = "El campo 'movil' no puede ser nulo")
@@ -53,6 +50,7 @@ public class User {
 
     @NotNull(message = "El campo 'password' no puede ser nulo")
     @NotBlank(message = "El campo 'password' no puede estar en blanco")
+    @JsonIgnore
     private String password;    //TODO: esto se va al auth
 
     @OneToMany(mappedBy = "user")

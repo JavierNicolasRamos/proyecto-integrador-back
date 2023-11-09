@@ -66,9 +66,11 @@ public class UserService {
     }
 
     @Transactional
-    public User deleteUsersById(Long id) {
+    public User deleteUserById(Long id) {
         try {
-            return userRepository.deleteUsersById(id);
+            User user = userRepository.findByIdAndDeletedFalse(id);
+            user.setDeleted(true);
+            return userRepository.save(user);
         } catch (Exception e) {
             logger.severe("Error al eliminar el usuario por id: " + e.getMessage());
             return null;
@@ -150,24 +152,6 @@ public class UserService {
         } catch (Exception e) {
             logger.severe("Error inesperado al crear el usuario: " + e.getMessage());
             throw e; //TODO: sumar la excepcion customizada
-        }
-    }
-
-    public User getUserById(Long id) {
-        try {
-            return userRepository.findById(id).orElseThrow(() -> new Exception("No se encontró el usuario con ID " + id));
-        } catch (Exception e) {
-            logger.severe("Error al buscar el usuario por id: " + e.getMessage());
-            return null;
-        }
-    }
-
-    public User getUserByEmail(String email) {
-        try {
-            return userRepository.findByEmail(email);
-        } catch (Exception e) {
-            logger.severe("Error al buscar el usuario por email: " + e.getMessage());
-            return null;
         }
     }
 
