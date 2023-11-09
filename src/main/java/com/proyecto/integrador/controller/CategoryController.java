@@ -26,6 +26,11 @@ public class CategoryController {
         return categoryService.categoryByName(name);
     }
 
+    @GetMapping("/id/{id}")
+    public Category categoryById(@PathVariable Long id){
+        return categoryService.categoryById(id);
+    }
+
     @GetMapping("/countinstrument/{id}")
     public Long countInstrumentsByCategory(@PathVariable Long id){
         return categoryService.countInstrumentsByCategory(id);

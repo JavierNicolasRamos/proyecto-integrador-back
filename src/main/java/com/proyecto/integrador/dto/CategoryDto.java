@@ -8,5 +8,6 @@ import lombok.NoArgsConstructor;
 public class CategoryDto {
     private Long id;
     private String name;
-    private ImageDto image;
+    private String details;
+    private ImageDto imageDto;
 }
