@@ -94,7 +94,7 @@ public class BookingService {
         logger.info("Iniciando el proceso de actualización de reserva con ID: " + bookingDto.getId());
 
         Booking booking = bookingRepository.findById(bookingDto.getId()).orElseThrow(()
-                -> new NonExistentReserveException("No se encontró la reserva"));
+                -> new NonExistentReserveException("No se encontró la reserva con ID" + bookingDto.getId()));
         try {
             logger.info("Reserva encontrada y será actualizada : " + booking);
             booking.setUser(bookingDto.getUser());
@@ -110,7 +110,7 @@ public class BookingService {
                 logger.info("Instrumento actualizado para reserva. ID: " + instrument.getId());
             } else {
                 logger.error("No se encontró el instrumento con el ID: " + bookingDto.getInstrument().getId());
-                throw new InstrumentNotFoundException("No se encontró el instrumento con el ID: " + bookingDto.getInstrument().getId());
+                throw new NonExistentInstrumentException("No se encontró el instrumento con el ID: " + bookingDto.getInstrument().getId());
             }
             return bookingRepository.save(booking);
         }
@@ -134,7 +134,7 @@ public class BookingService {
                 logger.info("Instrumento asociado a la reserva con ID " + id + " marcado como disponible.");
             } else {
                 logger.error("No se encontró un instrumento asociado a la reserva con ID: " + id);
-                throw new InstrumentNotFoundException("No se encontró un instrumento asociado a la reserva con ID: " + id);
+                throw new NonExistentInstrumentException("No se encontró un instrumento asociado a la reserva con ID: " + id);
             }
             bookingRepository.save(booking);
             logger.info("Reserva con ID " + id + " marcada como eliminada.");

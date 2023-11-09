@@ -10,6 +10,7 @@ import com.proyecto.integrador.repository.ImageRepository;
 import com.proyecto.integrador.repository.InstrumentRepository;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.slf4j.Logger;
@@ -145,7 +146,7 @@ public class ImageService {
             }
             if (deleteImage.isEmpty()) {
                 logger.error("Error al eliminar la imagen de la categoría, el id de la imagen no existe");
-                throw new ImageSaveException("Error al eliminar la imagen de la categoría, el id de la imagen es null");
+                throw new ImageSaveException("Error al eliminar la imagen de la categoría, el id de la imagen es null", HttpStatus.BAD_REQUEST);
             }
         } catch (Exception e) {
             logger.error("Error inesperado al eliminar la imagen de la categoría: " + e.getMessage(), e);
@@ -184,7 +185,7 @@ public class ImageService {
                     }
                     else {
                         logger.error("Error al guardar la imagen de la categoría, el id de la imagen no existe");
-                        throw new ImageSaveException("Error al guardar la imagen de la categoría, el id de la imagen es null");
+                        throw new ImageSaveException("Error al guardar la imagen de la categoría, el id de la imagen es null", HttpStatus.BAD_REQUEST);
                     }
                 }
             }

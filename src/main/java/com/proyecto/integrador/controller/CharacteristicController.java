@@ -4,6 +4,7 @@ import com.proyecto.integrador.dto.CharacteristicDto;
 import com.proyecto.integrador.entity.Characteristic;
 import com.proyecto.integrador.service.CharacteristicService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,23 +16,24 @@ public class CharacteristicController {
     private CharacteristicService characteristicService;
 
     @PostMapping
-    public Characteristic createCharacteristic(@RequestBody CharacteristicDto characteristicDto){
-        return characteristicService.createCharacteristic(characteristicDto);
+    public ResponseEntity<Characteristic> createCharacteristic(@RequestBody CharacteristicDto characteristicDto){
+        return ResponseEntity.ok(characteristicService.createCharacteristic(characteristicDto));
     }
     @PutMapping("/{id}")
-    public Characteristic editCharacteristic(@PathVariable Long id, @RequestBody CharacteristicDto characteristic) {
-        return characteristicService.editCharacteristic(id, characteristic);
+    public ResponseEntity<Characteristic> editCharacteristic(@PathVariable Long id, @RequestBody CharacteristicDto characteristic) {
+        return ResponseEntity.ok(characteristicService.editCharacteristic(id, characteristic));
     }
 
     @DeleteMapping("/{id}")
-    public void deleteCharacteristic(@PathVariable Long id) {
+    public ResponseEntity<String> deleteCharacteristic(@PathVariable Long id) {
         characteristicService.deleteCharacteristic(id);
+        return ResponseEntity.ok("La characterística con ID " + id + "se eliminó de manera exitosa");
     }
 
 
     @GetMapping("/list")
-    public List<Characteristic> listCharacteristic() {
-        return characteristicService.listCharacteristic();
+    public ResponseEntity<List<Characteristic>> listCharacteristic() {
+        return ResponseEntity.ok(characteristicService.listCharacteristic());
     }
 
 

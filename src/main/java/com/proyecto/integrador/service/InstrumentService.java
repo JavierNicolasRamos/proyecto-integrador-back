@@ -3,10 +3,7 @@ package com.proyecto.integrador.service;
 import com.proyecto.integrador.dto.InstrumentDto;
 import com.proyecto.integrador.entity.Category;
 import com.proyecto.integrador.entity.Instrument;
-import com.proyecto.integrador.exception.DuplicateInstrumentException;
-import com.proyecto.integrador.exception.DeleteInstrumentException;
-import com.proyecto.integrador.exception.InstrumentGetAllException;
-import com.proyecto.integrador.exception.NonExistentInstrumentException;
+import com.proyecto.integrador.exception.*;
 import com.proyecto.integrador.repository.CharacteristicRepository;
 import com.proyecto.integrador.repository.InstrumentRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -185,6 +182,7 @@ public class InstrumentService {
     }
 
     public Page<Instrument> getName(String name, Pageable pageable){
+
         try {
             return this.instrumentRepository.getName(name, pageable);
         }
