@@ -1,7 +1,6 @@
 package com.proyecto.integrador.service;
 
 import com.proyecto.integrador.dto.InstrumentDto;
-import com.proyecto.integrador.entity.Category;
 import com.proyecto.integrador.entity.Instrument;
 import com.proyecto.integrador.exception.DuplicateInstrumentException;
 import com.proyecto.integrador.exception.DeleteInstrumentException;
@@ -26,7 +25,7 @@ import org.slf4j.LoggerFactory;
 @Service
 public class InstrumentService {
 
-    private static final Logger logger = LoggerFactory.getLogger(InstrumentService.class);
+    private static final Logger logger = LoggerFactory.getLogger(InstrumentService.class.getName());
 
     @Autowired
     private InstrumentRepository instrumentRepository;
