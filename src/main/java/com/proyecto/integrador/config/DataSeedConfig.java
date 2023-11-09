@@ -4,9 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.proyecto.integrador.entity.Category;
 import com.proyecto.integrador.entity.Image;
 import com.proyecto.integrador.entity.Instrument;
+import com.proyecto.integrador.entity.User;
 import com.proyecto.integrador.repository.CategoryRepository;
 import com.proyecto.integrador.repository.ImageRepository;
 import com.proyecto.integrador.repository.InstrumentRepository;
+import com.proyecto.integrador.repository.UserRepository;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -36,22 +39,25 @@ public class DataSeedConfig {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Bean
     @Order(1)
-    public List<Map<String, Object>> dataSeed() throws IOException {
-        InputStream inputStream = new ClassPathResource("dataSeed.json").getInputStream();
-        ObjectMapper objectMapper = new ObjectMapper();
+    public List<Map<String, Object>> instrumentsDataSeed() throws IOException {
+        InputStream instrumentsInputStream = new ClassPathResource("instrumentsDataSeed.json").getInputStream();
+        ObjectMapper instrumentsObjectMapper = new ObjectMapper();
 
-        return objectMapper.readValue(inputStream, new TypeReference<List<Map<String, Object>>>() {});
+        return instrumentsObjectMapper.readValue(instrumentsInputStream, new TypeReference<List<Map<String, Object>>>() {});
     }
 
     @Bean
     @Order(2)
     @Transactional
-    public List<Instrument> createInstrument(@Qualifier("dataSeed") List<Map<String, Object>> dataSeed) {
+    public List<Instrument> createInstruments(@Qualifier("instrumentsDataSeed") @NotNull List<Map<String, Object>> instrumentsDataSeed) {
         List<Instrument> instruments = new ArrayList<>();
 
-        for (Map<String, Object> instrumentData : dataSeed) {
+        for (Map<String, Object> instrumentData : instrumentsDataSeed) {
             String name = (String) instrumentData.get("name");
             Double score = (Double) instrumentData.get("score");
             String detail = (String) instrumentData.get("detail");
@@ -99,5 +105,51 @@ public class DataSeedConfig {
             }
         }
         return instruments;
+    }
+
+    @Bean
+    @Order(3)
+    public List<Map<String, Object>> usersDataSeed() throws IOException {
+        InputStream usersInputStream = new ClassPathResource("usersDataSeed.json").getInputStream();
+        ObjectMapper usersObjectMapper = new ObjectMapper();
+
+        return usersObjectMapper.readValue(usersInputStream, new TypeReference<List<Map<String, Object>>>() {});
+    }
+
+    @Bean
+    @Order(4)
+    public List<User> createUsers(@Qualifier("usersDataSeed") @NotNull List<Map<String, Object>> usersDataSeed) {
+        List<User> users = new ArrayList<>();
+
+        for (Map<String, Object> userData : usersDataSeed) {
+            String name = (String) userData.get("name");
+            String surname = (String) userData.get("surname");
+            String email = (String) userData.get("email");
+            String password = (String) userData.get("password");
+            Integer areaCode = (Integer) userData.get("areaCode");
+            Integer prefix = (Integer) userData.get("prefix");
+            Integer phone = (Integer) userData.get("phone");
+            Boolean isAdmin = (Boolean) userData.get("isAdmin");
+            Boolean isMobile = (Boolean) userData.get("isMobile");
+
+            Optional<User> userExist = Optional.ofNullable(userRepository.findByEmail(email));
+            if (userExist.isEmpty()) {
+                User user = new User();
+                user.setName(name);
+                user.setSurname(surname);
+                user.setEmail(email);
+                user.setPassword(password);
+                user.setAreaCode(areaCode);
+                user.setPrefix(prefix);
+                user.setPhone(phone);
+                user.setIsAdmin(isAdmin);
+                user.setIsMobile(isMobile);
+                user.setIsActive(true);
+                user.setDeleted(false);
+                userRepository.save(user);
+                users.add(user);
+            }
+        }
+        return users;
     }
 }
