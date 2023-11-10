@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -43,9 +42,8 @@ public class CategoryService {
             category.setName(categoryDto.getName());
             category.setDetails(categoryDto.getDetails());
             category.setDeleted(false);
-
+            category.setImage(this.imageService.createImage(image));
             categoryRepository.save(category);
-            this.imageService.saveImageCategory(category, image);
 
             logger.info("Categoría creada con éxito. Descripción: " + categoryDto.getName());
             return category;
@@ -97,12 +95,13 @@ public class CategoryService {
                     new CategoryNotFoundException("La categoria no existe"));
             logger.info("Eliminando categoría con ID: " + category.getId());
             category.setDeleted(true);
-            this.imageService.deleteImageCategory(category);
+            this.imageService.deleteImage(category.getImage().getId());
             categoryRepository.save(category);
 
             List<Instrument> instrumentList = instrumentRepository.findAllByCategory(category);
             for (Instrument instrument : instrumentList) {
                 logger.info("Eliminando instrumento con ID: " + instrument.getId());
+                instrument.getImage().forEach(image -> this.imageService.deleteImage(image.getId()));
                 instrument.setDeleted(true);
             }
             instrumentRepository.saveAll(instrumentList);
@@ -115,7 +114,7 @@ public class CategoryService {
             throw e;
         }    }
 
-    public Category updateCategory(CategoryDto categoryDto, MultipartFile image){
+    public Category updateCategory(CategoryDto categoryDto){
         logger.info("Starting category update process");
         Optional<Category> optionalCategory = categoryRepository.findById(categoryDto.getId());
         try{
@@ -131,8 +130,6 @@ public class CategoryService {
                 }
 
                 category.setName(categoryDto.getName());
-
-                this.imageService.updateImageCategory(category, image);
                 logger.info("Categoria con ID " + category.getId() + "actualizada con éxito");
                 return categoryRepository.save(category);
             }else{
@@ -141,10 +138,6 @@ public class CategoryService {
 
         }catch(DuplicateCategoryException | NonExistentCategoryException e){
             logger.error("Error al actualizar el instrumento: " + e.getMessage());
-            throw e;
-        }
-        catch (Exception e){
-            logger.error("Unexpected error while trying to update category");
             throw e;
         }
     }

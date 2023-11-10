@@ -1,14 +1,12 @@
 package com.proyecto.integrador.controller;
 
 import com.proyecto.integrador.dto.CategoryDto;
-import com.proyecto.integrador.dto.ImageDto;
 import com.proyecto.integrador.entity.Category;
 import com.proyecto.integrador.entity.Instrument;
 import com.proyecto.integrador.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.util.List;
 
 @RestController
@@ -49,8 +47,8 @@ public class CategoryController {
     }
 
     @PutMapping
-    public Category updateCategory(@RequestPart("categoryDto") CategoryDto categoryDto, @RequestParam("image") MultipartFile image){
-        return categoryService.updateCategory(categoryDto, image);
+    public Category updateCategory(@RequestBody CategoryDto categoryDto){
+        return categoryService.updateCategory(categoryDto);
     }
 
     @GetMapping("/instruments")

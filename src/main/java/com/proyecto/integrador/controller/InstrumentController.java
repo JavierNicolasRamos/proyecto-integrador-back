@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -17,8 +18,8 @@ public class InstrumentController {
     private InstrumentService instrumentService;
 
     @PostMapping
-    public Instrument createInstrument(@RequestBody InstrumentDto instrument/*,@RequestPart(value = "file") MultipartFile file*/) {
-        return instrumentService.createInstrument(instrument);//TODO: Pasar como parametro file
+    public Instrument createInstrument(@RequestPart("instrument") InstrumentDto instrument, @RequestPart("images") List<MultipartFile> images) {
+        return instrumentService.createInstrument(instrument, images);
     }
 
     @GetMapping
