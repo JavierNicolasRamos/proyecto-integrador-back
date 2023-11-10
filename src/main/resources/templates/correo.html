@@ -5,8 +5,8 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: rgb(54, 53, 53); /* Fondo gris oscuro */
-            color: #fff; /* Color de texto blanco */
+            background-color: rgb(54, 53, 53);
+            color: #fff;
             text-align: center;
             margin: 0;
             padding: 0;
@@ -18,8 +18,8 @@
             padding: 20px;
         }
         .center-content {
-            max-width: 600px; /* Ancho máximo para el contenido */
-            margin: 0 auto; /* Centrar el contenido */
+            max-width: 600px;
+            margin: 0 auto;
         }
         .logo {
             max-width: 100px;
@@ -28,39 +28,39 @@
             margin: 0 auto;
         }
         .rectangle {
-            background-color: rgb(66, 64, 64); /* Fondo gris más claro para el rectángulo */
+            background-color: rgb(66, 64, 64);
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
             border-radius: 10px;
-            text-align: left; /* Contenido justificado a la izquierda */
+            text-align: left;
         }
         h1 {
-            color: #fff; /* Color de texto blanco */
+            color: #fff;
         }
         p {
-            color: #fff; /* Color de texto blanco */
+            color: #fff;
         }
         .icon {
             font-size: 30px;
         }
         .centered {
-            text-align: center; /* Contenido centrado */
+            text-align: center;
         }
         .link {
-            color: #FF0000; /* Color de enlace rojo */
+            color: #FF0000;
         }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="center-content">
-        <img src="../images/header-logo.svg" alt="Logo de Tu Empresa" class="logo">
+        <img src="https://s3.us-east-2.amazonaws.com/1023c04-grupo1/1699653531900-LogoMR_2.png" alt="Logo de Tu Empresa" class="logo">
         <div class="rectangle">
-            <h1 th:text="'Hola,' + ${nombre}"></h1>
+            <h1 th:text="'Hola ' + ${nombre}"></h1>
             <p>Felicitaciones, ya te encuentras registrado en Music Rental. Los siguientes son tus datos de acceso:</p>
             <p th:text="'Usuario: ' + ${usuario}"></p>
             <div class="centered">
-                <p>Iniciar sesión ingresando a:<br> <a class="link" href="www.musicalrental.com.ar">Music Rental</a></p>
+                <p>Iniciar sesión ingresando a:<br> <a class="link" href="http://localhost:5174/">Music Rental</a></p>
             </div>
         </div>
     </div>
