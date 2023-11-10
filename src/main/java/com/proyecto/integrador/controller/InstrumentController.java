@@ -23,7 +23,7 @@ public class InstrumentController {
         return instrumentService.createInstrument(instrument, images);
     }
 
-    @PostMapping("/createimagen")
+    @PostMapping("/createimages")
     public ResponseEntity<Instrument> createImagesInstrument(@RequestPart("id") Long id, @RequestPart("images")List<MultipartFile> images){
         return ResponseEntity.ok(this.instrumentService.createImagesInstrument(id, images));
     }
