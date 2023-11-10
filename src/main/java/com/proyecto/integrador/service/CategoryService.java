@@ -150,7 +150,6 @@ public class CategoryService {
         logger.info("Iniciando la búsqueda de instrumentos por categorías");
         List<Instrument> instrumentList = new ArrayList<>();
         List<Category> categoryList = this.categoryRepository.findAllById(categoryIdList);
-        System.out.println("categoryList => " + categoryList);
         for (Category category : categoryList) {
             instrumentList.addAll(this.instrumentRepository.findAllByCategory(category.getId()));
         }
