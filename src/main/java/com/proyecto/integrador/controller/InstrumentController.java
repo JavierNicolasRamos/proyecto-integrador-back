@@ -6,6 +6,7 @@ import com.proyecto.integrador.service.InstrumentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,6 +21,11 @@ public class InstrumentController {
     @PostMapping
     public Instrument createInstrument(@RequestPart("instrument") InstrumentDto instrument, @RequestPart("images") List<MultipartFile> images) {
         return instrumentService.createInstrument(instrument, images);
+    }
+
+    @PostMapping("/createimagen")
+    public ResponseEntity<Instrument> createImagesInstrument(@RequestPart("id") Long id, @RequestPart("images")List<MultipartFile> images){
+        return ResponseEntity.ok(this.instrumentService.createImagesInstrument(id, images));
     }
 
     @GetMapping
@@ -51,4 +57,6 @@ public class InstrumentController {
     public Page<Instrument> getName(@PathVariable String name, Pageable pageable){
         return instrumentService.getName(name, pageable);
     }
+
+
 }
