@@ -1,11 +1,9 @@
 package com.proyecto.integrador.service;
 
 import com.proyecto.integrador.dto.InstrumentDto;
+import com.proyecto.integrador.entity.Image;
 import com.proyecto.integrador.entity.Instrument;
-import com.proyecto.integrador.exception.DuplicateInstrumentException;
-import com.proyecto.integrador.exception.DeleteInstrumentException;
-import com.proyecto.integrador.exception.InstrumentGetAllException;
-import com.proyecto.integrador.exception.NonExistentInstrumentException;
+import com.proyecto.integrador.exception.*;
 import com.proyecto.integrador.repository.InstrumentRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -182,6 +180,20 @@ public class InstrumentService {
         catch (Exception e){
             logger.error("Error al obtener la lista de instrumentos");
             throw new InstrumentGetAllException("Error al recuperar la lista de instrumentos.", e);
+        }
+    }
+
+    public Instrument createImagesInstrument(Long id, List<MultipartFile> images) {
+        try {
+            Instrument instrument = instrumentRepository.findById(id)
+                    .orElseThrow(() -> new NonExistentInstrumentException("No se encontró el instrumento con ID: " + id));
+
+            List<Image> newImages = imageService.createAllImages(images);
+            instrument.getImage().addAll(newImages);
+
+            return instrumentRepository.save(instrument);
+        } catch (Exception e) {
+            throw new InstrumentImageCreationException("Error al crear imágenes para el instrumento con ID: " + id, e);
         }
     }
 }
