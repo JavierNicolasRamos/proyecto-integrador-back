@@ -115,7 +115,7 @@ public class CategoryService {
             throw e;
         }    }
 
-    public Category updateCategory(CategoryDto categoryDto){
+    public Category updateCategory(CategoryDto categoryDto, MultipartFile image){
         logger.info("Starting category update process");
         Optional<Category> optionalCategory = categoryRepository.findById(categoryDto.getId());
         try{
@@ -132,7 +132,7 @@ public class CategoryService {
 
                 category.setName(categoryDto.getName());
 
-                this.imageService.updateImageCategory(category, categoryDto.getImageDto());
+                this.imageService.updateImageCategory(category, image);
                 logger.info("Categoria con ID " + category.getId() + "actualizada con éxito");
                 return categoryRepository.save(category);
             }else{

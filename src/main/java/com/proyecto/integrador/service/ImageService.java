@@ -153,31 +153,27 @@ public class ImageService {
         }
     }
     @Transactional
-    public void updateImageCategory(@NotNull Category category, @NotNull ImageDto imageDto) {
+    public void updateImageCategory(@NotNull Category category, MultipartFile image) {
         logger.info("Iniciando el proceso de actualizacion de imagen de categoría con ID:" + category.getId());
         try {
             Image imageSaved = new Image();
 
-            if (imageDto.getId() != null && imageDto.getDeleted()) {
-                Optional<Image> deleteImage = imageRepository.findById(imageDto.getId());
-                if (deleteImage.isPresent()) {
+            if (category.getDeleted()) {
+                Optional<Image> deleteImage = imageRepository.findById(category.getImage().getId());
+                if (!deleteImage.isEmpty()) {
                     Image DeletedImage = deleteImage.get();
                     DeletedImage.setDeleted(true);
-
                     this.s3Service.deleteFileFromS3Bucket(DeletedImage.getImage());
                     imageRepository.save(DeletedImage);
                     logger.info("Vieja imagen de la categoría eliminada con éxito. Categoria ID: " + category.getId());
                 }
             } else {
                 logger.info("Guardando nueva imagen de la categoría con ID: " + category.getId());
-                MultipartFile newImage = imageDto.getImage();
-
-                if (imageDto.getId() != null) {
-                    Optional<Image> imageOptional = imageRepository.findById(imageDto.getId());
+                    Optional<Image> imageOptional = imageRepository.findById(category.getImage().getId());
                     if (imageOptional.isPresent()) {
                         Image ExistingImage = imageOptional.get();
                         this.s3Service.deleteFileFromS3Bucket(ExistingImage.getImage());
-                        ExistingImage.setImage(this.s3Service.uploadFile(newImage));
+                        ExistingImage.setImage(this.s3Service.uploadFile(image));
                         imageRepository.save(ExistingImage);
                         imageSaved = ExistingImage;
                         logger.info("Imagen de la categoría actualizada con éxito. Categoria ID: " + category.getId());
@@ -186,7 +182,6 @@ public class ImageService {
                         logger.error("Error al guardar la imagen de la categoría, el id de la imagen no existe");
                         throw new ImageSaveException("Error al guardar la imagen de la categoría, el id de la imagen es null");
                     }
-                }
             }
             category.setImage(imageSaved);
             logger.info("Guardado de imagen de la categoría completado con éxito. Categoria ID: " + category.getId());

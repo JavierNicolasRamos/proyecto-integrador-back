@@ -19,7 +19,7 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @PostMapping
-    public Category createCategory(@RequestPart("categoryDto") CategoryDto categoryDto, @RequestParam("archivoPrueba") MultipartFile image) {
+    public Category createCategory(@RequestPart("categoryDto") CategoryDto categoryDto, @RequestParam("image") MultipartFile image) {
         return categoryService.createCategory(categoryDto, image);
     }
 
@@ -49,8 +49,8 @@ public class CategoryController {
     }
 
     @PutMapping
-    public Category updateCategory(@RequestBody CategoryDto category){
-        return categoryService.updateCategory(category);
+    public Category updateCategory(@RequestPart("categoryDto") CategoryDto categoryDto, @RequestParam("image") MultipartFile image){
+        return categoryService.updateCategory(categoryDto, image);
     }
 
     @GetMapping("/instruments")
