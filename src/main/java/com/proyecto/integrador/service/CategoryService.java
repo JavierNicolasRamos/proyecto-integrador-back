@@ -98,7 +98,7 @@ public class CategoryService {
             this.imageService.deleteImage(category.getImage().getId());
             categoryRepository.save(category);
 
-            List<Instrument> instrumentList = instrumentRepository.findAllByCategory(category);
+            List<Instrument> instrumentList = instrumentRepository.findAllByCategory(category.getId());
             for (Instrument instrument : instrumentList) {
                 logger.info("Eliminando instrumento con ID: " + instrument.getId());
                 instrument.getImage().forEach(image -> this.imageService.deleteImage(image.getId()));
@@ -147,20 +147,15 @@ public class CategoryService {
     }
 
     public List<Instrument> getInstrumentsByCategories(List<Long> categoryIdList){
-        List<Instrument> instrumentList = new ArrayList<Instrument>();
+        logger.info("Iniciando la búsqueda de instrumentos por categorías");
+        List<Instrument> instrumentList = new ArrayList<>();
         List<Category> categoryList = this.categoryRepository.findAllById(categoryIdList);
-
-        try{
-            for ( Category category : categoryList){
-                List<Instrument> instrumentListI = instrumentRepository.findAllByCategory(category);
-                instrumentList.addAll(instrumentListI);
-            }
-            return instrumentList;
-
-        }catch (Exception e){
-            logger.error("Error inesperado al recuperar las lista de instrumentos por categorias");
-            throw new InstrumentGetAllException("Error al recuperar la lista de instrumentos");
+        System.out.println("categoryList => " + categoryList);
+        for (Category category : categoryList) {
+            instrumentList.addAll(this.instrumentRepository.findAllByCategory(category.getId()));
         }
+        logger.info("Búsqueda de instrumentos por categorías completada con éxito");
+        return instrumentList;
     }
 
     public Category categoryById(Long id){
