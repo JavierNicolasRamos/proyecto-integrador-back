@@ -9,5 +9,4 @@ public class CategoryDto {
     private Long id;
     private String name;
     private String details;
-    private ImageDto imageDto;
 }

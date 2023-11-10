@@ -6,7 +6,7 @@ import com.proyecto.integrador.entity.Instrument;
 import com.proyecto.integrador.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
@@ -17,8 +17,8 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @PostMapping
-    public Category createCategory(@RequestBody CategoryDto categoryDto) {
-        return categoryService.createCategory(categoryDto);
+    public Category createCategory(@RequestPart("categoryDto") CategoryDto categoryDto, @RequestParam("image") MultipartFile image) {
+        return categoryService.createCategory(categoryDto, image);
     }
 
     @GetMapping("/{name}")
@@ -47,8 +47,8 @@ public class CategoryController {
     }
 
     @PutMapping
-    public Category updateCategory(@RequestBody CategoryDto category){
-        return categoryService.updateCategory(category);
+    public Category updateCategory(@RequestBody CategoryDto categoryDto){
+        return categoryService.updateCategory(categoryDto);
     }
 
     @GetMapping("/instruments")
