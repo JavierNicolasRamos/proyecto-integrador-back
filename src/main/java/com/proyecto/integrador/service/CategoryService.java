@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,7 @@ public class CategoryService {
     private ImageService imageService;
 
     @Transactional
-    public Category createCategory(@NotNull CategoryDto categoryDto){
+    public Category createCategory(@NotNull CategoryDto categoryDto, MultipartFile image){
         logger.info("Iniciando el proceso de creación de categoría con descripción: " + categoryDto.getName());
 
         try {
@@ -44,7 +45,7 @@ public class CategoryService {
             category.setDeleted(false);
 
             categoryRepository.save(category);
-            this.imageService.saveImageCategory(category, categoryDto.getImageDto());
+            this.imageService.saveImageCategory(category, image);
 
             logger.info("Categoría creada con éxito. Descripción: " + categoryDto.getName());
             return category;

@@ -112,11 +112,11 @@ public class ImageService {
     }
 
     @Transactional
-    public void saveImageCategory(@NotNull Category category, ImageDto imageDto) {
+    public void saveImageCategory(@NotNull Category category, MultipartFile imageMultipartFile) {
         logger.info("Iniciando el proceso de guardo de imagen de categoría con ID:" + category.getId());
         try {
             Image image = new Image();
-            image.setImage(this.s3Service.uploadFile(imageDto.getImage()));
+            image.setImage(this.s3Service.uploadFile(imageMultipartFile));
             this.imageRepository.save(image);
 
             Image savedImage = imageRepository.save(image);
