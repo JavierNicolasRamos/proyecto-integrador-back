@@ -30,16 +30,16 @@ public class EmailService {
     }
 
     public void sendEmail() {
-        String to = "javierramosnicolas@gmail.com"; //Pasar como parametro el email del destinatario
-        String subject = "prueba envio"; //Pasar como parametro el asunto del email
+        String to = "ignacio.gibbs@gmail.com"; //Pasar como parametro el email del destinatario
+        String subject = "Registro usuario"; //Pasar como parametro el asunto del email
         sendEmail(to, subject, this.createHtml());
     }
 
     public String createHtml (){
         Context context = new Context();
         //Agregar parametros segun se lo requiera el diseño
-        context.setVariable("nombre", "Javier"); //Pasar como parametro el nombre del destinatario
-        context.setVariable("usuario", "Javier Ramos"); //Pasar como parametro el nombre del destinatario
+        context.setVariable("nombre", "Ignacio"); //Pasar como parametro el nombre del destinatario
+        context.setVariable("usuario", "Igibbs"); //Pasar como parametro el nombre del destinatario
         return templateEngine.process("correo.html", context);
     }
 
