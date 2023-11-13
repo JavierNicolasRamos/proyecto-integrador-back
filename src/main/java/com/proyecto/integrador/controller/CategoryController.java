@@ -52,7 +52,7 @@ public class CategoryController {
     }
 
     @GetMapping("/instruments")
-    public List<Instrument> getInstrumentsByCategories(@RequestBody List<Long> categoryIdList){
+    public List<Instrument> getInstrumentsByCategories(@RequestParam List<Long> categoryIdList){
         return categoryService.getInstrumentsByCategories(categoryIdList);
     }
 }
