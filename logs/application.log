@@ -2264,3 +2264,686 @@ Caused by: java.net.ConnectException: Connection refused: no further information
 2023-11-11T12:00:58,470 [SpringApplicationShutdownHook] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
 2023-11-11T12:00:58,474 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2023-11-11T12:00:58,492 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-11-11T12:20:12,298 [main] INFO  org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.proyecto.integrador.service.InstrumentServiceTest]: InstrumentServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-11-11T12:20:12,418 [main] INFO  org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.proyecto.integrador.integrativeApplication for test class com.proyecto.integrador.service.InstrumentServiceTest
+2023-11-11T12:20:12,840 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.0.Final
+2023-11-11T12:20:12,866 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - Starting InstrumentServiceTest using Java 17.0.9 with PID 3900 (started by Juans in D:\Escritorio\Proyecto Integrador\back\proyecto-integrador-back)
+2023-11-11T12:20:12,872 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - No active profile set, falling back to 1 default profile: "default"
+2023-11-11T12:20:13,881 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-11T12:20:13,985 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 92 ms. Found 5 JPA repository interfaces.
+2023-11-11T12:20:14,597 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-11-11T12:20:14,839 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1796b2d4
+2023-11-11T12:20:14,841 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-11-11T12:20:14,883 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-11T12:20:14,954 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.9.Final
+2023-11-11T12:20:14,956 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2023-11-11T12:20:15,154 [main] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-11-11T12:20:15,316 [main] INFO  org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-11-11T12:20:15,392 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-11-11T12:20:15,657 [main] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-11-11T12:20:16,363 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-11T12:20:16,491 [main] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-11T12:20:16,789 [main] INFO  org.springframework.data.jpa.repository.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-11-11T12:20:17,489 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-11T12:20:17,538 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-11T12:20:17,561 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-11T12:20:17,564 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-11T12:20:17,566 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-11T12:20:17,569 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-11T12:20:17,572 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-11T12:20:17,576 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-11T12:20:17,580 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-11T12:20:17,583 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-11T12:20:17,587 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-11T12:20:17,590 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-11T12:20:17,594 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-11T12:20:17,598 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-11T12:20:17,602 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-11T12:20:17,604 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-11T12:20:17,866 [main] WARN  org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-11-11T12:20:19,265 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - Started InstrumentServiceTest in 6.698 seconds (process running for 8.207)
+2023-11-11T12:20:20,239 [main] INFO  com.proyecto.integrador.service.InstrumentService - Iniciando la actualización del instrumento con ID: 1
+2023-11-11T12:20:20,251 [main] INFO  com.proyecto.integrador.service.InstrumentService - Instrumento con ID 1 actualizado con éxito.
+2023-11-11T12:20:20,322 [SpringApplicationShutdownHook] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-11T12:20:20,326 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-11-11T12:20:20,339 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-11-11T12:22:14,131 [main] INFO  org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.proyecto.integrador.service.InstrumentServiceTest]: InstrumentServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-11-11T12:22:14,270 [main] INFO  org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.proyecto.integrador.integrativeApplication for test class com.proyecto.integrador.service.InstrumentServiceTest
+2023-11-11T12:22:14,629 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.0.Final
+2023-11-11T12:22:14,652 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - Starting InstrumentServiceTest using Java 17.0.9 with PID 8692 (started by Juans in D:\Escritorio\Proyecto Integrador\back\proyecto-integrador-back)
+2023-11-11T12:22:14,658 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - No active profile set, falling back to 1 default profile: "default"
+2023-11-11T12:22:15,646 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-11T12:22:15,737 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 80 ms. Found 5 JPA repository interfaces.
+2023-11-11T12:22:16,280 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-11-11T12:22:16,487 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@58c42c8c
+2023-11-11T12:22:16,489 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-11-11T12:22:16,541 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-11T12:22:16,619 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.9.Final
+2023-11-11T12:22:16,622 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2023-11-11T12:22:16,827 [main] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-11-11T12:22:16,974 [main] INFO  org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-11-11T12:22:17,046 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-11-11T12:22:17,318 [main] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-11-11T12:22:18,046 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-11T12:22:18,156 [main] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-11T12:22:18,450 [main] INFO  org.springframework.data.jpa.repository.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-11-11T12:22:19,139 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-11T12:22:19,204 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-11T12:22:19,227 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-11T12:22:19,231 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-11T12:22:19,233 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-11T12:22:19,235 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-11T12:22:19,239 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-11T12:22:19,243 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-11T12:22:19,247 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-11T12:22:19,249 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-11T12:22:19,253 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-11T12:22:19,257 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-11T12:22:19,261 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-11T12:22:19,265 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-11T12:22:19,269 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-11T12:22:19,271 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-11T12:22:19,524 [main] WARN  org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-11-11T12:22:20,917 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - Started InstrumentServiceTest in 6.516 seconds (process running for 8.036)
+2023-11-11T12:22:21,956 [main] INFO  com.proyecto.integrador.service.InstrumentService - Iniciando la actualización del instrumento con ID: 1
+2023-11-11T12:22:21,971 [main] INFO  com.proyecto.integrador.service.InstrumentService - Instrumento con ID 1 actualizado con éxito.
+2023-11-11T12:22:22,036 [SpringApplicationShutdownHook] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-11T12:22:22,040 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-11-11T12:22:22,052 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-11-13T09:50:11,069 [main] INFO  org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.proyecto.integrador.service.InstrumentServiceTest]: InstrumentServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-11-13T09:50:11,386 [main] INFO  org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.proyecto.integrador.integrativeApplication for test class com.proyecto.integrador.service.InstrumentServiceTest
+2023-11-13T09:50:12,199 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.0.Final
+2023-11-13T09:50:12,258 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - Starting InstrumentServiceTest using Java 17.0.9 with PID 12704 (started by Juans in D:\Escritorio\Proyecto Integrador\back\proyecto-integrador-back)
+2023-11-13T09:50:12,267 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - No active profile set, falling back to 1 default profile: "default"
+2023-11-13T09:50:13,703 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-13T09:50:13,835 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 115 ms. Found 5 JPA repository interfaces.
+2023-11-13T09:50:14,780 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-11-13T09:50:15,269 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@35c8be21
+2023-11-13T09:50:15,275 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-11-13T09:50:15,360 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-13T09:50:15,528 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.9.Final
+2023-11-13T09:50:15,533 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2023-11-13T09:50:15,963 [main] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-11-13T09:50:16,278 [main] INFO  org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-11-13T09:50:16,395 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-11-13T09:50:16,852 [main] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-11-13T09:50:18,207 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-13T09:50:18,409 [main] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-13T09:50:19,009 [main] INFO  org.springframework.data.jpa.repository.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-11-13T09:50:20,409 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T09:50:20,491 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T09:50:20,528 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T09:50:20,531 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T09:50:20,532 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T09:50:20,534 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T09:50:20,537 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T09:50:20,540 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T09:50:20,543 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T09:50:20,545 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T09:50:20,547 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T09:50:20,550 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T09:50:20,553 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T09:50:20,556 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T09:50:20,559 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T09:50:20,561 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T09:50:20,955 [main] WARN  org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-11-13T09:50:22,906 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - Started InstrumentServiceTest in 11.167 seconds (process running for 19.022)
+2023-11-13T09:50:24,270 [main] INFO  com.proyecto.integrador.service.InstrumentService - Iniciando la actualización del instrumento con ID: 1
+2023-11-13T09:50:24,291 [main] INFO  com.proyecto.integrador.service.InstrumentService - Instrumento con ID 1 actualizado con éxito.
+2023-11-13T09:51:35,386 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m20s9ms895µs200ns).
+2023-11-13T09:51:35,436 [SpringApplicationShutdownHook] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-13T09:51:35,439 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-11-13T09:51:35,453 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-11-13T09:53:23,969 [main] INFO  org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.proyecto.integrador.service.InstrumentServiceTest]: InstrumentServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-11-13T09:53:24,119 [main] INFO  org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.proyecto.integrador.integrativeApplication for test class com.proyecto.integrador.service.InstrumentServiceTest
+2023-11-13T09:53:24,549 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.0.Final
+2023-11-13T09:53:24,576 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - Starting InstrumentServiceTest using Java 17.0.9 with PID 8440 (started by Juans in D:\Escritorio\Proyecto Integrador\back\proyecto-integrador-back)
+2023-11-13T09:53:24,581 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - No active profile set, falling back to 1 default profile: "default"
+2023-11-13T09:53:25,469 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-13T09:53:25,544 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 67 ms. Found 5 JPA repository interfaces.
+2023-11-13T09:53:26,097 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-11-13T09:53:26,308 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1510b9a2
+2023-11-13T09:53:26,311 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-11-13T09:53:26,360 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-13T09:53:26,430 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.9.Final
+2023-11-13T09:53:26,433 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2023-11-13T09:53:26,626 [main] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-11-13T09:53:26,811 [main] INFO  org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-11-13T09:53:26,881 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-11-13T09:53:27,167 [main] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-11-13T09:53:27,893 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-13T09:53:27,997 [main] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-13T09:53:28,341 [main] INFO  org.springframework.data.jpa.repository.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-11-13T09:53:29,123 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T09:53:29,170 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T09:53:29,192 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T09:53:29,196 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T09:53:29,198 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T09:53:29,201 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T09:53:29,204 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T09:53:29,207 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T09:53:29,210 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T09:53:29,212 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T09:53:29,215 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T09:53:29,219 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T09:53:29,224 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T09:53:29,229 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T09:53:29,232 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T09:53:29,234 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T09:53:29,480 [main] WARN  org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-11-13T09:53:31,072 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - Started InstrumentServiceTest in 6.787 seconds (process running for 8.568)
+2023-11-13T09:53:32,071 [main] INFO  com.proyecto.integrador.service.InstrumentService - Iniciando la actualización del instrumento con ID: 1
+2023-11-13T09:53:32,087 [main] INFO  com.proyecto.integrador.service.InstrumentService - Instrumento con ID 1 actualizado con éxito.
+2023-11-13T09:53:32,153 [SpringApplicationShutdownHook] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-13T09:53:32,157 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-11-13T09:53:32,172 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-11-13T09:53:49,555 [main] INFO  org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.proyecto.integrador.service.InstrumentServiceTest]: InstrumentServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-11-13T09:53:49,806 [main] INFO  org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.proyecto.integrador.integrativeApplication for test class com.proyecto.integrador.service.InstrumentServiceTest
+2023-11-13T09:53:50,623 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.0.Final
+2023-11-13T09:53:50,681 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - Starting InstrumentServiceTest using Java 17.0.9 with PID 15592 (started by Juans in D:\Escritorio\Proyecto Integrador\back\proyecto-integrador-back)
+2023-11-13T09:53:50,691 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - No active profile set, falling back to 1 default profile: "default"
+2023-11-13T09:53:52,269 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-13T09:53:52,426 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 132 ms. Found 5 JPA repository interfaces.
+2023-11-13T09:53:53,489 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-11-13T09:53:53,931 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6bb4cc0e
+2023-11-13T09:53:53,937 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-11-13T09:53:54,021 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-13T09:53:54,165 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.9.Final
+2023-11-13T09:53:54,170 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2023-11-13T09:53:54,508 [main] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-11-13T09:53:54,801 [main] INFO  org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-11-13T09:53:54,899 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-11-13T09:53:55,371 [main] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-11-13T09:53:56,767 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-13T09:53:56,937 [main] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-13T09:53:57,538 [main] INFO  org.springframework.data.jpa.repository.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-11-13T09:53:58,955 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T09:53:59,055 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T09:53:59,099 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T09:53:59,102 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T09:53:59,104 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T09:53:59,107 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T09:53:59,112 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T09:53:59,117 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T09:53:59,121 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T09:53:59,123 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T09:53:59,127 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T09:53:59,132 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T09:53:59,136 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T09:53:59,140 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T09:53:59,144 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T09:53:59,146 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T09:53:59,537 [main] WARN  org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-11-13T09:54:01,493 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - Started InstrumentServiceTest in 11.372 seconds (process running for 14.228)
+2023-11-13T09:54:03,046 [main] INFO  com.proyecto.integrador.service.InstrumentService - Iniciando la actualización del instrumento con ID: 1
+2023-11-13T09:54:03,068 [main] INFO  com.proyecto.integrador.service.InstrumentService - Instrumento con ID 1 actualizado con éxito.
+2023-11-13T09:54:03,151 [SpringApplicationShutdownHook] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-13T09:54:03,157 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-11-13T09:54:03,176 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-11-13T10:04:34,105 [main] INFO  org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.proyecto.integrador.service.InstrumentServiceTest]: InstrumentServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-11-13T10:04:34,245 [main] INFO  org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.proyecto.integrador.integrativeApplication for test class com.proyecto.integrador.service.InstrumentServiceTest
+2023-11-13T10:04:34,950 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.0.Final
+2023-11-13T10:04:34,973 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - Starting InstrumentServiceTest using Java 17.0.9 with PID 14252 (started by Juans in D:\Escritorio\Proyecto Integrador\back\proyecto-integrador-back)
+2023-11-13T10:04:34,979 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - No active profile set, falling back to 1 default profile: "default"
+2023-11-13T10:04:35,962 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-13T10:04:36,040 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 68 ms. Found 5 JPA repository interfaces.
+2023-11-13T10:04:37,269 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-11-13T10:04:37,478 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@402b4f81
+2023-11-13T10:04:37,480 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-11-13T10:04:37,524 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-13T10:04:37,603 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.9.Final
+2023-11-13T10:04:37,606 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2023-11-13T10:04:37,801 [main] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-11-13T10:04:38,008 [main] INFO  org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-11-13T10:04:38,097 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-11-13T10:04:38,419 [main] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-11-13T10:04:39,254 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-13T10:04:39,367 [main] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-13T10:04:39,674 [main] INFO  org.springframework.data.jpa.repository.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-11-13T10:04:40,420 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:04:40,470 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T10:04:40,497 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:04:40,500 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:04:40,502 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T10:04:40,505 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:04:40,509 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:04:40,513 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:04:40,517 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:04:40,520 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T10:04:40,522 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:04:40,526 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:04:40,531 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:04:40,535 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:04:40,538 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:04:40,541 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T10:04:40,808 [main] WARN  org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-11-13T10:04:42,307 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - Started InstrumentServiceTest in 7.58 seconds (process running for 9.552)
+2023-11-13T10:04:43,303 [main] INFO  com.proyecto.integrador.service.InstrumentService - Iniciando la actualización del instrumento con ID: 1
+2023-11-13T10:04:43,316 [main] INFO  com.proyecto.integrador.service.InstrumentService - Instrumento con ID 1 actualizado con éxito.
+2023-11-13T10:04:43,371 [SpringApplicationShutdownHook] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-13T10:04:43,375 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-11-13T10:04:43,388 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-11-13T10:10:03,003 [main] INFO  org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.proyecto.integrador.service.InstrumentServiceTest]: InstrumentServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-11-13T10:10:03,141 [main] INFO  org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.proyecto.integrador.integrativeApplication for test class com.proyecto.integrador.service.InstrumentServiceTest
+2023-11-13T10:10:03,480 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.0.Final
+2023-11-13T10:10:03,505 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - Starting InstrumentServiceTest using Java 17.0.9 with PID 6328 (started by Juans in D:\Escritorio\Proyecto Integrador\back\proyecto-integrador-back)
+2023-11-13T10:10:03,511 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - No active profile set, falling back to 1 default profile: "default"
+2023-11-13T10:10:04,416 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-13T10:10:04,493 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 65 ms. Found 5 JPA repository interfaces.
+2023-11-13T10:10:05,061 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-11-13T10:10:05,289 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@214b342f
+2023-11-13T10:10:05,291 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-11-13T10:10:05,344 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-13T10:10:05,419 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.9.Final
+2023-11-13T10:10:05,422 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2023-11-13T10:10:05,630 [main] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-11-13T10:10:05,809 [main] INFO  org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-11-13T10:10:05,875 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-11-13T10:10:06,136 [main] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-11-13T10:10:06,830 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-13T10:10:06,941 [main] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-13T10:10:07,254 [main] INFO  org.springframework.data.jpa.repository.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-11-13T10:10:07,970 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:10:08,027 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T10:10:08,055 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:10:08,059 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:10:08,062 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T10:10:08,064 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:10:08,068 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:10:08,073 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:10:08,077 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:10:08,080 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T10:10:08,083 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:10:08,088 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:10:08,092 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:10:08,096 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:10:08,099 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:10:08,101 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T10:10:08,352 [main] WARN  org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-11-13T10:10:09,798 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - Started InstrumentServiceTest in 6.528 seconds (process running for 8.075)
+2023-11-13T10:10:10,794 [main] INFO  com.proyecto.integrador.service.InstrumentService - Iniciando la actualización del instrumento con ID: 1
+2023-11-13T10:10:10,809 [main] INFO  com.proyecto.integrador.service.InstrumentService - Instrumento con ID 1 actualizado con éxito.
+2023-11-13T10:10:10,863 [SpringApplicationShutdownHook] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-13T10:10:10,867 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-11-13T10:10:10,879 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-11-13T10:10:32,546 [main] INFO  org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.proyecto.integrador.service.InstrumentServiceTest]: InstrumentServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-11-13T10:10:32,803 [main] INFO  org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.proyecto.integrador.integrativeApplication for test class com.proyecto.integrador.service.InstrumentServiceTest
+2023-11-13T10:10:33,499 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.0.Final
+2023-11-13T10:10:33,547 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - Starting InstrumentServiceTest using Java 17.0.9 with PID 14696 (started by Juans in D:\Escritorio\Proyecto Integrador\back\proyecto-integrador-back)
+2023-11-13T10:10:33,557 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - No active profile set, falling back to 1 default profile: "default"
+2023-11-13T10:10:34,740 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-13T10:10:34,889 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 129 ms. Found 5 JPA repository interfaces.
+2023-11-13T10:10:35,791 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-11-13T10:10:36,146 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6537ac
+2023-11-13T10:10:36,151 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-11-13T10:10:36,236 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-13T10:10:36,355 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.9.Final
+2023-11-13T10:10:36,362 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2023-11-13T10:10:36,711 [main] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-11-13T10:10:36,980 [main] INFO  org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-11-13T10:10:37,081 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-11-13T10:10:37,524 [main] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-11-13T10:10:38,825 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-13T10:10:38,982 [main] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-13T10:10:39,566 [main] INFO  org.springframework.data.jpa.repository.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-11-13T10:10:40,773 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:10:40,897 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T10:10:40,939 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:10:40,942 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:10:40,945 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T10:10:40,947 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:10:40,950 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:10:40,954 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:10:40,958 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:10:40,961 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T10:10:40,965 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:10:40,969 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:10:40,973 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:10:40,977 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:10:40,981 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:10:40,984 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T10:10:41,382 [main] WARN  org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-11-13T10:10:43,269 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - Started InstrumentServiceTest in 10.175 seconds (process running for 12.95)
+2023-11-13T10:10:44,606 [main] INFO  com.proyecto.integrador.service.InstrumentService - Iniciando la actualización del instrumento con ID: 1
+2023-11-13T10:10:44,623 [main] INFO  com.proyecto.integrador.service.InstrumentService - Instrumento con ID 1 actualizado con éxito.
+2023-11-13T10:11:23,314 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=47s53ms858µs200ns).
+2023-11-13T10:11:23,355 [SpringApplicationShutdownHook] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-13T10:11:23,358 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-11-13T10:11:23,370 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-11-13T10:12:28,702 [main] INFO  org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.proyecto.integrador.service.InstrumentServiceTest]: InstrumentServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-11-13T10:12:28,834 [main] INFO  org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.proyecto.integrador.integrativeApplication for test class com.proyecto.integrador.service.InstrumentServiceTest
+2023-11-13T10:12:29,174 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.0.Final
+2023-11-13T10:12:29,204 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - Starting InstrumentServiceTest using Java 17.0.9 with PID 18344 (started by Juans in D:\Escritorio\Proyecto Integrador\back\proyecto-integrador-back)
+2023-11-13T10:12:29,210 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - No active profile set, falling back to 1 default profile: "default"
+2023-11-13T10:12:30,096 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-13T10:12:30,177 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 68 ms. Found 5 JPA repository interfaces.
+2023-11-13T10:12:30,676 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-11-13T10:12:30,886 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7de147e9
+2023-11-13T10:12:30,888 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-11-13T10:12:30,931 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-13T10:12:31,001 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.9.Final
+2023-11-13T10:12:31,004 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2023-11-13T10:12:31,199 [main] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-11-13T10:12:31,347 [main] INFO  org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-11-13T10:12:31,414 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-11-13T10:12:31,692 [main] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-11-13T10:12:32,400 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-13T10:12:32,515 [main] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-13T10:12:32,834 [main] INFO  org.springframework.data.jpa.repository.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-11-13T10:12:33,535 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:12:33,586 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T10:12:33,605 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:12:33,608 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:12:33,610 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T10:12:33,613 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:12:33,616 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:12:33,619 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:12:33,622 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:12:33,624 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T10:12:33,627 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:12:33,631 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:12:33,635 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:12:33,638 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:12:33,642 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:12:33,644 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T10:12:33,912 [main] WARN  org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-11-13T10:12:35,308 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - Started InstrumentServiceTest in 6.339 seconds (process running for 7.85)
+2023-11-13T10:12:36,419 [main] INFO  com.proyecto.integrador.service.InstrumentService - Iniciando la actualización del instrumento con ID: 1
+2023-11-13T10:12:36,432 [main] INFO  com.proyecto.integrador.service.InstrumentService - Instrumento con ID 1 actualizado con éxito.
+2023-11-13T10:12:36,488 [SpringApplicationShutdownHook] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-13T10:12:36,492 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-11-13T10:12:36,505 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-11-13T10:15:44,309 [main] INFO  org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.proyecto.integrador.service.InstrumentServiceTest]: InstrumentServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-11-13T10:15:44,457 [main] INFO  org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.proyecto.integrador.integrativeApplication for test class com.proyecto.integrador.service.InstrumentServiceTest
+2023-11-13T10:15:44,834 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.0.Final
+2023-11-13T10:15:44,866 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - Starting InstrumentServiceTest using Java 17.0.9 with PID 17956 (started by Juans in D:\Escritorio\Proyecto Integrador\back\proyecto-integrador-back)
+2023-11-13T10:15:44,871 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - No active profile set, falling back to 1 default profile: "default"
+2023-11-13T10:15:45,867 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-13T10:15:45,948 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 71 ms. Found 5 JPA repository interfaces.
+2023-11-13T10:15:46,555 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-11-13T10:15:46,791 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5db0003d
+2023-11-13T10:15:46,794 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-11-13T10:15:46,841 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-13T10:15:46,907 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.9.Final
+2023-11-13T10:15:46,910 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2023-11-13T10:15:47,149 [main] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-11-13T10:15:47,320 [main] INFO  org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-11-13T10:15:47,387 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-11-13T10:15:47,695 [main] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-11-13T10:15:48,478 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-13T10:15:48,609 [main] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-13T10:15:48,968 [main] INFO  org.springframework.data.jpa.repository.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-11-13T10:15:49,751 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:15:49,808 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T10:15:49,835 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:15:49,838 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:15:49,841 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T10:15:49,845 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:15:49,851 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:15:49,855 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:15:49,860 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:15:49,862 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T10:15:49,867 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:15:49,871 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:15:49,876 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:15:49,880 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:15:49,884 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:15:49,886 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T10:15:50,205 [main] WARN  org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-11-13T10:15:51,817 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - Started InstrumentServiceTest in 7.225 seconds (process running for 8.883)
+2023-11-13T10:15:52,966 [main] INFO  com.proyecto.integrador.service.InstrumentService - Iniciando la actualización del instrumento con ID: 1
+2023-11-13T10:15:52,983 [main] INFO  com.proyecto.integrador.service.InstrumentService - Instrumento con ID 1 actualizado con éxito.
+2023-11-13T10:15:53,045 [SpringApplicationShutdownHook] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-13T10:15:53,048 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-11-13T10:15:53,060 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-11-13T10:33:35,528 [main] INFO  org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.proyecto.integrador.service.InstrumentServiceTest]: InstrumentServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-11-13T10:33:35,665 [main] INFO  org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.proyecto.integrador.integrativeApplication for test class com.proyecto.integrador.service.InstrumentServiceTest
+2023-11-13T10:33:36,030 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.0.Final
+2023-11-13T10:33:36,055 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - Starting InstrumentServiceTest using Java 17.0.9 with PID 2620 (started by Juans in D:\Escritorio\Proyecto Integrador\back\proyecto-integrador-back)
+2023-11-13T10:33:36,064 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - No active profile set, falling back to 1 default profile: "default"
+2023-11-13T10:33:37,021 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-13T10:33:37,115 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 80 ms. Found 5 JPA repository interfaces.
+2023-11-13T10:33:37,672 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-11-13T10:33:37,866 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@54895681
+2023-11-13T10:33:37,868 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-11-13T10:33:37,928 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-13T10:33:37,988 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.9.Final
+2023-11-13T10:33:37,992 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2023-11-13T10:33:38,200 [main] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-11-13T10:33:38,356 [main] INFO  org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-11-13T10:33:38,411 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-11-13T10:33:38,688 [main] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-11-13T10:33:39,416 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-13T10:33:39,514 [main] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-13T10:33:39,817 [main] INFO  org.springframework.data.jpa.repository.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-11-13T10:33:40,512 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:33:40,562 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T10:33:40,584 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:33:40,588 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:33:40,590 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T10:33:40,593 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:33:40,596 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:33:40,600 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:33:40,604 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:33:40,606 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T10:33:40,609 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:33:40,613 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:33:40,617 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:33:40,621 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:33:40,625 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:33:40,627 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T10:33:40,913 [main] WARN  org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-11-13T10:33:42,346 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - Started InstrumentServiceTest in 6.542 seconds (process running for 8.093)
+2023-11-13T10:33:43,385 [SpringApplicationShutdownHook] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-13T10:33:43,390 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-11-13T10:33:43,406 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-11-13T10:54:27,981 [main] INFO  org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.proyecto.integrador.service.InstrumentServiceTest]: InstrumentServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-11-13T10:54:28,122 [main] INFO  org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.proyecto.integrador.integrativeApplication for test class com.proyecto.integrador.service.InstrumentServiceTest
+2023-11-13T10:54:28,477 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.0.Final
+2023-11-13T10:54:28,501 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - Starting InstrumentServiceTest using Java 17.0.9 with PID 5316 (started by Juans in D:\Escritorio\Proyecto Integrador\back\proyecto-integrador-back)
+2023-11-13T10:54:28,508 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - No active profile set, falling back to 1 default profile: "default"
+2023-11-13T10:54:29,413 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-13T10:54:29,500 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 72 ms. Found 5 JPA repository interfaces.
+2023-11-13T10:54:30,030 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-11-13T10:54:30,219 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2dd0a0d0
+2023-11-13T10:54:30,221 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-11-13T10:54:30,275 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-13T10:54:30,334 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.9.Final
+2023-11-13T10:54:30,336 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2023-11-13T10:54:30,537 [main] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-11-13T10:54:30,699 [main] INFO  org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-11-13T10:54:30,751 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-11-13T10:54:31,027 [main] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-11-13T10:54:31,753 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-13T10:54:31,865 [main] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-13T10:54:32,157 [main] INFO  org.springframework.data.jpa.repository.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-11-13T10:54:32,828 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:54:32,879 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T10:54:32,906 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:54:32,910 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:54:32,912 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T10:54:32,915 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:54:32,919 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:54:32,924 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:54:32,928 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:54:32,930 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T10:54:32,935 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:54:32,940 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:54:32,944 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:54:32,948 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:54:32,952 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:54:32,954 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T10:54:33,209 [main] WARN  org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-11-13T10:54:34,641 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - Started InstrumentServiceTest in 6.384 seconds (process running for 7.94)
+2023-11-13T10:54:35,686 [main] ERROR com.proyecto.integrador.service.InstrumentService - Error al obtener la lista de instrumentos
+2023-11-13T10:54:35,738 [SpringApplicationShutdownHook] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-13T10:54:35,741 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-11-13T10:54:35,753 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-11-13T10:58:11,557 [main] INFO  org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.proyecto.integrador.service.InstrumentServiceTest]: InstrumentServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-11-13T10:58:11,672 [main] INFO  org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.proyecto.integrador.integrativeApplication for test class com.proyecto.integrador.service.InstrumentServiceTest
+2023-11-13T10:58:12,048 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.0.Final
+2023-11-13T10:58:12,071 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - Starting InstrumentServiceTest using Java 17.0.9 with PID 12700 (started by Juans in D:\Escritorio\Proyecto Integrador\back\proyecto-integrador-back)
+2023-11-13T10:58:12,078 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - No active profile set, falling back to 1 default profile: "default"
+2023-11-13T10:58:13,006 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-13T10:58:13,090 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 72 ms. Found 5 JPA repository interfaces.
+2023-11-13T10:58:13,597 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-11-13T10:58:13,787 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@54895681
+2023-11-13T10:58:13,789 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-11-13T10:58:13,844 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-13T10:58:13,915 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.9.Final
+2023-11-13T10:58:13,918 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2023-11-13T10:58:14,115 [main] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-11-13T10:58:14,257 [main] INFO  org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-11-13T10:58:14,311 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-11-13T10:58:14,576 [main] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-11-13T10:58:15,301 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-13T10:58:15,413 [main] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-13T10:58:15,724 [main] INFO  org.springframework.data.jpa.repository.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-11-13T10:58:16,404 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:58:16,449 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T10:58:16,472 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:58:16,476 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:58:16,478 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T10:58:16,481 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:58:16,484 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:58:16,488 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:58:16,491 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:58:16,494 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T10:58:16,497 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:58:16,501 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:58:16,504 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:58:16,508 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:58:16,511 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T10:58:16,513 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T10:58:16,772 [main] WARN  org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-11-13T10:58:18,163 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - Started InstrumentServiceTest in 6.351 seconds (process running for 7.847)
+2023-11-13T10:58:19,333 [SpringApplicationShutdownHook] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-13T10:58:19,337 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-11-13T10:58:19,350 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-11-13T11:02:26,668 [main] INFO  org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.proyecto.integrador.service.InstrumentServiceTest]: InstrumentServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-11-13T11:02:26,849 [main] INFO  org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.proyecto.integrador.integrativeApplication for test class com.proyecto.integrador.service.InstrumentServiceTest
+2023-11-13T11:02:27,324 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.0.Final
+2023-11-13T11:02:27,356 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - Starting InstrumentServiceTest using Java 17.0.9 with PID 8244 (started by Juans in D:\Escritorio\Proyecto Integrador\back\proyecto-integrador-back)
+2023-11-13T11:02:27,363 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - No active profile set, falling back to 1 default profile: "default"
+2023-11-13T11:02:28,459 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-13T11:02:28,566 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 93 ms. Found 5 JPA repository interfaces.
+2023-11-13T11:02:29,230 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-11-13T11:02:29,448 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3b28b7b0
+2023-11-13T11:02:29,450 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-11-13T11:02:29,502 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-13T11:02:29,606 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.9.Final
+2023-11-13T11:02:29,612 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2023-11-13T11:02:29,851 [main] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-11-13T11:02:30,036 [main] INFO  org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-11-13T11:02:30,118 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-11-13T11:02:30,462 [main] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-11-13T11:02:31,375 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-13T11:02:31,505 [main] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-13T11:02:31,879 [main] INFO  org.springframework.data.jpa.repository.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-11-13T11:02:32,789 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T11:02:32,855 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T11:02:32,885 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T11:02:32,890 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T11:02:32,893 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T11:02:32,896 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T11:02:32,902 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T11:02:32,907 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T11:02:32,912 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T11:02:32,914 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T11:02:32,917 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T11:02:32,922 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T11:02:32,926 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T11:02:32,930 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T11:02:32,934 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T11:02:32,936 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T11:02:33,265 [main] WARN  org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-11-13T11:02:34,947 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - Started InstrumentServiceTest in 7.914 seconds (process running for 9.88)
+2023-11-13T11:02:36,021 [main] INFO  com.proyecto.integrador.service.InstrumentService - Iniciando la actualización del instrumento con ID: 1
+2023-11-13T11:02:36,033 [main] INFO  com.proyecto.integrador.service.InstrumentService - Instrumento con ID 1 actualizado con éxito.
+2023-11-13T11:02:36,089 [SpringApplicationShutdownHook] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-13T11:02:36,092 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-11-13T11:02:36,104 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-11-13T11:12:15,966 [main] INFO  org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.proyecto.integrador.service.InstrumentServiceTest]: InstrumentServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-11-13T11:12:16,107 [main] INFO  org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.proyecto.integrador.integrativeApplication for test class com.proyecto.integrador.service.InstrumentServiceTest
+2023-11-13T11:12:16,469 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.0.Final
+2023-11-13T11:12:16,495 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - Starting InstrumentServiceTest using Java 17.0.9 with PID 5008 (started by Juans in D:\Escritorio\Proyecto Integrador\back\proyecto-integrador-back)
+2023-11-13T11:12:16,501 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - No active profile set, falling back to 1 default profile: "default"
+2023-11-13T11:12:17,416 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-13T11:12:17,495 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 67 ms. Found 5 JPA repository interfaces.
+2023-11-13T11:12:18,033 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-11-13T11:12:18,249 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@58c42c8c
+2023-11-13T11:12:18,251 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-11-13T11:12:18,297 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-13T11:12:18,366 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.9.Final
+2023-11-13T11:12:18,370 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2023-11-13T11:12:18,598 [main] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-11-13T11:12:18,764 [main] INFO  org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-11-13T11:12:18,833 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-11-13T11:12:19,114 [main] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-11-13T11:12:19,854 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-13T11:12:19,958 [main] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-13T11:12:20,264 [main] INFO  org.springframework.data.jpa.repository.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-11-13T11:12:20,989 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T11:12:21,042 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T11:12:21,069 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T11:12:21,072 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T11:12:21,075 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T11:12:21,078 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T11:12:21,081 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T11:12:21,085 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T11:12:21,089 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T11:12:21,092 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T11:12:21,095 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T11:12:21,100 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T11:12:21,103 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T11:12:21,107 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T11:12:21,110 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T11:12:21,112 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T11:12:21,365 [main] WARN  org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-11-13T11:12:22,795 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - Started InstrumentServiceTest in 6.552 seconds (process running for 8.122)
+2023-11-13T11:12:24,089 [SpringApplicationShutdownHook] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-13T11:12:24,092 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-11-13T11:12:24,105 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-11-13T11:16:17,345 [main] INFO  org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.proyecto.integrador.service.InstrumentServiceTest]: InstrumentServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-11-13T11:16:17,482 [main] INFO  org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.proyecto.integrador.integrativeApplication for test class com.proyecto.integrador.service.InstrumentServiceTest
+2023-11-13T11:16:17,824 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.0.Final
+2023-11-13T11:16:17,845 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - Starting InstrumentServiceTest using Java 17.0.9 with PID 15196 (started by Juans in D:\Escritorio\Proyecto Integrador\back\proyecto-integrador-back)
+2023-11-13T11:16:17,851 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - No active profile set, falling back to 1 default profile: "default"
+2023-11-13T11:16:18,766 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-13T11:16:18,854 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 72 ms. Found 5 JPA repository interfaces.
+2023-11-13T11:16:19,394 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-11-13T11:16:19,599 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5514579e
+2023-11-13T11:16:19,601 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-11-13T11:16:19,646 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-13T11:16:19,713 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.9.Final
+2023-11-13T11:16:19,717 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2023-11-13T11:16:19,930 [main] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-11-13T11:16:20,085 [main] INFO  org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-11-13T11:16:20,151 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-11-13T11:16:20,444 [main] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-11-13T11:16:21,230 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-13T11:16:21,345 [main] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-13T11:16:21,652 [main] INFO  org.springframework.data.jpa.repository.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-11-13T11:16:22,404 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T11:16:22,453 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T11:16:22,474 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T11:16:22,477 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T11:16:22,478 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T11:16:22,480 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T11:16:22,484 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T11:16:22,486 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T11:16:22,489 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T11:16:22,491 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T11:16:22,493 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T11:16:22,496 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T11:16:22,500 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T11:16:22,503 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T11:16:22,506 [main] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-13T11:16:22,508 [main] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-13T11:16:22,750 [main] WARN  org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-11-13T11:16:24,078 [main] INFO  com.proyecto.integrador.service.InstrumentServiceTest - Started InstrumentServiceTest in 6.46 seconds (process running for 7.939)
+2023-11-13T11:16:25,108 [main] INFO  com.proyecto.integrador.service.InstrumentService - Iniciando la obtención de la lista de instrumentos...
+2023-11-13T11:16:25,109 [main] INFO  com.proyecto.integrador.service.InstrumentService - Obtención de la lista de instrumentos completada con éxito.
+2023-11-13T11:16:25,171 [SpringApplicationShutdownHook] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-13T11:16:25,174 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-11-13T11:16:25,185 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

@@ -3,7 +3,6 @@ package com.proyecto.integrador.service;
 import com.proyecto.integrador.dto.InstrumentDto;
 import com.proyecto.integrador.entity.Category;
 import com.proyecto.integrador.entity.Instrument;
-import com.proyecto.integrador.repository.CategoryRepository;
 import com.proyecto.integrador.repository.InstrumentRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,9 +10,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
-import java.util.Collection;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -70,7 +72,20 @@ class InstrumentServiceTest {
 
     @Test
     void getTenInstruments() {
+        List<Instrument> simulatedInstruments = Arrays.asList(
+                new Instrument(), new Instrument(), new Instrument(), new Instrument(), new Instrument(),
+                new Instrument(), new Instrument(), new Instrument(), new Instrument(), new Instrument()
+        );
 
+        when(instrumentRepository.findRandomInstruments()).thenReturn(simulatedInstruments);
+
+        List<Instrument> result = instrumentService.getTenInstruments();
+
+        assertNotNull(result);
+
+        assertEquals(10, result.size());
+
+        verify(instrumentRepository, times(1)).findRandomInstruments();
     }
 
     @Test
@@ -112,17 +127,66 @@ class InstrumentServiceTest {
 
     @Test
     void updateInstrument() {
+
     }
 
+
     @Test
-    void deleteInstrument() {
+    void deleteInstrument_ExistingInstrument_DeletesInstrument() {
+
+        Long instrumentId = 1L;
+        Instrument existingInstrument = new Instrument();
+        existingInstrument.setId(instrumentId);
+
+        when(instrumentRepository.findById(instrumentId)).thenReturn(Optional.of(existingInstrument));
+
+
+        instrumentService.deleteInstrument(instrumentId);
+
+
+        verify(instrumentRepository, times(1)).findById(instrumentId);
+        verify(instrumentRepository, times(1)).save(existingInstrument);
+
+        assertTrue(existingInstrument.getDeleted());
     }
+
 
     @Test
     void getAll() {
+        List<Instrument> simulatedInstruments = Arrays.asList(
+                new Instrument(), new Instrument(), new Instrument()
+        );
+
+        Page<Instrument> simulatedPage = new PageImpl<>(simulatedInstruments);
+
+        when(instrumentRepository.getAll(any(Pageable.class))).thenReturn(simulatedPage);
+
+        Page<Instrument> result = instrumentService.getAll(mock(Pageable.class));
+
+        assertNotNull(result);
+
+        assertEquals(simulatedInstruments, result.getContent());
+
+        verify(instrumentRepository, times(1)).getAll(any(Pageable.class));
     }
 
     @Test
     void getName() {
+        Pageable pageable = mock(Pageable.class);
+
+        Instrument instrument = new Instrument();
+        instrument.setId(1L);
+        instrument.setName("TestInstrument");
+
+        when(instrumentRepository.getName("TestInstrument", pageable)).thenReturn(new PageImpl<>(Collections.singletonList(instrument)));
+
+        Page<Instrument> result = instrumentService.getName("TestInstrument", pageable);
+
+        assertNotNull(result);
+
+        assertEquals(1, result.getContent().size());
+        assertEquals("TestInstrument", result.getContent().get(0).getName());
+
+        verify(instrumentRepository).getName("TestInstrument", pageable);
     }
 }
