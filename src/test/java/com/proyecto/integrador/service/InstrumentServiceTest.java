@@ -127,7 +127,56 @@ class InstrumentServiceTest {
 
     @Test
     void updateInstrument() {
+        // Configurar objeto Instrument de prueba
+        Instrument existingInstrument = new Instrument();
+        existingInstrument.setId(1L);
+        existingInstrument.setName("ExistingInstrument");
+        existingInstrument.setCategory(new Category());
+        existingInstrument.setUploadDate(LocalDate.now());
+        existingInstrument.setUpdateDate(LocalDate.now());
+        existingInstrument.setDetail("TestDetail");
+        existingInstrument.setAvailable(true);
+        existingInstrument.setScore(0.0);
+        existingInstrument.setBookings(Collections.emptyList());
+        existingInstrument.setDeleted(false);
+        existingInstrument.setCharacteristics(Collections.emptyList());
+        existingInstrument.setImage(Collections.emptyList());
 
+        when(instrumentRepository.findById(1L)).thenReturn(Optional.of(existingInstrument));
+        when(instrumentRepository.save(any())).thenReturn(existingInstrument);
+
+        // Configurar DTO con los nuevos datos
+        InstrumentDto updatedDto = new InstrumentDto();
+        updatedDto.setId(1L);
+        updatedDto.setName("UpdatedInstrument");
+        updatedDto.setCategory(new Category());
+        updatedDto.setUploadDate(LocalDate.now());
+        updatedDto.setUpdateDate(LocalDate.now());
+        updatedDto.setDetail("TestDetailNew");
+        updatedDto.setAvailable(true);
+        updatedDto.setScore(5.0);
+        updatedDto.setBookings(Collections.emptyList());
+        updatedDto.setDeleted(false);
+        updatedDto.setCharacteristics(Collections.emptyList());
+        updatedDto.setImage(Collections.emptyList());
+
+        // Llamar al método bajo prueba
+        Instrument result = instrumentService.updateInstrument(1L, updatedDto);
+
+        // Verificar que el resultado no sea nulo
+        assertNotNull(result);
+
+        // Verificar que los cambios esperados se han realizado
+        assertEquals(1L, result.getId());
+        assertEquals("UpdatedInstrument", result.getName());
+        assertEquals("TestDetailNew", result.getDetail());
+        assertEquals(5.0, result.getScore());
+
+        // Verificar que los métodos en los mocks fueron llamados
+        verify(instrumentRepository, times(1)).findById(1L);
+        verify(instrumentRepository, times(1)).save(any());
+        verify(imageService, times(1)).updateImagesInstrument(any(), any());
+        verify(characteristicService, times(1)).associateCharacteristic(any(), any());
     }
 
 
