@@ -28,6 +28,7 @@ public class ImageService {
         try {
             Image image = new Image();
             image.setImage(this.s3Service.uploadFile(imageFile));
+            image.setDeleted(false);
             this.imageRepository.save(image);
             return this.imageRepository.save(image);
         }
@@ -70,6 +71,7 @@ public class ImageService {
         try {
             Optional<Image> imageOptional = imageRepository.findById(id);
             Image deleteImage = imageOptional.get();
+            deleteImage.setDeleted(true);
             this.s3Service.deleteFileFromS3Bucket(deleteImage.getImage());
             logger.info("imagen eliminada con éxito del s3.");
         }
