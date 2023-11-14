@@ -18,8 +18,8 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @PostMapping
-    public Category createCategory(@RequestBody CategoryDto categoryDto) {
-        return categoryService.createCategory(categoryDto);
+    public ResponseEntity<Category> createCategory(@RequestBody CategoryDto categoryDto) {
+        return ResponseEntity.ok(categoryService.createCategory(categoryDto));
     }
 
     @GetMapping("/{name}")
