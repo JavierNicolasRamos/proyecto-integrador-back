@@ -56,9 +56,9 @@ public class InstrumentService {
             instrument.setScore(instrumentDto.getScore());
             instrument.setDetail(instrumentDto.getDetail());
             instrument.setAvailable(true);
+            instrument.setDeleted(false);
             instrument.setImage(this.imageService.createAllImages(multipartFiles));
 
-            logger.info("Se va a crear el instrumento con nombre: " + instrument);
             instrumentRepository.save(instrument);
 
             if(!instrumentDto.getCharacteristics().isEmpty()){
