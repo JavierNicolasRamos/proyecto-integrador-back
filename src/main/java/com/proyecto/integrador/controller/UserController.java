@@ -5,6 +5,7 @@ import com.proyecto.integrador.entity.User;
 import com.proyecto.integrador.service.UserService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -51,12 +52,12 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public User login(@RequestBody @NotNull UserDto user) {
-        return userService.login(user.getEmail(), user.getPassword());
+    public ResponseEntity<User> login(@RequestBody @NotNull UserDto user) {
+        return ResponseEntity.ok(userService.login(user.getEmail(), user.getPassword()));
     }
 
     @PostMapping("/register")
-    public User register(@RequestBody @NotNull UserDto user) throws Exception {
-        return userService.register(user);
+    public ResponseEntity<User> register(@RequestBody @NotNull UserDto user) throws Exception {
+        return ResponseEntity.ok(userService.register(user));
     }
 }

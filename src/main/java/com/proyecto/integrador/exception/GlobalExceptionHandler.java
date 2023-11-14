@@ -1,18 +1,10 @@
 package com.proyecto.integrador.exception;
 
-
-import com.amazonaws.services.xray.model.Http;
-import org.apache.http.protocol.HTTP;
-import org.hibernate.boot.MappingNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.awt.geom.RectangularShape;
-import java.util.List;
 
 @ControllerAdvice
 @RestController//TODO: VERIFICAR
@@ -25,6 +17,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(CategoryNotFoundException.class)
     public ResponseEntity<String> handleException(CategoryNotFoundException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(UsuarioNotFoundException.class)
+    public ResponseEntity<String> handleException(UsuarioNotFoundException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
 
