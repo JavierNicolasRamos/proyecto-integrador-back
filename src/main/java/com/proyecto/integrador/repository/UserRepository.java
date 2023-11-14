@@ -24,9 +24,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "SELECT * FROM users WHERE id = :id AND deleted = false", nativeQuery = true)
     User findByIdAndDeletedFalse(@Param("id")Long id);
 
-    @Query(value = "UPDATE users SET deleted = true WHERE id = :id", nativeQuery = true)
-    User deleteUsersById(@Param("id")Long id);
-
-    @Query(value = "UPDATE users SET name = :name, surname = :surname, is_admin = :isAdmin, area_code = :areaCode, prefix = :prefix, phone = :phone, is_mobile = :isMobile, email = :email, password = :password WHERE id = :id", nativeQuery = true)
-    User updateUserById(@Param("id")Long id,@Param("name")String name,@Param("surname")String surname,@Param("isAdmin")Boolean isAdmin,@Param("areaCode")Integer areaCode,@Param("prefix")Integer prefix,@Param("phone")Integer phone,@Param("isMobile")Boolean isMobile,@Param("email")String email,@Param("password")String password);
 }

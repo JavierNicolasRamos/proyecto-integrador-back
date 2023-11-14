@@ -162,11 +162,11 @@ public class UserService {
             if (user != null && user.getPassword().equals(password)) {
                 return user;
             } else {
-                throw new UsuarioNotFoundException("Usuario inexistente");
+                throw new UsuarioNotFoundException("Acceso no autorizado, verifique los datos");
             }
         } catch (Exception e) {
             logger.severe("Error al buscar el usuario por email y password: " + e.getMessage());
-            throw new UsuarioNotFoundException("Usuario inexistente");
+            throw new UsuarioNotFoundException("Acceso no autorizado, verifique los datos");
         }
     }
 

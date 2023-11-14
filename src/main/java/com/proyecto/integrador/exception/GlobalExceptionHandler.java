@@ -22,7 +22,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(UsuarioNotFoundException.class)
     public ResponseEntity<String> handleException(UsuarioNotFoundException e) {
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
     }
 
     //Errores inesperados INTERNAL_SERVER_ERROR
