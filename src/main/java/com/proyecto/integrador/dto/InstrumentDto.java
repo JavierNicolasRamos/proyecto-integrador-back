@@ -15,7 +15,6 @@ public class InstrumentDto {
     private String detail;
     private List<CharacteristicDto> characteristics;
     private CategoryDto categoryDto;
-    private List<ImageDto> image;
     private Double score;
     private LocalDate uploadDate;
     private LocalDate updateDate;

@@ -1,7 +1,7 @@
 package com.proyecto.integrador.service;
 
 import com.proyecto.integrador.dto.InstrumentDto;
-import com.proyecto.integrador.entity.Category;
+import com.proyecto.integrador.entity.Image;
 import com.proyecto.integrador.entity.Instrument;
 import com.proyecto.integrador.exception.*;
 import com.proyecto.integrador.repository.CharacteristicRepository;
@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 import org.webjars.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,13 +24,10 @@ import org.slf4j.LoggerFactory;
 @Service
 public class InstrumentService {
 
-    private static final Logger logger = LoggerFactory.getLogger(InstrumentService.class);
+    private static final Logger logger = LoggerFactory.getLogger(InstrumentService.class.getName());
 
     @Autowired
     private InstrumentRepository instrumentRepository;
-
-    @Autowired
-    private CharacteristicRepository characteristicRepository;
 
     @Autowired
     private CharacteristicService characteristicService;
@@ -40,7 +38,7 @@ public class InstrumentService {
     private CategoryService categoryService;
     
     @Transactional
-    public Instrument createInstrument(InstrumentDto instrumentDto) {
+    public Instrument createInstrument(InstrumentDto instrumentDto, List<MultipartFile> multipartFiles) {
         logger.info("Iniciando el proceso de creación de instrumento...");
 
         try {
@@ -58,12 +56,10 @@ public class InstrumentService {
             instrument.setScore(instrumentDto.getScore());
             instrument.setDetail(instrumentDto.getDetail());
             instrument.setAvailable(true);
-            logger.info("Se va a crear el instrumento con nombre: " + instrumentDto.getName());
-            instrumentRepository.save(instrument);
+            instrument.setImage(this.imageService.createAllImages(multipartFiles));
 
-            if(!instrumentDto.getImage().isEmpty()){
-                this.imageService.saveImagesInstrument(instrument, instrumentDto.getImage());
-            }
+            logger.info("Se va a crear el instrumento con nombre: " + instrument);
+            instrumentRepository.save(instrument);
 
             if(!instrumentDto.getCharacteristics().isEmpty()){
                 this.characteristicService.associateCharacteristic(instrument, instrumentDto.getCharacteristics());
@@ -132,10 +128,6 @@ public class InstrumentService {
                instrument.setDetail(instrumentDto.getDetail());
                instrument.setAvailable(instrumentDto.getAvailable());
 
-               if(!instrumentDto.getImage().isEmpty()){
-                   this.imageService.updateImagesInstrument(instrument, instrumentDto.getImage());
-               }
-
                if(!instrumentDto.getCharacteristics().isEmpty()){
                    this.characteristicService.associateCharacteristic(instrument, instrumentDto.getCharacteristics());
                }
@@ -159,6 +151,7 @@ public class InstrumentService {
         try {
             Optional<Instrument> instrumentOptional  = instrumentRepository.findById(id);
             instrumentOptional.ifPresent(instrument ->{
+                instrument.getImage().forEach(image -> this.imageService.deleteImage(image.getId()));
                 instrument.setDeleted(true);
                 this.instrumentRepository.save(instrument);
             });
@@ -189,6 +182,20 @@ public class InstrumentService {
         catch (Exception e){
             logger.error("Error al obtener la lista de instrumentos");
             throw new InstrumentGetAllException("Error al recuperar la lista de instrumentos.", e);
+        }
+    }
+
+    public Instrument createImagesInstrument(Long id, List<MultipartFile> images) {
+        try {
+            Instrument instrument = instrumentRepository.findById(id)
+                    .orElseThrow(() -> new NonExistentInstrumentException("No se encontró el instrumento con ID: " + id));
+
+            List<Image> newImages = imageService.createAllImages(images);
+            instrument.getImage().addAll(newImages);
+
+            return instrumentRepository.save(instrument);
+        } catch (Exception e) {
+            throw new InstrumentImageCreationException("Error al crear imágenes para el instrumento con ID: " + id, e);
         }
     }
 }

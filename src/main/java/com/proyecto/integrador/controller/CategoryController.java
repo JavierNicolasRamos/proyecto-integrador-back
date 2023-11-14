@@ -7,7 +7,7 @@ import com.proyecto.integrador.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
@@ -18,8 +18,8 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @PostMapping
-    public ResponseEntity<Category> createCategory(@RequestBody CategoryDto categoryDto) {
-        return ResponseEntity.ok(categoryService.createCategory(categoryDto));
+    public ResponseEntity<Category> createCategory(@RequestPart("categoryDto") CategoryDto categoryDto, @RequestParam("image") MultipartFile image) {
+        return ResponseEntity.ok(categoryService.createCategory(categoryDto, image));
     }
 
     @GetMapping("/{name}")
@@ -49,12 +49,12 @@ public class CategoryController {
     }
 
     @PutMapping
-    public ResponseEntity<Category> updateCategory(@RequestBody CategoryDto category){
-        return ResponseEntity.ok(categoryService.updateCategory(category));
+    public ResponseEntity<Category> updateCategory(@RequestBody CategoryDto categoryDto){
+        return ResponseEntity.ok(categoryService.updateCategory(categoryDto));
     }
 
     @GetMapping("/instruments")
-    public ResponseEntity<List<Instrument>> getInstrumentsByCategories(@RequestBody List<Long> categoryIdList){
-        return ResponseEntity.ok(categoryService.getInstrumentsByCategories(categoryIdList));
+    public List<Instrument> getInstrumentsByCategories(@RequestParam List<Long> categoryIdList){
+        return categoryService.getInstrumentsByCategories(categoryIdList);
     }
 }

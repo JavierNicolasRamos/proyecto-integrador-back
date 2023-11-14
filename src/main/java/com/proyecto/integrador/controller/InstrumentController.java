@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -18,8 +19,13 @@ public class InstrumentController {
     private InstrumentService instrumentService;
 
     @PostMapping
-    public ResponseEntity<Instrument> createInstrument(@RequestBody InstrumentDto instrument/*,@RequestPart(value = "file") MultipartFile file*/) {
-        return ResponseEntity.ok(instrumentService.createInstrument(instrument));//TODO: Pasar como parametro file
+    public ResponseEntity<Instrument> createInstrument(@RequestPart("instrument") InstrumentDto instrument, @RequestPart("images") List<MultipartFile> images) {
+        return ResponseEntity.ok(instrumentService.createInstrument(instrument, images));
+    }
+
+    @PostMapping("/createimages")
+    public ResponseEntity<Instrument> createImagesInstrument(@RequestPart("id") Long id, @RequestPart("images")List<MultipartFile> images){
+        return ResponseEntity.ok(this.instrumentService.createImagesInstrument(id, images));
     }
 
     @GetMapping
@@ -52,4 +58,6 @@ public class InstrumentController {
     public ResponseEntity<Page<Instrument>> getName(@PathVariable String name, Pageable pageable){
         return ResponseEntity.ok(instrumentService.getName(name, pageable));
     }
+
+
 }
