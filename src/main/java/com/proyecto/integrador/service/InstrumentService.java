@@ -6,7 +6,6 @@ import com.proyecto.integrador.exception.DuplicateInstrumentException;
 import com.proyecto.integrador.exception.DeleteInstrumentException;
 import com.proyecto.integrador.exception.InstrumentGetAllException;
 import com.proyecto.integrador.exception.NonExistentInstrumentException;
-import com.proyecto.integrador.repository.CharacteristicRepository;
 import com.proyecto.integrador.repository.InstrumentRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 import org.webjars.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,22 +25,21 @@ import org.slf4j.LoggerFactory;
 @Service
 public class InstrumentService {
 
-    private static final Logger logger = LoggerFactory.getLogger(InstrumentService.class);
+    private static final Logger logger = LoggerFactory.getLogger(InstrumentService.class.getName());
 
     @Autowired
     private InstrumentRepository instrumentRepository;
-
-    @Autowired
-    private CharacteristicRepository characteristicRepository;
 
     @Autowired
     private CharacteristicService characteristicService;
 
     @Autowired
     private ImageService imageService;
+    @Autowired
+    private CategoryService categoryService;
     
     @Transactional
-    public Instrument createInstrument(InstrumentDto instrumentDto) {
+    public Instrument createInstrument(InstrumentDto instrumentDto, List<MultipartFile> multipartFiles) {
         logger.info("Iniciando el proceso de creación de instrumento...");
 
         try {
@@ -52,17 +51,20 @@ public class InstrumentService {
 
             Instrument instrument = new Instrument();
             instrument.setName(instrumentDto.getName());
-            instrument.setCategory(instrumentDto.getCategory());
+            instrument.setCategory(this.categoryService.categoryById(instrumentDto.getCategoryDto().getId()));
             instrument.setUploadDate(LocalDate.now());
             instrument.setUpdateDate(LocalDate.now());
             instrument.setScore(instrumentDto.getScore());
             instrument.setDetail(instrumentDto.getDetail());
             instrument.setAvailable(true);
-            logger.info("Se va a crear el instrumento con nombre: " + instrumentDto.getName());
+            instrument.setImage(this.imageService.createAllImages(multipartFiles));
+
+            logger.info("Se va a crear el instrumento con nombre: " + instrument);
             instrumentRepository.save(instrument);
-          
-            this.imageService.saveImagesInstrument(instrument, instrumentDto.getImage());
-            this.characteristicService.associateCharacteristic(instrument, instrumentDto.getCharacteristics());
+
+            if(!instrumentDto.getCharacteristics().isEmpty()){
+                this.characteristicService.associateCharacteristic(instrument, instrumentDto.getCharacteristics());
+            }
 
             logger.info("Instrumento creado con éxito, nombre: " + instrument.getName());
             return instrument;
@@ -121,15 +123,16 @@ public class InstrumentService {
                }
 
                instrument.setName(instrumentDto.getName());
-               instrument.setCategory(instrumentDto.getCategory());
+               instrument.setCategory(this.categoryService.categoryById(instrumentDto.getCategoryDto().getId()));
                instrument.setUpdateDate(LocalDate.now());
                instrument.setScore(instrumentDto.getScore());
                instrument.setDetail(instrumentDto.getDetail());
                instrument.setAvailable(instrumentDto.getAvailable());
-             
-               this.imageService.updateImagesInstrument(instrument, instrumentDto.getImage());
-               this.characteristicService.associateCharacteristic(instrument, instrumentDto.getCharacteristics());
-             
+
+               if(!instrumentDto.getCharacteristics().isEmpty()){
+                   this.characteristicService.associateCharacteristic(instrument, instrumentDto.getCharacteristics());
+               }
+
                logger.info("Instrumento con ID " + id + " actualizado con éxito.");
                return instrumentRepository.save(instrument);
            } else {
@@ -149,6 +152,7 @@ public class InstrumentService {
         try {
             Optional<Instrument> instrumentOptional  = instrumentRepository.findById(id);
             instrumentOptional.ifPresent(instrument ->{
+                instrument.getImage().forEach(image -> this.imageService.deleteImage(image.getId()));
                 instrument.setDeleted(true);
                 this.instrumentRepository.save(instrument);
             });

@@ -1,6 +1,5 @@
 package com.proyecto.integrador.repository;
 
-import com.proyecto.integrador.entity.Category;
 import com.proyecto.integrador.entity.Instrument;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -28,8 +27,8 @@ public interface InstrumentRepository extends JpaRepository<Instrument, Long> {
     @Query(value = "SELECT COUNT(*) FROM instruments WHERE category_id = :id AND deleted  = false", nativeQuery = true)
     Long countAllByCategory(@Param("id") Long id);
 
-    @Query(value = "SELECT * FROM instruments WHERE category = :category AND deleted = false", nativeQuery = true)
-    List<Instrument> findAllByCategory(Category category);
+    @Query(value = "SELECT * FROM instruments WHERE category_id = :category AND deleted = false", nativeQuery = true)
+    List<Instrument> findAllByCategory(Long category);
 
     @Query(value = "SELECT * FROM instruments WHERE id = :id AND deleted = false", nativeQuery = true)
     @NotNull

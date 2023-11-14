@@ -1,0 +1,24 @@
+[
+  {
+    "name": "Admin",
+    "surname": "Admin",
+    "email": "ignacio.gibbs@gmail.com",
+    "password": "Admin1234",
+    "isAdmin": true,
+    "areaCode": 54,
+    "prefix": 11,
+    "phone": 12345678,
+    "isMobile": true
+  },
+  {
+    "name": "User",
+    "surname": "User",
+    "email": "javierramosnicolas@gmail.com",
+    "password": "User1234",
+    "isAdmin": false,
+    "areaCode": 54,
+    "prefix": 11,
+    "phone": 12345678,
+    "isMobile": true
+  }
+]

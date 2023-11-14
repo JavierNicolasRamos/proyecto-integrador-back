@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import org.springframework.web.multipart.MultipartFile;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -29,7 +29,7 @@ public class CategoryService {
     private ImageService imageService;
 
     @Transactional
-    public Category createCategory(@NotNull CategoryDto categoryDto){
+    public Category createCategory(@NotNull CategoryDto categoryDto, MultipartFile image){
         logger.info("Iniciando el proceso de creación de categoría con descripción: " + categoryDto.getName());
 
         try {
@@ -40,10 +40,10 @@ public class CategoryService {
             }
             Category category = new Category();
             category.setName(categoryDto.getName());
+            category.setDetails(categoryDto.getDetails());
             category.setDeleted(false);
-
+            category.setImage(this.imageService.createImage(image));
             categoryRepository.save(category);
-            this.imageService.saveImageCategory(category, categoryDto.getImage());
 
             logger.info("Categoría creada con éxito. Descripción: " + categoryDto.getName());
             return category;
@@ -72,7 +72,7 @@ public class CategoryService {
             throw e; //TODO: sumar la excepcion customizada
         }
     }
-    public Long instrumentsByCategory(Long id){
+    public Long countInstrumentsByCategory(Long id){
         logger.info("Iniciando el conteo de instrumentos por categoría con ID: " + id);
         try {
             Category category = categoryRepository.findById(id).orElseThrow(() ->
@@ -95,12 +95,13 @@ public class CategoryService {
                     new CategoryNotFoundException("La categoria no existe"));
             logger.info("Eliminando categoría con ID: " + category.getId());
             category.setDeleted(true);
-            this.imageService.deleteImageCategory(category);
+            this.imageService.deleteImage(category.getImage().getId());
             categoryRepository.save(category);
 
-            List<Instrument> instrumentList = instrumentRepository.findAllByCategory(category);
+            List<Instrument> instrumentList = instrumentRepository.findAllByCategory(category.getId());
             for (Instrument instrument : instrumentList) {
                 logger.info("Eliminando instrumento con ID: " + instrument.getId());
+                instrument.getImage().forEach(image -> this.imageService.deleteImage(image.getId()));
                 instrument.setDeleted(true);
             }
             instrumentRepository.saveAll(instrumentList);
@@ -129,8 +130,6 @@ public class CategoryService {
                 }
 
                 category.setName(categoryDto.getName());
-
-                this.imageService.updateImageCategory(category, categoryDto.getImage());
                 logger.info("Categoria con ID " + category.getId() + "actualizada con éxito");
                 return categoryRepository.save(category);
             }else{
@@ -141,29 +140,36 @@ public class CategoryService {
             logger.error("Error al actualizar el instrumento: " + e.getMessage());
             throw e;
         }
-        catch (Exception e){
-            logger.error("Unexpected error while trying to update category");
-            throw e;
-        }
     }
 
     public List<Category> listCategories(){
         return categoryRepository.findAll(false);
     }
 
-    public List<Instrument> getInstrumentsByCategories(List<Category> categoryList){
-        List<Instrument> instrumentList = new ArrayList<Instrument>();
+    public List<Instrument> getInstrumentsByCategories(List<Long> categoryIdList){
+        logger.info("Iniciando la búsqueda de instrumentos por categorías");
+        List<Instrument> instrumentList = new ArrayList<>();
+        List<Category> categoryList = this.categoryRepository.findAllById(categoryIdList);
+        for (Category category : categoryList) {
+            instrumentList.addAll(this.instrumentRepository.findAllByCategory(category.getId()));
+        }
+        logger.info("Búsqueda de instrumentos por categorías completada con éxito");
+        return instrumentList;
+    }
 
-        try{
-            for ( Category category : categoryList){
-                List<Instrument> instrumentListI = instrumentRepository.findAllByCategory(category);
-                instrumentList.addAll(instrumentListI);
-            }
-            return instrumentList;
+    public Category categoryById(Long id){
+        logger.info("Iniciando la búsqueda de categoría con id: " + id);
 
-        }catch (Exception e){
-            logger.error("Error inesperado al recuperar las lista de instrumentos por categorias");
-            throw new InstrumentGetAllException("Error al recuperar la lista de instrumentos");
+        try {
+            Category category = categoryRepository.findById(id).orElseThrow(() -> {
+                logger.error("No se encontró la categoría con ID: " + id);
+                return new CategoryNotFoundException("La categoria no existe");
+            });
+            logger.info("Búsqueda de categoría completada con éxito. ID: " + id);
+            return category;
+        }catch(Exception e){
+            logger.error("Error inesperado al buscar la categoría: " + e.getMessage(), e);
+            throw e; //TODO: sumar la excepcion customizada
         }
     }
 }
