@@ -77,7 +77,7 @@ public class ImageService {
             logger.info("imagen eliminada con éxito del s3.");
         }
         catch (ImageSaveException e){
-            throw new ImageSaveException("Error al eliminar la imagen");//Crear excepcion para eliminacion de imagen
+            throw new ImageSaveException("Error al eliminar la imagen", e);
         }
     }
 
