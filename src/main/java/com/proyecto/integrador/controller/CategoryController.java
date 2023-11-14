@@ -5,6 +5,7 @@ import com.proyecto.integrador.entity.Category;
 import com.proyecto.integrador.entity.Instrument;
 import com.proyecto.integrador.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
@@ -17,38 +18,39 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @PostMapping
-    public Category createCategory(@RequestPart("categoryDto") CategoryDto categoryDto, @RequestParam("image") MultipartFile image) {
-        return categoryService.createCategory(categoryDto, image);
+    public ResponseEntity<Category> createCategory(@RequestPart("categoryDto") CategoryDto categoryDto, @RequestParam("image") MultipartFile image) {
+        return ResponseEntity.ok(categoryService.createCategory(categoryDto, image));
     }
 
     @GetMapping("/{name}")
-    public Category categoryByName(@PathVariable String name){
-        return categoryService.categoryByName(name);
+    public ResponseEntity<Category> categoryByName(@PathVariable String name){
+        return ResponseEntity.ok(categoryService.categoryByName(name));
     }
 
     @GetMapping("/id/{id}")
-    public Category categoryById(@PathVariable Long id){
-        return categoryService.categoryById(id);
+    public ResponseEntity<Category> categoryById(@PathVariable Long id){
+        return ResponseEntity.ok(categoryService.categoryById(id));
     }
 
     @GetMapping("/countinstrument/{id}")
-    public Long countInstrumentsByCategory(@PathVariable Long id){
-        return categoryService.countInstrumentsByCategory(id);
+    public ResponseEntity<Long> countInstrumentsByCategory(@PathVariable Long id){
+        return ResponseEntity.ok(categoryService.countInstrumentsByCategory(id));
     }
 
     @DeleteMapping("/{id}")
-    public void deleteCategory(@PathVariable Long id){
+    public ResponseEntity<String> deleteCategory(@PathVariable Long id){
         this.categoryService.deleteCategory(id);
+        return ResponseEntity.ok("La categoría con id:" + id + " se eliminó correctametnte");
     }
 
     @GetMapping("/list")
-    public List<Category> listCategories(){
-        return categoryService.listCategories();
+    public ResponseEntity<List<Category>> listCategories(){
+        return ResponseEntity.ok(categoryService.listCategories());
     }
 
     @PutMapping
-    public Category updateCategory(@RequestBody CategoryDto categoryDto){
-        return categoryService.updateCategory(categoryDto);
+    public ResponseEntity<Category> updateCategory(@RequestBody CategoryDto categoryDto){
+        return ResponseEntity.ok(categoryService.updateCategory(categoryDto));
     }
 
     @GetMapping("/instruments")

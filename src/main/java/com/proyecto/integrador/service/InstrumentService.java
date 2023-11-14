@@ -4,6 +4,7 @@ import com.proyecto.integrador.dto.InstrumentDto;
 import com.proyecto.integrador.entity.Image;
 import com.proyecto.integrador.entity.Instrument;
 import com.proyecto.integrador.exception.*;
+import com.proyecto.integrador.repository.CharacteristicRepository;
 import com.proyecto.integrador.repository.InstrumentRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -174,6 +175,7 @@ public class InstrumentService {
     }
 
     public Page<Instrument> getName(String name, Pageable pageable){
+
         try {
             return this.instrumentRepository.getName(name, pageable);
         }

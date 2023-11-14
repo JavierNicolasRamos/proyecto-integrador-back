@@ -4,6 +4,7 @@ import com.proyecto.integrador.entity.Image;
 import com.proyecto.integrador.exception.ImageSaveException;
 import com.proyecto.integrador.repository.ImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.slf4j.Logger;
