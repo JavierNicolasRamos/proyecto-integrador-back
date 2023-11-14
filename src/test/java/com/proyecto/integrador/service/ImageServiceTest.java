@@ -12,22 +12,22 @@ class ImageServiceTest {
     }
 
     @Test
-    void saveImagesInstrument() {
+    void createImage() {
     }
 
     @Test
-    void updateImagesInstrument() {
+    void createAllImages() {
     }
 
     @Test
-    void saveImageCategory() {
+    void updateImage() {
     }
 
     @Test
-    void deleteImageCategory() {
+    void deleteImage() {
     }
 
     @Test
-    void updateImageCategory() {
+    void deleteAllImages() {
     }
 }

@@ -1,8 +1,13 @@
 package com.proyecto.integrador.service;
 
+import com.proyecto.integrador.dto.CategoryDto;
+import com.proyecto.integrador.dto.CharacteristicDto;
 import com.proyecto.integrador.dto.InstrumentDto;
 import com.proyecto.integrador.entity.Category;
+import com.proyecto.integrador.entity.Characteristic;
+import com.proyecto.integrador.entity.Image;
 import com.proyecto.integrador.entity.Instrument;
+import com.proyecto.integrador.exception.DeleteInstrumentException;
 import com.proyecto.integrador.repository.InstrumentRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,6 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -35,6 +41,9 @@ class InstrumentServiceTest {
     @Mock
     private CharacteristicService characteristicService;
 
+    @Mock
+    private CategoryService categoryService;
+
 
 
     @BeforeEach
@@ -44,30 +53,43 @@ class InstrumentServiceTest {
 
     @Test
     void createInstrument() {
+        // Configura una lista de características con al menos una característica no nula
+        CharacteristicDto characteristicDto = new CharacteristicDto();
+        characteristicDto.setName("TestCharacteristic");
+        List<CharacteristicDto> characteristics = Collections.singletonList(characteristicDto);
+
         InstrumentDto instrumentDto = new InstrumentDto();
         instrumentDto.setName("TestInstrument");
-        instrumentDto.setCategory(new Category());
+
+        // Configura una CategoryDto válida
+        CategoryDto categoryDto = new CategoryDto();
+        categoryDto.setId(1L);
+        instrumentDto.setCategoryDto(categoryDto);
+
+        instrumentDto.setCharacteristics(characteristics);
         instrumentDto.setUploadDate(LocalDate.now());
         instrumentDto.setUpdateDate(LocalDate.now());
         instrumentDto.setDetail("TestDetail");
         instrumentDto.setAvailable(true);
         instrumentDto.setScore(0.0);
-        instrumentDto.setCharacteristics(Collections.emptyList());
-        instrumentDto.setImage(Collections.emptyList());
+
+        // Configura una lista de características con al menos una característica no nula
+        instrumentDto.setCharacteristics(characteristics);
+
+        List<MultipartFile> multipartFiles = Collections.singletonList(mock(MultipartFile.class));
+
         when(instrumentRepository.getByName("TestInstrument")).thenReturn(Optional.empty());
+        // Configura categoryService.categoryById para devolver una Category válida
+        when(categoryService.categoryById(anyLong())).thenReturn(new Category());
 
+        Instrument result = instrumentService.createInstrument(instrumentDto, multipartFiles);
 
-
-
-        Instrument result = instrumentService.createInstrument(instrumentDto);
         assertNotNull(result);
         assertEquals("TestInstrument", result.getName());
 
-
         verify(instrumentRepository, times(1)).getByName("TestInstrument");
         verify(instrumentRepository, times(1)).save(any(Instrument.class));
-        verify(imageService, times(1)).saveImagesInstrument(any(Instrument.class), any());
-        verify(characteristicService, times(1)).associateCharacteristic(any(Instrument.class), any());
+        verify(characteristicService, times(1)).associateCharacteristic(any(Instrument.class), eq(characteristics));
     }
 
     @Test
@@ -127,11 +149,20 @@ class InstrumentServiceTest {
 
     @Test
     void updateInstrument() {
-        // Configurar objeto Instrument de prueba
+
+        Characteristic characteristic = new Characteristic();
+        characteristic.setName("TestCharacteristic");
+        List<Characteristic> characteristics = Collections.singletonList(characteristic);
+
+        CharacteristicDto characteristicDto = new CharacteristicDto();
+        characteristicDto.setName("TestCharacteristic");
+        List<CharacteristicDto> characteristicsDto = Collections.singletonList(characteristicDto);
+
+
         Instrument existingInstrument = new Instrument();
         existingInstrument.setId(1L);
         existingInstrument.setName("ExistingInstrument");
-        existingInstrument.setCategory(new Category());
+        existingInstrument.setCategory(new Category()); // Asegúrate de configurar una Category válida
         existingInstrument.setUploadDate(LocalDate.now());
         existingInstrument.setUpdateDate(LocalDate.now());
         existingInstrument.setDetail("TestDetail");
@@ -139,7 +170,7 @@ class InstrumentServiceTest {
         existingInstrument.setScore(0.0);
         existingInstrument.setBookings(Collections.emptyList());
         existingInstrument.setDeleted(false);
-        existingInstrument.setCharacteristics(Collections.emptyList());
+        existingInstrument.setCharacteristics(characteristics);
         existingInstrument.setImage(Collections.emptyList());
 
         when(instrumentRepository.findById(1L)).thenReturn(Optional.of(existingInstrument));
@@ -149,16 +180,22 @@ class InstrumentServiceTest {
         InstrumentDto updatedDto = new InstrumentDto();
         updatedDto.setId(1L);
         updatedDto.setName("UpdatedInstrument");
-        updatedDto.setCategory(new Category());
         updatedDto.setUploadDate(LocalDate.now());
         updatedDto.setUpdateDate(LocalDate.now());
         updatedDto.setDetail("TestDetailNew");
         updatedDto.setAvailable(true);
         updatedDto.setScore(5.0);
-        updatedDto.setBookings(Collections.emptyList());
         updatedDto.setDeleted(false);
-        updatedDto.setCharacteristics(Collections.emptyList());
-        updatedDto.setImage(Collections.emptyList());
+        updatedDto.setCharacteristics(characteristicsDto);
+
+        CategoryDto categoryDto = new CategoryDto();
+        categoryDto.setId(1L); // Asegúrate de que el ID sea válido
+        updatedDto.setCategoryDto(categoryDto);
+
+        // Configurar categoryService.categoryById para devolver una Category válida
+        when(categoryService.categoryById(anyLong())).thenReturn(new Category());
+
+        // Configurar characteristicService según sea necesario para devolver valores válidos
 
         // Llamar al método bajo prueba
         Instrument result = instrumentService.updateInstrument(1L, updatedDto);
@@ -175,27 +212,44 @@ class InstrumentServiceTest {
         // Verificar que los métodos en los mocks fueron llamados
         verify(instrumentRepository, times(1)).findById(1L);
         verify(instrumentRepository, times(1)).save(any());
-        verify(imageService, times(1)).updateImagesInstrument(any(), any());
         verify(characteristicService, times(1)).associateCharacteristic(any(), any());
+        verify(categoryService, times(1)).categoryById(anyLong());
     }
 
 
     @Test
     void deleteInstrument_ExistingInstrument_DeletesInstrument() {
+        // Crea una Image de prueba
+        Image testImage = new Image();
+        testImage.setId(1L); // Asigna un ID ficticio
 
-        Long instrumentId = 1L;
+        // Crea un Instrument de prueba
         Instrument existingInstrument = new Instrument();
-        existingInstrument.setId(instrumentId);
+        existingInstrument.setId(1L);
+        existingInstrument.setName("TestInstrument");
+        existingInstrument.setImage(Collections.singletonList(testImage));
 
-        when(instrumentRepository.findById(instrumentId)).thenReturn(Optional.of(existingInstrument));
+        // Configura mock para devolver el instrumento existente
+        when(instrumentRepository.findById(1L)).thenReturn(Optional.of(existingInstrument));
 
+        // Configura mock para el servicio de imagen
+        doNothing().when(imageService).deleteImage(anyLong());
 
-        instrumentService.deleteInstrument(instrumentId);
+        // Llamar al método bajo prueba
+        try {
+            instrumentService.deleteInstrument(1L);
+        } catch (DeleteInstrumentException e) {
+            fail("Error al eliminar el instrumento: " + e.getMessage());
+        }
 
-
-        verify(instrumentRepository, times(1)).findById(instrumentId);
+        // Verificar que el método en el repositorio fue llamado
+        verify(instrumentRepository, times(1)).findById(1L);
         verify(instrumentRepository, times(1)).save(existingInstrument);
 
+        // Verificar que el método en el servicio de imagen fue llamado con el ID correcto
+        verify(imageService, times(1)).deleteImage(eq(testImage.getId()));
+
+        // Verificar que el instrumento fue marcado como eliminado
         assertTrue(existingInstrument.getDeleted());
     }
 
