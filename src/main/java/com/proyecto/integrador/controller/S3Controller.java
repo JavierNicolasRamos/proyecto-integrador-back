@@ -2,6 +2,7 @@ package com.proyecto.integrador.controller;
 
 import com.proyecto.integrador.service.S3Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,12 +18,12 @@ public class S3Controller {
     }
 
     @PostMapping("/uploadFile")
-    public String uploadFile(@RequestPart(value = "file") MultipartFile file) {
-        return this.amazonClient.uploadFile(file);
+    public ResponseEntity<String> uploadFile(@RequestPart(value = "file") MultipartFile file) {
+        return ResponseEntity.ok(this.amazonClient.uploadFile(file));
     }
 
     @DeleteMapping("/deleteFile")
-    public String deleteFile(@RequestPart(value = "url") String fileUrl) {
-        return this.amazonClient.deleteFileFromS3Bucket(fileUrl);
+    public ResponseEntity<String> deleteFile(@RequestPart(value = "url") String fileUrl) {
+        return ResponseEntity.ok(this.amazonClient.deleteFileFromS3Bucket(fileUrl));
     }
 }

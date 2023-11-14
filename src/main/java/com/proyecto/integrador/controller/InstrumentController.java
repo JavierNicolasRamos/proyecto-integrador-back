@@ -19,8 +19,8 @@ public class InstrumentController {
     private InstrumentService instrumentService;
 
     @PostMapping
-    public Instrument createInstrument(@RequestPart("instrument") InstrumentDto instrument, @RequestPart("images") List<MultipartFile> images) {
-        return instrumentService.createInstrument(instrument, images);
+    public ResponseEntity<Instrument> createInstrument(@RequestPart("instrument") InstrumentDto instrument, @RequestPart("images") List<MultipartFile> images) {
+        return ResponseEntity.ok(instrumentService.createInstrument(instrument, images));
     }
 
     @PostMapping("/createimages")
@@ -29,33 +29,34 @@ public class InstrumentController {
     }
 
     @GetMapping
-    public List<Instrument> getTenInstruments() {
-        return instrumentService.getTenInstruments();
+    public ResponseEntity<List<Instrument>> getTenInstruments() {
+        return ResponseEntity.ok(instrumentService.getTenInstruments());
     }
 
     @GetMapping("/paginated")
-    public Page<Instrument>getAll(Pageable pageable){
-        return instrumentService.getAll(pageable);
+    public ResponseEntity<Page<Instrument>>getAll(Pageable pageable){
+        return ResponseEntity.ok(instrumentService.getAll(pageable));
     }
 
     @GetMapping("/id/{id}")
-    public Instrument getInstrumentById(@PathVariable Long id) {
-        return instrumentService.getInstrumentById(id);
+    public ResponseEntity<Instrument> getInstrumentById(@PathVariable Long id) {
+        return ResponseEntity.ok(instrumentService.getInstrumentById(id));
     }
 
     @PutMapping("/{id}")
-    public Instrument updateInstrument(@PathVariable Long id, @RequestBody InstrumentDto instrument) {
-        return instrumentService.updateInstrument(id, instrument);
+    public ResponseEntity<Instrument> updateInstrument(@PathVariable Long id, @RequestBody InstrumentDto instrument) {
+        return ResponseEntity.ok(instrumentService.updateInstrument(id, instrument));
     }
 
     @DeleteMapping("/{id}")
-    public void deleteInstrument(@PathVariable Long id) {
+    public ResponseEntity<String> deleteInstrument(@PathVariable Long id) {
         instrumentService.deleteInstrument(id);
+        return ResponseEntity.ok("Se elimino el instrumento con ID: " + id + " de manera exitosa");
     }
 
     @GetMapping("/{name}")
-    public Page<Instrument> getName(@PathVariable String name, Pageable pageable){
-        return instrumentService.getName(name, pageable);
+    public ResponseEntity<Page<Instrument>> getName(@PathVariable String name, Pageable pageable){
+        return ResponseEntity.ok(instrumentService.getName(name, pageable));
     }
 
 
