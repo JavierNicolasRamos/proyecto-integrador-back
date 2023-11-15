@@ -180,9 +180,6 @@ class CategoryServiceTest {
         assertEquals("UpdatedCategory", updatedCategory.getName());
     }
 
-    @Test
-    void listCategories() {
-    }
 
     @Test
     void getInstrumentsByCategories() {
