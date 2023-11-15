@@ -95,8 +95,8 @@ class ImageServiceTest {
     }
 
     @Test
-    void deleteImage() { //TODO: delete image
-        /*
+    void deleteImage() {
+
         Long imageId = 1L;
         Image mockImage = new Image();
         mockImage.setId(imageId);
@@ -106,14 +106,11 @@ class ImageServiceTest {
         when(imageRepository.findById(imageId)).thenReturn(Optional.of(mockImage));
         doReturn("Successfully deleted").when(s3Service).deleteFileFromS3Bucket(anyString());
 
-        doNothing().when(imageRepository).delete(argThat(deletedImage -> deletedImage.getId().equals(imageId)));
-
         assertDoesNotThrow(() -> imageService.deleteImage(imageId));
 
         verify(imageRepository, times(1)).findById(imageId);
         verify(s3Service, times(1)).deleteFileFromS3Bucket(any());
-        verify(imageRepository, times(1)).delete(argThat(deletedImage -> deletedImage.getId().equals(imageId)));
-        */
+
     }
 
     @Test
