@@ -5,6 +5,7 @@ import com.proyecto.integrador.entity.Category;
 import com.proyecto.integrador.entity.Image;
 import com.proyecto.integrador.entity.Instrument;
 import com.proyecto.integrador.entity.User;
+import com.proyecto.integrador.enums.Role;
 import com.proyecto.integrador.repository.CategoryRepository;
 import com.proyecto.integrador.repository.ImageRepository;
 import com.proyecto.integrador.repository.InstrumentRepository;
@@ -17,6 +18,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
@@ -41,6 +43,9 @@ public class DataSeedConfig {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Bean
     @Order(1)
@@ -138,7 +143,9 @@ public class DataSeedConfig {
             Integer prefix = (Integer) userData.get("prefix");
             Integer phone = (Integer) userData.get("phone");
             Boolean isMobile = (Boolean) userData.get("isMobile");
-            com.proyecto.integrador.enums.Role role = (com.proyecto.integrador.enums.Role) userData.get("role");
+
+            String roleString = (String) userData.get("role");
+            Role role = Role.valueOf(roleString.toUpperCase());
 
             Optional<User> userExist = Optional.ofNullable(userRepository.findByEmail(email));
             if (userExist.isEmpty()) {
@@ -146,7 +153,8 @@ public class DataSeedConfig {
                 user.setName(name);
                 user.setSurname(surname);
                 user.setEmail(email);
-                user.setPassword(password);
+                String encryptedPassword = this.passwordEncoder.encode(password);
+                user.setPassword(encryptedPassword);
                 user.setAreaCode(areaCode);
                 user.setPrefix(prefix);
                 user.setPhone(phone);

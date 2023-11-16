@@ -1,5 +1,6 @@
 package com.proyecto.integrador.response;
 
+import com.proyecto.integrador.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AuthResponse {
     private String jwt;
-    private String role;
+    private Role role;
 
     public String toStringIndented(int indentLevel) {
         StringBuilder indent = new StringBuilder();

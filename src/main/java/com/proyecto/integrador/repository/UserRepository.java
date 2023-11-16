@@ -3,6 +3,7 @@ package com.proyecto.integrador.repository;
 import com.proyecto.integrador.dto.AuthDto;
 import com.proyecto.integrador.entity.User;
 
+import com.proyecto.integrador.enums.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -30,5 +31,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findByRole(@Param("role")String role);
 
     @Query(value = "SELECT Role FROM users WHERE email = :email AND deleted = false", nativeQuery = true)
-    User getRoleByEmail(String email);
+    Role getRoleByEmail(String email);
 }

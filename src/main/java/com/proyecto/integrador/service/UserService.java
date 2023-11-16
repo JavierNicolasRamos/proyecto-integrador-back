@@ -2,13 +2,14 @@ package com.proyecto.integrador.service;
 
 import com.proyecto.integrador.dto.UserDto;
 import com.proyecto.integrador.entity.User;
+import com.proyecto.integrador.enums.Role;
 import com.proyecto.integrador.exception.UsuarioNotFoundException;
 import com.proyecto.integrador.repository.UserRepository;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -17,6 +18,9 @@ import java.util.logging.Logger;
 public class UserService {
 
     private static final Logger logger = Logger.getLogger(UserService.class.getName());
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private UserRepository userRepository;
@@ -131,27 +135,6 @@ public class UserService {
         }
     }
 
-    @Transactional
-    public User createUser(@NotNull UserDto userDto) throws Exception {
-        logger.info("Iniciando la creación del usuario...");
-        Optional<User> userOptional = Optional.ofNullable(userRepository.findByEmail(userDto.getEmail()));
-
-        try {
-            if (userOptional.isPresent()) {
-                logger.warning("Ya existe un usuario con el mismo email: " + userDto.getEmail());
-                throw new Exception("Ya existe un usuario con el mismo email: " + userDto.getEmail());
-            } else {
-                User user = getUser(userDto);
-
-                logger.info("Usuario creado con éxito.");
-                return userRepository.save(user);
-            }
-        } catch (Exception e) {
-            logger.severe("Error inesperado al crear el usuario: " + e.getMessage());
-            throw e; //TODO: sumar la excepcion customizada
-        }
-    }
-
     public User findUsersByRole(String role) {
         try {
             return userRepository.findByRole(role);
@@ -161,7 +144,7 @@ public class UserService {
         }
     }
 
-    public User getRoleByEmail(String email) throws Exception {
+    public Role getRoleByEmail(String email) throws Exception {
         try {
             return userRepository.getRoleByEmail(email);
         } catch (Exception e) {
@@ -207,7 +190,7 @@ public class UserService {
         }
     }
 
-    private static @NotNull User getUser(@NotNull UserDto userDto) {
+    private User getUser(@NotNull UserDto userDto) {
         User user = new User();
         user.setName(userDto.getName());
         user.setSurname(userDto.getSurname());
@@ -216,7 +199,10 @@ public class UserService {
         user.setPhone(userDto.getPhone());
         user.setIsMobile(userDto.getIsMobile());
         user.setEmail(userDto.getEmail());
-        user.setPassword(userDto.getPassword());
+        Role role = Role.valueOf(userDto.getRole().toUpperCase());
+        user.setRole(role);
+        String encryptedPassword = this.passwordEncoder.encode(userDto.getPassword());
+        user.setPassword(encryptedPassword);
         user.setIsActive(true);
         user.setDeleted(false);
         return user;

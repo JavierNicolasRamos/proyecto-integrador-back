@@ -36,6 +36,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
         if (authHeader == null || !authHeader.startsWith("Bearer")) {
             filterChain.doFilter(request, response);
+            return;
         }
 
         assert authHeader != null;
@@ -43,6 +44,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
         if (!this.jwtUtil.isValid(jwt)) {
             filterChain.doFilter(request, response);
+            return;
         }
 
         String email = this.jwtUtil.getEmail(jwt);

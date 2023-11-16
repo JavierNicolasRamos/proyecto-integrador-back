@@ -2,6 +2,7 @@ package com.proyecto.integrador.controller;
 
 import com.proyecto.integrador.config.JwtUtil;
 import com.proyecto.integrador.dto.AuthDto;
+import com.proyecto.integrador.enums.Role;
 import com.proyecto.integrador.response.AuthResponse;
 import com.proyecto.integrador.service.UserService;
 import org.jetbrains.annotations.NotNull;
@@ -40,7 +41,7 @@ public class AuthController {
         String jwt = this.jwtUtil.create(authDto.getEmail());
 
         String email = authDto.getEmail();
-        String role = userService.getRoleByEmail(email).getEmail();
+        Role role = userService.getRoleByEmail(email);
 
         AuthResponse response = new AuthResponse(jwt, role);
 
