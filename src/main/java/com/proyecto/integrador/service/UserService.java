@@ -95,10 +95,6 @@ public class UserService {
                     user.setSurname(userDto.getSurname());
                 }
 
-                if (!user.getIsAdmin().equals(userDto.getIsAdmin())) {
-                    user.setIsAdmin(userDto.getIsAdmin());
-                }
-
                 if (!user.getAreaCode().equals(userDto.getAreaCode())) {
                     user.setAreaCode(userDto.getAreaCode());
                 }
@@ -156,6 +152,24 @@ public class UserService {
         }
     }
 
+    public User findUsersByRole(String role) {
+        try {
+            return userRepository.findByRole(role);
+        } catch (Exception e) {
+            logger.severe("Error al buscar el usuario por role: " + e.getMessage());
+            throw e; //TODO: sumar la excepcion customizada
+        }
+    }
+
+    public User getRoleByEmail(String email) throws Exception {
+        try {
+            return userRepository.getRoleByEmail(email);
+        } catch (Exception e) {
+            logger.severe("Error al buscar el usuario por email: " + e.getMessage());
+            throw e; //TODO: sumar la excepcion customizada
+        }
+    }
+
     public User login(String email, String password) {
         try {
             User user = userRepository.findByEmail(email);
@@ -171,7 +185,7 @@ public class UserService {
     }
 
     @Transactional
-    public User register(@NotNull UserDto userDto) throws Exception {
+    public void register(@NotNull UserDto userDto) throws Exception {
         logger.info("Iniciando el registro del usuario...");
         Optional<User> userOptional = Optional.ofNullable(userRepository.findByEmail(userDto.getEmail()));
 
@@ -182,11 +196,13 @@ public class UserService {
             } else {
                 User user = getUser(userDto);
 
-                logger.info("Usuario registrado con éxito.");
-                return userRepository.save(user);
+                logger.info("Usuario creado con éxito.");
+                userRepository.save(user);
+
+                //TODO: Implementar el envío de email
             }
         } catch (Exception e) {
-            logger.severe("Error inesperado al registrar el usuario: " + e.getMessage());
+            logger.severe("Error inesperado al crear el usuario: " + e.getMessage());
             throw e; //TODO: sumar la excepcion customizada
         }
     }
@@ -195,7 +211,6 @@ public class UserService {
         User user = new User();
         user.setName(userDto.getName());
         user.setSurname(userDto.getSurname());
-        user.setIsAdmin(userDto.getIsAdmin());
         user.setAreaCode(userDto.getAreaCode());
         user.setPrefix(userDto.getPrefix());
         user.setPhone(userDto.getPhone());

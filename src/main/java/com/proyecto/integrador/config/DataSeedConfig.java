@@ -150,7 +150,6 @@ public class DataSeedConfig {
                 user.setAreaCode(areaCode);
                 user.setPrefix(prefix);
                 user.setPhone(phone);
-                user.setIsAdmin(isAdmin);
                 user.setIsMobile(isMobile);
                 user.setIsActive(true);
                 user.setDeleted(false);

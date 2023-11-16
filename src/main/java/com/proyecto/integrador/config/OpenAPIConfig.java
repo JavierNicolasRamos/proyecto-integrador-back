@@ -31,7 +31,7 @@ public class OpenAPIConfig {
         License mitLicense = new License().name("MIT License").url("https://choosealicense.com/licenses/mit/");
 
         Info info = new Info()
-                .title("API proyecto-integrador-back")
+                .title("API MusicRental-BackEnd")
                 .version("1.0")
                 .contact(contact)
                 .description("This API exposes endpoints to manage proyecto-integrador-back.").termsOfService("https://www.equipo1.com.ar/terms")

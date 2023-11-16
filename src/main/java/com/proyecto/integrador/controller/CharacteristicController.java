@@ -19,6 +19,7 @@ public class CharacteristicController {
     public ResponseEntity<Characteristic> createCharacteristic(@RequestBody CharacteristicDto characteristicDto){
         return ResponseEntity.ok(characteristicService.createCharacteristic(characteristicDto));
     }
+
     @PutMapping("/{id}")
     public ResponseEntity<Characteristic> editCharacteristic(@PathVariable Long id, @RequestBody CharacteristicDto characteristic) {
         return ResponseEntity.ok(characteristicService.editCharacteristic(id, characteristic));
@@ -30,15 +31,8 @@ public class CharacteristicController {
         return ResponseEntity.ok("La characterística con ID " + id + "se eliminó de manera exitosa");
     }
 
-
     @GetMapping("/list")
     public ResponseEntity<List<Characteristic>> listCharacteristic() {
         return ResponseEntity.ok(characteristicService.listCharacteristic());
     }
-
-
-
-
-
-
 }

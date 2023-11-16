@@ -1,6 +1,7 @@
 package com.proyecto.integrador.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.proyecto.integrador.enums.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -28,9 +29,6 @@ public class User {
     @NotBlank(message = "El campo 'apellido' no puede estar en blanco")
     private String surname;
 
-    @NotNull(message = "El campo 'administrador' no puede ser nulo")
-    private Boolean isAdmin;
-
     @NotNull(message = "El campo 'codigoArea' no puede ser nulo")
     private Integer areaCode;
 
@@ -57,6 +55,9 @@ public class User {
     @JsonIgnore
     private List<Booking> bookings;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     private Boolean isActive;
 
     private Boolean deleted;
@@ -67,11 +68,11 @@ public class User {
 
         return "User{" +
                 "\n" + indent + "  id= " + this.id +
+                "\n" + indent + "  role= " + this.role +
                 "\n" + indent + "  bookings= " + this.bookings +
                 "\n" + indent + "  name= " + this.name +
                 "\n" + indent + "  surname= " + this.surname +
                 "\n" + indent + "  email= " + this.email +
-                "\n" + indent + "  isAdmin= " + this.isAdmin +
                 "\n" + indent + "  areaCode= " + this.areaCode +
                 "\n" + indent + "  prefix= " + this.prefix +
                 "\n" + indent + "  phone= " + this.phone +

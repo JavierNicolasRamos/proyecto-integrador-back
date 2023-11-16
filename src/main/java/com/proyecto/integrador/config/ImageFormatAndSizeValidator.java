@@ -1,6 +1,5 @@
 package com.proyecto.integrador.config;
 
-import com.proyecto.integrador.config.ImageFormatAndSize;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.jetbrains.annotations.NotNull;

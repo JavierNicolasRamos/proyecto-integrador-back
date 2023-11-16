@@ -1,6 +1,5 @@
 package com.proyecto.integrador.dto;
 
-import com.proyecto.integrador.entity.Booking;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

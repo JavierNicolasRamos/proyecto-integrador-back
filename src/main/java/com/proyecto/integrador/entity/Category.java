@@ -4,12 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.FieldDefaults;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import java.util.List;
 
@@ -49,5 +45,17 @@ public class Category {
                 "\n  instrument= " + this.instrument +
                 "\n  deleted= " + this.deleted +
                 "\n}";
+    }
+
+    public String toStringIndented(int indentLevel) {
+        StringBuilder indent = new StringBuilder();
+        indent.append("  ".repeat(Math.max(0, indentLevel)));
+
+        return "Category{" +
+                "\n" + indent + "  id= " + this.id +
+                "\n" + indent + "  name= " + this.name +
+                "\n" + indent + "  instrument= " + this.instrument +
+                "\n" + indent + "  deleted= " + this.deleted +
+                "\n" + indent + "}";
     }
 }
