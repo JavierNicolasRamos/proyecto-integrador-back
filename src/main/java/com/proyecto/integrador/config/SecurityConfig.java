@@ -22,6 +22,7 @@ import static org.springframework.security.web.util.matcher.AntPathRequestMatche
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+    private static final String[] SWAGGER_PATHS = {"/swagger-ui.html", "/v3/api-docs/**", "/v3/api-docs.yaml","/swagger-ui/**", "/webjars/swagger-ui/**"};
     private final JwtFilter jwtFilter;
 
     @Bean
@@ -34,6 +35,7 @@ public class SecurityConfig {
                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .authorizeHttpRequests((authorize) -> authorize
+                        .requestMatchers(SWAGGER_PATHS).permitAll()
                         .requestMatchers(antMatcher(HttpMethod.PUT, "/users/*")).hasAnyRole("Super-Admin", "Admin")
                         .requestMatchers(antMatcher("/users/register")).permitAll()
                         .requestMatchers(antMatcher("/auth/**")).permitAll()

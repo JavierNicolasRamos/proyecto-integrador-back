@@ -39,7 +39,6 @@ public class JwtFilter extends OncePerRequestFilter {
             return;
         }
 
-        assert authHeader != null;
         String jwt = authHeader.split(" ")[1].trim();
 
         if (!this.jwtUtil.isValid(jwt)) {
