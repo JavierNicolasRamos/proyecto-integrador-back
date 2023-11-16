@@ -61,6 +61,11 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
     }
 
+    @ExceptionHandler(DuplicateReviewException.class)
+    public ResponseEntity<String> handleException(DuplicateReviewException e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+    }
+
     //Error inesperado INTERNAL_SERVER_ERROR
     @ExceptionHandler(EditCharacteristicException.class)
     public ResponseEntity<String> handleException(EditCharacteristicException e) {

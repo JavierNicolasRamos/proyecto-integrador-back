@@ -59,6 +59,8 @@ public class Instrument {
     @OneToMany
     private List<Characteristic> characteristics;
 
+    private Long reviewCount;
+
     @Override
     public String toString() {
         String reservasString = (bookings != null && !bookings.isEmpty()) ? bookings.iterator().next().toStringIndented(1) : "[]";
