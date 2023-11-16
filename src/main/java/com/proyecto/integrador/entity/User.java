@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import java.util.List;
 
@@ -44,7 +45,8 @@ public class User {
     @NotNull(message = "El campo 'email' no puede ser nulo")
     @NotBlank(message = "El campo 'email' no puede estar en blanco")
     @Email(message = "El campo 'email' debe ser una dirección de correo electrónico válida")
-    private String email;   //TODO: esto se va al auth
+    @Column(unique = true)
+    private String email;
 
     @NotNull(message = "El campo 'password' no puede ser nulo")
     @NotBlank(message = "El campo 'password' no puede estar en blanco")

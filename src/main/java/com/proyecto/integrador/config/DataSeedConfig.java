@@ -137,8 +137,8 @@ public class DataSeedConfig {
             Integer areaCode = (Integer) userData.get("areaCode");
             Integer prefix = (Integer) userData.get("prefix");
             Integer phone = (Integer) userData.get("phone");
-            Boolean isAdmin = (Boolean) userData.get("isAdmin");
             Boolean isMobile = (Boolean) userData.get("isMobile");
+            com.proyecto.integrador.enums.Role role = (com.proyecto.integrador.enums.Role) userData.get("role");
 
             Optional<User> userExist = Optional.ofNullable(userRepository.findByEmail(email));
             if (userExist.isEmpty()) {
@@ -151,6 +151,7 @@ public class DataSeedConfig {
                 user.setPrefix(prefix);
                 user.setPhone(phone);
                 user.setIsMobile(isMobile);
+                user.setRole(role);
                 user.setIsActive(true);
                 user.setDeleted(false);
                 userRepository.save(user);
