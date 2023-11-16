@@ -58,6 +58,4 @@ public class InstrumentController {
     public ResponseEntity<Page<Instrument>> getName(@PathVariable String name, Pageable pageable){
         return ResponseEntity.ok(instrumentService.getName(name, pageable));
     }
-
-
 }

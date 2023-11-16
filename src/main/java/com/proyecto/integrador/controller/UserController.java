@@ -5,6 +5,7 @@ import com.proyecto.integrador.entity.User;
 import com.proyecto.integrador.service.UserService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +16,7 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
+
 
     @GetMapping("/email/{email}")
     public User getUserByEmail(String email) {
@@ -57,7 +59,8 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody @NotNull UserDto user) throws Exception {
-        return ResponseEntity.ok(userService.register(user));
+    public ResponseEntity<String> register(@RequestBody @NotNull UserDto user) throws Exception {
+        userService.register(user);
+        return ResponseEntity.status(HttpStatus.OK).body("User with email: " + user.getEmail() + " created successfully.");
     }
 }

@@ -78,4 +78,25 @@ public class Instrument {
                 "\n  deleted= " + this.deleted +
                 "\n}";
     }
+
+    public String toStringIndented(int indentLevel) {
+        String reservasString = (bookings != null && !bookings.isEmpty()) ? bookings.iterator().next().toStringIndented(1) : "[]";
+        String imagenesString = (image != null && !image.isEmpty()) ? image.iterator().next().toStringIndented(1) : "[]";
+        StringBuilder indent = new StringBuilder();
+        indent.append("  ".repeat(Math.max(0, indentLevel)));
+
+        return "Instrument{" +
+                "\n" + indent + "  id= " + this.id +
+                "\n" + indent + "  name= " + this.name +
+                "\n" + indent + "  category= " + this.category.getId() +
+                "\n" + indent + "  detail= " + this.detail +
+                "\n" + indent + "  score= " + this.score +
+                "\n" + indent + "  imagen= " + imagenesString +
+                "\n" + indent + "  reservas= " + reservasString +
+                "\n" + indent + "  uploadDate= " + this.uploadDate +
+                "\n" + indent + "  updateDate= " + this.updateDate +
+                "\n" + indent + "  available= " + this.available +
+                "\n" + indent + "  deleted= " + this.deleted +
+                "\n" + indent + "}";
+    }
 }

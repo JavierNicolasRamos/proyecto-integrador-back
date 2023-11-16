@@ -1,12 +1,14 @@
 package com.proyecto.integrador.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.proyecto.integrador.enums.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import java.util.List;
 
@@ -28,9 +30,6 @@ public class User {
     @NotBlank(message = "El campo 'apellido' no puede estar en blanco")
     private String surname;
 
-    @NotNull(message = "El campo 'administrador' no puede ser nulo")
-    private Boolean isAdmin;
-
     @NotNull(message = "El campo 'codigoArea' no puede ser nulo")
     private Integer areaCode;
 
@@ -46,7 +45,8 @@ public class User {
     @NotNull(message = "El campo 'email' no puede ser nulo")
     @NotBlank(message = "El campo 'email' no puede estar en blanco")
     @Email(message = "El campo 'email' debe ser una dirección de correo electrónico válida")
-    private String email;   //TODO: esto se va al auth
+    @Column(unique = true)
+    private String email;
 
     @NotNull(message = "El campo 'password' no puede ser nulo")
     @NotBlank(message = "El campo 'password' no puede estar en blanco")
@@ -56,6 +56,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private List<Booking> bookings;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     private Boolean isActive;
 
@@ -67,11 +70,11 @@ public class User {
 
         return "User{" +
                 "\n" + indent + "  id= " + this.id +
+                "\n" + indent + "  role= " + this.role +
                 "\n" + indent + "  bookings= " + this.bookings +
                 "\n" + indent + "  name= " + this.name +
                 "\n" + indent + "  surname= " + this.surname +
                 "\n" + indent + "  email= " + this.email +
-                "\n" + indent + "  isAdmin= " + this.isAdmin +
                 "\n" + indent + "  areaCode= " + this.areaCode +
                 "\n" + indent + "  prefix= " + this.prefix +
                 "\n" + indent + "  phone= " + this.phone +

@@ -26,4 +26,15 @@ public class Characteristic {
                 "\n  icon='" + icon + '\'' +
                 "\n}";
     }
+
+    public String toStringIndented(int indentLevel) {
+        StringBuilder indent = new StringBuilder();
+        indent.append("  ".repeat(Math.max(0, indentLevel)));
+
+        return "Characteristic{" +
+                "\n" + indent + "  id=" + id +
+                "\n" + indent + "  name='" + name + '\'' +
+                "\n" + indent + "  icon='" + icon + '\'' +
+                "\n" + indent + "}";
+    }
 }

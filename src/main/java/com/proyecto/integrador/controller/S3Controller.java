@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/storage/")
 public class S3Controller {
 
-    private S3Service amazonClient;
+    private final S3Service amazonClient;
 
     @Autowired
     S3Controller(S3Service amazonClient) {

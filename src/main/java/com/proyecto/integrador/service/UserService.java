@@ -2,13 +2,14 @@ package com.proyecto.integrador.service;
 
 import com.proyecto.integrador.dto.UserDto;
 import com.proyecto.integrador.entity.User;
+import com.proyecto.integrador.enums.Role;
 import com.proyecto.integrador.exception.UsuarioNotFoundException;
 import com.proyecto.integrador.repository.UserRepository;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -17,6 +18,9 @@ import java.util.logging.Logger;
 public class UserService {
 
     private static final Logger logger = Logger.getLogger(UserService.class.getName());
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private UserRepository userRepository;
@@ -95,10 +99,6 @@ public class UserService {
                     user.setSurname(userDto.getSurname());
                 }
 
-                if (!user.getIsAdmin().equals(userDto.getIsAdmin())) {
-                    user.setIsAdmin(userDto.getIsAdmin());
-                }
-
                 if (!user.getAreaCode().equals(userDto.getAreaCode())) {
                     user.setAreaCode(userDto.getAreaCode());
                 }
@@ -135,23 +135,20 @@ public class UserService {
         }
     }
 
-    @Transactional
-    public User createUser(@NotNull UserDto userDto) throws Exception {
-        logger.info("Iniciando la creación del usuario...");
-        Optional<User> userOptional = Optional.ofNullable(userRepository.findByEmail(userDto.getEmail()));
-
+    public User findUsersByRole(String role) {
         try {
-            if (userOptional.isPresent()) {
-                logger.warning("Ya existe un usuario con el mismo email: " + userDto.getEmail());
-                throw new Exception("Ya existe un usuario con el mismo email: " + userDto.getEmail());
-            } else {
-                User user = getUser(userDto);
-
-                logger.info("Usuario creado con éxito.");
-                return userRepository.save(user);
-            }
+            return userRepository.findByRole(role);
         } catch (Exception e) {
-            logger.severe("Error inesperado al crear el usuario: " + e.getMessage());
+            logger.severe("Error al buscar el usuario por role: " + e.getMessage());
+            throw e; //TODO: sumar la excepcion customizada
+        }
+    }
+
+    public Role getRoleByEmail(String email) throws Exception {
+        try {
+            return userRepository.getRoleByEmail(email);
+        } catch (Exception e) {
+            logger.severe("Error al buscar el usuario por email: " + e.getMessage());
             throw e; //TODO: sumar la excepcion customizada
         }
     }
@@ -171,7 +168,7 @@ public class UserService {
     }
 
     @Transactional
-    public User register(@NotNull UserDto userDto) throws Exception {
+    public void register(@NotNull UserDto userDto) throws Exception {
         logger.info("Iniciando el registro del usuario...");
         Optional<User> userOptional = Optional.ofNullable(userRepository.findByEmail(userDto.getEmail()));
 
@@ -182,26 +179,30 @@ public class UserService {
             } else {
                 User user = getUser(userDto);
 
-                logger.info("Usuario registrado con éxito.");
-                return userRepository.save(user);
+                logger.info("Usuario creado con éxito.");
+                userRepository.save(user);
+
+                //TODO: Implementar el envío de email
             }
         } catch (Exception e) {
-            logger.severe("Error inesperado al registrar el usuario: " + e.getMessage());
+            logger.severe("Error inesperado al crear el usuario: " + e.getMessage());
             throw e; //TODO: sumar la excepcion customizada
         }
     }
 
-    private static @NotNull User getUser(@NotNull UserDto userDto) {
+    private User getUser(@NotNull UserDto userDto) {
         User user = new User();
         user.setName(userDto.getName());
         user.setSurname(userDto.getSurname());
-        user.setIsAdmin(userDto.getIsAdmin());
         user.setAreaCode(userDto.getAreaCode());
         user.setPrefix(userDto.getPrefix());
         user.setPhone(userDto.getPhone());
         user.setIsMobile(userDto.getIsMobile());
         user.setEmail(userDto.getEmail());
-        user.setPassword(userDto.getPassword());
+        Role role = Role.valueOf(userDto.getRole().toUpperCase());
+        user.setRole(role);
+        String encryptedPassword = this.passwordEncoder.encode(userDto.getPassword());
+        user.setPassword(encryptedPassword);
         user.setIsActive(true);
         user.setDeleted(false);
         return user;
