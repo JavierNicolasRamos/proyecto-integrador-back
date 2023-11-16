@@ -4,6 +4,7 @@ import com.proyecto.integrador.entity.Image;
 import com.proyecto.integrador.exception.ImageSaveException;
 import com.proyecto.integrador.repository.ImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.slf4j.Logger;
@@ -28,6 +29,7 @@ public class ImageService {
         try {
             Image image = new Image();
             image.setImage(this.s3Service.uploadFile(imageFile));
+            image.setDeleted(false);
             this.imageRepository.save(image);
             return this.imageRepository.save(image);
         }
@@ -70,11 +72,12 @@ public class ImageService {
         try {
             Optional<Image> imageOptional = imageRepository.findById(id);
             Image deleteImage = imageOptional.get();
+            deleteImage.setDeleted(true);
             this.s3Service.deleteFileFromS3Bucket(deleteImage.getImage());
             logger.info("imagen eliminada con éxito del s3.");
         }
         catch (ImageSaveException e){
-            throw new ImageSaveException("Error al eliminar la imagen");//Crear excepcion para eliminacion de imagen
+            throw new ImageSaveException("Error al eliminar la imagen", e);
         }
     }
 

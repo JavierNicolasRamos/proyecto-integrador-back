@@ -2,6 +2,7 @@ package com.proyecto.integrador.service;
 
 import com.proyecto.integrador.dto.UserDto;
 import com.proyecto.integrador.entity.User;
+import com.proyecto.integrador.exception.UsuarioNotFoundException;
 import com.proyecto.integrador.repository.UserRepository;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -161,11 +162,11 @@ public class UserService {
             if (user != null && user.getPassword().equals(password)) {
                 return user;
             } else {
-                return null;
+                throw new UsuarioNotFoundException("Acceso no autorizado, verifique los datos");
             }
         } catch (Exception e) {
             logger.severe("Error al buscar el usuario por email y password: " + e.getMessage());
-            return null;
+            throw new UsuarioNotFoundException("Acceso no autorizado, verifique los datos");
         }
     }
 

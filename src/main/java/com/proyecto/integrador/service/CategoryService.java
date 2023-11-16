@@ -163,7 +163,7 @@ public class CategoryService {
         try {
             Category category = categoryRepository.findById(id).orElseThrow(() -> {
                 logger.error("No se encontró la categoría con ID: " + id);
-                return new CategoryNotFoundException("La categoria no existe");
+                return new CategoryNotFoundException("La categoria con ID " + id + " no fue encontrada");
             });
             logger.info("Búsqueda de categoría completada con éxito. ID: " + id);
             return category;

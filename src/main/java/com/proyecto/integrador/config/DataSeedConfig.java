@@ -64,6 +64,7 @@ public class DataSeedConfig {
             Map<String, Object> categoryData = (Map<String, Object>) instrumentData.get("category");
             String categoryName = (String) categoryData.get("name");
             String categoryDetails = (String) categoryData.get("details");
+            String categoryUrl = (String) categoryData.get("url");
 
 
             Optional<Instrument> instrumentExist = instrumentRepository.getByName(name);
@@ -75,6 +76,13 @@ public class DataSeedConfig {
                     category.setName(categoryName);
                     category.setDetails(categoryDetails);
                     category.setDeleted(false);
+
+                    Image image = new Image();
+                    image.setImage(categoryUrl);
+                    image.setDeleted(false);
+                    this.imageRepository.save(image);
+                    category.setImage(image);
+
                     this.categoryRepository.save(category);
                     instrument.setCategory(category);
                 } else {

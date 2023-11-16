@@ -4,6 +4,7 @@ import com.proyecto.integrador.dto.BookingDto;
 import com.proyecto.integrador.entity.Booking;
 import com.proyecto.integrador.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,27 +16,28 @@ public class BookingController {
     private BookingService bookingService;
 
     @GetMapping
-    public List<Booking> listBooking() {
-        return bookingService.listBooking();
+    public ResponseEntity<List<Booking>> listBooking() {
+        return ResponseEntity.ok(bookingService.listBooking());
     }
 
     @GetMapping("/{id}")
-    public Booking getBooking(@PathVariable Long id) {
-        return bookingService.getBooking(id);
+    public ResponseEntity<Booking> getBooking(@PathVariable Long id) {
+        return ResponseEntity.ok(bookingService.getBooking(id));
     }
 
     @PostMapping
-    public Booking createBooking(@RequestBody BookingDto bookingDto) {
-        return bookingService.createBooking(bookingDto);
+    public ResponseEntity<Booking> createBooking(@RequestBody BookingDto bookingDto) {
+        return ResponseEntity.ok(bookingService.createBooking(bookingDto));
     }
 
     @PutMapping
-    public Booking updateBooking(@RequestBody BookingDto bookingDto) {
-        return bookingService.updateBooking(bookingDto);
+    public ResponseEntity<Booking> updateBooking(@RequestBody BookingDto bookingDto) {
+        return ResponseEntity.ok(bookingService.updateBooking(bookingDto));
     }
 
     @DeleteMapping("/{id}")
-    public void deleteBooking(@PathVariable Long id) {
+    public ResponseEntity<String> deleteBooking(@PathVariable Long id) {
         bookingService.deleteBooking(id);
+        return ResponseEntity.ok("Reserva eliminada");
     }
 }
