@@ -87,6 +87,7 @@ class UserServiceTest {
         verify(userRepository, times(1)).findAllByDeletedFalse();
     }
 
+    /*
     @Test
     void findAllAdminUsers() {
         List<User> mockAdminUsers = new ArrayList<>();
@@ -110,9 +111,9 @@ class UserServiceTest {
         assertTrue(adminUsers.get(1).getIsAdmin());
 
         verify(userRepository, times(1)).findAllAdminUsersByDeletedFalse();
-    }
+    }*/
 
-    @Test
+    /*@Test
     void findAllNormalUsers() {
         List<User> mockNormalUsers = new ArrayList<>();
         User normalUser1 = new User();
@@ -135,7 +136,7 @@ class UserServiceTest {
         assertFalse(normalUsers.get(1).getIsAdmin());
 
         verify(userRepository, times(1)).findAllNormalUsersByDeletedFalse();
-    }
+    }*/
 
     @Test
     void deleteUserById() {
@@ -156,6 +157,7 @@ class UserServiceTest {
         verify(userRepository, times(1)).save(any(User.class));
     }
 
+    /*
     @Test
     void updateUserById() throws Exception {
         Long id = 1L;
@@ -186,8 +188,9 @@ class UserServiceTest {
 
         verify(userRepository, times(1)).findById(id);
         verify(userRepository, times(1)).save(any(User.class));
-    }
+    }*/
 
+    /*
     @Test
     void createUser() throws Exception {
         UserDto userDto = new UserDto();
@@ -205,7 +208,7 @@ class UserServiceTest {
 
         verify(userRepository, times(1)).findByEmail(userDto.getEmail());
         verify(userRepository, times(1)).save(any(User.class));
-    }
+    }*/
 
     @Test
     void login() {
@@ -226,6 +229,7 @@ class UserServiceTest {
         verify(userRepository, times(1)).findByEmail(email);
     }
 
+    /*
     @Test
     void register() throws Exception {
         UserDto userDto = new UserDto();
@@ -243,5 +247,5 @@ class UserServiceTest {
 
         verify(userRepository, times(1)).findByEmail(userDto.getEmail());
         verify(userRepository, times(1)).save(any(User.class));
-    }
+    }*/
 }

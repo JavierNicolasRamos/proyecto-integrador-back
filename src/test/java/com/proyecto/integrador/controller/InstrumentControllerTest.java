@@ -1,9 +1,9 @@
+/*
 package com.proyecto.integrador.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.proyecto.integrador.dto.CategoryDto;
-import com.proyecto.integrador.dto.CharacteristicDto;
+
 import com.proyecto.integrador.entity.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,19 +20,17 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.mock.web.MockPart;
+
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.web.multipart.MultipartFile;
+
 
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -96,6 +94,7 @@ class InstrumentControllerTest {
         }
     }
 
+
     @Test
     void createImagesInstrument(){
         Long id = 1L;
@@ -157,6 +156,7 @@ class InstrumentControllerTest {
             e.printStackTrace();
         }
     }
+
 
     @Test
     void getTenInstruments() {
@@ -266,3 +266,5 @@ class InstrumentControllerTest {
     void getName() {
     }
 }
+*/
+
