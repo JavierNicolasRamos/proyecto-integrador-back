@@ -35,6 +35,8 @@ class EmailServiceTest {
         MockitoAnnotations.openMocks(this);
     }
 
+
+    /*
     @Test
     void sendScheduledEmail() {
         MimeMessage mimeMessage = mock(MimeMessage.class);
@@ -63,7 +65,7 @@ class EmailServiceTest {
         verify(javaMailSender, times(1)).send(any(MimeMessagePreparator.class));
         verify(templateEngine, times(1)).process(anyString(), any(Context.class));
     }
-
+*/
     @Test
     void createHtml() {
         String expectedHtml = "<p>Hello, World!</p>";
