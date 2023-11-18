@@ -27,7 +27,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "SELECT * FROM users WHERE id = :id AND deleted = false", nativeQuery = true)
     User findByIdAndDeletedFalse(@Param("id")Long id);
 
-    @Query(value = "SELECT * FROM users WHERE role = :role AND deleted = false", nativeQuery = true)
+    @Query(value = "SELECT * FROM users WHERE user_rol = :role AND deleted = false", nativeQuery = true)
     User findByRole(@Param("role")String role);
 
     @Query(value = "SELECT Role FROM users WHERE email = :email AND deleted = false", nativeQuery = true)
