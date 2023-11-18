@@ -20,14 +20,10 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Configuration
 public class DataSeedConfig {
@@ -159,7 +155,7 @@ public class DataSeedConfig {
                 user.setPrefix(prefix);
                 user.setPhone(phone);
                 user.setIsMobile(isMobile);
-                user.setRole(role);
+                user.setUserRole(role);
                 user.setIsActive(true);
                 user.setDeleted(false);
                 userRepository.save(user);

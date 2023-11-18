@@ -200,7 +200,7 @@ public class UserService {
         user.setIsMobile(userDto.getIsMobile());
         user.setEmail(userDto.getEmail());
         Role role = Role.valueOf(userDto.getRole().toUpperCase());
-        user.setRole(role);
+        user.setUserRole(role);
         String encryptedPassword = this.passwordEncoder.encode(userDto.getPassword());
         user.setPassword(encryptedPassword);
         user.setIsActive(true);

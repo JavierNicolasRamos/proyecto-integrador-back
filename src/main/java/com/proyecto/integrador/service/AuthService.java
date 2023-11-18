@@ -19,7 +19,7 @@ public class AuthService implements UserDetailsService {
             return org.springframework.security.core.userdetails.User.builder()
                     .username(user.getEmail())
                     .password(user.getPassword())
-                    .roles(user.getRole().getDescription())
+                    .roles(user.getUserRole().getDescription())
                     .disabled(!user.getIsActive())
                     .build();
         } catch (Exception e) {
