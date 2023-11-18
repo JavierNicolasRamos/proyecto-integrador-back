@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/storage/")
 public class S3Controller {
@@ -20,6 +22,12 @@ public class S3Controller {
     @PostMapping("/uploadFile")
     public ResponseEntity<String> uploadFile(@RequestPart(value = "file") MultipartFile file) {
         return ResponseEntity.ok(this.amazonClient.uploadFile(file));
+    }
+
+
+    @PostMapping("/uploadFiles")
+    public ResponseEntity<List<String>> uploadFiles(@RequestPart(value = "file") List<MultipartFile> file) {
+        return ResponseEntity.ok(this.amazonClient.uploadFiles(file));
     }
 
     @DeleteMapping("/deleteFile")
