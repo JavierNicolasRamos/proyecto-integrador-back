@@ -8723,3 +8723,120 @@ Identify and stop the process that's listening on port 8001 or configure this ap
 2023-11-21T14:17:17,971 [SpringApplicationShutdownHook] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
 2023-11-21T14:17:17,973 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2023-11-21T14:17:17,977 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-11-21T19:42:14,439 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.0.Final
+2023-11-21T19:42:14,476 [restartedMain] INFO  com.proyecto.integrador.integrativeApplication - Starting integrativeApplication using Java 17.0.9 with PID 24232 (/Users/ramor/Documents/DigitalHouse/ProyectoIntegrador/proyecto-integrador-back/target/classes started by ramor in /Users/ramor/Documents/DigitalHouse/ProyectoIntegrador/proyecto-integrador-back)
+2023-11-21T19:42:14,480 [restartedMain] INFO  com.proyecto.integrador.integrativeApplication - No active profile set, falling back to 1 default profile: "default"
+2023-11-21T19:42:14,537 [restartedMain] INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-11-21T19:42:14,538 [restartedMain] INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-11-21T19:42:15,642 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-21T19:42:15,714 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 66 ms. Found 6 JPA repository interfaces.
+2023-11-21T19:42:16,463 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8001 (http)
+2023-11-21T19:42:16,477 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8001"]
+2023-11-21T19:42:16,481 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2023-11-21T19:42:16,482 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.13]
+2023-11-21T19:42:16,591 [restartedMain] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2023-11-21T19:42:16,592 [restartedMain] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2054 ms
+2023-11-21T19:42:16,746 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-11-21T19:42:16,862 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@66df0d95
+2023-11-21T19:42:16,863 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-11-21T19:42:16,891 [restartedMain] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-21T19:42:16,924 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.9.Final
+2023-11-21T19:42:16,927 [restartedMain] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2023-11-21T19:42:17,015 [restartedMain] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-11-21T19:42:17,106 [restartedMain] INFO  org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-11-21T19:42:17,151 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-11-21T19:42:17,347 [restartedMain] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-11-21T19:42:18,124 [restartedMain] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-21T19:42:18,259 [restartedMain] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-21T19:42:18,505 [restartedMain] INFO  org.springframework.data.jpa.repository.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-11-21T19:42:19,238 [restartedMain] DEBUG org.hibernate.SQL - SELECT * FROM users WHERE email = ? AND deleted = false
+2023-11-21T19:42:19,272 [restartedMain] DEBUG org.hibernate.SQL - SELECT * FROM users WHERE email = ? AND deleted = false
+2023-11-21T19:42:19,304 [restartedMain] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-21T19:42:19,315 [restartedMain] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,c1_0.details,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-21T19:42:19,317 [restartedMain] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.area_code,u1_0.deleted,u1_0.email,u1_0.is_active,u1_0.is_mobile,u1_0.name,u1_0.password,u1_0.phone,u1_0.prefix,u1_0.surname,u1_0.user_role from users u1_0 where u1_0.id=?
+2023-11-21T19:42:19,327 [restartedMain] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-21T19:42:19,334 [restartedMain] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-21T19:42:19,339 [restartedMain] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,c1_0.details,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-21T19:42:19,355 [restartedMain] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-21T19:42:19,358 [restartedMain] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.area_code,u1_0.deleted,u1_0.email,u1_0.is_active,u1_0.is_mobile,u1_0.name,u1_0.password,u1_0.phone,u1_0.prefix,u1_0.surname,u1_0.user_role from users u1_0 where u1_0.id=?
+2023-11-21T19:42:19,363 [restartedMain] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-21T19:42:19,371 [restartedMain] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-21T19:42:19,376 [restartedMain] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-21T19:42:19,379 [restartedMain] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,c1_0.details,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-21T19:42:19,384 [restartedMain] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-21T19:42:19,393 [restartedMain] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-21T19:42:19,398 [restartedMain] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-21T19:42:19,401 [restartedMain] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-21T19:42:19,413 [restartedMain] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-21T19:42:19,416 [restartedMain] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,c1_0.details,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-21T19:42:19,515 [restartedMain] WARN  org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-11-21T19:42:20,541 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@4856c080, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@ed5ff2b, org.springframework.security.web.context.SecurityContextHolderFilter@20c08bfd, org.springframework.security.web.header.HeaderWriterFilter@4eb77148, org.springframework.web.filter.CorsFilter@19a47afe, org.springframework.security.web.authentication.logout.LogoutFilter@4689b088, com.proyecto.integrador.config.JwtFilter@3117859, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5dd22c84, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6c916ac, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4dc323c6, org.springframework.security.web.session.SessionManagementFilter@4f3712aa, org.springframework.security.web.access.ExceptionTranslationFilter@678c83d, org.springframework.security.web.access.intercept.AuthorizationFilter@1ddb73c2]
+2023-11-21T19:42:20,841 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2023-11-21T19:42:20,874 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8001"]
+2023-11-21T19:42:20,888 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8001 (http) with context path ''
+2023-11-21T19:42:20,906 [restartedMain] INFO  com.proyecto.integrador.integrativeApplication - Started integrativeApplication in 6.855 seconds (process running for 9.042)
+2023-11-21T19:42:26,681 [http-nio-8001-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-11-21T19:42:26,682 [http-nio-8001-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2023-11-21T19:42:26,683 [http-nio-8001-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2023-11-21T19:42:27,878 [http-nio-8001-exec-7] INFO  org.springdoc.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 924 ms
+2023-11-21T19:45:09,758 [http-nio-8001-exec-1] WARN  org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver - Resolved [org.springframework.web.multipart.MultipartException: Failed to parse multipart servlet request]
+2023-11-21T19:45:29,038 [http-nio-8001-exec-2] WARN  org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver - Resolved [org.springframework.web.multipart.MultipartException: Failed to parse multipart servlet request]
+2023-11-21T19:51:18,550 [SpringApplicationShutdownHook] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-21T19:51:18,565 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-11-21T19:51:18,581 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-11-21T19:51:53,881 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.0.Final
+2023-11-21T19:51:53,915 [restartedMain] INFO  com.proyecto.integrador.integrativeApplication - Starting integrativeApplication using Java 17.0.9 with PID 24827 (/Users/ramor/Documents/DigitalHouse/ProyectoIntegrador/proyecto-integrador-back/target/classes started by ramor in /Users/ramor/Documents/DigitalHouse/ProyectoIntegrador/proyecto-integrador-back)
+2023-11-21T19:51:53,919 [restartedMain] INFO  com.proyecto.integrador.integrativeApplication - No active profile set, falling back to 1 default profile: "default"
+2023-11-21T19:51:53,978 [restartedMain] INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-11-21T19:51:53,979 [restartedMain] INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-11-21T19:51:54,967 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-21T19:51:55,039 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 66 ms. Found 6 JPA repository interfaces.
+2023-11-21T19:51:55,754 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8001 (http)
+2023-11-21T19:51:55,770 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8001"]
+2023-11-21T19:51:55,773 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2023-11-21T19:51:55,774 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.13]
+2023-11-21T19:51:55,881 [restartedMain] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2023-11-21T19:51:55,882 [restartedMain] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1903 ms
+2023-11-21T19:51:56,038 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-11-21T19:51:56,141 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@fe7166b
+2023-11-21T19:51:56,142 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-11-21T19:51:56,168 [restartedMain] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-21T19:51:56,195 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.9.Final
+2023-11-21T19:51:56,197 [restartedMain] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2023-11-21T19:51:56,274 [restartedMain] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-11-21T19:51:56,346 [restartedMain] INFO  org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-11-21T19:51:56,388 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-11-21T19:51:56,570 [restartedMain] INFO  org.hibernate.bytecode.internal.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2023-11-21T19:51:57,292 [restartedMain] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-21T19:51:57,421 [restartedMain] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-21T19:51:57,657 [restartedMain] INFO  org.springframework.data.jpa.repository.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-11-21T19:51:58,336 [restartedMain] DEBUG org.hibernate.SQL - SELECT * FROM users WHERE email = ? AND deleted = false
+2023-11-21T19:51:58,365 [restartedMain] DEBUG org.hibernate.SQL - SELECT * FROM users WHERE email = ? AND deleted = false
+2023-11-21T19:51:58,393 [restartedMain] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-21T19:51:58,403 [restartedMain] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,c1_0.details,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-21T19:51:58,405 [restartedMain] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.area_code,u1_0.deleted,u1_0.email,u1_0.is_active,u1_0.is_mobile,u1_0.name,u1_0.password,u1_0.phone,u1_0.prefix,u1_0.surname,u1_0.user_role from users u1_0 where u1_0.id=?
+2023-11-21T19:51:58,413 [restartedMain] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-21T19:51:58,419 [restartedMain] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-21T19:51:58,421 [restartedMain] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,c1_0.details,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-21T19:51:58,424 [restartedMain] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-21T19:51:58,426 [restartedMain] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.area_code,u1_0.deleted,u1_0.email,u1_0.is_active,u1_0.is_mobile,u1_0.name,u1_0.password,u1_0.phone,u1_0.prefix,u1_0.surname,u1_0.user_role from users u1_0 where u1_0.id=?
+2023-11-21T19:51:58,431 [restartedMain] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-21T19:51:58,436 [restartedMain] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-21T19:51:58,439 [restartedMain] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-21T19:51:58,442 [restartedMain] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,c1_0.details,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-21T19:51:58,445 [restartedMain] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-21T19:51:58,450 [restartedMain] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-21T19:51:58,455 [restartedMain] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-21T19:51:58,459 [restartedMain] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-21T19:51:58,469 [restartedMain] DEBUG org.hibernate.SQL - SELECT * FROM instruments WHERE name = ?
+2023-11-21T19:51:58,471 [restartedMain] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.deleted,c1_0.details,i1_0.id,i1_0.deleted,i1_0.image,c1_0.name from categories c1_0 left join images i1_0 on i1_0.id=c1_0.image_id where c1_0.id=?
+2023-11-21T19:51:58,570 [restartedMain] WARN  org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-11-21T19:51:59,487 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@20dc60ba, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@607e1bb7, org.springframework.security.web.context.SecurityContextHolderFilter@da701e9, org.springframework.security.web.header.HeaderWriterFilter@562f8183, org.springframework.web.filter.CorsFilter@5c19b725, org.springframework.security.web.authentication.logout.LogoutFilter@2b0595dc, com.proyecto.integrador.config.JwtFilter@14d3664b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4007b64b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@59d5b57b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1c41c31c, org.springframework.security.web.session.SessionManagementFilter@29413395, org.springframework.security.web.access.ExceptionTranslationFilter@b046461, org.springframework.security.web.access.intercept.AuthorizationFilter@124a450b]
+2023-11-21T19:51:59,743 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2023-11-21T19:51:59,775 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8001"]
+2023-11-21T19:51:59,788 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8001 (http) with context path ''
+2023-11-21T19:51:59,806 [restartedMain] INFO  com.proyecto.integrador.integrativeApplication - Started integrativeApplication in 6.32 seconds (process running for 7.604)
+2023-11-21T19:52:08,091 [http-nio-8001-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-11-21T19:52:08,092 [http-nio-8001-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2023-11-21T19:52:08,094 [http-nio-8001-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2023-11-21T19:52:09,245 [http-nio-8001-exec-5] INFO  org.springdoc.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 919 ms

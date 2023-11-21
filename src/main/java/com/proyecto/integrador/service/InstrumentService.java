@@ -60,7 +60,7 @@ public class InstrumentService {
             instrument.setAvailable(true);
             instrument.setDeleted(false);
             instrument.setImage(this.imageService.createAllImages(multipartFiles));
-            instrument.setSeller(userService.findById(instrumentDto.getSeller().getId()));//Ver de pasar el ID o el Mail
+            instrument.setSeller(userService.findByEmail(instrumentDto.getSellerDto().getEmail()));
 
             instrumentRepository.save(instrument);
 
@@ -130,7 +130,6 @@ public class InstrumentService {
                instrument.setScore(instrumentDto.getScore());
                instrument.setDetail(instrumentDto.getDetail());
                instrument.setAvailable(instrumentDto.getAvailable());
-               instrument.setSeller(userService.findById(instrumentDto.getSeller().getId()));
 
                if(!instrumentDto.getCharacteristics().isEmpty()){
                    this.characteristicService.associateCharacteristic(instrument, instrumentDto.getCharacteristics());
