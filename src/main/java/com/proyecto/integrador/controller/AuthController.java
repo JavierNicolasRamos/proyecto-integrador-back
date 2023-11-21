@@ -3,6 +3,7 @@ package com.proyecto.integrador.controller;
 import com.proyecto.integrador.config.JwtUtil;
 import com.proyecto.integrador.dto.AuthDto;
 import com.proyecto.integrador.enums.Role;
+import com.proyecto.integrador.exception.UserNotFoundException;
 import com.proyecto.integrador.response.AuthResponse;
 import com.proyecto.integrador.service.UserService;
 import org.jetbrains.annotations.NotNull;
@@ -43,12 +44,12 @@ public class AuthController {
         String email = authDto.getEmail();
         Role role = userService.getRoleByEmail(email);
 
-        AuthResponse response = new AuthResponse(jwt, role);
+        AuthResponse response = new AuthResponse(jwt, role, email);
 
         if(jwt != null){
             return ResponseEntity.ok().header("Authorization", jwt).body(response.toString());
         } else {
-            return ResponseEntity.badRequest().body("User with email: " + authDto.getEmail() + " was not found.");
+            throw new UserNotFoundException("User with email: " + authDto.getEmail() + " was not found.");
         }
     }
 }

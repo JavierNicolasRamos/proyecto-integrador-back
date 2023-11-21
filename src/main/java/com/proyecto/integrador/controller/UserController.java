@@ -53,14 +53,13 @@ public class UserController {
         return userService.deleteUserById(id);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<User> login(@RequestBody @NotNull UserDto user) {
-        return ResponseEntity.ok(userService.login(user.getEmail(), user.getPassword()));
-    }
-
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody @NotNull UserDto user) throws Exception {
-        userService.register(user);
-        return ResponseEntity.status(HttpStatus.OK).body("User with email: " + user.getEmail() + " created successfully.");
+        try {
+            userService.findByEmail(user.getEmail());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User with email: " + user.getEmail() + " already exists.");
+        } catch (Exception e) {
+        throw new Exception("Error al registrar el usuario: " + e.getMessage());
+        }
     }
 }

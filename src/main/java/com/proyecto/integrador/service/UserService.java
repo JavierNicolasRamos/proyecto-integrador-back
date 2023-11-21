@@ -3,7 +3,7 @@ package com.proyecto.integrador.service;
 import com.proyecto.integrador.dto.UserDto;
 import com.proyecto.integrador.entity.User;
 import com.proyecto.integrador.enums.Role;
-import com.proyecto.integrador.exception.UsuarioNotFoundException;
+import com.proyecto.integrador.exception.UserNotFoundException;
 import com.proyecto.integrador.repository.UserRepository;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class UserService {
             return userRepository.findByEmail(email);
         } catch (Exception e) {
             logger.severe("Error al buscar el usuario por email: " + e.getMessage());
-            return null;
+            return null; //TODO: sumar la excepcion customizada
         }
     }
 
@@ -39,7 +39,7 @@ public class UserService {
             return userRepository.findByIdAndDeletedFalse(id);
         } catch (Exception e) {
             logger.severe("Error al buscar el usuario por id: " + e.getMessage());
-            return null;
+            return null; //TODO: sumar la excepcion customizada
         }
     }
 
@@ -48,7 +48,7 @@ public class UserService {
             return userRepository.findAllByDeletedFalse();
         } catch (Exception e) {
             logger.severe("Error al buscar todos los usuarios: " + e.getMessage());
-            return null;
+            return null; //TODO: sumar la excepcion customizada
         }
     }
 
@@ -57,7 +57,7 @@ public class UserService {
             return userRepository.findAllAdminUsersByDeletedFalse();
         } catch (Exception e) {
             logger.severe("Error al buscar todos los usuarios administradores: " + e.getMessage());
-            return null;
+            return null; //TODO: sumar la excepcion customizada
         }
     }
 
@@ -66,7 +66,7 @@ public class UserService {
             return userRepository.findAllNormalUsersByDeletedFalse();
         } catch (Exception e) {
             logger.severe("Error al buscar todos los usuarios normales: " + e.getMessage());
-            return null;
+            return null; //TODO: sumar la excepcion customizada
         }
     }
 
@@ -78,7 +78,7 @@ public class UserService {
             return userRepository.save(user);
         } catch (Exception e) {
             logger.severe("Error al eliminar el usuario por id: " + e.getMessage());
-            return null;
+            return null; //TODO: sumar la excepcion customizada
         }
     }
 
@@ -150,20 +150,6 @@ public class UserService {
         } catch (Exception e) {
             logger.severe("Error al buscar el usuario por email: " + e.getMessage());
             throw e; //TODO: sumar la excepcion customizada
-        }
-    }
-
-    public User login(String email, String password) {
-        try {
-            User user = userRepository.findByEmail(email);
-            if (user != null && user.getPassword().equals(password)) {
-                return user;
-            } else {
-                throw new UsuarioNotFoundException("Acceso no autorizado, verifique los datos");
-            }
-        } catch (Exception e) {
-            logger.severe("Error al buscar el usuario por email y password: " + e.getMessage());
-            throw new UsuarioNotFoundException("Acceso no autorizado, verifique los datos");
         }
     }
 
