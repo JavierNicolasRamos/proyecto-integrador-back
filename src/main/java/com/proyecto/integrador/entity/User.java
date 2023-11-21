@@ -57,8 +57,9 @@ public class User {
     @JsonIgnore
     private List<Booking> bookings;
 
+    @Column(length = 10, columnDefinition = "VARCHAR(10)")
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private Role userRole;
 
     private Boolean isActive;
 
@@ -70,7 +71,7 @@ public class User {
 
         return "User{" +
                 "\n" + indent + "  id= " + this.id +
-                "\n" + indent + "  role= " + this.role +
+                "\n" + indent + "  role= " + this.userRole +
                 "\n" + indent + "  bookings= " + this.bookings +
                 "\n" + indent + "  name= " + this.name +
                 "\n" + indent + "  surname= " + this.surname +

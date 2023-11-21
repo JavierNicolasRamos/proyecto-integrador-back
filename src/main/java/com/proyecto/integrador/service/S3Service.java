@@ -16,7 +16,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -71,6 +73,14 @@ public class S3Service {
             e.printStackTrace();
         }
         return fileUrl;
+    }
+
+    public List<String> uploadFiles(List<MultipartFile> multipartFiles){
+        List<String> urls = new ArrayList<>();
+        for (int i = 0; i < multipartFiles.size(); i++) {
+            urls.add(this.uploadFile(multipartFiles.get(i)));
+        }
+        return urls;
     }
 
     public String deleteFileFromS3Bucket(@NotNull String fileUrl) {
