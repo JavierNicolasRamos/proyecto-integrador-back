@@ -3,7 +3,6 @@ package com.proyecto.integrador.service;
 import com.proyecto.integrador.dto.UserDto;
 import com.proyecto.integrador.entity.User;
 import com.proyecto.integrador.enums.Role;
-import com.proyecto.integrador.exception.UserNotFoundException;
 import com.proyecto.integrador.repository.UserRepository;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +23,9 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private EmailService emailService;
 
     public User findByEmail(String email) {
         try {
@@ -165,10 +167,11 @@ public class UserService {
             } else {
                 User user = getUser(userDto);
 
-                logger.info("Usuario creado con éxito.");
                 userRepository.save(user);
+                logger.info("Usuario creado con éxito.");
 
-                //TODO: Implementar el envío de email
+                emailService.sendRegisterEmail(user.getEmail(), "Registro usuario", emailService.createRegisterHtml(user.getName(), user.getSurname()));
+                logger.info("Correo enviado con éxito.");
             }
         } catch (Exception e) {
             logger.severe("Error inesperado al crear el usuario: " + e.getMessage());
@@ -192,5 +195,9 @@ public class UserService {
         user.setIsActive(true);
         user.setDeleted(false);
         return user;
+    }
+
+    public void resendRegisterEmail(@NotNull UserDto user) {
+        emailService.sendRegisterEmail(user.getEmail(), "Registro usuario", emailService.createRegisterHtml(user.getName(), user.getSurname()));
     }
 }

@@ -62,4 +62,15 @@ public class UserController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+
+    @PostMapping("/resendRegisterEmail")
+    public ResponseEntity<String> resendRegisterEmail(@RequestBody @NotNull UserDto user) throws Exception {
+        try {
+            userService.resendRegisterEmail(user);
+            return new ResponseEntity<>("Email reenviado con éxito", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }
