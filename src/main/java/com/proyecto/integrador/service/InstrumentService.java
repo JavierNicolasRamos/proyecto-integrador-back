@@ -4,7 +4,6 @@ import com.proyecto.integrador.dto.InstrumentDto;
 import com.proyecto.integrador.entity.Image;
 import com.proyecto.integrador.entity.Instrument;
 import com.proyecto.integrador.exception.*;
-import com.proyecto.integrador.repository.CharacteristicRepository;
 import com.proyecto.integrador.repository.InstrumentRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +35,9 @@ public class InstrumentService {
     private ImageService imageService;
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private UserService userService;
     
     @Transactional
     public Instrument createInstrument(InstrumentDto instrumentDto, List<MultipartFile> multipartFiles) {
@@ -58,6 +60,7 @@ public class InstrumentService {
             instrument.setAvailable(true);
             instrument.setDeleted(false);
             instrument.setImage(this.imageService.createAllImages(multipartFiles));
+            instrument.setSeller(userService.findById(instrumentDto.getSeller().getId()));//Ver de pasar el ID o el Mail
 
             instrumentRepository.save(instrument);
 
@@ -127,6 +130,7 @@ public class InstrumentService {
                instrument.setScore(instrumentDto.getScore());
                instrument.setDetail(instrumentDto.getDetail());
                instrument.setAvailable(instrumentDto.getAvailable());
+               instrument.setSeller(userService.findById(instrumentDto.getSeller().getId()));
 
                if(!instrumentDto.getCharacteristics().isEmpty()){
                    this.characteristicService.associateCharacteristic(instrument, instrumentDto.getCharacteristics());

@@ -1,5 +1,6 @@
 package com.proyecto.integrador.dto;
 
+import com.proyecto.integrador.entity.User;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,6 +14,7 @@ public class InstrumentDto {
     private String name;
     private String detail;
     private List<CharacteristicDto> characteristics;
+    private UserDto seller;
     private CategoryDto categoryDto;
     private Double score;
     private LocalDate uploadDate;
