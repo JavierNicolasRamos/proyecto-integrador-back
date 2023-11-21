@@ -113,7 +113,4 @@ class ImageServiceTest {
 
     }
 
-    @Test
-    void deleteAllImages() {
-    }
 }

@@ -18,13 +18,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -218,7 +216,7 @@ class InstrumentServiceTest {
 
 
     @Test
-    void deleteInstrument_ExistingInstrument_DeletesInstrument() {
+    void deleteInstrument() {
 
         Image testImage = new Image();
         testImage.setId(1L);
@@ -292,4 +290,35 @@ class InstrumentServiceTest {
 
         verify(instrumentRepository).getName("TestInstrument", pageable);
     }
+
+
+    @Test
+    void createImagesInstrument() throws Exception {
+        Long id = 1L;
+        MultipartFile multipartFile = new MockMultipartFile("test", "test".getBytes());
+        List<MultipartFile> images = List.of(multipartFile);
+        Instrument expectedInstrument = new Instrument();
+        expectedInstrument.setId(id);
+        expectedInstrument.setImage(new ArrayList<>());
+        Image image = new Image();
+        image.setId(1L);
+        List<Image> newImages = List.of(image);
+
+        when(instrumentRepository.findById(id)).thenReturn(Optional.of(expectedInstrument));
+        when(imageService.createAllImages(images)).thenReturn(newImages);
+        when(instrumentRepository.save(any(Instrument.class))).thenAnswer(i -> i.getArguments()[0]);
+
+        Instrument instrument = instrumentService.createImagesInstrument(id, images);
+
+        assertNotNull(instrument);
+        assertEquals(expectedInstrument, instrument);
+        assertTrue(instrument.getImage().containsAll(newImages));
+
+        verify(instrumentRepository, times(1)).findById(id);
+        verify(imageService, times(1)).createAllImages(images);
+        verify(instrumentRepository, times(1)).save(any(Instrument.class));
+    }
+
+
+
 }

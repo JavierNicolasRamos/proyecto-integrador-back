@@ -5,41 +5,45 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CategoryControllerTest {
+class UserControllerTest {
 
     @BeforeEach
     void setUp() {
     }
 
     @Test
-    void createCategory() {
+    void getUserByEmail() {
     }
 
     @Test
-    void categoryByName() {
+    void getUserById() {
     }
 
     @Test
-    void categoryById() {
+    void getAll() {
     }
 
     @Test
-    void countInstrumentsByCategory() {
+    void getAllAdminUsers() {
     }
 
     @Test
-    void deleteCategory() {
+    void getAllNormalUsers() {
     }
 
     @Test
-    void listCategories() {
+    void updateUser() {
     }
 
     @Test
-    void updateCategory() {
+    void deleteUser() {
     }
 
     @Test
-    void getInstrumentsByCategories() {
+    void login() {
+    }
+
+    @Test
+    void register() {
     }
 }

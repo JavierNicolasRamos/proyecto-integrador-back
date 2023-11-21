@@ -1,5 +1,6 @@
 package com.proyecto.integrador.service;
 
+import jakarta.mail.Session;
 import jakarta.mail.internet.MimeMessage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,36 +37,7 @@ class EmailServiceTest {
     }
 
 
-    /*
-    @Test
-    void sendScheduledEmail() {
-        MimeMessage mimeMessage = mock(MimeMessage.class);
 
-        doNothing().when(javaMailSender).send(any(MimeMessagePreparator.class));
-        when(templateEngine.process(anyString(), any(Context.class))).thenReturn("email content");
-        when(javaMailSender.createMimeMessage()).thenReturn(mimeMessage);
-
-        emailService.sendScheduledEmail();
-
-        verify(javaMailSender, times(1)).send(any(MimeMessagePreparator.class));
-        verify(templateEngine, times(1)).process(anyString(), any(Context.class));
-    }
-
-    @Test
-    void sendEmail() {
-        String to = "javierramosnicolas@gmail.com";
-        String subject = "prueba envio";
-        String htmlContent = "<p>Hello, World!</p>";
-
-        doNothing().when(javaMailSender).send(any(MimeMessagePreparator.class));
-        when(templateEngine.process(anyString(), any(Context.class))).thenReturn(htmlContent);
-
-        emailService.sendEmail(to, subject, htmlContent);
-
-        verify(javaMailSender, times(1)).send(any(MimeMessagePreparator.class));
-        verify(templateEngine, times(1)).process(anyString(), any(Context.class));
-    }
-*/
     @Test
     void createHtml() {
         String expectedHtml = "<p>Hello, World!</p>";
