@@ -56,10 +56,10 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody @NotNull UserDto user) throws Exception {
         try {
-            userService.findByEmail(user.getEmail());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User with email: " + user.getEmail() + " already exists.");
+            userService.register(user);
+            return new ResponseEntity<>("Usuario creado con éxito", HttpStatus.CREATED);
         } catch (Exception e) {
-        throw new Exception("Error al registrar el usuario: " + e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 }
