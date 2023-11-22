@@ -115,19 +115,6 @@ public class DataSeedConfig {
             String categoryDetails = (String) categoryData.get("details");
             String categoryUrl = (String) categoryData.get("url");
 
-            Map<String, Object> sellerData = (Map<String, Object>) instrumentData.get("seller");
-            String sellerName = (String) sellerData.get("name");
-            String sellerSurname = (String) sellerData.get("surname");
-            String sellerEmail = (String) sellerData.get("email");
-            String sellerPassword = (String) sellerData.get("password");
-            Integer sellerAreaCode = (Integer) sellerData.get("areaCode");
-            Integer sellerPrefix = (Integer) sellerData.get("prefix");
-            Integer sellerPhone = (Integer) sellerData.get("phone");
-            Boolean sellerIsMobile = (Boolean) sellerData.get("isMobile");
-
-            String roleString = (String) sellerData.get("role");
-            Role sellerRole = Role.valueOf(roleString.toUpperCase());
-
             Optional<Instrument> instrumentExist = instrumentRepository.getByName(name);
             if (instrumentExist.isEmpty()) {
                 Instrument instrument = new Instrument();
@@ -151,26 +138,8 @@ public class DataSeedConfig {
                     instrument.setCategory(CategoryExist.get());
                 }
 
-                Optional<User> userExist = Optional.ofNullable(userRepository.findByEmail(sellerEmail));
-                if (userExist.isEmpty()) {
-                    User user = new User();
-                    user.setName(sellerName);
-                    user.setSurname(sellerSurname);
-                    user.setEmail(sellerEmail);
-                    String encryptedPassword = this.passwordEncoder.encode(sellerPassword);
-                    user.setPassword(encryptedPassword);
-                    user.setAreaCode(sellerAreaCode);
-                    user.setPrefix(sellerPrefix);
-                    user.setPhone(sellerPhone);
-                    user.setIsMobile(sellerIsMobile);
-                    user.setUserRole(sellerRole);
-                    user.setIsActive(true);
-                    user.setDeleted(false);
-                    userRepository.save(user);
-                }else{
-                    instrument.setSeller(userExist.get());
-                }
-
+                Optional<User> userExist = userRepository.findById(1L);
+                instrument.setSeller(userExist.get());
                 instrument.setName(name);
                 instrument.setUploadDate(LocalDate.now());
                 instrument.setUpdateDate(LocalDate.now());
@@ -178,6 +147,7 @@ public class DataSeedConfig {
                 instrument.setDetail(detail);
                 instrument.setDeleted(false);
                 instrument.setAvailable(true);
+                instrument.setReviewCount(0L);
                 instrumentRepository.save(instrument);
 
                 List<String> images = (List<String>) instrumentData.get("image");

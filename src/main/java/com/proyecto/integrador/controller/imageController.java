@@ -14,7 +14,7 @@ public class imageController {
     @Autowired
     private ImageService imageService;
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public ResponseEntity<Image> updateImage(@RequestPart("id")Long id, @RequestPart("image") MultipartFile image){
         return ResponseEntity.ok(this.imageService.updateImage(id,image));
     }
