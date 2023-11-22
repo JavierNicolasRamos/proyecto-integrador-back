@@ -56,7 +56,7 @@ public class BookingService {
             booking.setActiveBooking(bookingDto.getActiveBooking()); //TODO: ver si lo pongo true o esperar al front (a confirmar)
             booking.setBookingStart(bookingDto.getBookingStart()); //TODO: ver si lo pongo localdate.now() o esperar al front (a confirmar)
             booking.setBookingEnd(bookingDto.getBookingEnd());//TODO: ver si lo pongo localdate +5 dias o esperar al front (a confirmar)
-
+            booking.setDeleted(false);
 
             instrument.setAvailable(false);
             instrumentRepository.save(instrument);
@@ -70,17 +70,6 @@ public class BookingService {
             logger.error("Se produjo un error al crear la reserva: " + e.getMessage());
             throw e; //TODO: ver si se puede hacer un throw new CreateReserveException("Ocurrió un error al crear la reserva", e);
         }
-    }
-
-    @NotNull
-    private static Booking getBooking(@NotNull BookingDto bookingDto, Instrument instrument) {
-        Booking booking = new Booking();
-        //booking.setUser();//Revisar
-        booking.setInstrument(instrument);
-        booking.setActiveBooking(bookingDto.getActiveBooking()); //TODO: ver si lo pongo true o esperar al front (a confirmar)
-        booking.setBookingStart(bookingDto.getBookingStart()); //TODO: ver si lo pongo localdate.now() o esperar al front (a confirmar)
-        booking.setBookingEnd(bookingDto.getBookingEnd());  //TODO: ver si lo pongo localdate +5 dias o esperar al front (a confirmar)
-        return booking;
     }
 
     public Booking getBooking(Long id) {

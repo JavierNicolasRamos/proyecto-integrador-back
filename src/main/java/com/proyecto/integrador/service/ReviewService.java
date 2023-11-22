@@ -1,14 +1,9 @@
 package com.proyecto.integrador.service;
 
-import com.amazonaws.services.support.model.InternalServerErrorException;
 import com.proyecto.integrador.dto.ReviewDto;
 import com.proyecto.integrador.entity.Booking;
-import com.proyecto.integrador.entity.Instrument;
 import com.proyecto.integrador.entity.Review;
 import com.proyecto.integrador.exception.DuplicateReviewException;
-import com.proyecto.integrador.exception.InstrumentUpdateAvgScoreException;
-import com.proyecto.integrador.repository.BookingRepository;
-import com.proyecto.integrador.repository.InstrumentRepository;
 import com.proyecto.integrador.repository.ReviewRespository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,11 +24,6 @@ public class ReviewService {
     @Autowired
     private InstrumentService instrumentService;
 
-    @Autowired
-    private BookingRepository bookingRepository;
-
-    @Autowired
-    private InstrumentRepository instrumentRepository;
     private static final Logger logger = LoggerFactory.getLogger(ReviewService.class);
 
 
@@ -49,7 +39,7 @@ public class ReviewService {
 
             Review review = new Review();
             review.setReviewName(reviewDto.getReviewName());
-            review.setReviewDescription(review.getReviewDescription());
+            review.setReviewDescription(reviewDto.getReviewDescription());
             review.setScore(reviewDto.getScore());
             review.setReviewDateTime(LocalDateTime.now());
             review.setDeleted(false);
