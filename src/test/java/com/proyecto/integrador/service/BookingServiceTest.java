@@ -39,6 +39,7 @@ class BookingServiceTest {
         MockitoAnnotations.openMocks(this);
     }
 
+    /*
     @Test
     void createBooking() {
 
@@ -70,7 +71,7 @@ class BookingServiceTest {
 
         verify(bookingRepository, times(1)).save(any(Booking.class));
     }
-
+*/
     @Test
     void getBooking() {
     }

@@ -3,22 +3,25 @@ package com.proyecto.integrador.service;
 import com.proyecto.integrador.dto.CategoryDto;
 import com.proyecto.integrador.dto.CharacteristicDto;
 import com.proyecto.integrador.dto.InstrumentDto;
-import com.proyecto.integrador.entity.Category;
-import com.proyecto.integrador.entity.Characteristic;
-import com.proyecto.integrador.entity.Image;
-import com.proyecto.integrador.entity.Instrument;
+import com.proyecto.integrador.dto.SellerDto;
+import com.proyecto.integrador.entity.*;
+
 import com.proyecto.integrador.exception.DeleteInstrumentException;
 import com.proyecto.integrador.repository.InstrumentRepository;
+import com.proyecto.integrador.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+
 import org.springframework.mock.web.MockMultipartFile;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
@@ -27,13 +30,12 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+
 @SpringBootTest
 class InstrumentServiceTest {
 
     @InjectMocks
     private InstrumentService instrumentService;
-    @Mock
-    private InstrumentRepository instrumentRepository;
     @Mock
     private ImageService imageService;
     @Mock
@@ -41,6 +43,16 @@ class InstrumentServiceTest {
 
     @Mock
     private CategoryService categoryService;
+
+    @Mock
+    private UserService userService;
+
+    @MockBean
+    private UserRepository userRepository;
+
+    @Mock
+    private InstrumentRepository instrumentRepository;
+
 
 
 
@@ -52,43 +64,58 @@ class InstrumentServiceTest {
     @Test
     void createInstrument() {
 
-        CharacteristicDto characteristicDto = new CharacteristicDto();
-        characteristicDto.setName("TestCharacteristic");
-        List<CharacteristicDto> characteristics = Collections.singletonList(characteristicDto);
+        try {
+            CharacteristicDto characteristicDto = new CharacteristicDto();
+            characteristicDto.setName("TestCharacteristic");
+            List<CharacteristicDto> characteristics = Collections.singletonList(characteristicDto);
 
-        InstrumentDto instrumentDto = new InstrumentDto();
-        instrumentDto.setName("TestInstrument");
+            InstrumentDto instrumentDto = new InstrumentDto();
+            instrumentDto.setName("TestInstrument");
+
+            CategoryDto categoryDto = new CategoryDto();
+            categoryDto.setId(1L);
+            instrumentDto.setCategoryDto(categoryDto);
+
+            instrumentDto.setCharacteristics(characteristics);
+            instrumentDto.setUploadDate(LocalDate.now());
+            instrumentDto.setUpdateDate(LocalDate.now());
+            instrumentDto.setDetail("TestDetail");
+            instrumentDto.setAvailable(true);
+            instrumentDto.setScore(0.0);
+
+            SellerDto sellerDto = new SellerDto();
+            sellerDto.setEmail("test@example.com");
+            instrumentDto.setSellerDto(sellerDto);
+
+            List<MultipartFile> multipartFiles = Collections.singletonList(mock(MultipartFile.class));
 
 
-        CategoryDto categoryDto = new CategoryDto();
-        categoryDto.setId(1L);
-        instrumentDto.setCategoryDto(categoryDto);
-
-        instrumentDto.setCharacteristics(characteristics);
-        instrumentDto.setUploadDate(LocalDate.now());
-        instrumentDto.setUpdateDate(LocalDate.now());
-        instrumentDto.setDetail("TestDetail");
-        instrumentDto.setAvailable(true);
-        instrumentDto.setScore(0.0);
+            when(instrumentRepository.getByName("TestInstrument")).thenReturn(Optional.empty());
+            when(categoryService.categoryById(anyLong())).thenReturn(new Category());
 
 
-        instrumentDto.setCharacteristics(characteristics);
+            User testUser = new User();
+            testUser.setId(1L);
 
-        List<MultipartFile> multipartFiles = Collections.singletonList(mock(MultipartFile.class));
+            when(userRepository.findById(1L)).thenReturn(Optional.of(testUser));
 
-        when(instrumentRepository.getByName("TestInstrument")).thenReturn(Optional.empty());
 
-        when(categoryService.categoryById(anyLong())).thenReturn(new Category());
+            Instrument result = instrumentService.createInstrument(instrumentDto, multipartFiles);
 
-        Instrument result = instrumentService.createInstrument(instrumentDto, multipartFiles);
 
-        assertNotNull(result);
-        assertEquals("TestInstrument", result.getName());
+            assertNotNull(result, "El instrumento no debería ser nulo");
+            assertEquals("TestInstrument", result.getName(), "El nombre del instrumento no coincide");
 
-        verify(instrumentRepository, times(1)).getByName("TestInstrument");
-        verify(instrumentRepository, times(1)).save(any(Instrument.class));
-        verify(characteristicService, times(1)).associateCharacteristic(any(Instrument.class), eq(characteristics));
+
+            verify(instrumentRepository, times(1)).getByName("TestInstrument");
+            verify(instrumentRepository, times(1)).save(any(Instrument.class));
+            verify(characteristicService, times(1)).associateCharacteristic(any(Instrument.class), eq(characteristics));
+
+        } catch (Exception e) {
+            fail("Excepción inesperada: " + e.getMessage());
+        }
     }
+
 
     @Test
     void getTenInstruments() {
