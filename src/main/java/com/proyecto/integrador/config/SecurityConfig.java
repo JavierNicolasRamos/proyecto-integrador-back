@@ -56,7 +56,7 @@ public class SecurityConfig {
                         .requestMatchers(antMatcher(HttpMethod.PUT, "/users/*")).hasAnyRole("Super-Admin", "Admin")
                         .requestMatchers(antMatcher("/users/register")).permitAll()
                         .requestMatchers(antMatcher("/auth/**")).permitAll()
-                        .requestMatchers(antMatcher("/category")).permitAll()
+                        .requestMatchers(antMatcher("/category/**")).permitAll()
                         .requestMatchers(antMatcher("/instruments/**")).permitAll()
                         .requestMatchers(antMatcher("/booking/**")).permitAll()
                         .requestMatchers(antMatcher("/reviews/**")).permitAll()
