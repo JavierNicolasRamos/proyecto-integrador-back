@@ -43,8 +43,10 @@ public class AuthController {
 
         String email = authDto.getEmail();
         Role role = userService.getRoleByEmail(email);
+        String name = userService.getNameByEmail(email);
+        String surname = userService.getLastNameByEmail(email);
 
-        AuthResponse response = new AuthResponse(jwt, role, email);
+        AuthResponse response = new AuthResponse(jwt, role, email, name, surname );
 
         if(jwt != null){
             return ResponseEntity.ok().header("Authorization", jwt).body(response.toString());
