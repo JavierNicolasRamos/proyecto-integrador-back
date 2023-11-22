@@ -20,8 +20,8 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(UsuarioNotFoundException.class)
-    public ResponseEntity<String> handleException(UsuarioNotFoundException e) {
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<String> handleException(UserNotFoundException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
     }
 
@@ -58,6 +58,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(DuplicateInstrumentException.class)
     public ResponseEntity<String> handleException(DuplicateInstrumentException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(DuplicateReviewException.class)
+    public ResponseEntity<String> handleException(DuplicateReviewException e){
         return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
     }
 

@@ -59,6 +59,12 @@ public class Instrument {
     @OneToMany
     private List<Characteristic> characteristics;
 
+    private Long reviewCount;
+
+    @ManyToOne
+    @NotNull(message = "El vendedor no puede ser nulo")
+    private User seller;
+
     @Override
     public String toString() {
         String reservasString = (bookings != null && !bookings.isEmpty()) ? bookings.iterator().next().toStringIndented(1) : "[]";

@@ -53,14 +53,24 @@ public class UserController {
         return userService.deleteUserById(id);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<User> login(@RequestBody @NotNull UserDto user) {
-        return ResponseEntity.ok(userService.login(user.getEmail(), user.getPassword()));
-    }
-
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody @NotNull UserDto user) throws Exception {
-        userService.register(user);
-        return ResponseEntity.status(HttpStatus.OK).body("User with email: " + user.getEmail() + " created successfully.");
+        try {
+            userService.register(user);
+            return new ResponseEntity<>("Usuario creado con éxito", HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
+
+    @PostMapping("/resendRegisterEmail")
+    public ResponseEntity<String> resendRegisterEmail(@RequestBody @NotNull UserDto user) throws Exception {
+        try {
+            userService.resendRegisterEmail(user);
+            return new ResponseEntity<>("Email reenviado con éxito", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

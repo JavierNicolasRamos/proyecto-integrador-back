@@ -130,8 +130,9 @@ public class CategoryService {
                 }
 
                 category.setName(categoryDto.getName());
+                categoryRepository.save(category);
                 logger.info("Categoria con ID " + category.getId() + "actualizada con éxito");
-                return categoryRepository.save(category);
+                return category;
             }else{
                 throw new NonExistentCategoryException("No se encontro la categoria con ID: " + categoryDto.getId());
             }
