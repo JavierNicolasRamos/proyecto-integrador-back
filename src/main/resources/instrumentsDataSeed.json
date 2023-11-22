@@ -7,17 +7,6 @@
       "details" : "Categoria de pianos",
       "url" : "https://s3.us-east-2.amazonaws.com/1023c04-grupo1/1699654538121-pianos.png"
     },
-    "seller" :   {
-      "name": "Admin",
-      "surname": "Admin",
-      "email": "ignacio.gibbs@gmail.com",
-      "password": "Admin1234",
-      "role": "Admin",
-      "areaCode": 54,
-      "prefix": 11,
-      "phone": 12345678,
-      "isMobile": true
-    },
     "score": 5.0,
     "image": [
       "https://www.yamaha.com/yamahavgn/PIM/Images/Image-Index_cfx_02_2000x2000_07b5394c2d5fc0ed037d717596d9e072.jpg",
@@ -42,17 +31,6 @@
       "url" : "https://s3.us-east-2.amazonaws.com/1023c04-grupo1/1699654538121-pianos.png"
     },
     "score": 4.5,
-    "seller":   {
-      "name": "Admin",
-      "surname": "Admin",
-      "email": "ignacio.gibbs@gmail.com",
-      "password": "Admin1234",
-      "role": "Admin",
-      "areaCode": 54,
-      "prefix": 11,
-      "phone": 12345678,
-      "isMobile": true
-    },
     "image": [
       "https://www.yamaha.com/us/pianos/images/YUS5-0f40cf45.jpg",
       "https://www.yamaha.com/us/pianos/images/YCA18-YUS5-016-066_0078-1-07802cff.jpg",
@@ -73,17 +51,6 @@
       "name":"Teclados",
       "details" : "Categoria de teclados",
       "url" : "https://s3.us-east-2.amazonaws.com/1023c04-grupo1/1699654518633-teclados.png"
-    },
-    "seller":   {
-      "name": "Admin",
-      "surname": "Admin",
-      "email": "ignacio.gibbs@gmail.com",
-      "password": "Admin1234",
-      "role": "Admin",
-      "areaCode": 54,
-      "prefix": 11,
-      "phone": 12345678,
-      "isMobile": true
     },
     "score": 5.0,
     "image": [
@@ -109,17 +76,6 @@
       "details" : "Categoria de teclados",
       "url" : "https://s3.us-east-2.amazonaws.com/1023c04-grupo1/1699654518633-teclados.png"
     },
-    "seller": {
-      "name": "User",
-      "surname": "User",
-      "email": "javierramosnicolas@gmail.com",
-      "password": "User1234",
-      "role": "User",
-      "areaCode": 54,
-      "prefix": 11,
-      "phone": 12345678,
-      "isMobile": true
-    },
     "score": 4.5,
     "image": [
       "https://usa.yamaha.com/files/sx900_middle1920px_9fb109c64d8c4f4e45e2d8d71d234b88.png?impolicy=resize&imwid=1920&imhei=661",
@@ -138,17 +94,6 @@
       "name":"Teclados",
       "details" : "Categoria de teclados",
       "url" : "https://s3.us-east-2.amazonaws.com/1023c04-grupo1/1699654518633-teclados.png"
-    },
-    "seller": {
-      "name": "User",
-      "surname": "User",
-      "email": "javierramosnicolas@gmail.com",
-      "password": "User1234",
-      "role": "User",
-      "areaCode": 54,
-      "prefix": 11,
-      "phone": 12345678,
-      "isMobile": true
     },
     "score": 4.0,
     "image": [
@@ -170,17 +115,6 @@
       "details" : "Categoria de teclados",
       "url" : "https://s3.us-east-2.amazonaws.com/1023c04-grupo1/1699654518633-teclados.png"
     },
-    "seller": {
-      "name": "User",
-      "surname": "User",
-      "email": "javierramosnicolas@gmail.com",
-      "password": "User1234",
-      "role": "User",
-      "areaCode": 54,
-      "prefix": 11,
-      "phone": 12345678,
-      "isMobile": true
-    },
     "score": 3.5,
     "image": [
       "https://usa.yamaha.com/files/psr-s670_540x540_732a76a0c60be9ae30d8e44cc15e46b9.jpg",
@@ -199,17 +133,6 @@
       "name":"Guitarras electricas",
       "details" : "Categoria de guitarras electricas",
       "url" : "https://s3.us-east-2.amazonaws.com/1023c04-grupo1/1699654558438-guitarra-electrica.png"
-    },
-    "seller": {
-      "name": "User",
-      "surname": "User",
-      "email": "javierramosnicolas@gmail.com",
-      "password": "User1234",
-      "role": "User",
-      "areaCode": 54,
-      "prefix": 11,
-      "phone": 12345678,
-      "isMobile": true
     },
     "score": 5.0,
     "image": [
@@ -233,17 +156,6 @@
       "details" : "Categoria de guitarras electricas",
       "url" : "https://s3.us-east-2.amazonaws.com/1023c04-grupo1/1699654558438-guitarra-electrica.png"
     },
-    "seller": {
-      "name": "Admin",
-      "surname": "Admin",
-      "email": "ignacio.gibbs@gmail.com",
-      "password": "Admin1234",
-      "role": "Admin",
-      "areaCode": 54,
-      "prefix": 11,
-      "phone": 12345678,
-      "isMobile": true
-    },
     "score": 4.5,
     "image": [
       "https://usa.yamaha.com/files/pac600_overview_1d998116e48b4ba9f87717288c74bfef.jpg",
@@ -266,17 +178,6 @@
       "details" : "Categoria de guitarras electricas",
       "url" : "https://s3.us-east-2.amazonaws.com/1023c04-grupo1/1699654558438-guitarra-electrica.png"
     },
-    "seller": {
-      "name": "Admin",
-      "surname": "Admin",
-      "email": "ignacio.gibbs@gmail.com",
-      "password": "Admin1234",
-      "role": "Admin",
-      "areaCode": 54,
-      "prefix": 11,
-      "phone": 12345678,
-      "isMobile": true
-    },
     "score": 4.5,
     "image": [
       "https://usa.yamaha.com/files/hollow_body_c65b749e9e1bcef299e7d2ebc5381f22.jpg",
@@ -296,17 +197,6 @@
       "name":"Guitarras electricas",
       "details" : "Categoria de guitarras electricas",
       "url" : "https://s3.us-east-2.amazonaws.com/1023c04-grupo1/1699654558438-guitarra-electrica.png"
-    },
-    "seller": {
-      "name": "Admin",
-      "surname": "Admin",
-      "email": "ignacio.gibbs@gmail.com",
-      "password": "Admin1234",
-      "role": "Admin",
-      "areaCode": 54,
-      "prefix": 11,
-      "phone": 12345678,
-      "isMobile": true
     },
     "score": 4.5,
     "image": [
@@ -330,17 +220,6 @@
       "details" : "Categoria de guitarras electricas",
       "url" : "https://s3.us-east-2.amazonaws.com/1023c04-grupo1/1699654558438-guitarra-electrica.png"
     },
-    "seller": {
-      "name": "Admin",
-      "surname": "Admin",
-      "email": "ignacio.gibbs@gmail.com",
-      "password": "Admin1234",
-      "role": "Admin",
-      "areaCode": 54,
-      "prefix": 11,
-      "phone": 12345678,
-      "isMobile": true
-    },
     "score": 5.0,
     "image": [
       "https://usa.yamaha.com/files/Image-Index_STORIA_1080x1080_7099fa87b262be2ba5e795c665bf0ea9.jpg",
@@ -361,17 +240,6 @@
       "name":"Guitarras acústicas",
       "details" : "Categoria de guitarras acústicas",
       "url" : "https://s3.us-east-2.amazonaws.com/1023c04-grupo1/1699654577849-guitarra-acustica.png"
-    },
-    "seller": {
-      "name": "Admin",
-      "surname": "Admin",
-      "email": "ignacio.gibbs@gmail.com",
-      "password": "Admin1234",
-      "role": "Admin",
-      "areaCode": 54,
-      "prefix": 11,
-      "phone": 12345678,
-      "isMobile": true
     },
     "score": 4.0,
     "image": [
