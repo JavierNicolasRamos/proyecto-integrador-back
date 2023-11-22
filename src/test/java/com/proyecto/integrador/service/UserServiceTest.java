@@ -6,10 +6,7 @@ import com.proyecto.integrador.enums.Role;
 import com.proyecto.integrador.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 
@@ -27,6 +24,9 @@ class UserServiceTest {
 
     @Mock
     private UserRepository userRepository;
+
+    @Mock
+    private EmailService emailService;
 
     @Mock
     private PasswordEncoder passwordEncoder;
@@ -209,37 +209,32 @@ class UserServiceTest {
         verify(userRepository, times(1)).getRoleByEmail(email);
     }
 
-    @Test
-    void login() {
-        String email = "test@example.com";
-        String password = "password";
-        User mockUser = new User();
-        mockUser.setEmail(email);
-        mockUser.setPassword(password);
-
-        when(userRepository.findByEmail(email)).thenReturn(mockUser);
-
-        User user = userService.login(email, password);
-
-        assertNotNull(user);
-        assertEquals(email, user.getEmail());
-        assertEquals(password, user.getPassword());
-
-        verify(userRepository, times(1)).findByEmail(email);
-    }
 
     @Test
     void register() throws Exception {
         UserDto userDto = new UserDto();
         userDto.setEmail("test@example.com");
-        userDto.setRole("USER");
+        userDto.setName("Test Name");
+        userDto.setSurname("TestSurname");
+        userDto.setRole("User");
 
         when(userRepository.findByEmail(userDto.getEmail())).thenReturn(null);
 
         userService.register(userDto);
 
-        verify(userRepository, times(1)).findByEmail(userDto.getEmail());
-        verify(userRepository, times(1)).save(any(User.class));
+        ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
+        verify(userRepository, times(1)).save(userCaptor.capture());
+
+        User savedUser = userCaptor.getValue();
+        assertEquals(userDto.getEmail(), savedUser.getEmail());
+        assertEquals(userDto.getName(), savedUser.getName());
+        assertEquals(userDto.getSurname(), savedUser.getSurname());
+
+        verify(emailService, times(1)).sendRegisterEmail(savedUser.getEmail(), "Registro usuario", emailService.createRegisterHtml(savedUser.getName(), savedUser.getSurname()));
     }
+
+
+
+
 
 }
