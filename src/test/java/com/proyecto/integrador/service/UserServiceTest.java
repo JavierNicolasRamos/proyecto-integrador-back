@@ -2,13 +2,12 @@ package com.proyecto.integrador.service;
 
 import com.proyecto.integrador.dto.UserDto;
 import com.proyecto.integrador.entity.User;
+import com.proyecto.integrador.enums.Role;
 import com.proyecto.integrador.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 import java.util.ArrayList;
@@ -26,6 +25,11 @@ class UserServiceTest {
     @Mock
     private UserRepository userRepository;
 
+    @Mock
+    private EmailService emailService;
+
+    @Mock
+    private PasswordEncoder passwordEncoder;
 
     @BeforeEach
     void setUp() {
@@ -87,17 +91,18 @@ class UserServiceTest {
         verify(userRepository, times(1)).findAllByDeletedFalse();
     }
 
+
     @Test
     void findAllAdminUsers() {
         List<User> mockAdminUsers = new ArrayList<>();
         User adminUser1 = new User();
         adminUser1.setId(1L);
-        adminUser1.setIsAdmin(true);
+        adminUser1.setUserRole(Role.ADMIN);
         mockAdminUsers.add(adminUser1);
 
         User adminUser2 = new User();
         adminUser2.setId(2L);
-        adminUser2.setIsAdmin(true);
+        adminUser2.setUserRole(Role.ADMIN);
         mockAdminUsers.add(adminUser2);
 
         when(userRepository.findAllAdminUsersByDeletedFalse()).thenReturn(mockAdminUsers);
@@ -106,8 +111,8 @@ class UserServiceTest {
 
         assertNotNull(adminUsers);
         assertEquals(2, adminUsers.size());
-        assertTrue(adminUsers.get(0).getIsAdmin());
-        assertTrue(adminUsers.get(1).getIsAdmin());
+        assertEquals(Role.ADMIN, adminUsers.get(0).getUserRole());
+        assertEquals(Role.ADMIN, adminUsers.get(1).getUserRole());
 
         verify(userRepository, times(1)).findAllAdminUsersByDeletedFalse();
     }
@@ -117,12 +122,12 @@ class UserServiceTest {
         List<User> mockNormalUsers = new ArrayList<>();
         User normalUser1 = new User();
         normalUser1.setId(1L);
-        normalUser1.setIsAdmin(false);
+        normalUser1.setUserRole(Role.USER);
         mockNormalUsers.add(normalUser1);
 
         User normalUser2 = new User();
         normalUser2.setId(2L);
-        normalUser2.setIsAdmin(false);
+        normalUser2.setUserRole(Role.USER);
         mockNormalUsers.add(normalUser2);
 
         when(userRepository.findAllNormalUsersByDeletedFalse()).thenReturn(mockNormalUsers);
@@ -131,8 +136,8 @@ class UserServiceTest {
 
         assertNotNull(normalUsers);
         assertEquals(2, normalUsers.size());
-        assertFalse(normalUsers.get(0).getIsAdmin());
-        assertFalse(normalUsers.get(1).getIsAdmin());
+        assertEquals(Role.USER, normalUsers.get(0).getUserRole());
+        assertEquals(Role.USER, normalUsers.get(1).getUserRole());
 
         verify(userRepository, times(1)).findAllNormalUsersByDeletedFalse();
     }
@@ -156,6 +161,7 @@ class UserServiceTest {
         verify(userRepository, times(1)).save(any(User.class));
     }
 
+
     @Test
     void updateUserById() throws Exception {
         Long id = 1L;
@@ -163,7 +169,7 @@ class UserServiceTest {
         mockUser.setId(id);
         mockUser.setName("TestName");
         mockUser.setSurname("TestSurname");
-        mockUser.setIsAdmin(false);
+        mockUser.setUserRole(Role.USER);
         mockUser.setAreaCode(2451);
         mockUser.setPrefix(5124);
         mockUser.setPhone(15151515);
@@ -189,59 +195,46 @@ class UserServiceTest {
     }
 
     @Test
-    void createUser() throws Exception {
-        UserDto userDto = new UserDto();
-        userDto.setEmail("test@example.com");
-
-
-        when(userRepository.findByEmail(userDto.getEmail())).thenReturn(null);
-        when(userRepository.save(any(User.class))).thenAnswer(i -> i.getArguments()[0]);
-
-        User createdUser = userService.createUser(userDto);
-
-        assertNotNull(createdUser);
-        assertEquals(userDto.getEmail(), createdUser.getEmail());
-
-
-        verify(userRepository, times(1)).findByEmail(userDto.getEmail());
-        verify(userRepository, times(1)).save(any(User.class));
-    }
-
-    @Test
-    void login() {
+    void getRoleByEmail() throws Exception {
         String email = "test@example.com";
-        String password = "password";
-        User mockUser = new User();
-        mockUser.setEmail(email);
-        mockUser.setPassword(password);
+        Role expectedRole = Role.USER;
 
-        when(userRepository.findByEmail(email)).thenReturn(mockUser);
+        when(userRepository.getRoleByEmail(email)).thenReturn(expectedRole);
 
-        User user = userService.login(email, password);
+        Role role = userService.getRoleByEmail(email);
 
-        assertNotNull(user);
-        assertEquals(email, user.getEmail());
-        assertEquals(password, user.getPassword());
+        assertNotNull(role);
+        assertEquals(expectedRole, role);
 
-        verify(userRepository, times(1)).findByEmail(email);
+        verify(userRepository, times(1)).getRoleByEmail(email);
     }
+
 
     @Test
     void register() throws Exception {
         UserDto userDto = new UserDto();
         userDto.setEmail("test@example.com");
-        // Set other fields on userDto as needed
+        userDto.setName("Test Name");
+        userDto.setSurname("TestSurname");
+        userDto.setRole("User");
 
         when(userRepository.findByEmail(userDto.getEmail())).thenReturn(null);
-        when(userRepository.save(any(User.class))).thenAnswer(i -> i.getArguments()[0]);
 
-        User registeredUser = userService.register(userDto);
+        userService.register(userDto);
 
-        assertNotNull(registeredUser);
-        assertEquals(userDto.getEmail(), registeredUser.getEmail());
+        ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
+        verify(userRepository, times(1)).save(userCaptor.capture());
 
+        User savedUser = userCaptor.getValue();
+        assertEquals(userDto.getEmail(), savedUser.getEmail());
+        assertEquals(userDto.getName(), savedUser.getName());
+        assertEquals(userDto.getSurname(), savedUser.getSurname());
 
-        verify(userRepository, times(1)).findByEmail(userDto.getEmail());
-        verify(userRepository, times(1)).save(any(User.class));
+        verify(emailService, times(1)).sendRegisterEmail(savedUser.getEmail(), "Registro usuario", emailService.createRegisterHtml(savedUser.getName(), savedUser.getSurname()));
     }
+
+
+
+
+
 }
