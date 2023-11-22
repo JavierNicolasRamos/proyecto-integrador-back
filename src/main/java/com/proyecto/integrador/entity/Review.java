@@ -1,6 +1,9 @@
 package com.proyecto.integrador.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,14 +29,16 @@ public class Review {
     private String reviewDescription;
 
     @NotNull
-    @NotEmpty
-    private Integer score;
+    @Min(value = 0, message = "El campo 'score' debe ser igual o mayor que 0")
+    @Max(value = 5, message = "El campo 'score' debe ser igual o menor que 5")
+    private Double score;
 
     private LocalDateTime reviewDateTime;
 
     private Boolean deleted;
 
     @OneToOne(mappedBy = "review")
+    @JsonIgnore
     private Booking booking;
 
     @Override

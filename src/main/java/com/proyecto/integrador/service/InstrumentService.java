@@ -203,14 +203,14 @@ public class InstrumentService {
     }
 
     @Transactional
-    public void updateAvgScore(Review review) {
+    public void updateAvgScore(Double reviewScore, Long idInstrument) {
         try {
-            Instrument instrument = this.getInstrumentById(review.getBooking().getInstrument().getId());
+            Instrument instrument = this.getInstrumentById(idInstrument);
 
             Long reviewCount = instrument.getReviewCount();
             Double reviewAverage = instrument.getScore();
 
-            Double newReviewAvgScore = ((reviewCount * reviewAverage) + review.getScore()) / (reviewCount + 1);
+            Double newReviewAvgScore = ((reviewCount * reviewAverage) + reviewScore) / (reviewCount + 1);
 
             instrument.setReviewCount(reviewCount + 1);
             instrument.setScore(newReviewAvgScore);

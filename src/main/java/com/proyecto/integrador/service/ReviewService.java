@@ -45,7 +45,7 @@ public class ReviewService {
             review.setDeleted(false);
             review.setBooking(booking);
 
-            instrumentService.updateAvgScore(review);//LLamo al service para actualizar el Instrument reviewCount y el Instrumen Score
+            instrumentService.updateAvgScore(reviewDto.getScore(), booking.getInstrument().getId());//LLamo al service para actualizar el Instrument reviewCount y el Instrumen Score
             reviewRespository.save(review);
 
             logger.info("Reseña guardada con exito");
