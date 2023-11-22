@@ -14,6 +14,9 @@ public class AuthResponse {
     private String jwt;
     private Role role;
     private String email;
+    private String name;
+    private String surname;
+
 
     public String toStringIndented(int indentLevel) {
         StringBuilder indent = new StringBuilder();
@@ -23,6 +26,8 @@ public class AuthResponse {
                 "\n" + indent + "  jwt=" + this.jwt +
                 "\n" + indent + "  rol=" + this.role +
                 "\n" + indent + "  email=" + this.email +
+                "\n" + indent + "  name=" + this.name +
+                "\n" + indent + "  lastName=" + this.surname +
                 "\n" + indent + "}";
     }
 }

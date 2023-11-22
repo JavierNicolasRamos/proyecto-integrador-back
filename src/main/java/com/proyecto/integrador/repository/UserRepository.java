@@ -32,4 +32,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query(value = "SELECT user_role FROM users WHERE email = :email AND deleted = false", nativeQuery = true)
     Role getRoleByEmail(String email);
+
+    @Query(value = "SELECT name FROM users WHERE email = :email AND deleted = false", nativeQuery = true)
+    String getNameByEmail(String email);
+
+    @Query(value = "SELECT surname FROM users WHERE email = :email AND deleted = false", nativeQuery = true)
+    String getLastNameByEmail(String email);
 }
