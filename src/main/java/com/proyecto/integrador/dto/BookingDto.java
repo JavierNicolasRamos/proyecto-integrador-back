@@ -1,7 +1,5 @@
 package com.proyecto.integrador.dto;
 
-import com.proyecto.integrador.entity.Instrument;
-import com.proyecto.integrador.entity.User;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,11 +9,10 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class BookingDto {
     private Long id;
-    private User user;
-    private Instrument instrument;
+    private BuyerDto buyerDto;
+    private InstrumentDto instrumentDto;
     private Boolean activeBooking;
     private LocalDate bookingStart;
     private LocalDate bookingEnd;
     private Boolean deleted;
-
 }

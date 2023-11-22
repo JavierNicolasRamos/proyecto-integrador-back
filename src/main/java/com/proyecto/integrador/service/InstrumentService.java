@@ -3,6 +3,7 @@ package com.proyecto.integrador.service;
 import com.proyecto.integrador.dto.InstrumentDto;
 import com.proyecto.integrador.entity.Image;
 import com.proyecto.integrador.entity.Instrument;
+import com.proyecto.integrador.entity.Review;
 import com.proyecto.integrador.exception.*;
 import com.proyecto.integrador.repository.CharacteristicRepository;
 import com.proyecto.integrador.repository.InstrumentRepository;
@@ -196,6 +197,24 @@ public class InstrumentService {
             return instrumentRepository.save(instrument);
         } catch (Exception e) {
             throw new InstrumentImageCreationException("Error al crear imágenes para el instrumento con ID: " + id, e);
+        }
+    }
+
+        public void updateAvgScore(Review review){
+        Instrument instrument = this.getInstrumentById(review.getBooking().getInstrument().getId());
+
+        Long reviewCount = instrument.getReviewCount();
+        Double reviewAverage = instrument.getScore();
+
+        Double newReviewAvgScore = ((reviewCount * reviewAverage) + review.getScore()) / (reviewCount + 1);
+
+        instrument.setReviewCount(reviewCount + 1);
+        instrument.setScore(newReviewAvgScore);
+        try{
+            instrumentRepository.save(instrument);
+            logger.info("Calificación y Cantidad de reseñas actualizado correctamente");
+        }catch (InstrumentUpdateAvgScoreException e){
+            throw new InstrumentUpdateAvgScoreException("No se pudo actualizar el puntaje promedio del instrumento con el ID:" + instrument.getId(), e);
         }
     }
 }

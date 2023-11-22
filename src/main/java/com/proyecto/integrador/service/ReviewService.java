@@ -6,6 +6,7 @@ import com.proyecto.integrador.entity.Booking;
 import com.proyecto.integrador.entity.Instrument;
 import com.proyecto.integrador.entity.Review;
 import com.proyecto.integrador.exception.DuplicateReviewException;
+import com.proyecto.integrador.exception.InstrumentUpdateAvgScoreException;
 import com.proyecto.integrador.repository.BookingRepository;
 import com.proyecto.integrador.repository.InstrumentRepository;
 import com.proyecto.integrador.repository.ReviewRespository;
@@ -53,17 +54,8 @@ public class ReviewService {
             review.setReviewDateTime(LocalDateTime.now());
             review.setDeleted(false);
             review.setBooking(booking);
-            Instrument instrument = instrumentService.getInstrumentById(booking.getInstrument().getId());//Lo instancio para no llamarlo 5 veces
 
-            Long reviewCount = instrument.getReviewCount();
-            Double reviewAverage = instrument.getScore();
-
-            Double newReviewAvgScore = ((reviewCount * reviewAverage) + review.getScore()) / (reviewCount + 1);
-
-            instrument.setReviewCount(reviewCount + 1);
-            instrument.setScore(newReviewAvgScore);
-            instrumentRepository.save(instrument);
-
+            instrumentService.updateAvgScore(review);//LLamo al service para actualizar el Instrument reviewCount y el Instrumen Score
             reviewRespository.save(review);
 
             logger.info("Reseña guardada con exito");

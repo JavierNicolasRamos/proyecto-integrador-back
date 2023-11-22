@@ -21,10 +21,6 @@ public class Booking {
     @ManyToOne
     private User user;
 
-    @NotNull(message = "El campo 'vendedor' no puede ser nulo")
-    @ManyToOne
-    private User seller;
-
     @NotNull(message = "El campo 'instrumento' no puede ser nulo")
     @ManyToOne
     private Instrument instrument;
@@ -40,13 +36,11 @@ public class Booking {
     @OneToOne
     private Review review;
 
-
     @Override
     public String toString(){
         return "Booking{" +
                 "\n  id= " + this.id +
                 "\n  user= " + this.user.toStringIndented(1) +
-                "\n  seller= " + this.seller.toStringIndented(1) +
                 "\n  instrument= " + this.instrument +
                 "\n  activeBooking= " + this.activeBooking +
                 "\n  bookingStart= " + this.bookingStart +
@@ -62,7 +56,6 @@ public class Booking {
         return "Booking{" +
                 "\n" + indent + "  id= " + this.id +
                 "\n" + indent + "  user= " + this.user.toStringIndented(1) +
-                "\n" + indent + "  seller= " + this.seller.toStringIndented(1) +
                 "\n" + indent + "  instrument= " + this.instrument +
                 "\n" + indent + "  activeBooking= " + this.activeBooking +
                 "\n" + indent + "  bookingStart= " + this.bookingStart +
