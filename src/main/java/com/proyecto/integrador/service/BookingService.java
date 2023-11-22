@@ -1,5 +1,6 @@
 package com.proyecto.integrador.service;
 
+import com.proyecto.integrador.entity.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.proyecto.integrador.dto.BookingDto;
@@ -28,12 +29,18 @@ public class BookingService {
     @Autowired
     private InstrumentRepository instrumentRepository;
 
+    @Autowired
+    private InstrumentService instrumentService;
+
+    @Autowired
+    private UserService userService;
+
     @Transactional
     public Booking createBooking(BookingDto bookingDto) {
 
         logger.info("Iniciando el proceso de creación de reserva...");
         try {
-            Optional<Instrument> optionalInstrument = instrumentRepository.findById(bookingDto.getInstrument().getId());
+            Optional<Instrument> optionalInstrument = instrumentRepository.findById(bookingDto.getInstrumentDto().getId());
             Instrument instrument = optionalInstrument.orElseThrow(() -> new EntityNotFoundException("El instrumento no está disponible para la reserva"));
 
             logger.info("Se va a modificar el objeto Instrumento, atributo disponible: " + instrument.getAvailable());
@@ -42,8 +49,14 @@ public class BookingService {
                 logger.warn("El instrumento no está disponible para la reserva.");
                 throw new EntityNotFoundException("El instrumento no está disponible para la reserva");
             }
+            Booking booking = new Booking();
 
-            Booking booking = getBooking(bookingDto, instrument);
+            booking.setUser(userService.findByEmail(bookingDto.getBuyerDto().getEmail()));
+            booking.setInstrument(instrument);
+            booking.setActiveBooking(bookingDto.getActiveBooking()); //TODO: ver si lo pongo true o esperar al front (a confirmar)
+            booking.setBookingStart(bookingDto.getBookingStart()); //TODO: ver si lo pongo localdate.now() o esperar al front (a confirmar)
+            booking.setBookingEnd(bookingDto.getBookingEnd());//TODO: ver si lo pongo localdate +5 dias o esperar al front (a confirmar)
+
 
             instrument.setAvailable(false);
             instrumentRepository.save(instrument);
@@ -62,9 +75,8 @@ public class BookingService {
     @NotNull
     private static Booking getBooking(@NotNull BookingDto bookingDto, Instrument instrument) {
         Booking booking = new Booking();
-        booking.setUser(bookingDto.getUser());
+        //booking.setUser();//Revisar
         booking.setInstrument(instrument);
-
         booking.setActiveBooking(bookingDto.getActiveBooking()); //TODO: ver si lo pongo true o esperar al front (a confirmar)
         booking.setBookingStart(bookingDto.getBookingStart()); //TODO: ver si lo pongo localdate.now() o esperar al front (a confirmar)
         booking.setBookingEnd(bookingDto.getBookingEnd());  //TODO: ver si lo pongo localdate +5 dias o esperar al front (a confirmar)
@@ -97,20 +109,20 @@ public class BookingService {
                 -> new NonExistentReserveException("No se encontró la reserva con ID" + bookingDto.getId()));
         try {
             logger.info("Reserva encontrada y será actualizada : " + booking);
-            booking.setUser(bookingDto.getUser());
-            booking.setInstrument(bookingDto.getInstrument());
+            booking.setUser(userService.findByEmail(bookingDto.getBuyerDto().getEmail()));
+            booking.setInstrument(instrumentService.getInstrumentById(bookingDto.getInstrumentDto().getId()));
             booking.setActiveBooking(bookingDto.getActiveBooking());
             booking.setBookingStart(bookingDto.getBookingStart());
             booking.setBookingEnd(bookingDto.getBookingEnd());
-            Optional<Instrument> optionalInstrument = instrumentRepository.findById(bookingDto.getInstrument().getId());
+            Optional<Instrument> optionalInstrument = instrumentRepository.findById(bookingDto.getInstrumentDto().getId());
             if (optionalInstrument.isPresent()) {
                 Instrument instrument = optionalInstrument.get();
                 instrument.setAvailable(false);
                 instrumentRepository.save(instrument);
                 logger.info("Instrumento actualizado para reserva. ID: " + instrument.getId());
             } else {
-                logger.error("No se encontró el instrumento con el ID: " + bookingDto.getInstrument().getId());
-                throw new NonExistentInstrumentException("No se encontró el instrumento con el ID: " + bookingDto.getInstrument().getId());
+                logger.error("No se encontró el instrumento con el ID: " + bookingDto.getInstrumentDto().getId());
+                throw new NonExistentInstrumentException("No se encontró el instrumento con el ID: " + bookingDto.getInstrumentDto().getId());
             }
             return bookingRepository.save(booking);
         }

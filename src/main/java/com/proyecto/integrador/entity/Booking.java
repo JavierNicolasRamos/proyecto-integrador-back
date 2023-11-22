@@ -36,7 +36,6 @@ public class Booking {
 //    @OneToOne
 //    private Review review;
 
-
     @Override
     public String toString(){
         return "Booking{" +
