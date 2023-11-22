@@ -13,6 +13,7 @@ public class InstrumentDto {
     private String name;
     private String detail;
     private List<CharacteristicDto> characteristics;
+    private SellerDto sellerDto;
     private CategoryDto categoryDto;
     private Double score;
     private LocalDate uploadDate;
