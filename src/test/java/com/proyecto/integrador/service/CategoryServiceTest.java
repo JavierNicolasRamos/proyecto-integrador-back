@@ -180,6 +180,29 @@ class CategoryServiceTest {
         assertEquals("UpdatedCategory", updatedCategory.getName());
     }
 
+    @Test
+    void listCategories() {
+
+        Category category1 = new Category();
+        Category category2 = new Category();
+        List<Category> categories = Arrays.asList(category1, category2);
+
+
+        when(categoryRepository.findAll(false)).thenReturn(categories);
+
+
+        List<Category> result = categoryService.listCategories();
+
+
+        assertNotNull(result);
+        assertEquals(categories.size(), result.size());
+        assertTrue(result.contains(category1));
+        assertTrue(result.contains(category2));
+
+
+        verify(categoryRepository, times(1)).findAll(false);
+    }
+
 
     @Test
     void getInstrumentsByCategories() {
