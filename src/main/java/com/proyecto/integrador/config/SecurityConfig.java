@@ -57,12 +57,30 @@ public class SecurityConfig {
                         .requestMatchers(antMatcher("/users/register")).permitAll()
                         .requestMatchers(antMatcher("/auth/**")).permitAll()
                         .requestMatchers(antMatcher(HttpMethod.GET, "/category/**")).permitAll()
-                        .requestMatchers(antMatcher(HttpMethod.POST, "/category/**"), antMatcher(HttpMethod.PUT, "/category/**"), antMatcher(HttpMethod.DELETE, "/category/**")).hasAnyRole("Super-Admin", "Admin")
+                        .requestMatchers(
+                                antMatcher(HttpMethod.POST, "/category/**"),
+                                antMatcher(HttpMethod.PUT, "/category/**"),
+                                antMatcher(HttpMethod.DELETE, "/category/**")).hasAnyRole("Super-Admin", "Admin")
                         .requestMatchers(antMatcher(HttpMethod.GET, "/instruments/**")).permitAll()
-                        .requestMatchers(antMatcher(HttpMethod.POST, "/instruments/**"), antMatcher(HttpMethod.PUT, "/instruments/**"), antMatcher(HttpMethod.DELETE, "/instruments/**")).hasAnyRole("Super-Admin", "Admin")
-                        .requestMatchers(antMatcher(HttpMethod.GET, "/booking/**"), antMatcher(HttpMethod.POST, "/booking/**"), antMatcher(HttpMethod.PUT, "/booking/**"), antMatcher(HttpMethod.DELETE, "/booking/**")).hasAnyRole("Super-Admin", "Admin", "User")
-                        .requestMatchers(antMatcher(HttpMethod.GET, "/reviews/**"), antMatcher(HttpMethod.POST, "/reviews/**"), antMatcher(HttpMethod.PUT, "/reviews/**"), antMatcher(HttpMethod.DELETE, "/reviews/**")).hasAnyRole("Super-Admin", "Admin", "User")
-                        .requestMatchers(antMatcher(HttpMethod.GET, "/favourite/**"), antMatcher(HttpMethod.POST, "/favourite/**"), antMatcher(HttpMethod.PUT, "/favourite/**"), antMatcher(HttpMethod.DELETE, "/favourite/**")).hasAnyRole("Super-Admin", "Admin", "User")
+                        .requestMatchers(
+                                antMatcher(HttpMethod.POST, "/instruments/**"),
+                                antMatcher(HttpMethod.PUT, "/instruments/**"),
+                                antMatcher(HttpMethod.DELETE, "/instruments/**")).hasAnyRole("Super-Admin", "Admin")
+                        .requestMatchers(
+                                antMatcher(HttpMethod.GET, "/booking/**"),
+                                antMatcher(HttpMethod.POST, "/booking/**"),
+                                antMatcher(HttpMethod.PUT, "/booking/**"),
+                                antMatcher(HttpMethod.DELETE, "/booking/**")).hasAnyRole("Super-Admin", "Admin", "User")
+                        .requestMatchers(
+                                antMatcher(HttpMethod.GET, "/reviews/**"),
+                                antMatcher(HttpMethod.POST, "/reviews/**"),
+                                antMatcher(HttpMethod.PUT, "/reviews/**"),
+                                antMatcher(HttpMethod.DELETE, "/reviews/**")).hasAnyRole("Super-Admin", "Admin", "User")
+                        .requestMatchers(
+                                antMatcher(HttpMethod.GET, "/favourite/**"),
+                                antMatcher(HttpMethod.POST, "/favourite/**"),
+                                antMatcher(HttpMethod.PUT, "/favourite/**"),
+                                antMatcher(HttpMethod.DELETE, "/favourite/**")).hasAnyRole("Super-Admin", "Admin", "User")
                         .anyRequest().authenticated()
                         .anyRequest()
                         .authenticated()
