@@ -65,6 +65,10 @@ public class User {
 
     private Boolean deleted;
 
+    @ManyToMany(mappedBy = "users")
+    @JsonIgnore
+    private List<Instrument> instruments;
+
     public String toStringIndented(int indentLevel) {
         StringBuilder indent = new StringBuilder();
         indent.append("  ".repeat(Math.max(0, indentLevel)));
