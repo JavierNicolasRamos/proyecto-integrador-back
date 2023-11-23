@@ -1,9 +1,11 @@
 package com.proyecto.integrador.service;
 
+import com.proyecto.integrador.commons.UserValidation;
 import com.proyecto.integrador.dto.ReviewDto;
 import com.proyecto.integrador.entity.Booking;
 import com.proyecto.integrador.entity.Review;
 import com.proyecto.integrador.exception.DuplicateReviewException;
+import com.proyecto.integrador.exception.UserValidationException;
 import com.proyecto.integrador.repository.ReviewRespository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +26,9 @@ public class ReviewService {
     @Autowired
     private InstrumentService instrumentService;
 
+    @Autowired
+    private UserValidation userValidation;
+
     private static final Logger logger = LoggerFactory.getLogger(ReviewService.class);
 
 
@@ -36,6 +41,8 @@ public class ReviewService {
             if(booking.getReview() != null){
                 throw new DuplicateReviewException("La reserva con id:" + bookingId  + "ya tiene una reseña");
             }
+
+            this.userValidation.userValidationEquals(booking.getUser().getEmail(), reviewDto.getBuyerDto().getEmail());
 
             Review review = new Review();
             review.setReviewName(reviewDto.getReviewName());
@@ -50,7 +57,11 @@ public class ReviewService {
 
             logger.info("Reseña guardada con exito");
             return review;
-        } catch (DuplicateReviewException e) {
+        }
+        catch (UserValidationException e ){
+            throw new UserValidationException("No se puede realizar una reseña de un instrumento que usted no reservo");
+        }
+        catch (DuplicateReviewException e) {
             logger.error("La reserva con id:" + bookingId  + "ya tiene una reseña");
             throw e;
         }catch(Exception e){

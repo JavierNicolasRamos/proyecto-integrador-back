@@ -1,5 +1,7 @@
 package com.proyecto.integrador.controller;
 
+import com.proyecto.integrador.dto.FavouriteDto;
+import com.proyecto.integrador.dto.InstrumentDto;
 import com.proyecto.integrador.dto.UserDto;
 import com.proyecto.integrador.entity.User;
 import com.proyecto.integrador.service.UserService;
@@ -72,5 +74,4 @@ public class UserController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
-
 }

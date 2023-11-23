@@ -90,6 +90,10 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleException(InstrumentGetAllException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
+    @ExceptionHandler(InstrumentGetFavouritesByEmailException.class)
+    public ResponseEntity<String> handleException(InstrumentGetFavouritesByEmailException e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
     @ExceptionHandler(InstrumentGetNameException.class)
     public ResponseEntity<String> handleException(InstrumentGetNameException e){
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -121,4 +125,8 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(UserValidationException.class)
+    public ResponseEntity<String> handleExceptio(UserValidationException e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 }
