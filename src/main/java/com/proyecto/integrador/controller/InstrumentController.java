@@ -6,7 +6,9 @@ import com.proyecto.integrador.service.InstrumentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -58,4 +60,13 @@ public class InstrumentController {
     public ResponseEntity<Page<Instrument>> getName(@PathVariable String name, Pageable pageable){
         return ResponseEntity.ok(instrumentService.getName(name, pageable));
     }
+//    @PutMapping("/favorite/{email}")
+//    public ResponseEntity<Instrument> addFavourite(@PathVariable String email, @RequestBody InstrumentDto instrumentDto){
+//        return ResponseEntity.ok(instrumentService.addFavourite(email, instrumentDto));
+//    }
+//
+//    @GetMapping("/favourites/{email}")
+//    public ResponseEntity<List<Instrument>> getFavouritesByEmail(@PathVariable String email){
+//        return ResponseEntity.ok(instrumentService.getFavouritesByMail(email));
+//    }
 }

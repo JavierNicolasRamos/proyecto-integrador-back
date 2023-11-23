@@ -1,8 +1,14 @@
 package com.proyecto.integrador.service;
 
+import com.proyecto.integrador.dto.FavouriteDto;
+import com.proyecto.integrador.dto.InstrumentDto;
 import com.proyecto.integrador.dto.UserDto;
+import com.proyecto.integrador.entity.Instrument;
 import com.proyecto.integrador.entity.User;
 import com.proyecto.integrador.enums.Role;
+import com.proyecto.integrador.exception.InstrumentAddFavouriteException;
+import com.proyecto.integrador.exception.InstrumentRemoveFavouriteException;
+import com.proyecto.integrador.repository.InstrumentRepository;
 import com.proyecto.integrador.repository.UserRepository;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;

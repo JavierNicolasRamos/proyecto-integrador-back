@@ -9,5 +9,5 @@ public class ReviewDto {
     private Double score;
     private String reviewName;
     private String reviewDescription;
-
+    private BuyerDto buyerDto;
 }

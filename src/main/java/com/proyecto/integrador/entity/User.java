@@ -65,6 +65,9 @@ public class User {
 
     private Boolean deleted;
 
+    @ManyToMany
+    private List<Instrument> favourites;
+
     public String toStringIndented(int indentLevel) {
         StringBuilder indent = new StringBuilder();
         indent.append("  ".repeat(Math.max(0, indentLevel)));
