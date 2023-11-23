@@ -1,5 +1,6 @@
 package com.proyecto.integrador.service;
 
+import com.proyecto.integrador.commons.UserValidation;
 import com.proyecto.integrador.entity.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -35,6 +36,9 @@ public class BookingService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserValidation userValidation;
+
     @Transactional
     public Booking createBooking(BookingDto bookingDto) {
 
@@ -42,6 +46,8 @@ public class BookingService {
         try {
             Optional<Instrument> optionalInstrument = instrumentRepository.findById(bookingDto.getInstrumentDto().getId());
             Instrument instrument = optionalInstrument.orElseThrow(() -> new EntityNotFoundException("El instrumento no está disponible para la reserva"));
+
+            this.userValidation.userValidation(bookingDto.getBuyerDto().getEmail(), instrument.getSeller().getEmail());
 
             logger.info("Se va a modificar el objeto Instrumento, atributo disponible: " + instrument.getAvailable());
 
@@ -66,7 +72,11 @@ public class BookingService {
             logger.info("Reserva creada con éxito.");
 
             return booking;
-        } catch (Exception e) {
+        }
+        catch (UserValidationException e ){
+            throw new UserValidationException("No se puede reservar un instrumento que usted creo");
+        }
+        catch (Exception e) {
             logger.error("Se produjo un error al crear la reserva: " + e.getMessage());
             throw e; //TODO: ver si se puede hacer un throw new CreateReserveException("Ocurrió un error al crear la reserva", e);
         }

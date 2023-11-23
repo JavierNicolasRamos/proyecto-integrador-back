@@ -1,29 +1,22 @@
 package com.proyecto.integrador.service;
 
-import com.proyecto.integrador.commons.userValidation;
 import com.proyecto.integrador.dto.InstrumentDto;
 import com.proyecto.integrador.entity.Image;
 import com.proyecto.integrador.entity.Instrument;
-import com.proyecto.integrador.entity.Review;
-import com.proyecto.integrador.entity.User;
 import com.proyecto.integrador.exception.*;
 import com.proyecto.integrador.repository.InstrumentRepository;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.security.PrivilegedAction;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 import org.webjars.NotFoundException;
 import org.slf4j.Logger;
@@ -47,9 +40,6 @@ public class InstrumentService {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private userValidation userValidation;
 
     @Transactional
     public Instrument createInstrument(InstrumentDto instrumentDto, List<MultipartFile> multipartFiles) {
