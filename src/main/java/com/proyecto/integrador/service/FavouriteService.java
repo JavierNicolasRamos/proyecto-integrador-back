@@ -52,7 +52,7 @@ public class FavouriteService {
         }
         catch (Exception e){
             throw new InstrumentAddFavouriteException("Error al intentar agregar el instrumento con ID: " + favouriteDto.getIdInstrument() + "" +
-                    "de la lista de favoritos del usuario con email: "  + favouriteDto.getEmail());
+                    "de la lista de favoritos del usuario con email: "  + favouriteDto.getEmail()); //TODO: agregar a globalHandler
         }
     }
 
@@ -69,7 +69,7 @@ public class FavouriteService {
             return favourites;
         }catch (Exception e){
             throw new InstrumentRemoveFavouriteException("Error al intentar remover el instrumento con ID: " + favouriteDto.getIdInstrument() + "" +
-                    "de la lista de favoritos del usuario con email: "  + favouriteDto.getEmail());
+                    "de la lista de favoritos del usuario con email: "  + favouriteDto.getEmail()); //TODO: agregar a globalHandler
         }
     }
 
@@ -78,7 +78,7 @@ public class FavouriteService {
             User user = this.userRepository.findByEmail(email);
             return user.getFavourites();
         }catch (Exception e){
-            throw new InstrumentGetFavouriteException ("Error al recuperar la lista de favoritos del usuario");
+            throw new InstrumentGetFavouriteException ("Error al recuperar la lista de favoritos del usuario"); //TODO: agregar a globalHandler
         }
     }
 }
