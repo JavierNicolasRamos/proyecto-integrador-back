@@ -34,7 +34,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody @NotNull AuthDto authDto) throws Exception {
+    public ResponseEntity<AuthResponse> login(@RequestBody @NotNull AuthDto authDto) throws Exception {
         UsernamePasswordAuthenticationToken login = new UsernamePasswordAuthenticationToken(authDto.getEmail(), authDto.getPassword());
 
         Authentication authentication = this.authenticationManager.authenticate(login);
@@ -43,11 +43,13 @@ public class AuthController {
 
         String email = authDto.getEmail();
         Role role = userService.getRoleByEmail(email);
+        String name = userService.getNameByEmail(email);
+        String surname = userService.getLastNameByEmail(email);
 
-        AuthResponse response = new AuthResponse(jwt, role, email);
+        AuthResponse response = new AuthResponse(jwt, role, email, name, surname );
 
         if(jwt != null){
-            return ResponseEntity.ok().header("Authorization", jwt).body(response.toString());
+            return ResponseEntity.ok().header("Authorization", jwt).body(response);
         } else {
             throw new UserNotFoundException("User with email: " + authDto.getEmail() + " was not found.");
         }

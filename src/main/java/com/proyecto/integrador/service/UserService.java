@@ -228,5 +228,21 @@ public class UserService {
         emailService.sendRegisterEmail(user.getEmail(), "Registro usuario", emailService.createRegisterHtml(user.getName(), user.getSurname()));
     }
 
+    public String getNameByEmail(String email) {
+        try {
+            return userRepository.getNameByEmail(email);
+        } catch (Exception e) {
+            logger.severe("Error al buscar el usuario por email: " + e.getMessage());
+            throw e; //TODO: sumar la excepcion customizada
+        }
+    }
 
+    public String getLastNameByEmail(String email) {
+        try {
+            return userRepository.getLastNameByEmail(email);
+        } catch (Exception e) {
+            logger.severe("Error al buscar el usuario por email: " + e.getMessage());
+            throw e; //TODO: sumar la excepcion customizada
+        }
+    }
 }
