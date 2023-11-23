@@ -233,37 +233,37 @@ public class InstrumentService {
         }
     }
 
-    public List<Instrument> getFavouritesByMail(String email){
-        logger.info("Iniciando la recuperación de los instrumentos favoritos para el usuario con mail: " + email);
-        try{
-            List<User> userList = new ArrayList<User>();
-            userList.add(userService.findByEmail(email));
-            userService.findByEmail(email);
-            Optional<List<Instrument>> favouriteInstruments = instrumentRepository.findAllByUserAndDeleted(userService.findByEmail(email), false );
-            logger.info("Lista de favoritos retornada con éxito");
-            return favouriteInstruments.get();
-        }catch(InstrumentGetFavouritesByEmailException e){
-            logger.error("No se pudo recuperar la lista de favoritos de usuario con email: " + email);
-            throw new InstrumentGetFavouritesByEmailException("No se pudieron recuperar los favoritos");
-        }
-    }
-
-    public Instrument addFavourite(String email, InstrumentDto instrumentDto){
-        logger.info("Iniciando el agregado de un favorit...");
-        try{
-            User user = userService.findByEmail(email);
-            String message = "No se puede agregar a favoritos un producto propio";
-            Instrument instrument = this.getInstrumentById(instrumentDto.getId());
-            userValidation.userValidation(email,instrument.getSeller().getEmail() , message );
-
-            List<User> usersList = instrument.getUsers();
-            usersList.add(user);
-            instrument.setUsers(usersList);
-            logger.info("Instrumento agregado a favoritos correctamente");
-            return instrument;
-        }catch (InstrumentAddFavouriteException e){
-            logger.error("Error al intenatar agregar el instrumento con ID:" + instrumentDto.getId() + " a favoritos");
-            throw new InstrumentAddFavouriteException("No se pudo agregar el intrumento con ID: " + instrumentDto.getId() + " a favoritos");
-        }
-    }
+//    public List<Instrument> getFavouritesByMail(String email){
+//        logger.info("Iniciando la recuperación de los instrumentos favoritos para el usuario con mail: " + email);
+//        try{
+//            List<User> userList = new ArrayList<User>();
+//            userList.add(userService.findByEmail(email));
+//            userService.findByEmail(email);
+//            Optional<List<Instrument>> favouriteInstruments = instrumentRepository.findAllByUserAndDeleted(userService.findByEmail(email), false );
+//            logger.info("Lista de favoritos retornada con éxito");
+//            return favouriteInstruments.get();
+//        }catch(InstrumentGetFavouritesByEmailException e){
+//            logger.error("No se pudo recuperar la lista de favoritos de usuario con email: " + email);
+//            throw new InstrumentGetFavouritesByEmailException("No se pudieron recuperar los favoritos");
+//        }
+//    }
+//
+//    public Instrument addFavourite(String email, InstrumentDto instrumentDto){
+//        logger.info("Iniciando el agregado de un favorit...");
+//        try{
+//            User user = userService.findByEmail(email);
+//            String message = "No se puede agregar a favoritos un producto propio";
+//            Instrument instrument = this.getInstrumentById(instrumentDto.getId());
+//            userValidation.userValidation(email,instrument.getSeller().getEmail() , message );
+//
+//            List<User> usersList = instrument.getUsers();
+//            usersList.add(user);
+//            instrument.setUsers(usersList);
+//            logger.info("Instrumento agregado a favoritos correctamente");
+//            return instrument;
+//        }catch (InstrumentAddFavouriteException e){
+//            logger.error("Error al intenatar agregar el instrumento con ID:" + instrumentDto.getId() + " a favoritos");
+//            throw new InstrumentAddFavouriteException("No se pudo agregar el intrumento con ID: " + instrumentDto.getId() + " a favoritos");
+//        }
+//    }
 }

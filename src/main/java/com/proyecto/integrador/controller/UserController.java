@@ -1,5 +1,6 @@
 package com.proyecto.integrador.controller;
 
+import com.proyecto.integrador.dto.InstrumentDto;
 import com.proyecto.integrador.dto.UserDto;
 import com.proyecto.integrador.entity.User;
 import com.proyecto.integrador.service.UserService;
@@ -71,6 +72,12 @@ public class UserController {
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @PutMapping("/favourite/{email}/{instrumentId}")
+    public ResponseEntity<String> addFavourite(@PathVariable String email, @PathVariable Long instrumentId){
+        userService.addFavourite(email, instrumentId );
+        return ResponseEntity.ok("Instrument agregado a favoritos con éxito");
     }
 
 }

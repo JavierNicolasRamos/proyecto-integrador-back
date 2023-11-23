@@ -65,9 +65,6 @@ public class Instrument {
     @NotNull(message = "El vendedor no puede ser nulo")
     private User seller;
 
-    @ManyToMany
-    private List<User> users;
-
     @Override
     public String toString() {
         String reservasString = (bookings != null && !bookings.isEmpty()) ? bookings.iterator().next().toStringIndented(1) : "[]";
