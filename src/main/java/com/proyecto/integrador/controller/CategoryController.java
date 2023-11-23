@@ -18,7 +18,7 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @PostMapping
-    public ResponseEntity<Category> createCategory(@RequestPart("categoryDto") CategoryDto categoryDto, @RequestParam("image") MultipartFile image) {
+    public ResponseEntity<Category> createCategory(@RequestPart("categoryDto") CategoryDto categoryDto, @RequestPart("image") MultipartFile image) {
         return ResponseEntity.ok(categoryService.createCategory(categoryDto, image));
     }
 
