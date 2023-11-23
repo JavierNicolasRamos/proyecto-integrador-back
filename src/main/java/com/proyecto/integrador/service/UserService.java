@@ -1,11 +1,13 @@
 package com.proyecto.integrador.service;
 
+import com.proyecto.integrador.dto.FavouriteDto;
 import com.proyecto.integrador.dto.InstrumentDto;
 import com.proyecto.integrador.dto.UserDto;
 import com.proyecto.integrador.entity.Instrument;
 import com.proyecto.integrador.entity.User;
 import com.proyecto.integrador.enums.Role;
 import com.proyecto.integrador.exception.InstrumentAddFavouriteException;
+import com.proyecto.integrador.exception.InstrumentRemoveFavouriteException;
 import com.proyecto.integrador.repository.InstrumentRepository;
 import com.proyecto.integrador.repository.UserRepository;
 import org.jetbrains.annotations.NotNull;
@@ -30,12 +32,6 @@ public class UserService {
 
     @Autowired
     private EmailService emailService;
-
-    @Autowired
-    private InstrumentService instrumentService;
-    @Autowired
-    private InstrumentRepository instrumentRepository;
-
 
     public User findByEmail(String email) {
         try {
@@ -186,23 +182,6 @@ public class UserService {
         } catch (Exception e) {
             logger.severe("Error inesperado al crear el usuario: " + e.getMessage());
             throw e; //TODO: sumar la excepcion customizada
-        }
-    }
-
-    @Transactional
-    public void addFavourite(String email, Long instrumentId){
-        logger.info("Iniciando agregado de favorito");
-        try{
-            User user = this.findByEmail(email);
-            Optional<Instrument> instrument = instrumentRepository.findById(instrumentId);
-
-            List<Instrument> favourites = user.getFavourites();
-            favourites.add(instrument.get());
-            user.setFavourites(favourites);
-            userRepository.save(user);
-        }catch (InstrumentAddFavouriteException e){
-            throw new InstrumentAddFavouriteException("Error al intentar agregar el instrumento con ID: " + instrumentId + "" +
-                    "la lista de favoritos del usuario con email: "  + email);
         }
     }
 
