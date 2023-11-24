@@ -97,7 +97,7 @@ public class CharacteristicService {
 
     public List<Characteristic> listCharacteristic() {
         logger.info("Obteniendo la lista de características registradas.");
-        List<Characteristic> characteristic = characteristicRepository.findAll();
+        List<Characteristic> characteristic = characteristicRepository.getAll();
         logger.info("Lista de características obtenida exitosamente. Cantidad de características: {}", characteristic.size());
         return characteristic;
     }
