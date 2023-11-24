@@ -59,9 +59,9 @@ public class BookingService {
 
             booking.setUser(userService.findByEmail(bookingDto.getBuyerDto().getEmail()));
             booking.setInstrument(instrument);
-            booking.setActiveBooking(bookingDto.getActiveBooking()); //TODO: ver si lo pongo true o esperar al front (a confirmar)
-            booking.setBookingStart(bookingDto.getBookingStart()); //TODO: ver si lo pongo localdate.now() o esperar al front (a confirmar)
-            booking.setBookingEnd(bookingDto.getBookingEnd());//TODO: ver si lo pongo localdate +5 dias o esperar al front (a confirmar)
+            booking.setActiveBooking(bookingDto.getActiveBooking());
+            booking.setBookingStart(bookingDto.getBookingStart());
+            booking.setBookingEnd(bookingDto.getBookingEnd());
             booking.setDeleted(false);
 
             instrument.setAvailable(false);

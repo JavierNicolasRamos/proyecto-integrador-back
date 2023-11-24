@@ -1,15 +1,10 @@
 package com.proyecto.integrador.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.proyecto.integrador.entity.Category;
-import com.proyecto.integrador.entity.Image;
-import com.proyecto.integrador.entity.Instrument;
-import com.proyecto.integrador.entity.User;
+import com.proyecto.integrador.entity.*;
 import com.proyecto.integrador.enums.Role;
-import com.proyecto.integrador.repository.CategoryRepository;
-import com.proyecto.integrador.repository.ImageRepository;
-import com.proyecto.integrador.repository.InstrumentRepository;
-import com.proyecto.integrador.repository.UserRepository;
+import com.proyecto.integrador.repository.*;
+import jakarta.persistence.EntityNotFoundException;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -41,6 +36,10 @@ public class DataSeedConfig {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private BookingRepository bookingRepository;
+
     @Bean
     @Order(1)
     public List<Map<String, Object>> usersDataSeed() throws IOException {
@@ -165,6 +164,56 @@ public class DataSeedConfig {
             }
         }
         return instruments;
+    }
+
+    @Bean
+    @Order(5)
+    public List<Map<String, Object>> bookingsDataSeed() throws IOException {
+        InputStream bookingsInputStream = new ClassPathResource("bookingsDataSeed.json").getInputStream();
+        ObjectMapper bookingsObjectMapper = new ObjectMapper();
+
+        return bookingsObjectMapper.readValue(bookingsInputStream, new TypeReference<List<Map<String, Object>>>() {});
+    }
+
+    @Bean
+    @Order(6)
+    @Transactional
+    public List<Booking> createBookings(@Qualifier("bookingsDataSeed") @NotNull List<Map<String, Object>> bookingsDataSeed) {
+        List<Booking> bookings = new ArrayList<>();
+
+        for (Map<String, Object> bookingData : bookingsDataSeed) {
+            Integer id = (Integer) bookingData.get("id");
+            Boolean activeBooking = (Boolean) bookingData.get("activeBooking");
+            String bookingStart = (String) bookingData.get("bookingStart");
+            String bookingEnd = (String) bookingData.get("bookingEnd");
+
+            Map<String, Object> categoryData = (Map<String, Object>) bookingData.get("buyerDto");
+            String email = (String) categoryData.get("email");
+
+            Map<String, Object> instrumentDto = (Map<String, Object>) bookingData.get("instrumentDto");
+            Integer idInstrument = (Integer) instrumentDto.get("id");
+
+            Optional<Booking> bookingExist = bookingRepository.findById(Long.valueOf(id));
+
+            if (bookingExist.isEmpty()) {
+                Optional<Instrument> instrumentExist = instrumentRepository.findById(Long.valueOf(idInstrument));
+
+                Booking booking = new Booking();
+
+                booking.setUser(this.userRepository.findByEmail(email));
+                booking.setInstrument(instrumentExist.get());
+                booking.setActiveBooking(activeBooking);
+                booking.setBookingStart(LocalDate.parse(bookingStart));
+                booking.setBookingEnd(LocalDate.parse(bookingEnd));
+                booking.setDeleted(false);
+
+                instrumentExist.get().setAvailable(false);
+                instrumentRepository.save(instrumentExist.get());
+                bookingRepository.save(booking);
+                bookings.add(booking);
+            }
+        }
+        return bookings;
     }
 
 
