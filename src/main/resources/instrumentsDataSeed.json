@@ -20,6 +20,23 @@
       "https://usa.yamaha.com/files/unibody-concept_exterior_04_modal_2af86ef4e07cf0b9711ab5633fe4aa64.jpg?impolicy=resize&imwid=562&imhei=422",
       "https://usa.yamaha.com/files/unibody-concept_exterior_05_modal_47208adc99d4d6b74d4dbe2c31977258.jpg?impolicy=resize&imwid=562&imhei=422",
       "https://usa.yamaha.com/files/unibody-concept_exterior_06_modal_9b6811799fa7e505eb226509491fafd8.jpg?impolicy=resize&imwid=562&imhei=422"
+    ],
+    "characteristics": [
+      {
+        "name": "Gabinete de ébano pulido",
+        "icon": "https://s3.us-east-2.amazonaws.com/1023c04-grupo1/1700269366474-VERI_1.png",
+        "deleted": false
+      },
+      {
+        "name": "Tipo de pedal suave, silenciador, amortiguador",
+        "icon": "https://s3.us-east-2.amazonaws.com/1023c04-grupo1/1700269365376-music1_1.png",
+        "deleted": false
+      },
+      {
+        "name": "Origen Japón",
+        "icon": "https://s3.us-east-2.amazonaws.com/1023c04-grupo1/1700269365749-origen_1.png",
+        "deleted": false
+      }
     ]
   },
   {
@@ -42,6 +59,20 @@
       "https://www.yamaha.com/us/pianos/images/feature-backpost.jpg",
       "https://www.yamaha.com/us/pianos/images/inside-yus.jpg",
       "https://www.yamaha.com/us/pianos/images/action-rail.jpg"
+    ],
+    "characteristics": [
+      {
+      "name": "Gabinete de ébano pulido",
+      "icon": "https://s3.us-east-2.amazonaws.com/1023c04-grupo1/1700269366474-VERI_1.png",
+      },
+      {
+        "name": "Tipo de pedal suave, silenciador, amortiguador",
+        "icon": "https://s3.us-east-2.amazonaws.com/1023c04-grupo1/1700269365376-music1_1.png",
+      },
+      {
+        "name": "Origen Japón",
+        "icon": "https://s3.us-east-2.amazonaws.com/1023c04-grupo1/1700269365749-origen_1.png",
+      }
     ]
   },
   {

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CharacteristicRepository extends JpaRepository<Characteristic, Long> {
-    @Query(value = "SELECT * FROM characteristics WHERE name = :name", nativeQuery = true)
+    @Query(value = "SELECT * FROM characteristics WHERE name = :name AND deleted = false", nativeQuery = true)
     Optional<Characteristic> findByName(@Param("name") String name);
 
     @Query(value = "SELECT * FROM characteristics WHERE deleted = false", nativeQuery = true)

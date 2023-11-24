@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.proyecto.integrador.entity.*;
 import com.proyecto.integrador.enums.Role;
 import com.proyecto.integrador.repository.*;
-import jakarta.persistence.EntityNotFoundException;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -39,6 +38,9 @@ public class DataSeedConfig {
 
     @Autowired
     private BookingRepository bookingRepository;
+
+    @Autowired
+    private CharacteristicRepository characteristicRepository;
 
     @Bean
     @Order(1)
@@ -137,6 +139,24 @@ public class DataSeedConfig {
                     instrument.setCategory(CategoryExist.get());
                 }
 
+                List<Characteristic> characteristicsList = new ArrayList<>();
+                for (Map<String, Object> characteristicData : (List<Map<String, Object>>) instrumentData.get("characteristics")) {
+                    String characteristicName = (String) characteristicData.get("name");
+                    String characteristicIcon = (String) characteristicData.get("icon");
+
+                        Optional<Characteristic> characteristicExist = characteristicRepository.findByName(characteristicName);
+                        if (characteristicExist.isEmpty()) {
+                            Characteristic characteristic = new Characteristic();
+                            characteristic.setName(characteristicName);
+                            characteristic.setIcon(characteristicIcon);
+                            characteristic.setDeleted(false);
+                            this.characteristicRepository.save(characteristic);
+                            characteristicsList.add(characteristic);
+                        } else {
+                            characteristicsList.add(characteristicExist.get());
+                        }
+                    }
+
                 Optional<User> userExist = userRepository.findById(1L);
                 instrument.setSeller(userExist.get());
                 instrument.setName(name);
@@ -144,6 +164,7 @@ public class DataSeedConfig {
                 instrument.setUpdateDate(LocalDate.now());
                 instrument.setScore(score);
                 instrument.setDetail(detail);
+                instrument.setCharacteristics(characteristicsList);
                 instrument.setDeleted(false);
                 instrument.setAvailable(true);
                 instrument.setReviewCount(0L);
