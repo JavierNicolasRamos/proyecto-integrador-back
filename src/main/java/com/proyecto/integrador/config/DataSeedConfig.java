@@ -140,9 +140,13 @@ public class DataSeedConfig {
                 }
 
                 List<Characteristic> characteristicsList = new ArrayList<>();
-                for (Map<String, Object> characteristicData : (List<Map<String, Object>>) instrumentData.get("characteristics")) {
-                    String characteristicName = (String) characteristicData.get("name");
-                    String characteristicIcon = (String) characteristicData.get("icon");
+
+                List<Map<String, Object>> characteristicsDataList = (List<Map<String, Object>>) instrumentData.get("characteristics");
+
+                if (characteristicsDataList != null) {
+                    for (Map<String, Object> characteristicData : characteristicsDataList) {
+                        String characteristicName = (String) characteristicData.get("name");
+                        String characteristicIcon = (String) characteristicData.get("icon");
 
                         Optional<Characteristic> characteristicExist = characteristicRepository.findByName(characteristicName);
                         if (characteristicExist.isEmpty()) {
@@ -156,6 +160,7 @@ public class DataSeedConfig {
                             characteristicsList.add(characteristicExist.get());
                         }
                     }
+                }
 
                 Optional<User> userExist = userRepository.findById(1L);
                 instrument.setSeller(userExist.get());

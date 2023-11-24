@@ -23,19 +23,16 @@
     ],
     "characteristics": [
       {
-        "name": "Gabinete de ébano pulido",
-        "icon": "https://s3.us-east-2.amazonaws.com/1023c04-grupo1/1700269366474-VERI_1.png",
-        "deleted": false
+        "name": "Gabinete de roble pulido",
+        "icon": "https://s3.us-east-2.amazonaws.com/1023c04-grupo1/1700269366474-VERI_1.png"
       },
       {
-        "name": "Tipo de pedal suave, silenciador, amortiguador",
-        "icon": "https://s3.us-east-2.amazonaws.com/1023c04-grupo1/1700269365376-music1_1.png",
-        "deleted": false
+        "name": "Tipo de pedal suave, silenciador",
+        "icon": "https://s3.us-east-2.amazonaws.com/1023c04-grupo1/1700269365376-music1_1.png"
       },
       {
-        "name": "Origen Japón",
-        "icon": "https://s3.us-east-2.amazonaws.com/1023c04-grupo1/1700269365749-origen_1.png",
-        "deleted": false
+        "name": "Origen Belga",
+        "icon": "https://s3.us-east-2.amazonaws.com/1023c04-grupo1/1700269365749-origen_1.png"
       }
     ]
   },
@@ -63,15 +60,15 @@
     "characteristics": [
       {
       "name": "Gabinete de ébano pulido",
-      "icon": "https://s3.us-east-2.amazonaws.com/1023c04-grupo1/1700269366474-VERI_1.png",
+      "icon": "https://s3.us-east-2.amazonaws.com/1023c04-grupo1/1700269366474-VERI_1.png"
       },
       {
         "name": "Tipo de pedal suave, silenciador, amortiguador",
-        "icon": "https://s3.us-east-2.amazonaws.com/1023c04-grupo1/1700269365376-music1_1.png",
+        "icon": "https://s3.us-east-2.amazonaws.com/1023c04-grupo1/1700269365376-music1_1.png"
       },
       {
         "name": "Origen Japón",
-        "icon": "https://s3.us-east-2.amazonaws.com/1023c04-grupo1/1700269365749-origen_1.png",
+        "icon": "https://s3.us-east-2.amazonaws.com/1023c04-grupo1/1700269365749-origen_1.png"
       }
     ]
   },
