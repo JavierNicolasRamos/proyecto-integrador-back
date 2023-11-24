@@ -1,7 +1,7 @@
 package com.proyecto.integrador.service;
 
 import com.proyecto.integrador.commons.UserValidation;
-import com.proyecto.integrador.entity.User;
+import com.proyecto.integrador.dto.BuyerDto;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.proyecto.integrador.dto.BookingDto;
@@ -154,5 +154,9 @@ public class BookingService {
             logger.error("Se produjo un error al eliminar la reserva con ID: " + id + ". Error: " + e.getMessage());
             throw new DeleteReserveException("Error al eliminar la reserva con ID: " + id);
         }
+    }
+
+    public Optional<List<Booking>> ownReserve(BuyerDto buyerDto, Long instrumentId) {
+       return this.bookingRepository.findByUserEmailAndInstrumentId(buyerDto.getEmail(), instrumentId);
     }
 }

@@ -65,6 +65,10 @@ public class Instrument {
     @NotNull(message = "El vendedor no puede ser nulo")
     private User seller;
 
+    @OneToMany(mappedBy = "instrument")
+    @JsonIgnore
+    private List<Review> reviews;
+
     @Override
     public String toString() {
         String reservasString = (bookings != null && !bookings.isEmpty()) ? bookings.iterator().next().toStringIndented(1) : "[]";

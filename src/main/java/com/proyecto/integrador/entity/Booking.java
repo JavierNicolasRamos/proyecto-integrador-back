@@ -33,9 +33,6 @@ public class Booking {
 
     private Boolean deleted;
 
-    @OneToOne
-    private Review review;
-
     @Override
     public String toString(){
         return "Booking{" +
