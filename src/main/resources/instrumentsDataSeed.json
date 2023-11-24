@@ -194,8 +194,8 @@
     "name": "FG9",
     "detail": "La serie FG es la base de la guitarra acústica Yamaha y abarca desde líneas premium hasta estándar para ofrecer un mayor nivel de expresión a cada cantautor..",
     "category": {
-      "name":"Guitarras electricas",
-      "details" : "Categoria de guitarras electricas",
+      "name":"Guitarras acústicas",
+      "details" : "Categoria de guitarras acústicas",
       "url" : "https://s3.us-east-2.amazonaws.com/1023c04-grupo1/1699654558438-guitarra-electrica.png"
     },
     "score": 4.5,
@@ -216,8 +216,8 @@
     "name": "STORIA",
     "detail": "Invita la música a tu vida con la elegante e inspiradora serie STORIA: guitarras que reflejan tu estilo personal e inspiran creatividad de un vistazo.",
     "category": {
-      "name":"Guitarras electricas",
-      "details" : "Categoria de guitarras electricas",
+      "name":"Guitarras acústicas",
+      "details" : "Categoria de guitarras acústicas",
       "url" : "https://s3.us-east-2.amazonaws.com/1023c04-grupo1/1699654558438-guitarra-electrica.png"
     },
     "score": 5.0,
