@@ -29,9 +29,6 @@ public class ReviewService {
     @Autowired
     private InstrumentService instrumentService;
 
-    @Autowired
-    private UserValidation userValidation;
-
     private static final Logger logger = LoggerFactory.getLogger(ReviewService.class);
 
 
@@ -75,5 +72,13 @@ public class ReviewService {
             logger.error("Error inesperado al crear la reseña: " + e.getMessage(), e);
             throw e;
         }
+    }
+
+    public List<Review> getAllReviewsUser(Long id) {
+        return this.reviewRespository.findByBoyer(id);
+    }
+
+    public List<Review> getAllReviewsInstrument(Long id) {
+        return this.reviewRespository.findByInstrument(id);
     }
 }

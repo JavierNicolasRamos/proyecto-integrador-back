@@ -38,9 +38,11 @@ public class Review {
     private Boolean deleted;
 
     @ManyToOne
+    @JsonIgnore
     private User boyer;
 
     @ManyToOne
+    @JsonIgnore
     private Instrument instrument;
 
     @Override
