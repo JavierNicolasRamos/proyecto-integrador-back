@@ -81,7 +81,6 @@ public class SecurityConfig {
                                 antMatcher(HttpMethod.POST, "/favourite/**"),
                                 antMatcher(HttpMethod.PUT, "/favourite/**"),
                                 antMatcher(HttpMethod.DELETE, "/favourite/**")).hasAnyRole("Super-Admin", "Admin", "User")
-                        .anyRequest().authenticated()
                         .anyRequest()
                         .authenticated()
                 )
