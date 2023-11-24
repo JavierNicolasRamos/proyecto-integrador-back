@@ -11,10 +11,4 @@ public class UserValidation {
             throw new UserValidationException();
         }
     }
-
-    public void userValidationEquals(String buyerEmail, String sellerEmail){
-        if (!sellerEmail.equals(buyerEmail)){
-            throw new UserValidationException();
-        }
-    }
 }

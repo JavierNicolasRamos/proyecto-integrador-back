@@ -10,4 +10,5 @@ public class ReviewDto {
     private String reviewName;
     private String reviewDescription;
     private BuyerDto buyerDto;
+    private Long instrumentId;
 }

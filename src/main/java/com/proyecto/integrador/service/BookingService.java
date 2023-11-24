@@ -1,7 +1,7 @@
 package com.proyecto.integrador.service;
 
 import com.proyecto.integrador.commons.UserValidation;
-import com.proyecto.integrador.entity.User;
+import com.proyecto.integrador.dto.BuyerDto;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.proyecto.integrador.dto.BookingDto;
@@ -59,9 +59,9 @@ public class BookingService {
 
             booking.setUser(userService.findByEmail(bookingDto.getBuyerDto().getEmail()));
             booking.setInstrument(instrument);
-            booking.setActiveBooking(bookingDto.getActiveBooking()); //TODO: ver si lo pongo true o esperar al front (a confirmar)
-            booking.setBookingStart(bookingDto.getBookingStart()); //TODO: ver si lo pongo localdate.now() o esperar al front (a confirmar)
-            booking.setBookingEnd(bookingDto.getBookingEnd());//TODO: ver si lo pongo localdate +5 dias o esperar al front (a confirmar)
+            booking.setActiveBooking(bookingDto.getActiveBooking());
+            booking.setBookingStart(bookingDto.getBookingStart());
+            booking.setBookingEnd(bookingDto.getBookingEnd());
             booking.setDeleted(false);
 
             instrument.setAvailable(false);
@@ -154,5 +154,9 @@ public class BookingService {
             logger.error("Se produjo un error al eliminar la reserva con ID: " + id + ". Error: " + e.getMessage());
             throw new DeleteReserveException("Error al eliminar la reserva con ID: " + id);
         }
+    }
+
+    public Optional<List<Booking>> ownReserve(BuyerDto buyerDto, Long instrumentId) {
+       return this.bookingRepository.findByUserEmailAndInstrumentId(buyerDto.getEmail(), instrumentId);
     }
 }

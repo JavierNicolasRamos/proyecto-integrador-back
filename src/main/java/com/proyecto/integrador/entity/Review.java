@@ -37,9 +37,13 @@ public class Review {
 
     private Boolean deleted;
 
-    @OneToOne(mappedBy = "review")
+    @ManyToOne
     @JsonIgnore
-    private Booking booking;
+    private User boyer;
+
+    @ManyToOne
+    @JsonIgnore
+    private Instrument instrument;
 
     @Override
     public String toString() {
@@ -50,7 +54,6 @@ public class Review {
                 ", score=" + score +
                 ", reviewDateTime=" + reviewDateTime +
                 ", deleted=" + deleted +
-                ", booking=" + booking +
                 '}';
     }
 }

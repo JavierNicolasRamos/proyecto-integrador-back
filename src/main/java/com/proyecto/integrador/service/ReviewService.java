@@ -12,8 +12,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.webjars.NotFoundException;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ReviewService {
@@ -26,48 +29,56 @@ public class ReviewService {
     @Autowired
     private InstrumentService instrumentService;
 
-    @Autowired
-    private UserValidation userValidation;
-
     private static final Logger logger = LoggerFactory.getLogger(ReviewService.class);
 
 
     @Transactional
-    public Review createReview(Long bookingId, ReviewDto reviewDto) {
+    public Review createReview(ReviewDto reviewDto) {
         try {
             logger.info("Iniciando el guardado de la reseña");
-            Booking booking = bookingService.getBooking(bookingId);
 
-            if(booking.getReview() != null){
-                throw new DuplicateReviewException("La reserva con id:" + bookingId  + "ya tiene una reseña");
+            this.reviewRespository.findByBoyerEmailAndInstrumentId(reviewDto.getBuyerDto().getEmail(), reviewDto.getInstrumentId())
+                    .ifPresent(existingReview -> {
+                        throw new DuplicateReviewException("Ya existe una reseña creada para este instrumento");
+                    });
+
+            List<Booking> bookings = bookingService.ownReserve(reviewDto.getBuyerDto(), reviewDto.getInstrumentId())
+                    .orElseThrow(() -> new NotFoundException("Error al recuperar la lista de reservas"));
+
+            if (bookings.isEmpty()){
+                throw new UserValidationException("No se puede realizar una reseña de un instrumento que usted no reservó");
             }
 
-            this.userValidation.userValidationEquals(booking.getUser().getEmail(), reviewDto.getBuyerDto().getEmail());
+            if (bookings.stream().anyMatch(booking -> !booking.getActiveBooking())) {
+                Review review = new Review();
+                review.setReviewName(reviewDto.getReviewName());
+                review.setReviewDescription(reviewDto.getReviewDescription());
+                review.setScore(reviewDto.getScore());
+                review.setReviewDateTime(LocalDateTime.now());
+                review.setDeleted(false);
+                review.setBoyer(bookings.get(0).getUser());
+                review.setInstrument(bookings.get(0).getInstrument());
 
-            Review review = new Review();
-            review.setReviewName(reviewDto.getReviewName());
-            review.setReviewDescription(reviewDto.getReviewDescription());
-            review.setScore(reviewDto.getScore());
-            review.setReviewDateTime(LocalDateTime.now());
-            review.setDeleted(false);
-            review.setBooking(booking);
+                instrumentService.updateAvgScore(review);
+                reviewRespository.save(review);
 
-            instrumentService.updateAvgScore(reviewDto.getScore(), booking.getInstrument().getId());//LLamo al service para actualizar el Instrument reviewCount y el Instrumen Score
-            reviewRespository.save(review);
-
-            logger.info("Reseña guardada con exito");
-            return review;
+                logger.info("Reseña guardada con éxito");
+                return review;
+            } else {
+                throw new UserValidationException("No se puede realizar una reseña de un instrumento si no posee una reserva finalizada del instrumento");
+            }
         }
-        catch (UserValidationException e ){
-            throw new UserValidationException("No se puede realizar una reseña de un instrumento que usted no reservo");
-        }
-        catch (DuplicateReviewException e) {
-            logger.error("La reserva con id:" + bookingId  + "ya tiene una reseña");
-            throw e;
-        }catch(Exception e){
+        catch(Exception e){
             logger.error("Error inesperado al crear la reseña: " + e.getMessage(), e);
             throw e;
         }
+    }
 
+    public List<Review> getAllReviewsUser(Long id) {
+        return this.reviewRespository.findByBoyer(id);
+    }
+
+    public List<Review> getAllReviewsInstrument(Long id) {
+        return this.reviewRespository.findByInstrument(id);
     }
 }
