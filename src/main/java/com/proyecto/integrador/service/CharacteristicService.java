@@ -79,25 +79,9 @@ public class CharacteristicService {
         }
     }
 
-    @Transactional
-    public void deleteCharacteristic(Long id) {
-        try{
-            Optional<Characteristic> characteristicOptional = characteristicRepository.findById(id);
-            characteristicOptional.ifPresent(characteristic -> {
-                characteristic.setDeleted(true);
-                this.characteristicRepository.save(characteristic);
-            });
-            if (characteristicOptional.isEmpty()) {
-                throw new NonExistentCharacteristicException("No se encontró la característica con ID: " + id);
-            }
-        } catch(Exception e){
-            throw new DeleteCharacteristicException("Error al eliminar la característica con ID: "+id);
-        }
-    }
-
     public List<Characteristic> listCharacteristic() {
         logger.info("Obteniendo la lista de características registradas.");
-        List<Characteristic> characteristic = characteristicRepository.findAll();
+        List<Characteristic> characteristic = characteristicRepository.getAll();
         logger.info("Lista de características obtenida exitosamente. Cantidad de características: {}", characteristic.size());
         return characteristic;
     }
@@ -136,5 +120,33 @@ public class CharacteristicService {
             String errorMessage = "Error al asociar las características al instrumento con ID: " + e.getMessage();
             logger.error(errorMessage);
         }
+    }
+
+    @Transactional
+    public void deleteCharacteristic(Long id) {
+        try{
+            Optional<Characteristic> characteristicOptional = characteristicRepository.findById(id);
+            characteristicOptional.ifPresent(characteristic -> {
+                this.removeCharacteristicAndSave(characteristic.getId());
+                characteristic.setDeleted(true);
+                this.characteristicRepository.save(characteristic);
+            });
+            if (characteristicOptional.isEmpty()) {
+                throw new NonExistentCharacteristicException("No se encontró la característica con ID: " + id);
+            }
+        } catch(Exception e){
+            throw new DeleteCharacteristicException("Error al eliminar la característica con ID: "+id);
+        }
+    }
+
+    @Transactional
+    public void removeCharacteristicAndSave(Long characteristicId) {
+        List<Instrument> instruments = instrumentRepository.findByCharacteristicsIdAndDeletedIsFalse(characteristicId);
+
+        for (Instrument instrument : instruments) {
+            instrument.getCharacteristics().removeIf(characteristic -> characteristic.getId().equals(characteristicId));
+        }
+
+        instrumentRepository.saveAll(instruments);
     }
 }

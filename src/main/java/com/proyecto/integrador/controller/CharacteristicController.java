@@ -28,7 +28,7 @@ public class CharacteristicController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteCharacteristic(@PathVariable Long id) {
         characteristicService.deleteCharacteristic(id);
-        return ResponseEntity.ok("La characterística con ID " + id + "se eliminó de manera exitosa");
+        return ResponseEntity.ok("La characterística con ID " + id + " se eliminó de manera exitosa");
     }
 
     @GetMapping("/list")

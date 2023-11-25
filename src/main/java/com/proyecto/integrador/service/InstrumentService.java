@@ -3,6 +3,7 @@ package com.proyecto.integrador.service;
 import com.proyecto.integrador.dto.InstrumentDto;
 import com.proyecto.integrador.entity.Image;
 import com.proyecto.integrador.entity.Instrument;
+import com.proyecto.integrador.entity.Review;
 import com.proyecto.integrador.exception.*;
 import com.proyecto.integrador.repository.InstrumentRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -59,7 +60,6 @@ public class InstrumentService {
             instrument.setUpdateDate(LocalDate.now());
             instrument.setScore(instrumentDto.getScore());
             instrument.setDetail(instrumentDto.getDetail());
-            instrument.setAvailable(true);
             instrument.setDeleted(false);
             instrument.setImage(this.imageService.createAllImages(multipartFiles));
             instrument.setSeller(userService.findByEmail(instrumentDto.getSellerDto().getEmail()));
@@ -130,7 +130,6 @@ public class InstrumentService {
                 instrument.setUpdateDate(LocalDate.now());
                 instrument.setScore(instrumentDto.getScore());
                 instrument.setDetail(instrumentDto.getDetail());
-                instrument.setAvailable(instrumentDto.getAvailable());
 
                 if (!instrumentDto.getCharacteristics().isEmpty()) {
                     this.characteristicService.associateCharacteristic(instrument, instrumentDto.getCharacteristics());
@@ -202,19 +201,20 @@ public class InstrumentService {
     }
 
     @Transactional
-    public void updateAvgScore(Double reviewScore, Long idInstrument) {
+    public void updateAvgScore(Review review) {
         logger.info("Inciando actualización de puntaje promedio y cantidad de calificaciones...");
         try {
-            Instrument instrument = this.getInstrumentById(idInstrument);
+            Instrument instrument = this.getInstrumentById(review.getInstrument().getId());
 
             Long reviewCount = instrument.getReviewCount();
             Double reviewAverage = instrument.getScore();
 
-            Double newReviewAvgScore = ((reviewCount * reviewAverage) + reviewScore) / (reviewCount + 1);
+            Double newReviewAvgScore = ((reviewCount * reviewAverage) + review.getScore()) / (reviewCount + 1);
 
             instrument.setReviewCount(reviewCount + 1);
             instrument.setScore(newReviewAvgScore);
 
+            instrument.getReviews().add(review);
             instrumentRepository.save(instrument);
             logger.info("Calificación y Cantidad de reseñas actualizado correctamente");
         } catch (InstrumentUpdateAvgScoreException e) {
@@ -223,37 +223,7 @@ public class InstrumentService {
         }
     }
 
-//    public List<Instrument> getFavouritesByMail(String email){
-//        logger.info("Iniciando la recuperación de los instrumentos favoritos para el usuario con mail: " + email);
-//        try{
-//            List<User> userList = new ArrayList<User>();
-//            userList.add(userService.findByEmail(email));
-//            userService.findByEmail(email);
-//            Optional<List<Instrument>> favouriteInstruments = instrumentRepository.findAllByUserAndDeleted(userService.findByEmail(email), false );
-//            logger.info("Lista de favoritos retornada con éxito");
-//            return favouriteInstruments.get();
-//        }catch(InstrumentGetFavouritesByEmailException e){
-//            logger.error("No se pudo recuperar la lista de favoritos de usuario con email: " + email);
-//            throw new InstrumentGetFavouritesByEmailException("No se pudieron recuperar los favoritos");
-//        }
-//    }
-//
-//    public Instrument addFavourite(String email, InstrumentDto instrumentDto){
-//        logger.info("Iniciando el agregado de un favorit...");
-//        try{
-//            User user = userService.findByEmail(email);
-//            String message = "No se puede agregar a favoritos un producto propio";
-//            Instrument instrument = this.getInstrumentById(instrumentDto.getId());
-//            userValidation.userValidation(email,instrument.getSeller().getEmail() , message );
-//
-//            List<User> usersList = instrument.getUsers();
-//            usersList.add(user);
-//            instrument.setUsers(usersList);
-//            logger.info("Instrumento agregado a favoritos correctamente");
-//            return instrument;
-//        }catch (InstrumentAddFavouriteException e){
-//            logger.error("Error al intenatar agregar el instrumento con ID:" + instrumentDto.getId() + " a favoritos");
-//            throw new InstrumentAddFavouriteException("No se pudo agregar el intrumento con ID: " + instrumentDto.getId() + " a favoritos");
-//        }
-//    }
+    public List<Instrument> findInstrumentsByPartialName(String partialName) {
+        return instrumentRepository.findByPartialName(partialName);
+    }
 }

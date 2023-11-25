@@ -1,7 +1,7 @@
 package com.proyecto.integrador.service;
 
 import com.proyecto.integrador.commons.UserValidation;
-import com.proyecto.integrador.entity.User;
+import com.proyecto.integrador.dto.BuyerDto;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.proyecto.integrador.dto.BookingDto;
@@ -14,9 +14,12 @@ import jakarta.persistence.EntityNotFoundException;
 
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,6 +42,9 @@ public class BookingService {
     @Autowired
     private UserValidation userValidation;
 
+    @Autowired
+    private EmailService emailService;
+
     @Transactional
     public Booking createBooking(BookingDto bookingDto) {
 
@@ -49,27 +55,33 @@ public class BookingService {
 
             this.userValidation.userValidation(bookingDto.getBuyerDto().getEmail(), instrument.getSeller().getEmail());
 
-            logger.info("Se va a modificar el objeto Instrumento, atributo disponible: " + instrument.getAvailable());
-
-            if (!instrument.getAvailable()) {
+            Boolean bookingsExist= bookingRepository.hasOverlappingBookings(instrument.getId(), bookingDto.getBookingStart(), bookingDto.getBookingEnd());
+            if (bookingsExist){
                 logger.warn("El instrumento no está disponible para la reserva.");
                 throw new EntityNotFoundException("El instrumento no está disponible para la reserva");
             }
+
             Booking booking = new Booking();
 
             booking.setUser(userService.findByEmail(bookingDto.getBuyerDto().getEmail()));
             booking.setInstrument(instrument);
-            booking.setActiveBooking(bookingDto.getActiveBooking()); //TODO: ver si lo pongo true o esperar al front (a confirmar)
-            booking.setBookingStart(bookingDto.getBookingStart()); //TODO: ver si lo pongo localdate.now() o esperar al front (a confirmar)
-            booking.setBookingEnd(bookingDto.getBookingEnd());//TODO: ver si lo pongo localdate +5 dias o esperar al front (a confirmar)
+            booking.setActiveBooking(bookingDto.getActiveBooking());
+            booking.setBookingStart(bookingDto.getBookingStart());
+            booking.setBookingEnd(bookingDto.getBookingEnd());
             booking.setDeleted(false);
-
-            instrument.setAvailable(false);
-            instrumentRepository.save(instrument);
-            logger.info("El objeto Instrumento fue modificado correctamente, atributo disponible: " + instrument.getAvailable());
 
             bookingRepository.save(booking);
             logger.info("Reserva creada con éxito.");
+
+            this.emailService.sendEmail(booking.getUser().getEmail(), "Registro de reserva",
+                    emailService.createBookingHtml(
+                            booking.getUser().getName(),
+                            booking.getUser().getSurname(),
+                            booking.getInstrument().getName(),
+                            booking.getBookingStart(),
+                            booking.getInstrument().getSeller().getName(),
+                            booking.getInstrument().getSeller().getPhone(),instrument.getSeller().getEmail()
+            ));
 
             return booking;
         }
@@ -108,21 +120,13 @@ public class BookingService {
                 -> new NonExistentReserveException("No se encontró la reserva con ID" + bookingDto.getId()));
         try {
             logger.info("Reserva encontrada y será actualizada : " + booking);
+
             booking.setUser(userService.findByEmail(bookingDto.getBuyerDto().getEmail()));
             booking.setInstrument(instrumentService.getInstrumentById(bookingDto.getInstrumentDto().getId()));
             booking.setActiveBooking(bookingDto.getActiveBooking());
             booking.setBookingStart(bookingDto.getBookingStart());
             booking.setBookingEnd(bookingDto.getBookingEnd());
-            Optional<Instrument> optionalInstrument = instrumentRepository.findById(bookingDto.getInstrumentDto().getId());
-            if (optionalInstrument.isPresent()) {
-                Instrument instrument = optionalInstrument.get();
-                instrument.setAvailable(false);
-                instrumentRepository.save(instrument);
-                logger.info("Instrumento actualizado para reserva. ID: " + instrument.getId());
-            } else {
-                logger.error("No se encontró el instrumento con el ID: " + bookingDto.getInstrumentDto().getId());
-                throw new NonExistentInstrumentException("No se encontró el instrumento con el ID: " + bookingDto.getInstrumentDto().getId());
-            }
+
             return bookingRepository.save(booking);
         }
         catch (RuntimeException e){
@@ -137,22 +141,31 @@ public class BookingService {
         try {
             Booking booking = bookingRepository.findById(id)
                     .orElseThrow(() -> new EntityNotFoundException("No se encontró la reserva con ID: " + id));
-            booking.setDeleted(true);
 
-            if (booking.getInstrument() != null) {
-                booking.getInstrument().setAvailable(true);
-                instrumentRepository.save(booking.getInstrument());
-                logger.info("Instrumento asociado a la reserva con ID " + id + " marcado como disponible.");
-            } else {
-                logger.error("No se encontró un instrumento asociado a la reserva con ID: " + id);
-                throw new NonExistentInstrumentException("No se encontró un instrumento asociado a la reserva con ID: " + id);
-            }
+            booking.setDeleted(true);
             bookingRepository.save(booking);
             logger.info("Reserva con ID " + id + " marcada como eliminada.");
 
         } catch (Exception e) {
             logger.error("Se produjo un error al eliminar la reserva con ID: " + id + ". Error: " + e.getMessage());
             throw new DeleteReserveException("Error al eliminar la reserva con ID: " + id);
+        }
+    }
+
+    public Optional<List<Booking>> ownReserve(BuyerDto buyerDto, Long instrumentId) {
+       return this.bookingRepository.findByUserEmailAndInstrumentId(buyerDto.getEmail(), instrumentId);
+    }
+
+
+    @Scheduled(cron = "${cron.booking.expression}")
+    public void updateBookings() {
+        LocalDate yesterday = LocalDate.now().minusDays(1);
+
+        List<Booking> bookingsToUpdate = bookingRepository.findByBookingEndAndDeletedIsFalse(yesterday);
+
+        for (Booking booking : bookingsToUpdate) {
+            booking.setActiveBooking(false);
+            bookingRepository.save(booking);
         }
     }
 }

@@ -1,15 +1,9 @@
 package com.proyecto.integrador.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.proyecto.integrador.entity.Category;
-import com.proyecto.integrador.entity.Image;
-import com.proyecto.integrador.entity.Instrument;
-import com.proyecto.integrador.entity.User;
+import com.proyecto.integrador.entity.*;
 import com.proyecto.integrador.enums.Role;
-import com.proyecto.integrador.repository.CategoryRepository;
-import com.proyecto.integrador.repository.ImageRepository;
-import com.proyecto.integrador.repository.InstrumentRepository;
-import com.proyecto.integrador.repository.UserRepository;
+import com.proyecto.integrador.repository.*;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -41,6 +35,13 @@ public class DataSeedConfig {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private BookingRepository bookingRepository;
+
+    @Autowired
+    private CharacteristicRepository characteristicRepository;
+
     @Bean
     @Order(1)
     public List<Map<String, Object>> usersDataSeed() throws IOException {
@@ -138,6 +139,29 @@ public class DataSeedConfig {
                     instrument.setCategory(CategoryExist.get());
                 }
 
+                List<Characteristic> characteristicsList = new ArrayList<>();
+
+                List<Map<String, Object>> characteristicsDataList = (List<Map<String, Object>>) instrumentData.get("characteristics");
+
+                if (characteristicsDataList != null) {
+                    for (Map<String, Object> characteristicData : characteristicsDataList) {
+                        String characteristicName = (String) characteristicData.get("name");
+                        String characteristicIcon = (String) characteristicData.get("icon");
+
+                        Optional<Characteristic> characteristicExist = characteristicRepository.findByName(characteristicName);
+                        if (characteristicExist.isEmpty()) {
+                            Characteristic characteristic = new Characteristic();
+                            characteristic.setName(characteristicName);
+                            characteristic.setIcon(characteristicIcon);
+                            characteristic.setDeleted(false);
+                            this.characteristicRepository.save(characteristic);
+                            characteristicsList.add(characteristic);
+                        } else {
+                            characteristicsList.add(characteristicExist.get());
+                        }
+                    }
+                }
+
                 Optional<User> userExist = userRepository.findById(1L);
                 instrument.setSeller(userExist.get());
                 instrument.setName(name);
@@ -145,8 +169,8 @@ public class DataSeedConfig {
                 instrument.setUpdateDate(LocalDate.now());
                 instrument.setScore(score);
                 instrument.setDetail(detail);
-                instrument.setDeleted(false);
-                instrument.setAvailable(true);
+                instrument.setCharacteristics(characteristicsList);
+                instrument.setDeleted(false);;
                 instrument.setReviewCount(0L);
                 instrumentRepository.save(instrument);
 
@@ -165,6 +189,55 @@ public class DataSeedConfig {
             }
         }
         return instruments;
+    }
+
+    @Bean
+    @Order(5)
+    public List<Map<String, Object>> bookingsDataSeed() throws IOException {
+        InputStream bookingsInputStream = new ClassPathResource("bookingsDataSeed.json").getInputStream();
+        ObjectMapper bookingsObjectMapper = new ObjectMapper();
+
+        return bookingsObjectMapper.readValue(bookingsInputStream, new TypeReference<List<Map<String, Object>>>() {});
+    }
+
+    @Bean
+    @Order(6)
+    @Transactional
+    public List<Booking> createBookings(@Qualifier("bookingsDataSeed") @NotNull List<Map<String, Object>> bookingsDataSeed) {
+        List<Booking> bookings = new ArrayList<>();
+
+        for (Map<String, Object> bookingData : bookingsDataSeed) {
+            Integer id = (Integer) bookingData.get("id");
+            Boolean activeBooking = (Boolean) bookingData.get("activeBooking");
+            String bookingStart = (String) bookingData.get("bookingStart");
+            String bookingEnd = (String) bookingData.get("bookingEnd");
+
+            Map<String, Object> categoryData = (Map<String, Object>) bookingData.get("buyerDto");
+            String email = (String) categoryData.get("email");
+
+            Map<String, Object> instrumentDto = (Map<String, Object>) bookingData.get("instrumentDto");
+            Integer idInstrument = (Integer) instrumentDto.get("id");
+
+            Optional<Booking> bookingExist = bookingRepository.findById(Long.valueOf(id));
+
+            if (bookingExist.isEmpty()) {
+                Optional<Instrument> instrumentExist = instrumentRepository.findById(Long.valueOf(idInstrument));
+
+                Booking booking = new Booking();
+
+                booking.setUser(this.userRepository.findByEmail(email));
+                booking.setInstrument(instrumentExist.get());
+                booking.setActiveBooking(activeBooking);
+                booking.setBookingStart(LocalDate.parse(bookingStart));
+                booking.setBookingEnd(LocalDate.parse(bookingEnd));
+                booking.setDeleted(false);
+
+                instrumentRepository.save(instrumentExist.get());
+                bookingRepository.save(booking);
+                bookings.add(booking);
+            }
+        }
+        return bookings;
     }
 
 
