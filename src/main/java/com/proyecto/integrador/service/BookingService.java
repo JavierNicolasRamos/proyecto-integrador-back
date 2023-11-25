@@ -42,8 +42,8 @@ public class BookingService {
     @Autowired
     private UserValidation userValidation;
 
-    @Value("${cron.booking.expression}")
-    private String cronExpression;
+    @Autowired
+    private EmailService emailService;
 
     @Transactional
     public Booking createBooking(BookingDto bookingDto) {
@@ -72,6 +72,16 @@ public class BookingService {
 
             bookingRepository.save(booking);
             logger.info("Reserva creada con éxito.");
+
+            this.emailService.sendEmail(booking.getUser().getEmail(), "Registro de reserva",
+                    emailService.createBookingHtml(
+                            booking.getUser().getName(),
+                            booking.getUser().getSurname(),
+                            booking.getInstrument().getName(),
+                            booking.getBookingStart(),
+                            booking.getInstrument().getSeller().getName(),
+                            booking.getInstrument().getSeller().getPhone(),instrument.getSeller().getEmail()
+            ));
 
             return booking;
         }
@@ -147,7 +157,7 @@ public class BookingService {
     }
 
 
-    @Scheduled(cron = "${cron.expression}")
+    @Scheduled(cron = "${cron.booking.expression}")
     public void updateBookings() {
         LocalDate yesterday = LocalDate.now().minusDays(1);
 

@@ -36,7 +36,7 @@
             border-radius: 10px;
             text-align: left;
         }
-        h1, p {
+        h1, p, h2, h3 {
             color: #fff;
         }
         .centered {
@@ -52,10 +52,18 @@
     <div class="center-content">
         <img src="https://s3.us-east-2.amazonaws.com/1023c04-grupo1/1699653531900-LogoMR_2.png" alt="Logo Music Rental" class="logo">
         <div class="rectangle">
-            <h1>ARMAR EL CONTENIDO</h1>
+            <h1 th:text="'¡Hola ' + ${name} + ' ' + ${surname} + '!'"></h1>
+            <p th:text="'Se registro tu reserva del producto ' + ${instrumentName}"></p>
+            <p th:text="'Tu reserva inicia el  ' + ${bookingStart}"></p>
+            <h2> Datos del proveedor : </h2>
+            <p th:text="'Nombre: ' + ${sellerName}"></p>
+            <p th:text="'Telefono:  ' + ${sellerPhone}"></p>
+            <p th:text="'Email:  ' + ${sellerEmail}"></p>
+            <div class="centered">
+                <h3>!Que lo disfrutes¡</h3>
+            </div>
         </div>
     </div>
 </div>
-<p class="centered">Powered by Olimpo</p>
 </body>
 </html>

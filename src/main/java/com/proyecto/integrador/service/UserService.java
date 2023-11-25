@@ -176,7 +176,7 @@ public class UserService {
                 userRepository.save(user);
                 logger.info("Usuario creado con éxito.");
 
-                emailService.sendRegisterEmail(user.getEmail(), "Registro usuario", emailService.createRegisterHtml(user.getName(), user.getSurname()));
+                emailService.sendEmail(user.getEmail(), "Registro usuario", emailService.createRegisterHtml(user.getName(), user.getSurname()));
                 logger.info("Correo enviado con éxito.");
             }
         } catch (Exception e) {
@@ -204,7 +204,7 @@ public class UserService {
     }
 
     public void resendRegisterEmail(@NotNull UserDto user) {
-        emailService.sendRegisterEmail(user.getEmail(), "Registro usuario", emailService.createRegisterHtml(user.getName(), user.getSurname()));
+        emailService.sendEmail(user.getEmail(), "Registro usuario", emailService.createRegisterHtml(user.getName(), user.getSurname()));
     }
 
     public String getNameByEmail(String email) {
