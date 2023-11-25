@@ -222,4 +222,8 @@ public class InstrumentService {
             throw new InstrumentUpdateAvgScoreException("No se pudo actualizar el puntaje promedio del instrumento con el ID:");
         }
     }
+
+    public List<Instrument> findInstrumentsByPartialName(String partialName) {
+        return instrumentRepository.findByPartialName(partialName);
+    }
 }
