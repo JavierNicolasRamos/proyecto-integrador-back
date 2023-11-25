@@ -39,4 +39,7 @@ public interface InstrumentRepository extends JpaRepository<Instrument, Long> {
             "WHERE LOWER(i.name) LIKE LOWER(concat('%', :partialName, '%')) " +
             "AND i.deleted = false")
     List<Instrument> findByPartialName(@Param("partialName") String partialName);
+
+    @Query("SELECT i FROM Instrument i JOIN i.characteristics c WHERE c.id = :characteristicId AND i.deleted = false")
+    List<Instrument> findByCharacteristicsIdAndDeletedIsFalse(@Param("characteristicId") Long characteristicId);
 }
