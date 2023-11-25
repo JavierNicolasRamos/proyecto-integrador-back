@@ -55,7 +55,11 @@ public class BookingService {
 
             this.userValidation.userValidation(bookingDto.getBuyerDto().getEmail(), instrument.getSeller().getEmail());
 
-            //TODO: AGREGAR VALIDACION POR FECHAS
+            Boolean bookingsExist= bookingRepository.hasOverlappingBookings(instrument.getId(), bookingDto.getBookingStart(), bookingDto.getBookingEnd());
+            if (bookingsExist){
+                logger.warn("El instrumento no está disponible para la reserva.");
+                throw new EntityNotFoundException("El instrumento no está disponible para la reserva");
+            }
 
             Booking booking = new Booking();
 
