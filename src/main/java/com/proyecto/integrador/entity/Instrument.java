@@ -33,8 +33,6 @@ public class Instrument {
 
     private LocalDate updateDate;
 
-    private Boolean available;
-
     @NotBlank(message = "El detalle no puede estar en blanco")
     @NotEmpty(message = "La detalle no puede estar vacío")
     @Size(min = 10, message = "El detalle debe tener al menos 10 carácteres")
@@ -84,7 +82,6 @@ public class Instrument {
                 "\n  reservas= " + reservasString +
                 "\n  uploadDate= " + this.uploadDate +
                 "\n  updateDate= " + this.updateDate +
-                "\n  available= " + this.available +
                 "\n  deleted= " + this.deleted +
                 "\n}";
     }
@@ -105,7 +102,6 @@ public class Instrument {
                 "\n" + indent + "  reservas= " + reservasString +
                 "\n" + indent + "  uploadDate= " + this.uploadDate +
                 "\n" + indent + "  updateDate= " + this.updateDate +
-                "\n" + indent + "  available= " + this.available +
                 "\n" + indent + "  deleted= " + this.deleted +
                 "\n" + indent + "}";
     }

@@ -60,13 +60,9 @@ public class InstrumentController {
     public ResponseEntity<Page<Instrument>> getName(@PathVariable String name, Pageable pageable){
         return ResponseEntity.ok(instrumentService.getName(name, pageable));
     }
-//    @PutMapping("/favorite/{email}")
-//    public ResponseEntity<Instrument> addFavourite(@PathVariable String email, @RequestBody InstrumentDto instrumentDto){
-//        return ResponseEntity.ok(instrumentService.addFavourite(email, instrumentDto));
-//    }
-//
-//    @GetMapping("/favourites/{email}")
-//    public ResponseEntity<List<Instrument>> getFavouritesByEmail(@PathVariable String email){
-//        return ResponseEntity.ok(instrumentService.getFavouritesByMail(email));
-//    }
+
+    @GetMapping("/{partialName}")
+    public ResponseEntity<List<Instrument>> partialName(@PathVariable String name){
+        return ResponseEntity.ok(instrumentService.findInstrumentsByPartialName(name));
+    }
 }

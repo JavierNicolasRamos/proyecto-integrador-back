@@ -170,8 +170,7 @@ public class DataSeedConfig {
                 instrument.setScore(score);
                 instrument.setDetail(detail);
                 instrument.setCharacteristics(characteristicsList);
-                instrument.setDeleted(false);
-                instrument.setAvailable(true);
+                instrument.setDeleted(false);;
                 instrument.setReviewCount(0L);
                 instrumentRepository.save(instrument);
 
@@ -233,7 +232,6 @@ public class DataSeedConfig {
                 booking.setBookingEnd(LocalDate.parse(bookingEnd));
                 booking.setDeleted(false);
 
-                instrumentExist.get().setAvailable(false);
                 instrumentRepository.save(instrumentExist.get());
                 bookingRepository.save(booking);
                 bookings.add(booking);

@@ -60,7 +60,6 @@ public class InstrumentService {
             instrument.setUpdateDate(LocalDate.now());
             instrument.setScore(instrumentDto.getScore());
             instrument.setDetail(instrumentDto.getDetail());
-            instrument.setAvailable(true);
             instrument.setDeleted(false);
             instrument.setImage(this.imageService.createAllImages(multipartFiles));
             instrument.setSeller(userService.findByEmail(instrumentDto.getSellerDto().getEmail()));
@@ -131,7 +130,6 @@ public class InstrumentService {
                 instrument.setUpdateDate(LocalDate.now());
                 instrument.setScore(instrumentDto.getScore());
                 instrument.setDetail(instrumentDto.getDetail());
-                instrument.setAvailable(instrumentDto.getAvailable());
 
                 if (!instrumentDto.getCharacteristics().isEmpty()) {
                     this.characteristicService.associateCharacteristic(instrument, instrumentDto.getCharacteristics());
@@ -223,5 +221,9 @@ public class InstrumentService {
             logger.error("Error al intentar actualizar puntaje promedio y cantidad de calificaciones");
             throw new InstrumentUpdateAvgScoreException("No se pudo actualizar el puntaje promedio del instrumento con el ID:");
         }
+    }
+
+    public List<Instrument> findInstrumentsByPartialName(String partialName) {
+        return instrumentRepository.findByPartialName(partialName);
     }
 }
