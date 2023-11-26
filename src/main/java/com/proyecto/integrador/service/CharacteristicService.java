@@ -38,6 +38,7 @@ public class CharacteristicService {
             }
 
             Characteristic characteristic = new Characteristic();
+            characteristic.setDeleted(false);
             characteristic.setName(characteristicDto.getName());
             characteristic.setIcon(characteristicDto.getIcon());
 
