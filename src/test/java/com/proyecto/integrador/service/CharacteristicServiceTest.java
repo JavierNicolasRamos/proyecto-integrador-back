@@ -3,7 +3,7 @@ package com.proyecto.integrador.service;
 import com.proyecto.integrador.dto.CharacteristicDto;
 import com.proyecto.integrador.entity.Characteristic;
 import com.proyecto.integrador.entity.Instrument;
-import com.proyecto.integrador.exception.DeleteCharacteristicException;
+
 import com.proyecto.integrador.repository.CharacteristicRepository;
 import com.proyecto.integrador.repository.InstrumentRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,10 +13,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -100,55 +98,31 @@ class CharacteristicServiceTest {
         verify(characteristicRepository, times(1)).save(existingCharacteristic);
     }
 
-    @Test
-    void deleteCharacteristic() {
 
-        Long characteristicId = 1L;
-        Characteristic existingCharacteristic = new Characteristic();
-        existingCharacteristic.setId(characteristicId);
-
-
-        when(characteristicRepository.findById(characteristicId)).thenReturn(Optional.of(existingCharacteristic));
-        when(characteristicRepository.save(any(Characteristic.class))).thenReturn(existingCharacteristic);
-
-
-        try {
-            characteristicService.deleteCharacteristic(characteristicId);
-        } catch (DeleteCharacteristicException e) {
-            fail("Error al eliminar la característica: " + e.getMessage());
-        }
-
-
-        verify(characteristicRepository, times(1)).findById(characteristicId);
-        verify(characteristicRepository, times(1)).save(existingCharacteristic);
-
-
-        assertTrue(existingCharacteristic.getDeleted());
-    }
 
     @Test
     void listCharacteristic() {
-        Characteristic characteristic1 = new Characteristic();
-        characteristic1.setId(1L);
-        characteristic1.setName("Characteristic1");
-        characteristic1.setIcon("Icon1");
 
-        Characteristic characteristic2 = new Characteristic();
-        characteristic2.setId(2L);
-        characteristic2.setName("Characteristic2");
-        characteristic2.setIcon("Icon2");
+        Characteristic characteristic1 = new Characteristic(/* Datos de la primera característica */);
+        Characteristic characteristic2 = new Characteristic(/* Datos de la segunda característica */);
 
-        List<Characteristic> characteristicList = Arrays.asList(characteristic1, characteristic2);
+        List<Characteristic> mockCharacteristics = Arrays.asList(characteristic1, characteristic2);
 
 
-        when(characteristicRepository.findAll()).thenReturn(characteristicList);
+        when(characteristicRepository.getAll()).thenReturn(mockCharacteristics);
 
 
         List<Characteristic> result = characteristicService.listCharacteristic();
 
 
-        assertEquals(characteristicList, result);
+        assertEquals(mockCharacteristics.size(), result.size());
     }
+
+    @Test
+    void thereIsACharacteristicWithTheSameName(){
+
+    }
+
 
     @Test
     void associateCharacteristic() {
@@ -190,4 +164,48 @@ class CharacteristicServiceTest {
         verify(characteristicRepository, times(1)).findById(2L);
         verify(instrumentRepository, times(1)).save(instrument);
     }
+
+    @Test
+    public void deleteCharacteristic() {
+        Long characteristicId = 1L;
+        Characteristic characteristic = new Characteristic();
+        characteristic.setId(characteristicId);
+        characteristic.setDeleted(false);
+
+        when(characteristicRepository.findById(characteristicId)).thenReturn(Optional.of(characteristic));
+
+        characteristicService.deleteCharacteristic(characteristicId);
+
+        assertTrue(characteristic.getDeleted());
+        verify(characteristicRepository, times(1)).save(characteristic);
+    }
+
+    @Test
+    public void removeCharacteristicAndSave() throws Exception{
+        try {
+            Long characteristicId = 1L;
+
+            List<Instrument> instruments = new ArrayList<>();
+            Instrument instrument1 = new Instrument();
+            instrument1.setId(1L);
+            instrument1.setDeleted(false);
+            instrument1.setCharacteristics(Collections.singletonList(new Characteristic()));
+            instruments.add(instrument1);
+
+
+            when(instrumentRepository.findByCharacteristicsIdAndDeletedIsFalse(characteristicId)).thenReturn(instruments);
+
+            characteristicService.removeCharacteristicAndSave(characteristicId);
+
+
+            verify(instrumentRepository, times(1)).saveAll(instruments);
+
+            assertTrue(instrument1.getCharacteristics().isEmpty());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+
 }

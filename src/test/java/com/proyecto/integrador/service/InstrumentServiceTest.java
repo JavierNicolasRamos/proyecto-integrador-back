@@ -150,7 +150,6 @@ class InstrumentServiceTest {
         instrument.setUploadDate(LocalDate.now());
         instrument.setUpdateDate(LocalDate.now());
         instrument.setDeleted(false);
-        instrument.setAvailable(true);
         when(instrumentRepository.findById(1L)).thenReturn(Optional.of(instrument));
 
         Instrument result = instrumentService.getInstrumentById(1L);
@@ -166,7 +165,6 @@ class InstrumentServiceTest {
         assertEquals(LocalDate.now(), result.getUploadDate());
         assertEquals(LocalDate.now(), result.getUpdateDate());
         assertEquals(false, result.getDeleted());
-        assertEquals(true, result.getAvailable());
 
         verify(instrumentRepository).findById(1L);
 
@@ -191,7 +189,6 @@ class InstrumentServiceTest {
         existingInstrument.setUploadDate(LocalDate.now());
         existingInstrument.setUpdateDate(LocalDate.now());
         existingInstrument.setDetail("TestDetail");
-        existingInstrument.setAvailable(true);
         existingInstrument.setScore(0.0);
         existingInstrument.setBookings(Collections.emptyList());
         existingInstrument.setDeleted(false);
@@ -208,7 +205,6 @@ class InstrumentServiceTest {
         updatedDto.setUploadDate(LocalDate.now());
         updatedDto.setUpdateDate(LocalDate.now());
         updatedDto.setDetail("TestDetailNew");
-        updatedDto.setAvailable(true);
         updatedDto.setScore(5.0);
         updatedDto.setDeleted(false);
         updatedDto.setCharacteristics(characteristicsDto);

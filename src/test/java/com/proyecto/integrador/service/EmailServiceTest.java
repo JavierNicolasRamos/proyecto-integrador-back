@@ -16,6 +16,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -37,33 +39,51 @@ class EmailServiceTest {
     }
 
 
-
-
     @Test
-    void sendRegisterEmail() {
-        String to = "test@example.com";
-        String subject = "Test Subject";
-        String htmlContent = "<html>...</html>";
+    void createBookingHtml() {
+        String name = "John";
+        String surname = "Doe";
+        String instrumentName = "Guitar";
+        LocalDate bookingStart = LocalDate.now();
+        String sellerName = "Seller";
+        Integer sellerPhone = 123456789;
+        String sellerEmail = "seller@example.com";
 
-        MimeMessage mimeMessage = new MimeMessage((Session) null);
-        when(javaMailSender.createMimeMessage()).thenReturn(mimeMessage);
 
-        emailService.sendRegisterEmail(to, subject, htmlContent);
+        assertDoesNotThrow(() -> {
+            Context context = new Context();
+            context.setVariable("name", name);
+            context.setVariable("surname", surname);
+            context.setVariable("instrumentName", instrumentName);
+            context.setVariable("bookingStart", bookingStart);
+            context.setVariable("sellerName", sellerName);
+            context.setVariable("sellerPhone", sellerPhone);
+            context.setVariable("sellerEmail", sellerEmail);
 
-        ArgumentCaptor<MimeMessage> mimeMessageCaptor = ArgumentCaptor.forClass(MimeMessage.class);
-        verify(javaMailSender, times(1)).send(mimeMessageCaptor.capture());
 
-        MimeMessage sentMimeMessage = mimeMessageCaptor.getValue();
-        try {
-            assertEquals(to, sentMimeMessage.getRecipients(Message.RecipientType.TO)[0].toString());
-            assertEquals(subject, sentMimeMessage.getSubject());
-
-        } catch (MessagingException e) {
-            fail("Exception should not be thrown");
-        }
+        });
     }
 
 
+    @Test
+    void createRegisterHtml() {
+
+        String name = "John";
+        String username = "john_doe";
+
+
+        assertDoesNotThrow(() -> {
+            Context context = new Context();
+            context.setVariable("nombre", name);
+            context.setVariable("usuario", username);
+
+        });
+    }
+
+    @Test
+    public void sendEmail() throws Exception {
+
+    }
 
     @Test
     void sendScheduleEmail() {

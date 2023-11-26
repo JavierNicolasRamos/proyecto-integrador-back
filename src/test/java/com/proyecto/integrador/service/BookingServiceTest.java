@@ -1,9 +1,10 @@
 package com.proyecto.integrador.service;
 
+import com.proyecto.integrador.commons.UserValidation;
 import com.proyecto.integrador.dto.BookingDto;
 import com.proyecto.integrador.dto.BuyerDto;
 import com.proyecto.integrador.dto.InstrumentDto;
-import com.proyecto.integrador.dto.SellerDto;
+
 import com.proyecto.integrador.entity.Booking;
 import com.proyecto.integrador.entity.Category;
 import com.proyecto.integrador.entity.Instrument;
@@ -16,7 +17,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.test.context.support.WithMockUser;
+
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -44,6 +45,12 @@ class BookingServiceTest {
     @Mock
     private UserService userService;
 
+    @Mock
+    private UserValidation userValidation;
+
+    @Mock
+    private EmailService emailService;
+
 
     @BeforeEach
     void setUp() {
@@ -52,43 +59,38 @@ class BookingServiceTest {
 
 
     @Test
-    void createBooking() {
-    /*
-        User user = new User();
-        user.setEmail("test@example.com");
+    void createBooking() throws Exception{
 
+        // Configuración de datos de prueba
         Instrument instrument = new Instrument();
         instrument.setId(1L);
-        instrument.setAvailable(true);
-        instrument.setSeller(user);
-
-        InstrumentDto instrumentDto = new InstrumentDto();
-        instrumentDto.setId(1L);
-
-        BuyerDto buyerDto = new BuyerDto();
-        buyerDto.setEmail("testBuyer@gmail.com");
+        instrument.setSeller(new User());
 
         BookingDto bookingDto = new BookingDto();
-        bookingDto.setInstrumentDto(instrumentDto);
-        bookingDto.setBuyerDto(buyerDto);
-        bookingDto.setId(1L);
-        bookingDto.setActiveBooking(true);
-        bookingDto.setBookingStart(LocalDate.now());
-        bookingDto.setBookingEnd(LocalDate.now().plusDays(5));
+        bookingDto.setInstrumentDto(new InstrumentDto());
+        bookingDto.getInstrumentDto().setId(1L);
+        bookingDto.setBuyerDto(new BuyerDto());
+        bookingDto.getBuyerDto().setEmail("buyer@example.com");
+
+        Booking booking = new Booking();
+        booking.setUser(new User());
+        booking.setInstrument(instrument);
+        booking.setActiveBooking(true);
+        booking.setBookingStart(LocalDate.now());
+        booking.setBookingEnd(LocalDate.now().plusDays(5));
 
 
         when(instrumentRepository.findById(1L)).thenReturn(Optional.of(instrument));
-        when(userService.findByEmail(any())).thenReturn(user);
-        when(bookingRepository.save(any())).thenAnswer(i -> i.getArguments()[0]);
+        when(userService.findByEmail("buyer@example.com")).thenReturn(new User());
+        when(bookingRepository.hasOverlappingBookings(anyLong(), any(LocalDate.class), any(LocalDate.class))).thenReturn(false);
+        when(bookingRepository.save(any(Booking.class))).thenReturn(booking);
+        doNothing().when(userValidation).userValidation(anyString(), anyString());
 
+        assertDoesNotThrow(() -> {
+            Booking result = bookingService.createBooking(bookingDto);
+            verify(bookingRepository, times(1)).save(any(Booking.class));
+        });
 
-        Booking result = bookingService.createBooking(bookingDto);
-
-
-        assertFalse(result.getInstrument().getAvailable());
-        verify(instrumentRepository, times(1)).save(any());
-        verify(bookingRepository, times(1)).save(any());
-        */
     }
 
 
@@ -118,7 +120,7 @@ class BookingServiceTest {
     }
 
     @Test
-    void updateBooking() {   //TODO: problem with the seller
+    void updateBooking() {
 
 
         User user = new User();
@@ -129,7 +131,6 @@ class BookingServiceTest {
 
         Instrument instrument = new Instrument();
         instrument.setId(1L);
-        instrument.setAvailable(true);
         instrument.setCategory(category);
 
         InstrumentDto instrumentDto = new InstrumentDto();
@@ -175,11 +176,11 @@ class BookingServiceTest {
         verify(bookingRepository, times(1)).findById(anyLong());
         verify(userService, times(1)).findByEmail(any());
         verify(instrumentService, times(1)).getInstrumentById(anyLong());
-        verify(instrumentRepository, times(1)).save(any());
-        verify(bookingRepository, times(1)).save(any());
+
 
 
     }
+
 
     @Test
     void deleteBooking() {
@@ -200,15 +201,12 @@ class BookingServiceTest {
 
 
         verify(bookingRepository, times(1)).findById(1L);
-        verify(bookingRepository, times(1)).save(any(Booking.class));
-
-
-        verify(instrumentRepository, times(1)).save(any(Instrument.class));
 
 
         assertTrue(existingBooking.getDeleted());
 
-
-        assertTrue(existingBooking.getInstrument().getAvailable());
     }
+
+
 }
+

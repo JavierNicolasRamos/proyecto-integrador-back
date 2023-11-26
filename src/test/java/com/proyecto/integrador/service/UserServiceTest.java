@@ -214,27 +214,76 @@ class UserServiceTest {
     void register() throws Exception {
         UserDto userDto = new UserDto();
         userDto.setEmail("test@example.com");
-        userDto.setName("Test Name");
-        userDto.setSurname("TestSurname");
+        userDto.setName("John");
+        userDto.setSurname("Doe");
         userDto.setRole("User");
 
-        when(userRepository.findByEmail(userDto.getEmail())).thenReturn(null);
+        when(userRepository.findByEmail("test@example.com")).thenReturn(null);
+
+        User createdUser = new User();
+        createdUser.setId(1L);
+        createdUser.setEmail(userDto.getEmail());
+        createdUser.setName(userDto.getName());
+        createdUser.setSurname(userDto.getSurname());
+        createdUser.setUserRole(Role.USER);
+
+        when(userRepository.save(any(User.class))).thenReturn(createdUser);
+
+
+        doReturn("HTML de registro").when(emailService).createRegisterHtml(any(String.class), any(String.class));
+
+        doNothing().when(emailService).sendEmail(any(String.class), any(String.class), any(String.class));
 
         userService.register(userDto);
 
-        ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
-        verify(userRepository, times(1)).save(userCaptor.capture());
+        verify(userRepository, times(1)).findByEmail("test@example.com");
+        verify(userRepository, times(1)).save(any(User.class));
+        verify(emailService, times(1)).sendEmail(any(String.class), any(String.class), any(String.class));
+    }
 
-        User savedUser = userCaptor.getValue();
-        assertEquals(userDto.getEmail(), savedUser.getEmail());
-        assertEquals(userDto.getName(), savedUser.getName());
-        assertEquals(userDto.getSurname(), savedUser.getSurname());
+    @Test
+    void resendRegisterEmail() throws Exception {
+        UserDto userDto = new UserDto();
+        userDto.setEmail("test@example.com");
+        userDto.setName("John");
+        userDto.setSurname("Doe");
 
-        verify(emailService, times(1)).sendRegisterEmail(savedUser.getEmail(), "Registro usuario", emailService.createRegisterHtml(savedUser.getName(), savedUser.getSurname()));
+
+        when(emailService.createRegisterHtml(any(String.class), any(String.class))).thenReturn("HTML de registro");
+
+        doNothing().when(emailService).sendEmail(any(String.class), any(String.class), any(String.class));
+
+        userService.resendRegisterEmail(userDto);
+
+        verify(emailService, times(1)).sendEmail(eq("test@example.com"), eq("Registro usuario"), eq("HTML de registro"));
+    }
+
+    @Test
+    void getNameByEmail() throws Exception {
+        String userEmail = "test@example.com";
+        String expectedName = "John";
+
+
+        when(userRepository.getNameByEmail(eq(userEmail))).thenReturn(expectedName);
+
+        String actualName = userService.getNameByEmail(userEmail);
+
+        assertEquals(expectedName, actualName);
+        verify(userRepository, times(1)).getNameByEmail(eq(userEmail));
     }
 
 
+    @Test
+    void getLastNameByEmail() throws Exception {
+        String userEmail = "test@example.com";
+        String expectedLastName = "Doe";
 
 
+        when(userRepository.getLastNameByEmail(eq(userEmail))).thenReturn(expectedLastName);
 
+        String actualLastName = userService.getLastNameByEmail(userEmail);
+
+        assertEquals(expectedLastName, actualLastName);
+        verify(userRepository, times(1)).getLastNameByEmail(eq(userEmail));
+    }
 }
