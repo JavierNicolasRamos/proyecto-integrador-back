@@ -147,7 +147,7 @@ class CharacteristicControllerTest {
 
 
         String responseBody = result.getResponse().getContentAsString();
-        assertEquals("La characterística con ID " + characteristicId + "se eliminó de manera exitosa", responseBody);
+        assertEquals("La characterística con ID " + characteristicId + " se eliminó de manera exitosa", responseBody);
     }
 
     @Test

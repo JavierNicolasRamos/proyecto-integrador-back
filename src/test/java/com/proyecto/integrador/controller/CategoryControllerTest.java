@@ -29,6 +29,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -83,14 +84,17 @@ class CategoryControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "test", roles = {"User"})
     void createCategory() throws Exception {
 
     }
 
     @Test
+    @WithMockUser(username = "test", roles = {"User"})
     void categoryByName() throws Exception {
 
     }
+
 
     @Test
     void categoryById() throws Exception{

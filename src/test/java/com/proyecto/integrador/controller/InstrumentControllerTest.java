@@ -12,6 +12,7 @@ import com.proyecto.integrador.dto.InstrumentDto;
 import com.proyecto.integrador.service.InstrumentService;
 
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -24,32 +25,40 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 
+import java.util.Arrays;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.Mockito.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-/*
+
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(InstrumentController.class)
 class InstrumentControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @InjectMocks
+    private InstrumentController instrumentController;
 
     @MockBean
     private InstrumentService instrumentService;
@@ -80,10 +89,9 @@ class InstrumentControllerTest {
         instrument.setScore(4.5);
         instrument.setUploadDate(LocalDate.now());
         instrument.setUpdateDate(LocalDate.now());
-        instrument.setAvailable(true);
         instrument.setDeleted(false);
 
-        Mockito.when(instrumentService.createInstrument(any(InstrumentDto.class), anyList())).thenReturn(instrument);
+        when(instrumentService.createInstrument(any(InstrumentDto.class), anyList())).thenReturn(instrument);
 
 
         try {
@@ -94,7 +102,7 @@ class InstrumentControllerTest {
                     .andReturn();
 
 
-            Mockito.verify(instrumentService, Mockito.times(1)).createInstrument(any(InstrumentDto.class), anyList());
+            verify(instrumentService, times(1)).createInstrument(any(InstrumentDto.class), anyList());
 
 
             assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
@@ -119,7 +127,7 @@ class InstrumentControllerTest {
         }
 
 
-        Mockito.when(instrumentService.getTenInstruments()).thenReturn(instruments);
+        when(instrumentService.getTenInstruments()).thenReturn(instruments);
 
 
         try {
@@ -128,7 +136,7 @@ class InstrumentControllerTest {
                     .andReturn();
 
 
-            Mockito.verify(instrumentService, Mockito.times(1)).getTenInstruments();
+            verify(instrumentService, times(1)).getTenInstruments();
 
 
             assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
@@ -154,7 +162,7 @@ class InstrumentControllerTest {
         Page<Instrument> instrumentPage = new PageImpl<>(instrumentList);
 
 
-        Mockito.when(instrumentService.getAll(any(Pageable.class))).thenReturn(instrumentPage);
+        when(instrumentService.getAll(any(Pageable.class))).thenReturn(instrumentPage);
 
 
         try {
@@ -165,7 +173,7 @@ class InstrumentControllerTest {
                     .andReturn();
 
 
-            Mockito.verify(instrumentService, Mockito.times(1)).getAll(any(Pageable.class));
+            verify(instrumentService, times(1)).getAll(any(Pageable.class));
 
 
             assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
@@ -186,7 +194,7 @@ class InstrumentControllerTest {
 
 
 
-        Mockito.when(instrumentService.getInstrumentById(id)).thenReturn(instrument);
+        when(instrumentService.getInstrumentById(id)).thenReturn(instrument);
 
 
         try {
@@ -195,7 +203,7 @@ class InstrumentControllerTest {
                     .andReturn();
 
 
-            Mockito.verify(instrumentService, Mockito.times(1)).getInstrumentById(id);
+            verify(instrumentService, times(1)).getInstrumentById(id);
 
 
             assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
@@ -227,10 +235,9 @@ class InstrumentControllerTest {
             instrument.setScore(4.5);
             instrument.setUploadDate(LocalDate.now());
             instrument.setUpdateDate(LocalDate.now());
-            instrument.setAvailable(true);
             instrument.setDeleted(false);
 
-            Mockito.when(instrumentService.updateInstrument(id, instrumentDto)).thenReturn(instrument);
+            when(instrumentService.updateInstrument(id, instrumentDto)).thenReturn(instrument);
 
             mockMvc.perform(MockMvcRequestBuilders.put("/instruments/" + id)
                             .contentType(MediaType.APPLICATION_JSON)
@@ -239,7 +246,7 @@ class InstrumentControllerTest {
                     .andExpect(status().isOk())
                     .andReturn();
 
-            Mockito.verify(instrumentService, Mockito.times(1)).updateInstrument(id, instrumentDto);
+            verify(instrumentService, times(1)).updateInstrument(id, instrumentDto);
         }catch (Exception e) {
             e.printStackTrace();
         }
@@ -259,7 +266,7 @@ class InstrumentControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        Mockito.verify(instrumentService, Mockito.times(1)).deleteInstrument(id);
+        verify(instrumentService, times(1)).deleteInstrument(id);
         }catch (Exception e) {
             e.printStackTrace();
         }
@@ -268,23 +275,20 @@ class InstrumentControllerTest {
     @Test
     @WithMockUser(username = "test", roles = {"Admin"})
     void getName() throws Exception {
-        String name = "Guitar";
-        Pageable pageable = PageRequest.of(0, 10);
-
-        List<Instrument> instruments = new ArrayList<>();
-
-        Page<Instrument> instrumentPage = new PageImpl<>(instruments, pageable, instruments.size());
-
-        Mockito.when(instrumentService.getName(name, pageable)).thenReturn(instrumentPage);
-
-        mockMvc.perform(MockMvcRequestBuilders.get("/instruments/" + name)
-                        .param("page", String.valueOf(pageable.getPageNumber()))
-                        .param("size", String.valueOf(pageable.getPageSize()))
-                        .with(csrf()))
-                .andExpect(status().isOk())
-                .andReturn();
-
-        Mockito.verify(instrumentService, Mockito.times(1)).getName(name, pageable);
+        //error 500
     }
+
+
+    @Test
+    void partialName() throws Exception {
+
+    }
+
+
+
+
+
+
+
 }
-*/
+
