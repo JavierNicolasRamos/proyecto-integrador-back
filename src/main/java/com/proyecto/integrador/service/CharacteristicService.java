@@ -114,7 +114,9 @@ public class CharacteristicService {
         }
 
         try {
-            instrument.getCharacteristics().clear();
+            if (instrument.getCharacteristics() != null){
+                instrument.getCharacteristics().clear();
+            }
             instrument.getCharacteristics().addAll(newCharacteristics);
             instrumentRepository.save(instrument);
         } catch (Exception e) {
