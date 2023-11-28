@@ -114,8 +114,14 @@ public class CharacteristicService {
         }
 
         try {
-            instrument.getCharacteristics().clear();
-            instrument.getCharacteristics().addAll(newCharacteristics);
+            if (instrument.getCharacteristics() != null){
+                instrument.getCharacteristics().clear();
+                instrument.getCharacteristics().addAll(newCharacteristics);
+            }
+            else {
+                instrument.setCharacteristics(newCharacteristics);
+            }
+
             instrumentRepository.save(instrument);
         } catch (Exception e) {
             String errorMessage = "Error al asociar las características al instrumento con ID: " + e.getMessage();
