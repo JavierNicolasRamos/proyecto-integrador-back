@@ -53,7 +53,9 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers(SWAGGER_PATHS).permitAll()
-                        .requestMatchers(antMatcher(HttpMethod.PUT, "/users/*")).hasAnyRole("Super-Admin", "Admin")
+                        .requestMatchers(antMatcher(HttpMethod.PUT, "/users/**")).hasAnyRole("Super-Admin", "Admin")
+                        .requestMatchers(antMatcher(HttpMethod.GET, "/users/**")).hasAnyRole("Super-Admin", "Admin","User")
+                        .requestMatchers(antMatcher(HttpMethod.DELETE, "/users/**")).hasAnyRole("Super-Admin", "Admin","User")
                         .requestMatchers(antMatcher("/users/register")).permitAll()
                         .requestMatchers(antMatcher("/auth/**")).permitAll()
                         .requestMatchers(antMatcher(HttpMethod.GET, "/category/**")).permitAll()
