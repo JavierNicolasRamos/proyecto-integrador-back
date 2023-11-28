@@ -4,13 +4,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 import com.proyecto.integrador.dto.CategoryDto;
-import com.proyecto.integrador.dto.CharacteristicDto;
-import com.proyecto.integrador.dto.InstrumentDto;
+
 import com.proyecto.integrador.entity.*;
+import com.proyecto.integrador.exception.DuplicateCategoryException;
 import com.proyecto.integrador.repository.CategoryRepository;
 import com.proyecto.integrador.repository.InstrumentRepository;
 import com.proyecto.integrador.service.CategoryService;
-import com.proyecto.integrador.service.CharacteristicService;
+
 import com.proyecto.integrador.service.ImageService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,7 +21,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 
-
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -35,24 +35,24 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
+
 import org.springframework.web.multipart.MultipartFile;
 
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 
 import static org.mockito.Mockito.*;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-@ExtendWith(SpringExtension.class)
+@ExtendWith(MockitoExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
 class CategoryControllerTest {
@@ -84,15 +84,32 @@ class CategoryControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "test", roles = {"User"})
+    @WithMockUser(username = "test", roles = {"Admin"})
     void createCategory() throws Exception {
-
+        //error 400
     }
 
     @Test
     @WithMockUser(username = "test", roles = {"User"})
     void categoryByName() throws Exception {
+        String categoryName = "CategoriaTest";
+        Category expectedCategory = new Category();
+        expectedCategory.setId(1L);
+        expectedCategory.setName(categoryName);
+        expectedCategory.setDetails("Detalles de la categoría");
 
+
+        when(categoryService.categoryByName(anyString()))
+                .thenReturn(expectedCategory);
+
+
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/category/{name}", categoryName))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andReturn();
+
+
+        String responseBody = result.getResponse().getContentAsString();
+        System.out.println("Respuesta del controlador: " + responseBody);
     }
 
 
@@ -230,6 +247,31 @@ class CategoryControllerTest {
 
     @Test
     void getInstrumentsByCategories() throws Exception{
+        List<Long> categoryIdList = Arrays.asList(1L, 2L, 3L);
 
+        Instrument instrument1 = new Instrument();
+        instrument1.setId(1L);
+        instrument1.setName("Instrumento1");
+        instrument1.setDetail("Detalles del instrumento 1");
+
+        Instrument instrument2 = new Instrument();
+        instrument2.setId(2L);
+        instrument2.setName("Instrumento2");
+        instrument2.setDetail("Detalles del instrumento 2");
+
+        when(categoryService.getInstrumentsByCategories(anyList()))
+                .thenReturn(Arrays.asList(instrument1, instrument2));
+
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/category/instruments")
+                        .param("categoryIdList", "1", "2", "3"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(jsonPath("$[0].id").value(1))
+                .andExpect(jsonPath("$[0].name").value("Instrumento1"))
+                .andExpect(jsonPath("$[0].detail").value("Detalles del instrumento 1"))
+                .andExpect(jsonPath("$[1].id").value(2))
+                .andExpect(jsonPath("$[1].name").value("Instrumento2"))
+                .andExpect(jsonPath("$[1].detail").value("Detalles del instrumento 2"))
+                .andReturn();
     }
 }
