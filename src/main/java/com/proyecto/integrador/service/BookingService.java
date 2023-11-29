@@ -90,7 +90,7 @@ public class BookingService {
         }
         catch (Exception e) {
             logger.error("Se produjo un error al crear la reserva: " + e.getMessage());
-            throw e; //TODO: ver si se puede hacer un throw new CreateReserveException("Ocurrió un error al crear la reserva", e);
+            throw new CreateBookingException("Ocurrió un error al crear la reserva", e);
         }
     }
 
@@ -131,7 +131,7 @@ public class BookingService {
         }
         catch (RuntimeException e){
           logger.error("Se produjo un error al actualizar la reserva: " + e.getMessage());
-          throw e; //TODO: ver si se puede hacer un throw new EditReserveException("Ocurrió un error al editar la reserva", e);
+          throw new EditBookingException("Ocurrió un error al editar la reserva", e);
         }
     }
     

@@ -1,5 +1,6 @@
 package com.proyecto.integrador.exception;
 
+import com.amazonaws.services.xray.model.Http;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -135,4 +136,34 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleException(BadCredentialsException e){
         return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
     }
+
+    @ExceptionHandler(CreateBookingException.class)
+    public ResponseEntity<String> handleException(CreateBookingException e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(EditBookingException.class)
+    public ResponseEntity<String> handleException(EditBookingException e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    @ExceptionHandler(CategoryByNameException.class)
+    public ResponseEntity<String> handleException(CategoryByNameException e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(InstrumentAddFavouriteException.class)
+    public ResponseEntity<String> handleException(InstrumentAddFavouriteException e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(InstrumentRemoveFavouriteException.class)
+    public ResponseEntity<String> handleException(InstrumentRemoveFavouriteException e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(CategoryByIdException.class)
+    public ResponseEntity<String> handleException(CategoryByIdException e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 }
