@@ -1,14 +1,8 @@
 package com.proyecto.integrador.service;
 
-import com.proyecto.integrador.dto.FavouriteDto;
-import com.proyecto.integrador.dto.InstrumentDto;
 import com.proyecto.integrador.dto.UserDto;
-import com.proyecto.integrador.entity.Instrument;
 import com.proyecto.integrador.entity.User;
 import com.proyecto.integrador.enums.Role;
-import com.proyecto.integrador.exception.InstrumentAddFavouriteException;
-import com.proyecto.integrador.exception.InstrumentRemoveFavouriteException;
-import com.proyecto.integrador.repository.InstrumentRepository;
 import com.proyecto.integrador.repository.UserRepository;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -203,8 +197,14 @@ public class UserService {
         return user;
     }
 
-    public void resendRegisterEmail(@NotNull UserDto user) {
-        emailService.sendEmail(user.getEmail(), "Registro usuario", emailService.createRegisterHtml(user.getName(), user.getSurname()));
+    public void resendRegisterEmail(@NotNull String email) {
+        try {
+            User user = userRepository.findByEmail(email);
+            emailService.sendEmail(email, "Registro usuario", emailService.createRegisterHtml(user.getName(), user.getSurname()));
+        } catch (Exception e) {
+            logger.severe("Error al reenviar el email de registro: " + e.getMessage());
+            throw e; //TODO: sumar la excepcion customizada
+        }
     }
 
     public String getNameByEmail(String email) {
