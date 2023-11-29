@@ -1,0 +1,90 @@
+[
+  { "score": 4.5,
+    "reviewName": "Excelente Instrumento",
+    "reviewDescription": "Un piano de calidad, no posee 5 estrellas debido a que es demasiado pesado",
+    "buyerDto": {
+      "email" : "dariomartinbenavidez@hotmail.com"
+    },
+    "instrumentId" : "2"
+  },
+  { "score": 3.5,
+    "reviewName": "Aceptable",
+    "reviewDescription": "Buen instrumento, pero no es lo que esperaba",
+    "buyerDto": {
+      "email" : "juansebastianbenassi@gmail.com"
+    },
+    "instrumentId" : "3"
+  },
+  { "score": 5.0,
+    "reviewName": "Perfecto",
+    "reviewDescription": "Una maquina perfecta, me ayudo con mi trabajo, lo recomiendo",
+    "buyerDto": {
+      "email" : "dariomartinbenavidez@hotmail.com"
+    },
+    "instrumentId" : "4"
+  },
+  { "score": 4.0,
+    "reviewName": "Bueno",
+    "reviewDescription": "Me gusto bastante, lamentablemente las instrucciones no vienen en español y no pude aprovecharlo al maximo",
+    "buyerDto": {
+      "email" : "federico.egv@gmail.com"
+    },
+    "instrumentId" : "5"
+  },
+  { "score": 4.5,
+    "reviewName": "Maquinon",
+    "reviewDescription": "Como dicen, las instrucciones no vienen en español, pero no le quita que es un buen instrumento, recomiendo usarlo viendo tutoriales en youtube",
+    "buyerDto": {
+      "email" : "figueroajf@outlook.com"
+    },
+    "instrumentId" : "5"
+  },
+  { "score": 4.5,
+    "reviewName": "Perfecto para cumbia",
+    "reviewDescription": "Toque cumbia toda la noche en una fiesta de 15 y se la aguanto, lo recomiendo",
+    "buyerDto": {
+      "email" : "juansebastianbenassi@gmail.com"
+    },
+    "instrumentId" : "6"
+  },
+  { "score": 5.0,
+    "reviewName": "Puro rock",
+    "reviewDescription": "Una obra de arte para tocar un buen rock",
+    "buyerDto": {
+      "email" : "dariomartinbenavidez@hotmail.com"
+    },
+    "instrumentId" : "7"
+  },
+  { "score": 4.5,
+    "reviewName": "Un fierro",
+    "reviewDescription": "De las mejores guitarras del mercado",
+    "buyerDto": {
+      "email" : "rjiamor98@gmail.com"
+    },
+    "instrumentId" : "9"
+  },
+  { "score": 4.0,
+    "reviewName": "Podria ser mejor",
+    "reviewDescription": "Es una buena guitarra acustica, pero el sonido no me termina de convencer",
+    "buyerDto": {
+      "email" : "federico.egv@gmail.com"
+    },
+    "instrumentId" : "10"
+  },
+  { "score": 2.0,
+    "reviewName": "No la recomiendo",
+    "reviewDescription": "De lo peor",
+    "buyerDto": {
+      "email" : "federico.egv@gmail.com"
+    },
+    "instrumentId" : "11"
+  },
+  { "score": 5.0,
+    "reviewName": "Hermosa guitarra",
+    "reviewDescription": "Brutal como suena, el material de 10, sonido excelente! Aguante el metal!!",
+    "buyerDto": {
+      "email" : "figueroajf@outlook.com"
+    },
+    "instrumentId" : "12"
+  }
+]
