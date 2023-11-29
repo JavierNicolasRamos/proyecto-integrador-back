@@ -2,10 +2,12 @@ package com.proyecto.integrador.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.proyecto.integrador.dto.BuyerDto;
+import com.proyecto.integrador.dto.FavouriteDto;
 import com.proyecto.integrador.dto.ReviewDto;
 import com.proyecto.integrador.entity.*;
 import com.proyecto.integrador.enums.Role;
 import com.proyecto.integrador.repository.*;
+import com.proyecto.integrador.service.FavouriteService;
 import com.proyecto.integrador.service.ReviewService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +52,9 @@ public class DataSeedConfig {
 
     @Autowired
     private ReviewService reviewService;
+
+    @Autowired
+    private FavouriteService favouriteService;
 
     @Bean
     @Order(1)
@@ -250,7 +255,7 @@ public class DataSeedConfig {
     }
 
     @Bean
-    @Order(7)
+    @Order(6)
     public List<Map<String, Object>> reviewsDataSeed() throws IOException {
         InputStream bookingsInputStream = new ClassPathResource("reviewsDataSeed.json").getInputStream();
         ObjectMapper bookingsObjectMapper = new ObjectMapper();
@@ -259,7 +264,7 @@ public class DataSeedConfig {
     }
 
     @Bean
-    @Order(6)
+    @Order(7)
     @Transactional
     public List<Review> createReviews(@Qualifier("reviewsDataSeed") @NotNull List<Map<String, Object>> reviewsDataSeed) {
 
@@ -292,5 +297,39 @@ public class DataSeedConfig {
             }
         }
         return reviews;
+    }
+
+    @Bean
+    @Order(8)
+    public List<Map<String, Object>> favouritesDataSeed() throws IOException {
+        InputStream bookingsInputStream = new ClassPathResource("favouritesDataSeed.json").getInputStream();
+        ObjectMapper bookingsObjectMapper = new ObjectMapper();
+
+        return bookingsObjectMapper.readValue(bookingsInputStream, new TypeReference<List<Map<String, Object>>>() {});
+    }
+
+    @Bean
+    @Order(9)
+    @Transactional
+    public List<List<Instrument>> createFavourites(@Qualifier("favouritesDataSeed") @NotNull List<Map<String, Object>> favouritesDataSeed) {
+
+        List<List<Instrument>> favourites = new ArrayList<>();
+
+        for (Map<String, Object> favouritesData : favouritesDataSeed) {
+            Integer idInstrument = (Integer) favouritesData.get("idInstrument");
+            String email = (String) favouritesData.get("email");
+
+            Optional<Instrument> instrument = this.instrumentRepository.findById(Long.valueOf(idInstrument));
+            User userExist = this.userRepository.findByEmail(email);
+
+            if (!userExist.getFavourites().contains(instrument.get())) {
+                FavouriteDto favouriteDto = new FavouriteDto();
+                favouriteDto.setEmail(email);
+                favouriteDto.setIdInstrument(Long.valueOf(idInstrument));
+                List<Instrument> instrumentList = this.favouriteService.addFavourite(favouriteDto);
+                favourites.add(instrumentList);
+            }
+        }
+        return favourites;
     }
 }
