@@ -1,8 +1,11 @@
 package com.proyecto.integrador.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -17,6 +20,10 @@ public class Characteristic {
     private String name;
     private String icon;
     private Boolean deleted;
+
+    @ManyToMany(mappedBy = "characteristics")
+    @JsonIgnore
+    private List<Instrument> instruments;
 
     @Override
     public String toString() {
