@@ -1,9 +1,12 @@
 package com.proyecto.integrador.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.proyecto.integrador.dto.BuyerDto;
+import com.proyecto.integrador.dto.ReviewDto;
 import com.proyecto.integrador.entity.*;
 import com.proyecto.integrador.enums.Role;
 import com.proyecto.integrador.repository.*;
+import com.proyecto.integrador.service.ReviewService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -41,6 +44,12 @@ public class DataSeedConfig {
 
     @Autowired
     private CharacteristicRepository characteristicRepository;
+
+    @Autowired
+    private ReviewRespository reviewRespository;
+
+    @Autowired
+    private ReviewService reviewService;
 
     @Bean
     @Order(1)
@@ -240,5 +249,48 @@ public class DataSeedConfig {
         return bookings;
     }
 
+    @Bean
+    @Order(7)
+    public List<Map<String, Object>> reviewsDataSeed() throws IOException {
+        InputStream bookingsInputStream = new ClassPathResource("reviewsDataSeed.json").getInputStream();
+        ObjectMapper bookingsObjectMapper = new ObjectMapper();
 
+        return bookingsObjectMapper.readValue(bookingsInputStream, new TypeReference<List<Map<String, Object>>>() {});
+    }
+
+    @Bean
+    @Order(6)
+    @Transactional
+    public List<Review> createReviews(@Qualifier("reviewsDataSeed") @NotNull List<Map<String, Object>> reviewsDataSeed) {
+
+        List<Review> reviews = new ArrayList<>();
+
+        for (Map<String, Object> reviewData : reviewsDataSeed) {
+            Double score = (Double) reviewData.get("score");
+            String instrumentId = (String) reviewData.get("instrumentId");
+            String reviewName = (String) reviewData.get("reviewName");
+            String reviewDescription = (String) reviewData.get("reviewDescription");
+
+            Map<String, Object> buyerData = (Map<String, Object>) reviewData.get("buyerDto");
+            String email = (String) buyerData.get("email");
+
+            Optional<Review> bookingExist = this.reviewRespository.findByBoyerEmailAndInstrumentId(email, Long.valueOf(instrumentId));
+
+            if (bookingExist.isEmpty()) {
+                BuyerDto buyerDto = new BuyerDto();
+                buyerDto.setEmail(email);
+
+                ReviewDto reviewDto = new ReviewDto();
+                reviewDto.setScore(score);
+                reviewDto.setReviewName(reviewName);
+                reviewDto.setReviewDescription(reviewDescription);
+                reviewDto.setInstrumentId(Long.valueOf(instrumentId));
+                reviewDto.setBuyerDto(buyerDto);
+
+                Review review = this.reviewService.createReview(reviewDto);
+                reviews.add(review);
+            }
+        }
+        return reviews;
+    }
 }
