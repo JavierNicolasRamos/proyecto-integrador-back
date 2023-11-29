@@ -54,7 +54,12 @@ public class Instrument {
     @JsonIgnore
     private List<Booking> bookings;
 
-    @OneToMany
+    @ManyToMany
+    @JoinTable(
+            name = "INSTRUMENT_CHARACTERISTIC",
+            joinColumns = @JoinColumn(name = "instrument_id"),
+            inverseJoinColumns = @JoinColumn(name = "characteristic_id")
+    )
     private List<Characteristic> characteristics;
 
     private Long reviewCount;
