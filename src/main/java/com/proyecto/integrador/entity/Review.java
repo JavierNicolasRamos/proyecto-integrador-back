@@ -8,9 +8,8 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
-
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 
 @Entity
 @Data
@@ -33,7 +32,7 @@ public class Review {
     @Max(value = 5, message = "El campo 'score' debe ser igual o menor que 5")
     private Double score;
 
-    private LocalDateTime reviewDateTime;
+    private LocalDate reviewDateTime;
 
     private Boolean deleted;
 

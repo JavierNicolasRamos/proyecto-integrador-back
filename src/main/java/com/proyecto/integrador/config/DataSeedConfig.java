@@ -320,15 +320,18 @@ public class DataSeedConfig {
             String email = (String) favouritesData.get("email");
 
             Optional<Instrument> instrument = this.instrumentRepository.findById(Long.valueOf(idInstrument));
-            User userExist = this.userRepository.findByEmail(email);
+            Optional<User> userExist = this.userRepository.findByEmailOptional(email);
 
-            if (!userExist.getFavourites().contains(instrument.get())) {
-                FavouriteDto favouriteDto = new FavouriteDto();
-                favouriteDto.setEmail(email);
-                favouriteDto.setIdInstrument(Long.valueOf(idInstrument));
-                List<Instrument> instrumentList = this.favouriteService.addFavourite(favouriteDto);
-                favourites.add(instrumentList);
+            if (userExist.isPresent()){
+                if (!userExist.get().getFavourites().contains(instrument.get())) {
+                    FavouriteDto favouriteDto = new FavouriteDto();
+                    favouriteDto.setEmail(email);
+                    favouriteDto.setIdInstrument(Long.valueOf(idInstrument));
+                    List<Instrument> instrumentList = this.favouriteService.addFavourite(favouriteDto);
+                    favourites.add(instrumentList);
+                }
             }
+
         }
         return favourites;
     }
