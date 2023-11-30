@@ -82,7 +82,17 @@ class EmailServiceTest {
 
     @Test
     public void sendEmail() throws Exception {
+        String to = "test@example.com";
+        String subject = "Test Subject";
+        String htmlContent = "<h1>Hello, World!</h1>";
 
+        MimeMessage mimeMessage = mock(MimeMessage.class);
+        when(javaMailSender.createMimeMessage()).thenReturn(mimeMessage);
+
+        emailService.sendEmail(to, subject, htmlContent);
+
+        verify(javaMailSender, times(1)).createMimeMessage();
+        verify(javaMailSender, times(1)).send(any(MimeMessage.class));
     }
 
     @Test

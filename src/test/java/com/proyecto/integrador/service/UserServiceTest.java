@@ -243,19 +243,19 @@ class UserServiceTest {
 
     @Test
     void resendRegisterEmail() throws Exception {
-        UserDto userDto = new UserDto();
-        userDto.setEmail("test@example.com");
-        userDto.setName("John");
-        userDto.setSurname("Doe");
+        String email = "test@example.com";
+        User user = new User();
+        user.setEmail(email);
+        user.setName("Test");
+        user.setSurname("User");
 
+        when(userRepository.findByEmail(email)).thenReturn(user);
+        when(emailService.createRegisterHtml(user.getName(), user.getSurname())).thenReturn("some string");
 
-        when(emailService.createRegisterHtml(any(String.class), any(String.class))).thenReturn("HTML de registro");
+        userService.resendRegisterEmail(email);
 
-        doNothing().when(emailService).sendEmail(any(String.class), any(String.class), any(String.class));
-
-        userService.resendRegisterEmail(userDto);
-
-        verify(emailService, times(1)).sendEmail(eq("test@example.com"), eq("Registro usuario"), eq("HTML de registro"));
+        verify(userRepository, times(1)).findByEmail(email);
+        verify(emailService, times(1)).sendEmail(anyString(), anyString(), anyString());
     }
 
     @Test

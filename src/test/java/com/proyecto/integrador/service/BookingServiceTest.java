@@ -96,6 +96,16 @@ class BookingServiceTest {
 
     @Test
     void getBooking() {
+        Long id = 1L;
+        Booking booking = new Booking();
+
+
+        when(bookingRepository.findById(id)).thenReturn(Optional.of(booking));
+
+        Booking result = bookingService.getBooking(id);
+
+        verify(bookingRepository, times(1)).findById(id);
+        assertEquals(booking, result);
     }
 
     @Test
@@ -206,6 +216,39 @@ class BookingServiceTest {
         assertTrue(existingBooking.getDeleted());
 
     }
+
+    @Test
+    void ownReserve() {
+        BuyerDto buyerDto = new BuyerDto();
+        buyerDto.setEmail("test@example.com");
+        Long instrumentId = 1L;
+        List<Booking> bookings = new ArrayList<>();
+
+
+        when(bookingRepository.findByUserEmailAndInstrumentId(buyerDto.getEmail(), instrumentId)).thenReturn(Optional.of(bookings));
+
+        Optional<List<Booking>> result = bookingService.ownReserve(buyerDto, instrumentId);
+
+        verify(bookingRepository, times(1)).findByUserEmailAndInstrumentId(buyerDto.getEmail(), instrumentId);
+        assertEquals(Optional.of(bookings), result);
+    }
+
+
+
+    @Test
+    void testUpdateBookings() {
+        LocalDate yesterday = LocalDate.now().minusDays(1);
+        List<Booking> bookingsToUpdate = new ArrayList<>();
+
+
+        when(bookingRepository.findByBookingEndAndDeletedIsFalse(yesterday)).thenReturn(bookingsToUpdate);
+
+        bookingService.updateBookings();
+
+        verify(bookingRepository, times(1)).findByBookingEndAndDeletedIsFalse(yesterday);
+        verify(bookingRepository, times(bookingsToUpdate.size())).save(any(Booking.class));
+    }
+
 
 
 }

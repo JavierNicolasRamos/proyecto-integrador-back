@@ -34,7 +34,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
 
-
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
@@ -63,13 +63,21 @@ class UserControllerTest {
     @Test
     @WithMockUser(username = "test", roles = {"User"})
     void getUserByEmail() throws Exception {
+        String email = "test@example.com";
 
+        mockMvc.perform(get("/users/email/{email}", email)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
     @WithMockUser(username = "test", roles = {"Admin"})
     void getUserById()  throws Exception {
+        Long id = 1L;
 
+        mockMvc.perform(get("/users/id/{id}", id)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -92,7 +100,7 @@ class UserControllerTest {
                 .thenReturn(userList);
 
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/users")
+        mockMvc.perform(get("/users")
                         .contentType(MediaType.APPLICATION_JSON)
                         .with(csrf()))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -232,25 +240,16 @@ class UserControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "test", roles = {"Admin"})
+    @WithMockUser(username = "test", roles = {"User"})
     void testResendRegisterEmail() throws Exception {
+        String email = "test@example.com";
 
-        UserDto userDto = new UserDto();
-        userDto.setName("Nombre");
-        userDto.setEmail("correo@ejemplo.com");
-
-
-        Mockito.doNothing().when(userService).resendRegisterEmail(userDto);
-
-
-        mockMvc.perform(MockMvcRequestBuilders.post("/users/resendRegisterEmail")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(new ObjectMapper().writeValueAsString(userDto))
-                        .with(csrf()))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andReturn();
-
-
-        Mockito.verify(userService, Mockito.times(1)).resendRegisterEmail(userDto);
+        mockMvc.perform(get("/users/resendRegisterEmail/{email}", email)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Email reenviado con éxito"));
     }
+
+
+
 }
