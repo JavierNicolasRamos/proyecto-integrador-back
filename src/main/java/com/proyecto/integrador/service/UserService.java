@@ -117,14 +117,6 @@ public class UserService {
                     user.setIsMobile(userDto.getIsMobile());
                 }
 
-                if (!user.getEmail().equals(userDto.getEmail())) {
-                    user.setEmail(userDto.getEmail());
-                }
-
-                if (!user.getPassword().equals(userDto.getPassword())) {
-                    user.setPassword(userDto.getPassword());
-                }
-
                 logger.info("Usuario con ID " + id + " actualizado con éxito.");
                 return userRepository.save(user);
             } else {
@@ -221,6 +213,23 @@ public class UserService {
             return userRepository.getLastNameByEmail(email);
         } catch (Exception e) {
             logger.severe("Error al buscar el usuario por email: " + e.getMessage());
+            throw e; //TODO: sumar la excepcion customizada
+        }
+    }
+
+    public void updateUserRole(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado con ID: " + userId));
+        try {
+            if (user.getUserRole().equals(Role.USER)) {
+                user.setUserRole(Role.ADMIN);
+            } else if (user.getUserRole().equals(Role.ADMIN)) {
+                user.setUserRole(Role.USER);
+            }
+            this.userRepository.save(user);
+        }
+        catch (Exception e){
+            logger.severe("Error al actualizar el usuario por email: " + e.getMessage());
             throw e; //TODO: sumar la excepcion customizada
         }
     }
