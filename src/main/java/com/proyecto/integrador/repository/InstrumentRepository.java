@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.List;
 
@@ -42,4 +44,9 @@ public interface InstrumentRepository extends JpaRepository<Instrument, Long> {
 
     @Query("SELECT i FROM Instrument i JOIN i.characteristics c WHERE c.id = :characteristicId AND i.deleted = false")
     List<Instrument> findByCharacteristicsIdAndDeletedIsFalse(@Param("characteristicId") Long characteristicId);
+
+    @Query(" SELECT i FROM Instrument i " +
+            "LEFT JOIN i.bookings b " +
+            "WHERE (b.bookingStart > :endDate OR b.bookingEnd < :startDate) OR b.id IS NULL")
+    List<Instrument> findAvailableInstruments(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 }

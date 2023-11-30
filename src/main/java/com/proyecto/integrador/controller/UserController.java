@@ -74,4 +74,10 @@ public class UserController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+
+    @PutMapping("/updateRole/{id}")
+    public ResponseEntity<String> updateRole(@PathVariable Long id) {
+        this.userService.updateUserRole(id);
+        return new ResponseEntity<>("Usuario actualizado con éxito", HttpStatus.OK);
+    }
 }

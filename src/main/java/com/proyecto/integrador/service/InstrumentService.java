@@ -226,4 +226,8 @@ public class InstrumentService {
     public List<Instrument> findInstrumentsByPartialName(String partialName) {
         return instrumentRepository.findByPartialName(partialName);
     }
+
+    public List<Instrument> findAvailableInstruments(LocalDate startDate, LocalDate endDate) {
+        return instrumentRepository.findAvailableInstruments(startDate, endDate);
+    }
 }
