@@ -7,11 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -64,5 +66,15 @@ public class InstrumentController {
     @GetMapping("/{partialName}")
     public ResponseEntity<List<Instrument>> partialName(@PathVariable String name){
         return ResponseEntity.ok(instrumentService.findInstrumentsByPartialName(name));
+    }
+
+    @GetMapping("/available")
+    public ResponseEntity<List<Instrument>> findAvailableInstruments(
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+
+        List<Instrument> availableInstruments = instrumentService.findAvailableInstruments(startDate, endDate);
+
+        return ResponseEntity.ok(availableInstruments);
     }
 }
