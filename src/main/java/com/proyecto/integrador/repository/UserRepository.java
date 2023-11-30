@@ -9,11 +9,15 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query(value = "SELECT * FROM users WHERE email = :email AND deleted = false", nativeQuery = true)
     User findByEmail(@Param("email")String email);
+
+    @Query(value = "SELECT * FROM users WHERE email = :email AND deleted = false", nativeQuery = true)
+    Optional<User> findByEmailOptional(@Param("email")String email);
 
     @Query(value = "SELECT * FROM users WHERE deleted = false", nativeQuery = true)
     List<User> findAllByDeletedFalse();

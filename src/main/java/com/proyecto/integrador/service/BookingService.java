@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -167,5 +168,26 @@ public class BookingService {
             booking.setActiveBooking(false);
             bookingRepository.save(booking);
         }
+    }
+
+    public List<LocalDate> findOccupiedDates(Long instrumentId) {
+        List<Object[]> dateRanges = bookingRepository.findOccupiedDatesByInstrumentId(instrumentId);
+        return extractAllDates(dateRanges);
+    }
+
+    private List<LocalDate> extractAllDates(List<Object[]> dateRanges) {
+        List<LocalDate> allDates = new ArrayList<>();
+
+        for (Object[] dateRange : dateRanges) {
+            LocalDate startDate = (LocalDate) dateRange[0];
+            LocalDate endDate = (LocalDate) dateRange[1];
+
+            while (!startDate.isAfter(endDate)) {
+                allDates.add(startDate);
+                startDate = startDate.plusDays(1);
+            }
+        }
+
+        return allDates;
     }
 }

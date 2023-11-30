@@ -28,4 +28,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
             "AND b.deleted = false " +
             "AND ((b.bookingStart BETWEEN :start AND :end) OR (b.bookingEnd BETWEEN :start AND :end))")
     boolean hasOverlappingBookings(@Param("id") Long id, @Param("start") LocalDate start, @Param("end") LocalDate end);
+
+    @Query("SELECT b.bookingStart, b.bookingEnd FROM Booking b WHERE b.instrument.id = :instrumentId")
+    List<Object[]> findOccupiedDatesByInstrumentId(@Param("instrumentId") Long instrumentId);
 }

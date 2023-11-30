@@ -1,24 +1,79 @@
 [
   {
-    "name": "Admin",
-    "surname": "Admin",
+    "name": "Ignacio",
+    "surname": "Gibbs",
     "email": "ignacio.gibbs@gmail.com",
     "password": "Admin1234",
-    "role": "Admin",
+    "role": "Superadmin",
     "areaCode": 54,
     "prefix": 11,
-    "phone": 12345678,
+    "phone": 12345677,
     "isMobile": true
   },
   {
-    "name": "User",
-    "surname": "User",
+    "name": "Javier",
+    "surname": "Admin",
     "email": "javierramosnicolas@gmail.com",
     "password": "User1234",
     "role": "User",
     "areaCode": 54,
     "prefix": 11,
     "phone": 12345678,
+    "isMobile": true
+  },
+  {
+    "name": "Dario",
+    "surname": "Benavidez",
+    "email": "dariomartinbenavidez@hotmail.com",
+    "password": "Daro1234",
+    "role": "User",
+    "areaCode": 54,
+    "prefix": 11,
+    "phone": 12345679,
+    "isMobile": true
+  },
+  {
+    "name": "Federico",
+    "surname": "Galvan",
+    "email": "federico.egv@gmail.com",
+    "password": "Fede1234",
+    "role": "User",
+    "areaCode": 54,
+    "prefix": 11,
+    "phone": 12345680,
+    "isMobile": true
+  },
+  {
+    "name": "Juan",
+    "surname": "Benassi",
+    "email": "juansebastianbenassi@gmail.com",
+    "password": "Juan1234",
+    "role": "User",
+    "areaCode": 54,
+    "prefix": 11,
+    "phone": 12345681,
+    "isMobile": true
+  },
+  {
+    "name": "Juan",
+    "surname": "Figueroa",
+    "email": "figueroajf@outlook.com",
+    "password": "Manu1234",
+    "role": "User",
+    "areaCode": 54,
+    "prefix": 11,
+    "phone": 12345682,
+    "isMobile": true
+  },
+  {
+    "name": "Rodrigo",
+    "surname": "Amor",
+    "email": "rjiamor98@gmail.com",
+    "password": "Rodrigo1234",
+    "role": "User",
+    "areaCode": 54,
+    "prefix": 11,
+    "phone": 12345683,
     "isMobile": true
   }
 ]

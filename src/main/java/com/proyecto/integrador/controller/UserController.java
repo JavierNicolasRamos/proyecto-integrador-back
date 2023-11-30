@@ -21,8 +21,8 @@ public class UserController {
 
 
     @GetMapping("/email/{email}")
-    public User getUserByEmail(String email) {
-        return userService.findByEmail(email);
+    public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
+       return ResponseEntity.ok(userService.findByEmail(email));
     }
 
     @GetMapping("/id/{id}")
@@ -65,13 +65,19 @@ public class UserController {
         }
     }
 
-    @PostMapping("/resendRegisterEmail")
-    public ResponseEntity<String> resendRegisterEmail(@RequestBody @NotNull UserDto user) throws Exception {
+    @GetMapping("/resendRegisterEmail/{email}")
+    public ResponseEntity<String> resendRegisterEmail(@PathVariable @NotNull String email) throws Exception {
         try {
-            userService.resendRegisterEmail(user);
+            userService.resendRegisterEmail(email);
             return new ResponseEntity<>("Email reenviado con éxito", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @PutMapping("/updateRole/{id}")
+    public ResponseEntity<String> updateRole(@PathVariable Long id) {
+        this.userService.updateUserRole(id);
+        return new ResponseEntity<>("Usuario actualizado con éxito", HttpStatus.OK);
     }
 }
