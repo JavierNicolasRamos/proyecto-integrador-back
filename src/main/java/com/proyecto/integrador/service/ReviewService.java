@@ -14,9 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.webjars.NotFoundException;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ReviewService {
@@ -54,7 +53,7 @@ public class ReviewService {
                 review.setReviewName(reviewDto.getReviewName());
                 review.setReviewDescription(reviewDto.getReviewDescription());
                 review.setScore(reviewDto.getScore());
-                review.setReviewDateTime(LocalDateTime.now());
+                review.setReviewDateTime(LocalDate.now());
                 review.setDeleted(false);
                 review.setBoyer(bookings.get(0).getUser());
                 review.setInstrument(bookings.get(0).getInstrument());
