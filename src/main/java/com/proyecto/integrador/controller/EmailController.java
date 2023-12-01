@@ -13,8 +13,8 @@ public class EmailController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/resend")
-    public ResponseEntity<String> resendRegisterEmail(@RequestBody String email) {
+    @GetMapping("/resend/{email}")
+    public ResponseEntity<String> resendRegisterEmail(@PathVariable("email") String email) {
         try {
             userService.resendRegisterEmail(email);
             return new ResponseEntity<>("Email reenviado con éxito", HttpStatus.OK);

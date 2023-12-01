@@ -23,22 +23,22 @@ public class CategoryController {
     }
 
     @GetMapping("/{name}")
-    public ResponseEntity<Category> categoryByName(@PathVariable String name){
+    public ResponseEntity<Category> categoryByName(@PathVariable("name") String name){
         return ResponseEntity.ok(categoryService.categoryByName(name));
     }
 
     @GetMapping("/id/{id}")
-    public ResponseEntity<Category> categoryById(@PathVariable Long id){
+    public ResponseEntity<Category> categoryById(@PathVariable("id") Long id){
         return ResponseEntity.ok(categoryService.categoryById(id));
     }
 
     @GetMapping("/countinstrument/{id}")
-    public ResponseEntity<Long> countInstrumentsByCategory(@PathVariable Long id){
+    public ResponseEntity<Long> countInstrumentsByCategory(@PathVariable("id") Long id){
         return ResponseEntity.ok(categoryService.countInstrumentsByCategory(id));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteCategory(@PathVariable Long id){
+    public ResponseEntity<String> deleteCategory(@PathVariable("id") Long id){
         this.categoryService.deleteCategory(id);
         return ResponseEntity.ok("La categoría con id:" + id + " se eliminó correctametnte");
     }

@@ -21,12 +21,12 @@ public class CharacteristicController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Characteristic> editCharacteristic(@PathVariable Long id, @RequestBody CharacteristicDto characteristic) {
+    public ResponseEntity<Characteristic> editCharacteristic(@PathVariable("id") Long id, @RequestBody CharacteristicDto characteristic) {
         return ResponseEntity.ok(characteristicService.editCharacteristic(id, characteristic));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteCharacteristic(@PathVariable Long id) {
+    public ResponseEntity<String> deleteCharacteristic(@PathVariable("id") Long id) {
         characteristicService.deleteCharacteristic(id);
         return ResponseEntity.ok("La characterística con ID " + id + " se eliminó de manera exitosa");
     }
