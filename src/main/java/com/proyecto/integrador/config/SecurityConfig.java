@@ -74,6 +74,7 @@ public class SecurityConfig {
                                 antMatcher(HttpMethod.POST, "/booking/**"),
                                 antMatcher(HttpMethod.PUT, "/booking/**"),
                                 antMatcher(HttpMethod.DELETE, "/booking/**")).hasAnyRole("Super-Admin", "Admin", "User")
+                        .requestMatchers(antMatcher("/booking/occupied-dates")).permitAll()
                         .requestMatchers(
                                 antMatcher(HttpMethod.GET, "/reviews/**"),
                                 antMatcher(HttpMethod.POST, "/reviews/**"),

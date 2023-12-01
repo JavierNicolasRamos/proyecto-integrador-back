@@ -83,7 +83,6 @@ public class InstrumentService {
 
     public List<Instrument> getTenInstruments() {
         try {
-            //TODO: Establece el tamaño de página deseado en 10
             return instrumentRepository.findRandomInstruments();
         } catch (EmptyResultDataAccessException ex) {
             throw new NotFoundException("No se encontraron instrumentos aleatorios.");

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 
 @ControllerAdvice
-@RestController//TODO: VERIFICAR
+@RestController
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
