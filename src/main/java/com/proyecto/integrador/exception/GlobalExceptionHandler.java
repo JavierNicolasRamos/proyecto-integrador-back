@@ -1,6 +1,5 @@
 package com.proyecto.integrador.exception;
 
-import com.amazonaws.services.xray.model.Http;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -165,5 +164,95 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleException(CategoryByIdException e){
         return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    @ExceptionHandler(UserFindAllException.class)
+    public ResponseEntity<String> handleException(UserFindAllException e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler (UserFindAllAdminUsersException.class)
+    public ResponseEntity<String> handleException(UserFindAllAdminUsersException e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    @ExceptionHandler (UserFindAllNormalUsersException.class)
+    public ResponseEntity<String> handleException(UserFindAllNormalUsersException e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler (DeleteUserByIdException.class)
+    public ResponseEntity<String> handleException(DeleteUserByIdException e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    @ExceptionHandler (UpdateUserByIdException.class)
+    public ResponseEntity<String> handleException(UpdateUserByIdException e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler (FindUsersByRoleException.class)
+    public ResponseEntity<String> handleException(FindUsersByRoleException e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler (UserGetRoleByEmailException.class)
+    public ResponseEntity<String> handleException(UserGetRoleByEmailException e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler (UserRegisterException.class)
+    public ResponseEntity<String> handleException(UserRegisterException e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+    }
+    @ExceptionHandler (UserRegisterByEmailException.class)
+    public ResponseEntity<String> handleException(UserRegisterByEmailException e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+    }
+    @ExceptionHandler (UserGetNameByEmailException.class)
+    public ResponseEntity<String> handleException(UserGetNameByEmailException e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler (UserGetLastNameByEmailException.class)
+    public ResponseEntity<String> handleException(UserGetLastNameByEmailException e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler (UpdateUserRoleException.class)
+    public ResponseEntity<String> handleException(UpdateUserRoleException e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler (BookingNotFoundException.class)
+    public ResponseEntity<String> handleException(BookingNotFoundException e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+    }
+    @ExceptionHandler (DeleteInstrumentException.class)
+    public ResponseEntity<String> handleException(DeleteInstrumentException e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler (InstrumentGetFavouriteException.class)
+    public ResponseEntity<String> handleException(InstrumentGetFavouriteException e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler (InstrumentImageCreationException.class)
+    public ResponseEntity<String> handleException(InstrumentImageCreationException e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler (InstrumentUpdateAvgScoreException.class)
+    public ResponseEntity<String> handleException(InstrumentUpdateAvgScoreException e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+    }
+    @ExceptionHandler (UserFindByEmailException.class)
+    public ResponseEntity<String> handleException(UserFindByEmailException e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler (UserFindByIdException.class)
+    public ResponseEntity<String> handleException(UserFindByIdException e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
 
 }

@@ -97,7 +97,7 @@ public class BookingService {
 
     public Booking getBooking(Long id) {
         return bookingRepository.findById(id).orElseThrow(()
-                -> new EntityNotFoundException("No se encontró la reserva"));
+                -> new BookingNotFoundException("No se encontró la reserva"));
     }
 
     public List<Booking> listBooking() {
