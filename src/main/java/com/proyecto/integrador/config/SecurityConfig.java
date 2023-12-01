@@ -51,13 +51,16 @@ public class SecurityConfig {
                         (sessionManagement) -> sessionManagement
                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
+                .exceptionHandling((exceptionHandling) -> exceptionHandling
+                        .authenticationEntryPoint((request, response, authException) -> response.sendError(401))
+                        .accessDeniedHandler((request, response, accessDeniedException) -> response.sendError(403))
+                )
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers(SWAGGER_PATHS).permitAll()
                         .requestMatchers(antMatcher(HttpMethod.PUT, "/users/**")).hasAnyRole("Super-Admin", "Admin")
                         .requestMatchers(antMatcher(HttpMethod.GET, "/users/**")).hasAnyRole("Super-Admin", "Admin","User")
                         .requestMatchers(antMatcher(HttpMethod.DELETE, "/users/**")).hasAnyRole("Super-Admin", "Admin","User")
                         .requestMatchers(antMatcher("/users/register")).permitAll()
-                        .requestMatchers(antMatcher("/users/resendRegisterEmail")).permitAll()
                         .requestMatchers(antMatcher("/auth/**")).permitAll()
                         .requestMatchers(antMatcher(HttpMethod.GET, "/category/**")).permitAll()
                         .requestMatchers(
@@ -69,12 +72,12 @@ public class SecurityConfig {
                                 antMatcher(HttpMethod.POST, "/instruments/**"),
                                 antMatcher(HttpMethod.PUT, "/instruments/**"),
                                 antMatcher(HttpMethod.DELETE, "/instruments/**")).hasAnyRole("Super-Admin", "Admin")
+                        .requestMatchers(antMatcher("/booking/occupied-dates")).permitAll()
                         .requestMatchers(
                                 antMatcher(HttpMethod.GET, "/booking/**"),
                                 antMatcher(HttpMethod.POST, "/booking/**"),
                                 antMatcher(HttpMethod.PUT, "/booking/**"),
                                 antMatcher(HttpMethod.DELETE, "/booking/**")).hasAnyRole("Super-Admin", "Admin", "User")
-                        .requestMatchers(antMatcher("/booking/occupied-dates")).permitAll()
                         .requestMatchers(
                                 antMatcher(HttpMethod.GET, "/reviews/**"),
                                 antMatcher(HttpMethod.POST, "/reviews/**"),
@@ -85,6 +88,7 @@ public class SecurityConfig {
                                 antMatcher(HttpMethod.POST, "/favourite/**"),
                                 antMatcher(HttpMethod.PUT, "/favourite/**"),
                                 antMatcher(HttpMethod.DELETE, "/favourite/**")).hasAnyRole("Super-Admin", "Admin", "User")
+                        .requestMatchers(antMatcher("/emails/resend")).permitAll()
                         .anyRequest()
                         .authenticated()
                 )

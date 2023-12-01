@@ -65,16 +65,6 @@ public class UserController {
         }
     }
 
-    @GetMapping("/resendRegisterEmail/{email}")
-    public ResponseEntity<String> resendRegisterEmail(@PathVariable @NotNull String email) throws Exception {
-        try {
-            userService.resendRegisterEmail(email);
-            return new ResponseEntity<>("Email reenviado con éxito", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
-    }
-
     @PutMapping("/updateRole/{id}")
     public ResponseEntity<String> updateRole(@PathVariable Long id) {
         this.userService.updateUserRole(id);

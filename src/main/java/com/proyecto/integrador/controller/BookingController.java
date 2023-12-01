@@ -43,8 +43,8 @@ public class BookingController {
     }
 
     @GetMapping("/occupied-dates/{instrumentId}")
-    public ResponseEntity<List<LocalDate>> findOccupiedDates(@PathVariable Long instrumentId) {
-        List<LocalDate> occupiedDates = bookingService.findOccupiedDates(instrumentId);
+    public ResponseEntity<List<LocalDate>> findOccupiedDates(@PathVariable String instrumentId) {
+        List<LocalDate> occupiedDates = bookingService.findOccupiedDates(Long.valueOf(instrumentId));
         return ResponseEntity.ok(occupiedDates);
     }
 }
