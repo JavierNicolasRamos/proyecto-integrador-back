@@ -57,15 +57,12 @@ class UserServiceTest {
         Long id = 1L;
         User mockUser = new User();
         mockUser.setId(id);
+        when(userRepository.optionalFindByIdAndDeletedFalse(id)).thenReturn(Optional.of(mockUser));
 
-        when(userRepository.findByIdAndDeletedFalse(id)).thenReturn(mockUser);
+        User result = userService.findById(id);
 
-        User user = userService.findById(id);
-
-        assertNotNull(user);
-        assertEquals(id, user.getId());
-
-        verify(userRepository, times(1)).findByIdAndDeletedFalse(id);
+        assertNotNull(result);
+        assertEquals(id, result.getId());
     }
 
     @Test
@@ -143,22 +140,22 @@ class UserServiceTest {
     }
 
     @Test
-    void deleteUserById() {
+    void deleteUserById() throws Exception{
         Long id = 1L;
         User mockUser = new User();
         mockUser.setId(id);
         mockUser.setDeleted(false);
+        when(userRepository.optionalFindByIdAndDeletedFalse(id)).thenReturn(Optional.of(mockUser));
+        doAnswer(invocation -> {
+            User user = invocation.getArgument(0);
+            user.setDeleted(true);
+            return user;
+        }).when(userRepository).save(any(User.class));
 
-        when(userRepository.findByIdAndDeletedFalse(id)).thenReturn(mockUser);
-        when(userRepository.save(any(User.class))).thenAnswer(i -> i.getArguments()[0]);
+        User result = userService.deleteUserById(id);
 
-        User deletedUser = userService.deleteUserById(id);
-
-        assertNotNull(deletedUser);
-        assertTrue(deletedUser.getDeleted());
-
-        verify(userRepository, times(1)).findByIdAndDeletedFalse(id);
-        verify(userRepository, times(1)).save(any(User.class));
+        assertTrue(result.getDeleted());
+        verify(userRepository).save(mockUser);
     }
 
 
