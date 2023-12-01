@@ -3,6 +3,7 @@ package com.proyecto.integrador.service;
 import com.proyecto.integrador.dto.UserDto;
 import com.proyecto.integrador.entity.User;
 import com.proyecto.integrador.enums.Role;
+import com.proyecto.integrador.exception.*;
 import com.proyecto.integrador.repository.UserRepository;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,16 +33,22 @@ public class UserService {
             return userRepository.findByEmail(email);
         } catch (Exception e) {
             logger.severe("Error al buscar el usuario por email: " + e.getMessage());
-            return null; //TODO: sumar la excepcion customizada
+            throw new UserFindByEmailException("Error inesperado al buscar al usuario con email", e);
         }
     }
 
     public User findById(Long id) {
         try {
-            return userRepository.findByIdAndDeletedFalse(id);
+
+            User user = userRepository.optionalFindByIdAndDeletedFalse(id).orElseThrow(()
+                    -> new UserNotFoundException());
+            return user;
+        }catch(UserNotFoundException e){
+            logger.severe("No se encontró al usuario con ID:" + id);
+            throw  new UserNotFoundException("No se encontro el usuario con el ID" + id);
         } catch (Exception e) {
             logger.severe("Error al buscar el usuario por id: " + e.getMessage());
-            return null; //TODO: sumar la excepcion customizada
+            throw new UserFindByIdException("Error inesperado al intentar recuperar al usuario con id: " + id, e);
         }
     }
 
@@ -50,7 +57,7 @@ public class UserService {
             return userRepository.findAllByDeletedFalse();
         } catch (Exception e) {
             logger.severe("Error al buscar todos los usuarios: " + e.getMessage());
-            return null; //TODO: sumar la excepcion customizada
+            throw  new UserFindAllException("Error inesperado al recuperar a todos los usuarios", e);
         }
     }
 
@@ -59,7 +66,7 @@ public class UserService {
             return userRepository.findAllAdminUsersByDeletedFalse();
         } catch (Exception e) {
             logger.severe("Error al buscar todos los usuarios administradores: " + e.getMessage());
-            return null; //TODO: sumar la excepcion customizada
+            throw new UserFindAllAdminUsersException("Error inesperado al recuperar todos los usuarios administradores", e);
         }
     }
 
@@ -68,19 +75,22 @@ public class UserService {
             return userRepository.findAllNormalUsersByDeletedFalse();
         } catch (Exception e) {
             logger.severe("Error al buscar todos los usuarios normales: " + e.getMessage());
-            return null; //TODO: sumar la excepcion customizada
+            throw new UserFindAllNormalUsersException("Error inesperado al recuperar a todos los usuarios", e);
         }
     }
 
     @Transactional
     public User deleteUserById(Long id) {
         try {
-            User user = userRepository.findByIdAndDeletedFalse(id);
+            User user = userRepository.optionalFindByIdAndDeletedFalse(id).orElseThrow(()
+                    -> new UserNotFoundException("El ususario con ID:" + id + "no pudo ser encontrado"));
             user.setDeleted(true);
             return userRepository.save(user);
+        } catch (UserNotFoundException e){
+            throw new UserNotFoundException(e.getMessage());
         } catch (Exception e) {
             logger.severe("Error al eliminar el usuario por id: " + e.getMessage());
-            return null; //TODO: sumar la excepcion customizada
+            throw new DeleteUserByIdException("Error inesperado al intentar eliminar el usuario con id:" + id);
         }
     }
 
@@ -121,11 +131,13 @@ public class UserService {
                 return userRepository.save(user);
             } else {
                 logger.warning("No se encontró el usuario con ID " + id + ".");
-                throw new Exception("No se encontró el usuario con ID " + id + ".");
+                throw new UserNotFoundException("No se encontró el usuario con ID " + id + ".");
             }
+        } catch (UserNotFoundException e){
+            throw new UserNotFoundException(e.getMessage());
         } catch (Exception e) {
             logger.severe("Error inesperado al actualizar el usuario con ID " + id + ": " + e.getMessage());
-            throw e; //TODO: sumar la excepcion customizada
+            throw new UpdateUserByIdException("Error inesperado al actualizar el usuario con ID " + id + ": " + e);
         }
     }
 
@@ -134,7 +146,7 @@ public class UserService {
             return userRepository.findByRole(role);
         } catch (Exception e) {
             logger.severe("Error al buscar el usuario por role: " + e.getMessage());
-            throw e; //TODO: sumar la excepcion customizada
+            throw new FindUsersByRoleException("Error inesperado al buscar los usuarios con rol:" + role, e);
         }
     }
 
@@ -143,7 +155,7 @@ public class UserService {
             return userRepository.getRoleByEmail(email);
         } catch (Exception e) {
             logger.severe("Error al buscar el usuario por email: " + e.getMessage());
-            throw e; //TODO: sumar la excepcion customizada
+            throw new UserGetRoleByEmailException("Error al buscar el usuario por email: " + e.getMessage());
         }
     }
 
@@ -167,7 +179,7 @@ public class UserService {
             }
         } catch (Exception e) {
             logger.severe("Error inesperado al crear el usuario: " + e.getMessage());
-            throw e; //TODO: sumar la excepcion customizada
+            throw new UserRegisterException("Error inesperado al crear el usuario: " + e.getMessage());
         }
     }
 
@@ -195,7 +207,7 @@ public class UserService {
             emailService.sendEmail(email, "Registro usuario", emailService.createRegisterHtml(user.getName(), user.getSurname()));
         } catch (Exception e) {
             logger.severe("Error al reenviar el email de registro: " + e.getMessage());
-            throw e; //TODO: sumar la excepcion customizada
+            throw new UserRegisterByEmailException("Error al reenviar el email de registro: ", e);
         }
     }
 
@@ -204,7 +216,7 @@ public class UserService {
             return userRepository.getNameByEmail(email);
         } catch (Exception e) {
             logger.severe("Error al buscar el usuario por email: " + e.getMessage());
-            throw e; //TODO: sumar la excepcion customizada
+            throw new UserGetNameByEmailException("Error inesperado al internar obtener el nombre del usuario con email:" + email);
         }
     }
 
@@ -213,13 +225,13 @@ public class UserService {
             return userRepository.getLastNameByEmail(email);
         } catch (Exception e) {
             logger.severe("Error al buscar el usuario por email: " + e.getMessage());
-            throw e; //TODO: sumar la excepcion customizada
+            throw new UserGetLastNameByEmailException("Error al buscar el usuario por email: " + email, e);
         }
     }
 
     public void updateUserRole(Long userId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado con ID: " + userId));
+                .orElseThrow(() -> new UserNotFoundException("Usuario no encontrado con ID: " + userId));
         try {
             if (user.getUserRole().equals(Role.USER)) {
                 user.setUserRole(Role.ADMIN);
@@ -230,7 +242,7 @@ public class UserService {
         }
         catch (Exception e){
             logger.severe("Error al actualizar el usuario por email: " + e.getMessage());
-            throw e; //TODO: sumar la excepcion customizada
+            throw new UpdateUserRoleException("Error al actualizar el usuario por email: ", e);
         }
     }
 }

@@ -69,7 +69,7 @@ public class CategoryService {
             return category;
         }catch(Exception e){
             logger.error("Error inesperado al buscar la categoría: " + e.getMessage(), e);
-            throw e; //TODO: sumar la excepcion customizada
+            throw new CategoryByNameException("Error inesperado al buscar la categoría: ", e);
         }
     }
     public Long countInstrumentsByCategory(Long id){
@@ -170,7 +170,7 @@ public class CategoryService {
             return category;
         }catch(Exception e){
             logger.error("Error inesperado al buscar la categoría: " + e.getMessage(), e);
-            throw e; //TODO: sumar la excepcion customizada
+            throw new CategoryByIdException("Error inesperado al buscar la categoria con ID", e);
         }
     }
 }

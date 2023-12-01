@@ -74,7 +74,7 @@ public class InstrumentService {
             return instrument;
         } catch (DuplicateInstrumentException e) {
             logger.error("Error al crear el instrumento: " + e.getMessage());
-            throw e; //TODO: sumar la excepcion customizada
+            throw new DuplicateInstrumentException("No se pueden guardar 2 intrumentos con el mismo nombre");
         } catch (Exception e) {
             logger.error("Error inesperado al crear el instrumento: " + e.getMessage(), e);
             throw e;
@@ -101,7 +101,7 @@ public class InstrumentService {
             return instrument;
         } catch (EntityNotFoundException e) {
             logger.error("Error al obtener el instrumento con ID " + id + ": " + e.getMessage());
-            throw e; //TODO: sumar la excepcion customizada
+            throw new EntityNotFoundException(e.getMessage());
         } catch (Exception e) {
             logger.error("Error inesperado al obtener el instrumento con ID " + id + ": " + e.getMessage(), e);
             throw e;
@@ -140,9 +140,12 @@ public class InstrumentService {
             } else {
                 throw new NonExistentInstrumentException("No se encontró el instrumento con ID: " + id);
             }
-        } catch (DuplicateInstrumentException | NonExistentInstrumentException e) {
+        } catch (NonExistentInstrumentException e) {
             logger.error("Error al actualizar el instrumento: " + e.getMessage());
-            throw e; //TODO: sumar la excepcion customizada
+            throw new NonExistentInstrumentException(e.getMessage());
+        } catch (DuplicateInstrumentException e) {
+            logger.error("Error al actualizar el instrumento: " + e.getMessage());
+            throw new DuplicateInstrumentException(e.getMessage());
         } catch (Exception e) {
             logger.error("Error inesperado al actualizar el instrumento: " + e.getMessage(), e);
             throw e;

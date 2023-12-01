@@ -42,4 +42,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query(value = "SELECT surname FROM users WHERE email = :email AND deleted = false", nativeQuery = true)
     String getLastNameByEmail(String email);
+
+    @Query(value = "SELECT * FROM users WHERE id = :id AND deleted = false", nativeQuery = true)
+    Optional<User> optionalFindByIdAndDeletedFalse(@Param("id")Long id);
 }
