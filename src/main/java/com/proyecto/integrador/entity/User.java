@@ -51,7 +51,7 @@ public class User {
     @NotNull(message = "El campo 'password' no puede ser nulo")
     @NotBlank(message = "El campo 'password' no puede estar en blanco")
     @JsonIgnore
-    private String password;    //TODO: esto se va al auth
+    private String password;
 
     @OneToMany(mappedBy = "user")
     @JsonIgnore

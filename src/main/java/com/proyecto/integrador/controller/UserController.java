@@ -21,12 +21,12 @@ public class UserController {
 
 
     @GetMapping("/email/{email}")
-    public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
+    public ResponseEntity<User> getUserByEmail(@PathVariable("email") String email) {
        return ResponseEntity.ok(userService.findByEmail(email));
     }
 
     @GetMapping("/id/{id}")
-    public User getUserById(Long id) {
+    public User getUserById(@PathVariable("id") Long id) {
         return userService.findById(id);
     }
 
@@ -46,12 +46,12 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public User updateUser(@PathVariable Long id,@RequestBody UserDto user) throws Exception {
+    public User updateUser(@PathVariable("id") Long id,@RequestBody UserDto user) throws Exception {
         return userService.updateUserById(id, user);
     }
 
     @DeleteMapping("/{id}")
-    public User deleteUser(@PathVariable Long id) {
+    public User deleteUser(@PathVariable("id") Long id) {
         return userService.deleteUserById(id);
     }
 
@@ -65,18 +65,8 @@ public class UserController {
         }
     }
 
-    @GetMapping("/resendRegisterEmail/{email}")
-    public ResponseEntity<String> resendRegisterEmail(@PathVariable @NotNull String email) throws Exception {
-        try {
-            userService.resendRegisterEmail(email);
-            return new ResponseEntity<>("Email reenviado con éxito", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
-    }
-
     @PutMapping("/updateRole/{id}")
-    public ResponseEntity<String> updateRole(@PathVariable Long id) {
+    public ResponseEntity<String> updateRole(@PathVariable("id") Long id) {
         this.userService.updateUserRole(id);
         return new ResponseEntity<>("Usuario actualizado con éxito", HttpStatus.OK);
     }

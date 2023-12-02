@@ -207,7 +207,7 @@ public class UserService {
             emailService.sendEmail(email, "Registro usuario", emailService.createRegisterHtml(user.getName(), user.getSurname()));
         } catch (Exception e) {
             logger.severe("Error al reenviar el email de registro: " + e.getMessage());
-            throw new UserRegisterByEmailException("Error al reenviar el email de registro: ", e);
+            throw new UserRegisterByEmailException("Error al reenviar el email de registro: " + e.getMessage(), e);
         }
     }
 

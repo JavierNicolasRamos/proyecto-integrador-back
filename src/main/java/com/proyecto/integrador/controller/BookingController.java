@@ -22,7 +22,7 @@ public class BookingController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Booking> getBooking(@PathVariable Long id) {
+    public ResponseEntity<Booking> getBooking(@PathVariable("id") Long id) {
         return ResponseEntity.ok(bookingService.getBooking(id));
     }
 
@@ -37,14 +37,14 @@ public class BookingController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteBooking(@PathVariable Long id) {
+    public ResponseEntity<String> deleteBooking(@PathVariable("id") Long id) {
         bookingService.deleteBooking(id);
         return ResponseEntity.ok("Reserva eliminada");
     }
 
     @GetMapping("/occupied-dates/{instrumentId}")
-    public ResponseEntity<List<LocalDate>> findOccupiedDates(@PathVariable Long instrumentId) {
-        List<LocalDate> occupiedDates = bookingService.findOccupiedDates(instrumentId);
+    public ResponseEntity<List<LocalDate>> findOccupiedDates(@PathVariable("instrumentId") Long instrumentId) {
+        List<LocalDate> occupiedDates = bookingService.findOccupiedDates(Long.valueOf(instrumentId));
         return ResponseEntity.ok(occupiedDates);
     }
 }
