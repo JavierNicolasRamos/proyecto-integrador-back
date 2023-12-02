@@ -35,6 +35,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
@@ -170,7 +171,7 @@ class UserControllerTest {
                 .thenReturn(updatedUser);
 
 
-        mockMvc.perform(MockMvcRequestBuilders.put("/users/{id}", userId)
+        mockMvc.perform(put("/users/{id}", userId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(userDto))
                         .with(csrf()))
@@ -239,15 +240,19 @@ class UserControllerTest {
 
     }
 
+
     @Test
     @WithMockUser(username = "test", roles = {"User"})
-    void testResendRegisterEmail() throws Exception {
-        String email = "test@example.com";
+    void updateRoleTest() throws Exception {
+        Long userId = 1L;
+        String expectedMessage = "Usuario actualizado con éxito";
 
-        mockMvc.perform(get("/users/resendRegisterEmail/{email}", email)
-                        .contentType(MediaType.APPLICATION_JSON))
+        doNothing().when(userService).updateUserRole(any(Long.class));
+
+        mockMvc.perform(put("/users/updateRole/{id}", userId)
+                        .with(csrf()))
                 .andExpect(status().isOk())
-                .andExpect(content().string("Email reenviado con éxito"));
+                .andExpect(content().string(expectedMessage));
     }
 
 
