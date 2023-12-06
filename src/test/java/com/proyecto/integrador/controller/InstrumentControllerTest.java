@@ -14,6 +14,7 @@ import com.proyecto.integrador.service.InstrumentService;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -38,6 +39,7 @@ import java.util.ArrayList;
 
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -67,7 +69,8 @@ class InstrumentControllerTest {
     private JwtUtil jwtUtil;
 
     @BeforeEach
-    void setUp() {
+    public void init() {
+        MockitoAnnotations.initMocks(this);
     }
 
     @Test
@@ -275,16 +278,43 @@ class InstrumentControllerTest {
     @Test
     @WithMockUser(username = "test", roles = {"Admin"})
     void getName() throws Exception {
-        //error 500
+        String name = "test";
+        PageRequest pageable = PageRequest.of(0, 10);
+        Instrument instrument = new Instrument();
+        Page<Instrument> expectedPage = new PageImpl<>(Collections.singletonList(instrument), pageable, 1);
+        when(instrumentService.getName(name, pageable)).thenReturn(expectedPage);
+
+        ResponseEntity<Page<Instrument>> response = instrumentController.getName(name, pageable);
+
+        assertEquals(ResponseEntity.ok(expectedPage), response);
     }
 
 
     @Test
     void partialName() throws Exception {
+        String partialName = "test";
+        Instrument instrument = new Instrument();
+        List<Instrument> expectedInstruments = Collections.singletonList(instrument);
+        when(instrumentService.findInstrumentsByPartialName(partialName)).thenReturn(expectedInstruments);
 
+        ResponseEntity<List<Instrument>> response = instrumentController.partialName(partialName);
+
+        assertEquals(ResponseEntity.ok(expectedInstruments), response);
     }
 
 
+    @Test
+    public void testFindAvailableInstruments() {
+        LocalDate startDate = LocalDate.of(2023, 1, 1);
+        LocalDate endDate = LocalDate.of(2023, 12, 31);
+        Instrument instrument = new Instrument(); // Set properties as needed
+        List<Instrument> expectedInstruments = Collections.singletonList(instrument);
+        when(instrumentService.findAvailableInstruments(startDate, endDate)).thenReturn(expectedInstruments);
+
+        ResponseEntity<List<Instrument>> response = instrumentController.findAvailableInstruments(startDate, endDate);
+
+        assertEquals(ResponseEntity.ok(expectedInstruments), response);
+    }
 
 
 

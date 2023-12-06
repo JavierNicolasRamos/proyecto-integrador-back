@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.proyecto.integrador.dto.CategoryDto;
 
 import com.proyecto.integrador.entity.*;
-import com.proyecto.integrador.exception.DuplicateCategoryException;
+
 import com.proyecto.integrador.repository.CategoryRepository;
 import com.proyecto.integrador.repository.InstrumentRepository;
 import com.proyecto.integrador.service.CategoryService;
@@ -21,6 +21,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 
+
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -28,9 +29,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
@@ -86,7 +88,15 @@ class CategoryControllerTest {
     @Test
     @WithMockUser(username = "test", roles = {"Admin"})
     void createCategory() throws Exception {
-        //error 400
+        CategoryDto categoryDto = new CategoryDto();
+        MultipartFile image = new MockMultipartFile("image", "hello.png", "image/png", "some image".getBytes());
+
+        Category expectedCategory = new Category();
+        when(categoryService.createCategory(categoryDto, image)).thenReturn(expectedCategory);
+
+        ResponseEntity<Category> response = categoryController.createCategory(categoryDto, image);
+
+        assertEquals(ResponseEntity.ok(expectedCategory), response);
     }
 
     @Test

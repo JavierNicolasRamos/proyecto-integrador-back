@@ -61,7 +61,7 @@ class BookingServiceTest {
     @Test
     void createBooking() throws Exception{
 
-        // Configuración de datos de prueba
+
         Instrument instrument = new Instrument();
         instrument.setId(1L);
         instrument.setSeller(new User());
@@ -248,6 +248,7 @@ class BookingServiceTest {
         verify(bookingRepository, times(1)).findByBookingEndAndDeletedIsFalse(yesterday);
         verify(bookingRepository, times(bookingsToUpdate.size())).save(any(Booking.class));
     }
+
 
 
 
