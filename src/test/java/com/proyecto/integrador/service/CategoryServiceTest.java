@@ -4,6 +4,7 @@ import com.proyecto.integrador.dto.CategoryDto;
 import com.proyecto.integrador.entity.Category;
 import com.proyecto.integrador.entity.Image;
 import com.proyecto.integrador.entity.Instrument;
+import com.proyecto.integrador.exception.*;
 import com.proyecto.integrador.repository.CategoryRepository;
 import com.proyecto.integrador.repository.InstrumentRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
 
@@ -36,6 +38,9 @@ class CategoryServiceTest {
 
     @Mock
     private InstrumentRepository instrumentRepository;
+
+
+
 
     @BeforeEach
     void setUp() {
@@ -75,6 +80,37 @@ class CategoryServiceTest {
     }
 
     @Test
+    public void createCategoryWithDuplicateName() {
+        when(categoryRepository.findByName(anyString())).thenReturn(Optional.of(new Category()));
+
+
+        CategoryDto categoryDto = new CategoryDto();
+        categoryDto.setName("nombre");
+
+
+        assertThrows(DuplicateCategoryException.class, () -> {
+            categoryService.createCategory(categoryDto, null);
+        });
+    }
+
+    @Test
+    public void createCategoryWithException() {
+        when(categoryRepository.findByName(anyString())).thenReturn(Optional.empty());
+
+
+        doThrow(new RuntimeException("Error de base de datos")).when(imageService).createImage(any());
+
+
+        CategoryDto categoryDto = new CategoryDto();
+        categoryDto.setName("nombre");
+
+
+        assertThrows(RuntimeException.class, () -> {
+            categoryService.createCategory(categoryDto, null);
+        });
+    }
+
+    @Test
     void categoryByName() {
         String categoryName = "TestCategory";
         Category existingCategory = new Category();
@@ -92,6 +128,18 @@ class CategoryServiceTest {
 
         verify(categoryRepository, times(1)).findByName(categoryName);
     }
+
+    @Test
+    public void categoryByNameWithException() {
+
+        when(categoryRepository.findByName(anyString())).thenThrow(new RuntimeException("Error de base de datos"));
+
+        assertThrows(CategoryByNameException.class, () -> {
+            categoryService.categoryByName("nombre");
+        });
+    }
+
+
 
     @Test
     void countInstrumentsByCategory() {
@@ -152,6 +200,36 @@ class CategoryServiceTest {
     }
 
     @Test
+    public void deleteCategoryWithNonExistentCategory() {
+
+        when(categoryRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+
+        assertThrows(CategoryNotFoundException.class, () -> {
+            categoryService.deleteCategory(1L);
+        });
+    }
+
+    @Test
+    public void deleteCategoryWithException() {
+
+        when(categoryRepository.findById(anyLong())).thenReturn(Optional.of(new Category()));
+
+
+        doThrow(new RuntimeException("Error de base de datos")).when(imageService).deleteImage(anyLong());
+
+
+        assertThrows(RuntimeException.class, () -> {
+            categoryService.deleteCategory(1L);
+        });
+    }
+
+
+
+
+
+
+    @Test
     void updateCategory() {
         CategoryDto categoryDto = new CategoryDto();
         categoryDto.setId(1L);
@@ -178,6 +256,22 @@ class CategoryServiceTest {
 
 
         assertEquals("UpdatedCategory", updatedCategory.getName());
+    }
+
+    @Test
+    public void updateCategoryWithNonExistentCategory() {
+
+        when(categoryRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+
+        CategoryDto categoryDto = new CategoryDto();
+        categoryDto.setId(1L);
+        categoryDto.setName("nombre");
+
+
+        assertThrows(NonExistentCategoryException.class, () -> {
+            categoryService.updateCategory(categoryDto);
+        });
     }
 
     @Test
@@ -261,4 +355,15 @@ class CategoryServiceTest {
 
         assertEquals(expectedCategory, result);
     }
+    @Test
+    public void categoryByIdWithException() {
+
+        when(categoryRepository.findById(anyLong())).thenThrow(new RuntimeException("Error de base de datos"));
+
+        assertThrows(CategoryByIdException.class, () -> {
+            categoryService.categoryById(1L);
+        });
+    }
+
+
 }

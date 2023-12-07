@@ -9,6 +9,9 @@ import com.proyecto.integrador.entity.Booking;
 import com.proyecto.integrador.entity.Category;
 import com.proyecto.integrador.entity.Instrument;
 import com.proyecto.integrador.entity.User;
+import com.proyecto.integrador.exception.BookingNotFoundException;
+import com.proyecto.integrador.exception.DeleteReserveException;
+import com.proyecto.integrador.exception.ListReservesException;
 import com.proyecto.integrador.repository.BookingRepository;
 import com.proyecto.integrador.repository.InstrumentRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -109,6 +112,16 @@ class BookingServiceTest {
     }
 
     @Test
+    public void getBookingWithNonExistentId() {
+
+        when(bookingRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+        assertThrows(BookingNotFoundException.class, () -> {
+            bookingService.getBooking(1L);
+        });
+    }
+
+    @Test
     void listBooking() {
         List<Booking> mockBookings = new ArrayList<>();
         mockBookings.add(new Booking());
@@ -127,6 +140,16 @@ class BookingServiceTest {
 
 
         verify(bookingRepository, times(1)).findAll();
+    }
+
+    @Test
+    public void testListBookingWithException() {
+
+        when(bookingRepository.findAll()).thenThrow(new RuntimeException("Error de base de datos"));
+
+        assertThrows(ListReservesException.class, () -> {
+            bookingService.listBooking();
+        });
     }
 
     @Test
@@ -215,6 +238,17 @@ class BookingServiceTest {
 
         assertTrue(existingBooking.getDeleted());
 
+    }
+
+    @Test
+    public void testDeleteBookingWithException() {
+
+        when(bookingRepository.findById(anyLong())).thenThrow(new RuntimeException("Error de base de datos"));
+
+
+        assertThrows(DeleteReserveException.class, () -> {
+            bookingService.deleteBooking(1L);
+        });
     }
 
     @Test

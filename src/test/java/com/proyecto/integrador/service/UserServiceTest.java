@@ -3,6 +3,7 @@ package com.proyecto.integrador.service;
 import com.proyecto.integrador.dto.UserDto;
 import com.proyecto.integrador.entity.User;
 import com.proyecto.integrador.enums.Role;
+import com.proyecto.integrador.exception.*;
 import com.proyecto.integrador.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -53,6 +55,18 @@ class UserServiceTest {
     }
 
     @Test
+    public void findByEmailThrowsException() {
+        UserRepository mockRepository = mock(UserRepository.class);
+        UserService userService = new UserService();
+
+        when(mockRepository.findByEmail(anyString())).thenThrow(new RuntimeException("Unexpected error"));
+
+        assertThrows(UserFindByEmailException.class, () -> {
+            userService.findByEmail("test@example.com");
+        });
+    }
+
+    @Test
     void findById() {
         Long id = 1L;
         User mockUser = new User();
@@ -64,6 +78,20 @@ class UserServiceTest {
         assertNotNull(result);
         assertEquals(id, result.getId());
     }
+
+
+    @Test
+    public void findByIdThrowsException() {
+        UserRepository mockRepository = mock(UserRepository.class);
+        UserService userService = new UserService();
+
+        when(mockRepository.optionalFindByIdAndDeletedFalse(anyLong())).thenThrow(new RuntimeException("Unexpected error"));
+
+        assertThrows(UserFindByIdException.class, () -> {
+            userService.findById(1L);
+        });
+    }
+
 
     @Test
     void findAll() {
@@ -87,6 +115,18 @@ class UserServiceTest {
 
         verify(userRepository, times(1)).findAllByDeletedFalse();
     }
+
+
+    @Test
+    public void findAllThrowsException() {
+        UserRepository mockRepository = mock(UserRepository.class);
+        UserService userService = new UserService();
+
+        when(mockRepository.findAllByDeletedFalse()).thenThrow(new RuntimeException("Unexpected error"));
+
+        assertThrows(UserFindAllException.class, userService::findAll);
+    }
+
 
 
     @Test
@@ -114,6 +154,19 @@ class UserServiceTest {
         verify(userRepository, times(1)).findAllAdminUsersByDeletedFalse();
     }
 
+
+    @Test
+    public void findAllAdminUsersThrowsException() {
+        UserRepository mockRepository = mock(UserRepository.class);
+        UserService userService = new UserService();
+
+        when(mockRepository.findAllAdminUsersByDeletedFalse()).thenThrow(new RuntimeException("Unexpected error"));
+
+        assertThrows(UserFindAllAdminUsersException.class, () -> {
+            userService.findAllAdminUsers();
+        });
+    }
+
     @Test
     void findAllNormalUsers() {
         List<User> mockNormalUsers = new ArrayList<>();
@@ -139,6 +192,17 @@ class UserServiceTest {
         verify(userRepository, times(1)).findAllNormalUsersByDeletedFalse();
     }
 
+
+    @Test
+    public void findAllNormalUsersThrowsException() {
+        UserRepository mockRepository = mock(UserRepository.class);
+        UserService userService = new UserService();
+
+        when(mockRepository.findAllNormalUsersByDeletedFalse()).thenThrow(new RuntimeException("Unexpected error"));
+
+        assertThrows(UserFindAllNormalUsersException.class, userService::findAllNormalUsers);
+    }
+
     @Test
     void deleteUserById() throws Exception{
         Long id = 1L;
@@ -158,6 +222,20 @@ class UserServiceTest {
         verify(userRepository).save(mockUser);
     }
 
+
+
+    @Test
+    public void deleteUserByIdThrowsException() {
+        UserRepository mockRepository = mock(UserRepository.class);
+
+        UserService userService = new UserService();
+
+        when(mockRepository.optionalFindByIdAndDeletedFalse(anyLong())).thenThrow(new RuntimeException("Unexpected error"));
+
+        assertThrows(DeleteUserByIdException.class, () -> {
+            userService.deleteUserById(1L);
+        });
+    }
 
     @Test
     void updateUserById() throws Exception {
@@ -190,6 +268,32 @@ class UserServiceTest {
         verify(userRepository, times(1)).findById(id);
         verify(userRepository, times(1)).save(any(User.class));
     }
+
+
+
+
+
+
+
+
+
+
+
+
+    @Test
+    public void findUsersByRoleWithException() {
+
+        when(userRepository.findByRole(anyString())).thenThrow(new RuntimeException("Error de base de datos"));
+
+
+        assertThrows(FindUsersByRoleException.class, () -> {
+            userService.findUsersByRole("admin");
+        });
+    }
+
+
+
+
 
     @Test
     void getRoleByEmail() throws Exception {
