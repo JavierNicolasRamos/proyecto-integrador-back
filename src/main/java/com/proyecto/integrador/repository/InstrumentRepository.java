@@ -49,4 +49,14 @@ public interface InstrumentRepository extends JpaRepository<Instrument, Long> {
             "LEFT JOIN i.bookings b " +
             "WHERE (b.bookingStart > :endDate OR b.bookingEnd < :startDate) OR b.id IS NULL")
     List<Instrument> findAvailableInstruments(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+
+    @Query("SELECT i FROM Instrument i " +
+            "LEFT JOIN i.bookings b " +
+            "WHERE (LOWER(i.name) LIKE LOWER(concat('%', :partialName, '%')) " +
+            "AND i.deleted = false) " +
+            "AND ((b.bookingStart > :endDate OR b.bookingEnd < :startDate) OR b.id IS NULL)")
+    List<Instrument> findInstrumentsByNameAndAvailability(
+            @Param("partialName") String partialName,
+            @Param("startDate") LocalDate startDate,
+            @Param("endDate") LocalDate endDate);
 }

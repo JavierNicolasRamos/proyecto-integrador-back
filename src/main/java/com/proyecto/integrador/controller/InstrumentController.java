@@ -63,18 +63,14 @@ public class InstrumentController {
         return ResponseEntity.ok(instrumentService.getName(name, pageable));
     }
 
-    @GetMapping("/{partialName}")
-    public ResponseEntity<List<Instrument>> partialName(@PathVariable String name){
-        return ResponseEntity.ok(instrumentService.findInstrumentsByPartialName(name));
-    }
+    @GetMapping("/search")
+    public ResponseEntity<List<Instrument>> searchInstruments(
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
+            @RequestParam(required = false) String name) {
 
-    @GetMapping("/available")
-    public ResponseEntity<List<Instrument>> findAvailableInstruments(
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+        List<Instrument> result = instrumentService.searchInstruments(startDate, endDate, name);
 
-        List<Instrument> availableInstruments = instrumentService.findAvailableInstruments(startDate, endDate);
-
-        return ResponseEntity.ok(availableInstruments);
+        return ResponseEntity.ok(result);
     }
 }
