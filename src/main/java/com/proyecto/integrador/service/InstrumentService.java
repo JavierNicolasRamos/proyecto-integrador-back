@@ -225,11 +225,27 @@ public class InstrumentService {
         }
     }
 
+    public List<Instrument> searchInstruments(LocalDate startDate, LocalDate endDate, String name) {
+        if (name != null && startDate != null && endDate != null) {
+            return findInstrumentsByNameAndAvailability(name, startDate, endDate);
+        } else if (name != null) {
+            return findInstrumentsByPartialName(name);
+        } else if (startDate != null && endDate != null) {
+            return findAvailableInstruments(startDate, endDate);
+        } else {
+            throw new IllegalArgumentException("Parámetros incorrectos para la búsqueda.");
+        }
+    }
+
     public List<Instrument> findInstrumentsByPartialName(String partialName) {
         return instrumentRepository.findByPartialName(partialName);
     }
 
     public List<Instrument> findAvailableInstruments(LocalDate startDate, LocalDate endDate) {
         return instrumentRepository.findAvailableInstruments(startDate, endDate);
+    }
+
+    public List<Instrument> findInstrumentsByNameAndAvailability(String name, LocalDate startDate, LocalDate endDate) {
+        return instrumentRepository.findInstrumentsByNameAndAvailability(name, startDate, endDate);
     }
 }
