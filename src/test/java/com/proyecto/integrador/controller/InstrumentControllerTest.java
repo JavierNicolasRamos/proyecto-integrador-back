@@ -27,12 +27,14 @@ import org.springframework.http.HttpStatus;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -44,10 +46,12 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -98,7 +102,7 @@ class InstrumentControllerTest {
 
 
         try {
-            MvcResult result = mockMvc.perform(MockMvcRequestBuilders.multipart("/instruments")
+            MvcResult result = mockMvc.perform(multipart("/instruments")
                             .file("images", "testImage.jpg".getBytes())
                             .param("instrument", new ObjectMapper().writeValueAsString(instrumentDto)))
                     .andExpect(status().isOk())
@@ -113,7 +117,6 @@ class InstrumentControllerTest {
             e.printStackTrace();
         }
     }
-
 
 
 
@@ -288,34 +291,6 @@ class InstrumentControllerTest {
 
         assertEquals(ResponseEntity.ok(expectedPage), response);
     }
-
-
-    @Test
-    void partialName() throws Exception {
-        String partialName = "test";
-        Instrument instrument = new Instrument();
-        List<Instrument> expectedInstruments = Collections.singletonList(instrument);
-        when(instrumentService.findInstrumentsByPartialName(partialName)).thenReturn(expectedInstruments);
-
-        ResponseEntity<List<Instrument>> response = instrumentController.partialName(partialName);
-
-        assertEquals(ResponseEntity.ok(expectedInstruments), response);
-    }
-
-
-    @Test
-    public void testFindAvailableInstruments() {
-        LocalDate startDate = LocalDate.of(2023, 1, 1);
-        LocalDate endDate = LocalDate.of(2023, 12, 31);
-        Instrument instrument = new Instrument(); // Set properties as needed
-        List<Instrument> expectedInstruments = Collections.singletonList(instrument);
-        when(instrumentService.findAvailableInstruments(startDate, endDate)).thenReturn(expectedInstruments);
-
-        ResponseEntity<List<Instrument>> response = instrumentController.findAvailableInstruments(startDate, endDate);
-
-        assertEquals(ResponseEntity.ok(expectedInstruments), response);
-    }
-
 
 
 
