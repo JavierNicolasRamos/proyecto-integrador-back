@@ -37,10 +37,13 @@ public interface InstrumentRepository extends JpaRepository<Instrument, Long> {
     @NotNull
     Optional<Instrument> findById(@Param("id") @NotNull Long id);
 
-    @Query("SELECT i FROM Instrument i " +
-            "WHERE LOWER(i.name) LIKE LOWER(concat('%', :partialName, '%')) " +
+
+    @Query("SELECT DISTINCT i FROM Instrument i " +
+            "WHERE (LOWER(i.name) LIKE LOWER(concat('%', :partialName, '%')) " +
+            "OR LOWER(i.category.name) LIKE LOWER(concat('%', :partialName, '%'))) " +
             "AND i.deleted = false")
-    List<Instrument> findByPartialName(@Param("partialName") String partialName);
+    List<Instrument> findByPartialName(
+            @Param("partialName") String partialName);
 
     @Query("SELECT i FROM Instrument i JOIN i.characteristics c WHERE c.id = :characteristicId AND i.deleted = false")
     List<Instrument> findByCharacteristicsIdAndDeletedIsFalse(@Param("characteristicId") Long characteristicId);
@@ -50,9 +53,10 @@ public interface InstrumentRepository extends JpaRepository<Instrument, Long> {
             "WHERE (b.bookingStart > :endDate OR b.bookingEnd < :startDate) OR b.id IS NULL")
     List<Instrument> findAvailableInstruments(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
-    @Query("SELECT i FROM Instrument i " +
+    @Query("SELECT DISTINCT i FROM Instrument i " +
             "LEFT JOIN i.bookings b " +
-            "WHERE (LOWER(i.name) LIKE LOWER(concat('%', :partialName, '%')) " +
+            "WHERE ((LOWER(i.name) LIKE LOWER(concat('%', :partialName, '%')) " +
+            "OR LOWER(i.category.name) LIKE LOWER(concat('%', :partialName, '%'))) " +
             "AND i.deleted = false) " +
             "AND ((b.bookingStart > :endDate OR b.bookingEnd < :startDate) OR b.id IS NULL)")
     List<Instrument> findInstrumentsByNameAndAvailability(
