@@ -32,7 +32,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:4173"));
+        configuration.setAllowedOrigins(List.of("http://3.144.179.92:4173"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
         configuration.setAllowedHeaders(List.of("*"));
 
@@ -60,6 +60,7 @@ public class SecurityConfig {
                         .requestMatchers(antMatcher("/booking/occupied-dates/**")).permitAll()
                         .requestMatchers(antMatcher("/users/register")).permitAll()
                         .requestMatchers(antMatcher(HttpMethod.GET, "/category/**")).permitAll()
+                        .requestMatchers(antMatcher(HttpMethod.GET, "/reviews/**")).permitAll()
                         .requestMatchers(antMatcher("/auth/**")).permitAll()
                         .requestMatchers(antMatcher(HttpMethod.GET, "/instruments/**")).permitAll()
                         .requestMatchers(antMatcher("/emails/resend/**")).permitAll()
@@ -81,7 +82,6 @@ public class SecurityConfig {
                                 antMatcher(HttpMethod.PUT, "/booking/**"),
                                 antMatcher(HttpMethod.DELETE, "/booking/**")).hasAnyRole("Super-Admin", "Admin", "User")
                         .requestMatchers(
-                                antMatcher(HttpMethod.GET, "/reviews/**"),
                                 antMatcher(HttpMethod.POST, "/reviews/**"),
                                 antMatcher(HttpMethod.PUT, "/reviews/**"),
                                 antMatcher(HttpMethod.DELETE, "/reviews/**")).hasAnyRole("Super-Admin", "Admin", "User")
